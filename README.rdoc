@@ -2,14 +2,11 @@
 
 Bookkeeper is a minimal double-entry bookkeeping and accounting application. 
 
-I am writing this because:
-
-* Popular accounting applications generally suck
-* My business has idiosyncratic needs: Multiple-currency and multiple 'selves,' i.e. formally distinct companies that are linked operationally and controlled by same interests.
+It supports multiple currencies and 'selves,' i.e. formally-distinct companies controlled by same interests.
 
 == Design
 
-Bookkeeper builds on a tree-structured model of accounts descending from the following root accounts:
+Bookkeeper builds on a tree structure of accounts descending from the following roots:
 
 * Assets
 * Liabilities
@@ -18,7 +15,7 @@ Bookkeeper builds on a tree-structured model of accounts descending from the fol
 * Expenses
 * Currency Conversion
 
-An account may have one or more transactions, each of which may be matched or unmatched. When matched, a transactions will have a sender and recipient and belong to a group of two or more transactions. The sum of the total amounts in a group always equals to zero.
+An account may have one or more transactions, each of which may be matched or unmatched. When matched, a transactions will have a sender and recipient and belong to a group of two or more transactions. The sum of the total amounts in a matched group, by definition, equals to zero.
 
 An account may have one or more rules defined to match transactions. A rule parses descriptions of unmatched transactions in an account and creates matching entries if the description matches.
 
@@ -33,6 +30,7 @@ You will notice that the transactions page contains only one search input box. T
 Try:
 
     in Demo Bank Account; by Customer; since December 2009; until yesterday
+    
     not matched
     
 You get the idea.
@@ -49,11 +47,11 @@ Check the work-in-progress demo {here}[http://bookkeeper.heroku.com].
 
 === Login
 
-* The username is bookkeeper.
-* The password is secret.
+* Username: bookkeeper
+* Password: secret
 
 == Final word
 
 This obviously is an unfinished app, which you can tell from the UI and missing features.
  
-We do not require invoicing from within the app. Hence no support for that at the moment. I left some room for refactoring in existing solutions.
+We do not require invoicing from within the app. Hence no support for that at the moment.

@@ -1,0 +1,47 @@
+module LedgerAccountsHelper
+  def ledger_account_title
+    ret = ""
+    for parent in resource.ancestors.reverse
+      ret << link_to(h(parent.name), parent) + " &gt; " 
+    end
+    ret + h(resource.name)
+  end
+  
+  def tree_ul(collection, init=true, &block)
+    haml_tag :ul do
+      collection.collect do |parent|
+        next if parent.parent_id && init
+        haml_tag :li do
+          haml_concat(yield parent)
+          tree_ul(parent.children, false, &block) 
+        end
+      end
+    end
+  end
+  
+  def tree_select(categories, model, name, selected=nil, level=0, init=true)
+    if init
+      haml_tag :select, {:name => "#{model}[#{name}]", :id => "#{model}_#{name}"} do
+        haml_tag :option, "Select parent ledger account"
+        tree_select(categories, model, name, selected, level, false)
+      end
+    else
+      if categories.length > 0
+        level += 1 # keep position
+        categories.collect do |cat|
+          next if cat.id == selected.id # skip self
+          attributes = {:value => cat.id}
+          attributes[:selected] = "selected" if cat.id == selected.parent_id
+          haml_tag :option, :<, attributes do
+            indent = ""
+            if cat.parent
+              (cat.ancestors.size * 3).times {indent << "&nbsp;"}
+            end
+            haml_concat(indent + cat.name)
+          end
+          tree_select(cat.children, model, name, selected, level, false)
+        end
+      end
+    end
+  end
+end

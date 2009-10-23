@@ -1,0 +1,33 @@
+en:
+  flash:
+    user_sessions:
+      create:
+        notice: "You are logged in."
+    ledger_accounts:
+      create:
+        notice: "Successfully created ledger account."
+      update:
+        notice: "Successfully updated ledger account."
+      destroy:
+        notice: "Successfully deleted ledger account."
+    ledger_people:
+      create:
+        notice: "Successfully created ledger person."
+      update:
+        notice: "Successfully updated ledger person."
+      destroy:
+        notice: "Successfully deleted ledger person."
+  formtastic:
+    labels:
+      user_session:
+        login: "Username"
+        password: "Password"
+        create: "Log in"
+      ledger_account:
+        parent_id: "Parent"
+        name: "Name"
+        commit: "Submit"
+      ledger_person:
+        commit: "Submit"
+      ledger_item:
+        commit: "Submit"

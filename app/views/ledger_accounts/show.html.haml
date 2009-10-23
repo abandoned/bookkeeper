@@ -1,0 +1,15 @@
+- title resource.name, false
+%h1= ledger_account_title
+#ledger_account
+  - unless resource.children.length == 0
+    %p
+      Subaccounts:
+      %br
+      = render :partial => "child", :collection => resource.children
+  %p
+    = link_to "Ledger items", ledger_account_ledger_items_url(resource)
+  %p @/ TODO display other summary info on account
+  %footer
+    = link_to "Edit", edit_resource_url(resource)
+    = link_to "Destroy", resource_url(resource), :confirm => 'Are you sure?', :method => :delete
+    = link_to "View all ledger accounts", collection_url

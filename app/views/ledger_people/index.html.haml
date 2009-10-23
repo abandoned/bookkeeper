@@ -1,0 +1,35 @@
+- title "Ledger People"
+#ledger_people
+  %table
+    %tr
+      %th Name
+      %th Contact Name
+      %th Address
+      %th City
+      %th State
+      %th Postal Code
+      %th Country
+      %th Country Code
+      %th Tax Number
+    - for person in collection
+      %tr
+        %td
+          = link_to person.name, resource_url(person)
+        %td
+          = person.contact_name
+        %td
+          = person.address
+        %td
+          = person.city
+        %td
+          = person.state
+        %td
+          = person.postal_code
+        %td
+          = person.country
+        %td
+          = person.country_code
+        %td
+          = person.tax_number
+  %footer
+    = link_to "New Ledger Person", new_resource_url

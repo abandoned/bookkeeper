@@ -1,0 +1,145 @@
+// Color scheme
+!headline_color = #f66
+!headline_bg_color = #c00
+!nav_color = #bbb
+!nav_bg_color = #333
+!main_color = #000
+!main_bg_color = #fff
+!footer_color = #888
+!footer_bg_color = #ddd
+
+// Some defaults
+*
+  margin: 0
+header, footer, nav, section, article
+  display: block
+body
+  font:
+    family: Helvetica, Arial
+    size: 20px
+a
+  img
+    border: none
+.clear
+  clear: both
+  height: 0
+  overflow: hidden
+.highlight
+  background-color: #ffc
+.large
+  font-size: 1.25em
+.fieldWithErrors
+  display: inline
+
+// Headline
+= nav_mixin
+  margin-right: 6px
+  padding: 5px 4px 9px
+#headline
+  position: relative
+  padding: 9px 48px 3px
+  background-color = !headline_bg_color
+  h1
+    color = !headline_color
+    font-size: 3em
+    font-weight: normal
+    a
+      color = !headline_color
+      text-decoration: none
+  
+  // Nav in headline
+  nav
+    position: absolute
+    bottom: 0
+    right: 18px
+    padding: 6px 9px
+    background-color = !nav_bg_color
+    -moz-border-radius-topleft: 6px
+    -moz-border-radius-topright: 6px
+    -webkit-border-top-left-radius: 6px
+    -webkit-border-top-right-radius: 6px
+    font-size: 0.9em
+    a
+      color = !nav_color
+      +nav_mixin
+      text-decoration: none
+    .current
+      color = !nav_color - #222
+      +nav_mixin
+
+// Main
+#main
+  padding: 48px
+  color = !main_color
+  background-color = !main_bg_color
+  a
+    color: #444
+    background-color: #ddd
+  h1
+    margin-bottom: 24px
+    color: #999
+    font-size: 2.2em
+    font-weight: normal
+  p
+    margin-bottom: 12px
+  footer
+    margin-top: 24px
+
+// Footer
+#footer
+  padding: 24px 48px
+  color= !footer_color
+  background-color = !footer_bg_color
+
+// Flash messages
+=flash_mixin
+  padding: 9px 48px
+  color: #000
+#flash_notice
+  +flash_mixin
+  background-color: #cfc
+  border-bottom: dashed 1px #6C6
+#flash_error
+  +flash_mixin
+  background-color: #fcc
+  border-bottom: dashed 1px #C66
+
+// Error element in forms
+#errorExplanation
+  width: 400px
+  border: 2px solid #cf0000
+  padding: 0px
+  padding-bottom: 12px
+  margin-bottom: 20px
+  background-color: #f0f0f0
+
+  h2
+    text-align: left
+    font-weight: bold
+    padding: 5px 5px 5px 15px
+    font-size: 12px
+    margin: 0
+    background-color: #c00
+    color: #fff
+
+  p
+    color: #333
+    margin-bottom: 0
+    padding: 8px
+
+  ul
+    margin: 2px 24px
+
+    li
+      font-size: 12px
+      list-style: disc
+
+// Tables
+table
+  border-collapse: collapse
+tr
+  &:hover
+    background-color: #eee
+  &:first-child
+    &:hover
+      background-color: inherit

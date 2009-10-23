@@ -1,0 +1,5 @@
+= Bookkeeper
+
+Bookkeeper is a minimal bookkeeping and accounting application.
+
+Check the work-in-progress demo {here}[http://bookkeeper.heroku.com].

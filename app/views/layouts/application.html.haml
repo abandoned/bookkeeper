@@ -1,0 +1,28 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:name => "viewport", :content => "width=660"}
+    %title= strip_tags(yield(:title))
+    = stylesheet_link_tag "application", "formtastic", "formtastic_changes"
+    = javascript_include_tag "jquery-1.3.2.min"
+    = javascript_include_tag "application"
+    - if @content_for_head
+      = yield(:head)
+    /[if IE]
+      %script{ :src => "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
+  
+  %body
+    %section#headline
+      %h1= link_to_unless_current "Bookkeeper", root_url
+      = render :partial => "shared/nav"
+    
+    - flash.each do |name, msg|
+      = content_tag(:section, msg, :id => "flash_#{name}")
+    
+    %section#main
+      - if show_title?
+        %h1= h yield(:title)
+      = yield
+    
+    %section#footer
+      &copy; 2009 Paper Cavalier

@@ -1,0 +1,32 @@
+- title "Ledger Items for #{@ledger_account.name}"
+
+%table
+  %tr
+    %th Sender
+    %th Recipient
+    %th Issued On
+    %th Total Amount
+    %th Tax Amount
+    %th Currency
+    %th Description
+    %th Identifier
+    %th Ledger Account
+    %th Ledger Item Group
+  - for ledger_item in collection
+    %tr
+      %td= ledger_item.sender.name
+      %td= ledger_item.recipient.name
+      %td= ledger_item.issued_on
+      %td= ledger_item.total_amount
+      %td= ledger_item.tax_amount
+      %td= ledger_item.currency
+      %td= ledger_item.description
+      %td= ledger_item.identifier
+      %td= ledger_item.ledger_account_id
+      %td= ledger_item.ledger_item_group_id
+      %td= link_to "Show", resource_url(ledger_item)
+      %td= link_to "Edit", edit_resource_url(ledger_item)
+      %td= link_to "Destroy", resource_url(ledger_item), :confirm => 'Are you sure?', :method => :delete
+
+%footer
+  = link_to "New Ledger Item", new_resource_url

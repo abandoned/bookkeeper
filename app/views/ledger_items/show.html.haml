@@ -1,0 +1,38 @@
+- title "Ledger Item"
+
+%p
+  %strong Sender:
+  = @ledger_item.sender.name
+%p
+  %strong Recipient:
+  = @ledger_item.recipient.name
+%p
+  %strong Issued On:
+  = @ledger_item.issued_on
+%p
+  %strong Total Amount:
+  = @ledger_item.total_amount
+%p
+  %strong Tax Amount:
+  = @ledger_item.tax_amount
+%p
+  %strong Currency:
+  = @ledger_item.currency
+%p
+  %strong Description:
+  = @ledger_item.description
+%p
+  %strong Identifier:
+  = @ledger_item.identifier
+%p
+  %strong Ledger Account:
+  = @ledger_item.ledger_account_id
+%p
+  %strong Ledger Item Group:
+  = @ledger_item.ledger_item_group_id
+
+%footer
+  = link_to "Edit", edit_resource_url
+  = link_to "Destroy", resource_url, :confirm => 'Are you sure?', :method => :delete
+  = link_to "View All", collection_url
+

@@ -2,5 +2,4 @@
 log/*.log
 tmp/**/*
 db/*.sqlite3
-public/stylesheets/application.css
-public/stylesheets/formtastic_changes.css
+public/stylesheets/*.css

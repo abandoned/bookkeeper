@@ -1,0 +1,25 @@
+- title "Ledger Import Formats"
+
+%table
+  %tr
+    %th Name
+    %th Date Row
+    %th Amount Row
+    %th Description Row
+    %th Identifier Row
+    %th Has Title
+    %th Day Follows Month
+  - for ledger_import_format in @ledger_import_formats
+    %tr
+      %td=h ledger_import_format.name
+      %td=h ledger_import_format.date_row
+      %td=h ledger_import_format.amount_row
+      %td=h ledger_import_format.description_row
+      %td=h ledger_import_format.identifier_row
+      %td=h ledger_import_format.has_title
+      %td=h ledger_import_format.day_follows_month
+      %td= link_to "Show", ledger_import_format
+      %td= link_to "Edit", edit_ledger_import_format_path(ledger_import_format)
+      %td= link_to "Destroy", ledger_import_format, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Ledger Import Format", new_ledger_import_format_path

@@ -4,7 +4,7 @@ Feature: Authentication
   I want to authenticate myself
   
   Scenario: Log in
-    Given the following user record
+    Given the following user record:
       | login      | password |
       | bookkeeper | secret   |
     And I am on the login page

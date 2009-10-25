@@ -1,0 +1,30 @@
+- title "Ledger Import Format"
+
+%p
+  %strong Name:
+  =h @ledger_import_format.name 
+%p
+  %strong Date Row:
+  =h @ledger_import_format.date_row 
+%p
+  %strong Amount Row:
+  =h @ledger_import_format.amount_row 
+%p
+  %strong Description Row:
+  =h @ledger_import_format.description_row 
+%p
+  %strong Identifier Row:
+  =h @ledger_import_format.identifier_row 
+%p
+  %strong Has Title:
+  =h @ledger_import_format.has_title 
+%p
+  %strong Day Follows Month:
+  =h @ledger_import_format.day_follows_month 
+
+%p
+  = link_to "Edit", edit_ledger_import_format_path(@ledger_import_format)
+%p
+  = link_to "Destroy", @ledger_import_format, :confirm => 'Are you sure?', :method => :delete
+%p
+  = link_to "View All", ledger_import_formats_path 

@@ -30,16 +30,6 @@ describe LedgerItem do
                            :ledger_account => @ledger_account)
   end
   
-  it "should have a sender" do
-    @ledger_item.sender = nil
-    lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
-  end
-  
-  it "should have a recipient" do
-    @ledger_item.recipient = nil
-    lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
-  end
-  
   it "should belong to a ledger account" do
     @ledger_item.ledger_account = nil
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
@@ -48,14 +38,5 @@ describe LedgerItem do
   it "should not have a tax amount that exceeds the total amount" do
     @ledger_item.tax_amount = 11
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
-  end
-  
-  it "should not belong to a ledger account that has children" do
-    @parent = Factory(:ledger_account)
-    @child = Factory(:ledger_account, :parent => @parent)
-    lambda { ledger_item = Factory(:ledger_item,
-                          :sender => @sender,
-                          :recipient => @recipient,
-                          :ledger_account => @parent) }.should raise_error(ActiveRecord::RecordInvalid)
   end
 end

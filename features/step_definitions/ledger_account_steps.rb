@@ -1,5 +1,5 @@
 Given /^I have a default ledger set up$/ do
-  Given "the following ledger account records", table(%{
+  Given "the following ledger account records:", table(%{
     | name        |
     | Assets      |
     | Liabilities |

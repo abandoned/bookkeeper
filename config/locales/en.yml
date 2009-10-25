@@ -17,6 +17,13 @@ en:
         notice: "Successfully updated ledger person."
       destroy:
         notice: "Successfully deleted ledger person."
+    match_rules:
+      create:
+        notice: "Successfully created match rule."
+      update:
+        notice: "Successfully updated match rule."
+      destroy:
+        notice: "Successfully deleted match rule."
   formtastic:
     labels:
       user_session:
@@ -31,3 +38,7 @@ en:
         commit: "Submit"
       ledger_item:
         commit: "Submit"
+      match_rule:
+        commit: "Submit"
+      file_import:
+        commit: "Upload file"

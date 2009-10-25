@@ -1,0 +1,11 @@
+- title "Import a file into #{@ledger_account.name}"
+
+- semantic_form_for([@ledger_account, @file_import], :url => ledger_account_file_import_url, :html => { :multipart => true }) do |f| 
+  = f.file_field :file
+  - f.buttons do
+    = f.commit_button :button_html => { :value => t('formtastic.labels.file_import.commit') }
+  
+%footer
+  = link_to "Back", ledger_account_url(@ledger_account)
+  
+  

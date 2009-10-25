@@ -1,5 +1,29 @@
 = Bookkeeper
 
-Bookkeeper is a minimal bookkeeping and accounting application.
+Bookkeeper is a minimal double-entry bookkeeping and accounting application. 
+
+== Status
+
+This application is nowhere close to finished, so do not look here for something usable (yet).
+
+== Design
+
+Bookkeeper builds on a tree-like structure of ledger accounts descending from the following root accounts:
+
+* Assets
+* Liabilities
+* Equity
+* Income
+* Expenses
+
+An account may have one or more ledger items, each of which may be matched or unmatched. When matched, a ledger item will have a sender and recipient and belong to a "group" of two or more ledger items. The sum of their total amounts will equal zero.
+
+An account may have one or more match rules defined. A match rule parses descriptions of unmatched items in an account and creates matching entries if the description matches.
+
+You may create ledger items one by one or import en masse with a tab-delimited file.
+
+Bookkeeper is meant to support multiple currencies and companies effortlessly. In my case, this means having the books of our two sister companies, one in the US and the other in the UK, recorded under the same roof. All financial reports can, of course, be generated per company for accounting purposes.
+
+== Demo
 
 Check the work-in-progress demo {here}[http://bookkeeper.heroku.com].

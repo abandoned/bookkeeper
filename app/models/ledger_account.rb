@@ -12,12 +12,14 @@
 class LedgerAccount < ActiveRecord::Base
   acts_as_tree
   has_many :ledger_items
+  has_many :match_rules
   validates_uniqueness_of :name,
                           :scope => :parent_id
   validate_on_update :may_not_bear_itself,
                      :may_not_descend_from_descendants
-  validate :parent_must_exist_and_not_have_ledger_items
-  before_destroy :may_not_be_root_or_have_children
+  validate :if_associated_parent_must_exist
+  before_destroy :may_not_destroy_if_it_is_root_or_has_children,
+                 :may_not_destroy_if_it_has_ledger_items
   
   def descendants
     (self.children + self.children.collect { |child| child.descendants }).flatten
@@ -29,8 +31,14 @@ class LedgerAccount < ActiveRecord::Base
   
   protected
   
-  def may_not_be_root_or_have_children
+  def may_not_destroy_if_it_is_root_or_has_children
     unless self.parent && self.children.size == 0
+      raise ActiveRecord::RecordNotDestroyed
+    end
+  end
+  
+  def may_not_destroy_if_it_has_ledger_items
+    unless self.ledger_items.size == 0
       raise ActiveRecord::RecordNotDestroyed
     end
   end
@@ -47,13 +55,9 @@ class LedgerAccount < ActiveRecord::Base
     end
   end
   
-  def parent_must_exist_and_not_have_ledger_items
-    if !self.parent_id.nil?
-      if self.parent.nil?
-        errors.add(:parent, "does not exist")
-      elsif self.parent.ledger_items.count > 0
-        errors.add(:parent, "may not bear child")
-      end
+  def if_associated_parent_must_exist
+    if !self.parent_id.nil? && self.parent.nil?
+      errors.add(:parent, "does not exist")
     end
   end
 end

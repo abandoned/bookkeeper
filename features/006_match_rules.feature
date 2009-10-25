@@ -1,7 +1,7 @@
-Feature: Manage Ledger Transactions
+Feature: Match rules
   In order to keep the company ledger in order
   As a bookkeeper
-  I want to be able to create and manage transactions
+  I want to be able to manage rules to match ledger items
   
   Background:
     Given I have a default ledger set up
@@ -13,19 +13,15 @@ Feature: Manage Ledger Transactions
       | Paper Cavalier, LLC | true   |
       | US Postal Service   | false   |
     
-  Scenario: Create a new credit entry under the Citibank account
+  Scenario: Set up a match rule
     Given I am on the Bank Account ledger account page
-    When I follow "Ledger items"
-    And I follow "New ledger item"
+    When I follow "Match rules"
+    And I follow "New match rule"
+    And I fill in "Description matcher" with "US Postal Service"
+    And I select "No" from "Debit"
     And I select "Paper Cavalier, LLC" from "Sender"
     And I select "US Postal Service" from "Recipient"
-    And I fill in "Total Amount" with "-20"
-    And I select "USD" from "Currency"
-    And I fill in "Description" with "US Postal Service charge"
+    And I select "Shipping Expenses" from "Matching ledger account"
     And I press "Submit"
-    Then I should see "US Postal Service charge"
-    And I should see "-20.0"
-  
-  Scenario: View ledger transactions for a date range
-    
-  
+    Then I should see "Successfully created match rule."
+    And I should see "US Postal Service"

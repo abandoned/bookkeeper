@@ -21,13 +21,22 @@ class LedgerItem < ActiveRecord::Base
   belongs_to :ledger_account
   belongs_to :sender, :class_name => "LedgerPerson"
   belongs_to :recipient, :class_name => "LedgerPerson"
+  belongs_to :ledger_item_group
   validates_associated :sender, :recipient, :ledger_account
-  validates_presence_of :sender, :recipient, :ledger_account
+  validates_presence_of :ledger_account
   validates_numericality_of :total_amount
   validates_numericality_of :tax_amount, :allow_nil => true
   validate :must_have_a_valid_currency_code,
-           :tax_may_not_exceed_total,
-           :must_not_belong_to_a_ledger_account_with_children
+           :tax_may_not_exceed_total
+  named_scope :unmatched, :conditions => "ledger_item_group_id IS NULL"
+  
+  def matched?
+    if !self.ledger_item_group_id.nil? && self.ledger_item_group.reconciled?
+      true
+    else
+      false
+    end
+  end
   
   protected
   
@@ -40,12 +49,6 @@ class LedgerItem < ActiveRecord::Base
   def tax_may_not_exceed_total
     if !self.tax_amount.nil? && self.tax_amount > self.total_amount
       errors.add(:tax_amount, "may not exceed total amount")
-    end
-  end
-  
-  def must_not_belong_to_a_ledger_account_with_children
-    if self.ledger_account && self.ledger_account.children.count > 0
-      errors.add(:ledger_account, "cannot own a ledger item")
     end
   end
 end

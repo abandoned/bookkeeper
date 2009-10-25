@@ -1,0 +1,32 @@
+- form_for @ledger_import_format do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br/
+    = f.text_field :name
+  %p
+    = f.label :date_row
+    %br/
+    = f.text_field :date_row
+  %p
+    = f.label :amount_row
+    %br/
+    = f.text_field :amount_row
+  %p
+    = f.label :description_row
+    %br/
+    = f.text_field :description_row
+  %p
+    = f.label :identifier_row
+    %br/
+    = f.text_field :identifier_row
+  %p
+    = f.label :has_title
+    %br/
+    = f.check_box :has_title
+  %p
+    = f.label :day_follows_month
+    %br/
+    = f.check_box :day_follows_month
+  %p
+    = f.submit "Submit"

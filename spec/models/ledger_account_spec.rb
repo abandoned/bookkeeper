@@ -40,13 +40,13 @@ describe LedgerAccount do
     lambda {@parent.destroy}.should raise_error(ActiveRecord::RecordNotDestroyed)
   end
   
-  it "should not bear children if it has ledger items" do
+  it "should not destroy if it has ledger_items" do
     sender = Factory(:ledger_person)
     recipient = Factory(:ledger_person)
     ledger_item = Factory(:ledger_item,
                           :sender => sender,
                           :recipient => recipient,
                           :ledger_account => @child)
-    lambda {Factory(:ledger_account, :parent => @child)}.should raise_error(ActiveRecord::RecordInvalid)
+    lambda {@child.destroy}.should raise_error(ActiveRecord::RecordNotDestroyed)
   end
 end

@@ -7,7 +7,7 @@ Feature: Default Ledger
     Given I am logged in as bookkeeper
   
   Scenario: List root accounts
-    Given the following ledger account records
+    Given the following ledger account records:
     | name        |
     | Assets      |
     | Liabilities |

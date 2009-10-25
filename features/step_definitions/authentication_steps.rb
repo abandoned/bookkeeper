@@ -1,5 +1,5 @@
 Given /^I am logged in as bookkeeper$/ do
-  Given "the following user records", table(%{
+  Given "the following user records:", table(%{
     | login      | password |
     | bookkeeper | secret   |
   })

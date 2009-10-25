@@ -19,3 +19,8 @@ Factory.define :ledger_item do |f|
   f.total_amount 10
   f.currency "USD"
 end
+
+Factory.define :match_rule do |f|
+  f.description_matcher "foo"
+  f.debit true
+end

@@ -9,11 +9,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091022152641) do
+ActiveRecord::Schema.define(:version => 20091025191438) do
+
+  create_table "file_import_formats", :force => true do |t|
+    t.string   "name"
+    t.string   "currency",               :limit => 3
+    t.integer  "date_row"
+    t.integer  "total_amount_row"
+    t.integer  "tax_amount_row"
+    t.integer  "description_row"
+    t.integer  "second_description_row"
+    t.integer  "identifier_row"
+    t.boolean  "has_title_row"
+    t.boolean  "day_follows_month"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "ledger_accounts", :force => true do |t|
     t.integer  "parent_id"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ledger_item_groups", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -51,6 +71,17 @@ ActiveRecord::Schema.define(:version => 20091022152641) do
     t.string   "country"
     t.string   "country_code", :limit => 2
     t.string   "tax_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "match_rules", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.integer  "ledger_account_id"
+    t.integer  "matching_ledger_account_id"
+    t.string   "description_matcher"
+    t.boolean  "debit"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

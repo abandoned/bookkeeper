@@ -8,7 +8,9 @@
       = render :partial => "child", :collection => resource.children
   %p
     = link_to "Ledger items", ledger_account_ledger_items_url(resource)
-  %p @/ TODO display other summary info on account
+  %p
+    = link_to "Match rules", ledger_account_match_rules_url(resource)
+  %p TODO Display other summary info on account
   %footer
     = link_to "Edit", edit_resource_url(resource)
     = link_to "Destroy", resource_url(resource), :confirm => 'Are you sure?', :method => :delete

@@ -31,11 +31,7 @@ class LedgerItem < ActiveRecord::Base
   named_scope :unmatched, :conditions => "ledger_item_group_id IS NULL"
   
   def matched?
-    if !self.ledger_item_group_id.nil? && self.ledger_item_group.reconciled?
-      true
-    else
-      false
-    end
+    !self.ledger_item_group_id.nil?
   end
   
   protected

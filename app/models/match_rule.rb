@@ -20,24 +20,28 @@ class MatchRule < ActiveRecord::Base
   belongs_to :matching_ledger_account, :class_name => "LedgerAccount"
   validates_associated :sender, :recipient, :ledger_account, :matching_ledger_account
   validates_presence_of :sender, :recipient, :ledger_account, :matching_ledger_account
-  after_save :match!
+  after_save :match_items
   
-  def match!
-    multiplier = self.debit? ? 1 : -1
-    self.ledger_account.ledger_items.unmatched.each do |i|
-      if i.description =~ /#{self.description_matcher}/i && i.total_amount * multiplier > 0
-        i.sender_id = self.sender_id
-        i.recipient_id = self.recipient_id
-        i.save!
-        m = LedgerItem.create!(:sender_id => i.recipient_id,
-                               :recipient_id => i.sender_id,
-                               :issued_on => i.issued_on,
-                               :total_amount => i.total_amount * -1.0,
-                               :currency => i.currency,
-                               :ledger_account_id => self.matching_ledger_account_id)
-        group = LedgerItemGroup.create!
-        group.ledger_items << [i, m]
-      end
+  def match_items
+    self.ledger_account.ledger_items.unmatched.each { |i| self.match(i) }
+  end
+  
+  def match(item)
+    mlt = self.debit? ? 1 : -1
+    regexp = Regexp.new(self.description_matcher, true)
+    if !item.matched? && item.description =~ regexp && item.total_amount * mlt > 0
+      matched_item = LedgerItem.create!(:sender_id => self.recipient_id,
+                                        :recipient_id => self.sender_id,
+                                        :issued_on => item.issued_on,
+                                        :total_amount => item.total_amount * -1.0,
+                                        :currency => item.currency,
+                                        :ledger_account_id => self.matching_ledger_account_id)
+      group = LedgerItemGroup.create!
+      group.ledger_items << [item, matched_item]
+      item.update_attributes!(:sender_id => self.sender_id,
+                              :recipient_id => self.recipient_id)
+    else
+      false
     end
   end
 end

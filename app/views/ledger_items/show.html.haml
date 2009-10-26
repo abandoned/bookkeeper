@@ -35,4 +35,6 @@
   = link_to "Edit", edit_resource_url
   = link_to "Destroy", resource_url, :confirm => 'Are you sure?', :method => :delete
   = link_to "View All", collection_url
+  - unless resource.matched?
+    = link_to "Match item"
 

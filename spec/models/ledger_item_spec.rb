@@ -27,6 +27,7 @@ describe LedgerItem do
     @ledger_item = Factory(:ledger_item,
                            :sender => @sender,
                            :recipient => @recipient,
+                           :total_amount => 20.0,
                            :ledger_account => @ledger_account)
   end
   
@@ -36,7 +37,7 @@ describe LedgerItem do
   end
   
   it "should not have a tax amount that exceeds the total amount" do
-    @ledger_item.tax_amount = 11
+    @ledger_item.tax_amount = 21
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
   end
 end

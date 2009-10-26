@@ -25,7 +25,8 @@ Feature: Manage Ledger Transactions
     And I press "Submit"
     Then I should see "US Postal Service charge"
     And I should see "-20.0"
-  
+    And I should see "Match item"
+    
   Scenario: View ledger transactions for a date range
     
   

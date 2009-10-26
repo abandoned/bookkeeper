@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: ledger_item_groups
+#
+#  id         :integer         not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class LedgerItemGroup < ActiveRecord::Base
   has_many :ledger_items
   

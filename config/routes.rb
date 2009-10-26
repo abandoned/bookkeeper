@@ -1,10 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :ledger_accounts do |account|
     account.resource :file_import
-    account.resource :file_import_format
     account.resources :ledger_items
     account.resources :match_rules
   end
+  map.resources :file_import_formats
   map.resources :ledger_people
   map.resource :user_session, :only => [:new, :create, :destroy]
   map.login  "/login",  :controller => "user_sessions", :action => "new"

@@ -1,25 +1,31 @@
-- title "Ledger Import Formats"
+- title "File Import Formats"
 
 %table
   %tr
     %th Name
+    %th Currency
     %th Date Row
-    %th Amount Row
+    %th Total Amount Row
     %th Description Row
+    %th Second Description Row
     %th Identifier Row
     %th Has Title
     %th Day Follows Month
-  - for ledger_import_format in @ledger_import_formats
+  - for file_import_format in collection
     %tr
-      %td=h ledger_import_format.name
-      %td=h ledger_import_format.date_row
-      %td=h ledger_import_format.amount_row
-      %td=h ledger_import_format.description_row
-      %td=h ledger_import_format.identifier_row
-      %td=h ledger_import_format.has_title
-      %td=h ledger_import_format.day_follows_month
-      %td= link_to "Show", ledger_import_format
-      %td= link_to "Edit", edit_ledger_import_format_path(ledger_import_format)
-      %td= link_to "Destroy", ledger_import_format, :confirm => 'Are you sure?', :method => :delete
+      %td= file_import_format.name
+      %td= file_import_format.currency
+      %td= file_import_format.date_row
+      %td= file_import_format.total_amount_row
+      %td= file_import_format.tax_amount_row
+      %td= file_import_format.description_row
+      %td= file_import_format.second_description_row
+      %td= file_import_format.identifier_row
+      %td= file_import_format.has_title_row
+      %td= file_import_format.day_follows_months
+      %td= link_to "Show", resource_url(file_import_format)
+      %td= link_to "Edit", edit_resource_url(file_import_format)
+      %td= link_to "Destroy", resource_url(file_import_format), :confirm => 'Are you sure?', :method => :delete
 
-%p= link_to "New Ledger Import Format", new_ledger_import_format_path
+%footer
+  = link_to "New Ledger Import Format", new_resource_path

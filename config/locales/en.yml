@@ -42,3 +42,5 @@ en:
         commit: "Submit"
       file_import:
         commit: "Upload file"
+      file_import_format:
+        commit: "Submit"

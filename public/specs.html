@@ -181,61 +181,68 @@ a {
 <div class="results">
 <div class="example_group">
   <dl>
-  <dt id="example_group_1">LedgerAccount</dt>
-    <script type="text/javascript">moveProgressBar('6.6');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should not be its own parent</span></dd>
-    <script type="text/javascript">moveProgressBar('13.3');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should not descend from its progeny</span></dd>
-    <script type="text/javascript">moveProgressBar('20.0');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should not create if parent is invalid</span></dd>
-    <script type="text/javascript">moveProgressBar('26.6');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should destroy if it has no children</span></dd>
-    <script type="text/javascript">moveProgressBar('33.3');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should not destroy if it has children</span></dd>
-    <script type="text/javascript">moveProgressBar('40.0');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should not destroy if it has ledger_items</span></dd>
-  </dl>
-</div>
-<div class="example_group">
-  <dl>
-  <dt id="example_group_2">LedgerItemGroup</dt>
-    <script type="text/javascript">moveProgressBar('46.6');</script>
+  <dt id="example_group_1">FileImportFormat</dt>
+    <script type="text/javascript">moveProgressBar('6.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">should create a new instance given valid attributes</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_3">LedgerItem</dt>
-    <script type="text/javascript">moveProgressBar('53.3');</script>
+  <dt id="example_group_2">LedgerAccount</dt>
+    <script type="text/javascript">moveProgressBar('12.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should not be its own parent</span></dd>
+    <script type="text/javascript">moveProgressBar('18.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should not descend from its progeny</span></dd>
+    <script type="text/javascript">moveProgressBar('25.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should not create if parent is invalid</span></dd>
+    <script type="text/javascript">moveProgressBar('31.2');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should destroy if it has no children</span></dd>
+    <script type="text/javascript">moveProgressBar('37.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should not destroy if it has children</span></dd>
+    <script type="text/javascript">moveProgressBar('43.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should not destroy if it has ledger_items</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_3">LedgerItemGroup</dt>
+    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should create a new instance given valid attributes</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_4">LedgerItem</dt>
+    <script type="text/javascript">moveProgressBar('56.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">should belong to a ledger account</span></dd>
-    <script type="text/javascript">moveProgressBar('60.0');</script>
+    <script type="text/javascript">moveProgressBar('62.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not have a tax amount that exceeds the total amount</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_4">LedgerPerson</dt>
-    <script type="text/javascript">moveProgressBar('66.6');</script>
+  <dt id="example_group_5">LedgerPerson</dt>
+    <script type="text/javascript">moveProgressBar('68.7');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not destroy if he has sent ledger items</span></dd>
-    <script type="text/javascript">moveProgressBar('73.3');</script>
+    <script type="text/javascript">moveProgressBar('75.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not destroy if he has received ledger items</span></dd>
-    <script type="text/javascript">moveProgressBar('80.0');</script>
+    <script type="text/javascript">moveProgressBar('81.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">should destroy if has no sent ledger items</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_5">MatchRule</dt>
-    <script type="text/javascript">moveProgressBar('86.6');</script>
+  <dt id="example_group_6">MatchRule</dt>
+    <script type="text/javascript">moveProgressBar('87.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">should update a matching ledger item</span></dd>
-    <script type="text/javascript">moveProgressBar('93.3');</script>
+    <script type="text/javascript">moveProgressBar('93.7');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not update a ledger item when debit rule matches but description does not</span></dd>
     <script type="text/javascript">moveProgressBar('100.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not update a ledger item when description matches but debit rule does not</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.444927 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "15 examples, 0 failures";</script>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.348377 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "16 examples, 0 failures";</script>
 </div>
 </div>
 </body>

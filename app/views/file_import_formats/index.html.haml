@@ -6,6 +6,7 @@
     %th Currency
     %th Date Row
     %th Total Amount Row
+    %th Tax Amount Row
     %th Description Row
     %th Second Description Row
     %th Identifier Row
@@ -22,10 +23,10 @@
       %td= file_import_format.second_description_row
       %td= file_import_format.identifier_row
       %td= file_import_format.has_title_row
-      %td= file_import_format.day_follows_months
+      %td= file_import_format.day_follows_month
       %td= link_to "Show", resource_url(file_import_format)
       %td= link_to "Edit", edit_resource_url(file_import_format)
       %td= link_to "Destroy", resource_url(file_import_format), :confirm => 'Are you sure?', :method => :delete
 
 %footer
-  = link_to "New Ledger Import Format", new_resource_path
+  = link_to "New File Import Format", new_resource_path

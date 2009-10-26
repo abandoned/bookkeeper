@@ -1,30 +1,31 @@
-- title "Ledger Import Format"
+- title "File Import Format: #{resource.name}"
 
 %p
-  %strong Name:
-  =h @ledger_import_format.name 
+  %strong Currency:
+  = resource.currency
 %p
   %strong Date Row:
-  =h @ledger_import_format.date_row 
+  = resource.date_row 
 %p
-  %strong Amount Row:
-  =h @ledger_import_format.amount_row 
+  %strong Total Amount Row:
+  = resource.total_amount_row 
 %p
   %strong Description Row:
-  =h @ledger_import_format.description_row 
+  = resource.description_row 
+%p
+  %strong Second Description Row:
+  = resource.second_description_row
 %p
   %strong Identifier Row:
-  =h @ledger_import_format.identifier_row 
+  = resource.identifier_row 
 %p
-  %strong Has Title:
-  =h @ledger_import_format.has_title 
+  %strong Has Title Row:
+  = resource.has_title_row
 %p
   %strong Day Follows Month:
-  =h @ledger_import_format.day_follows_month 
+  = resource.day_follows_month 
 
-%p
-  = link_to "Edit", edit_ledger_import_format_path(@ledger_import_format)
-%p
-  = link_to "Destroy", @ledger_import_format, :confirm => 'Are you sure?', :method => :delete
-%p
-  = link_to "View All", ledger_import_formats_path 
+%footer
+  = link_to "Edit", edit_resource_url(resource)
+  = link_to "Destroy", resource, :confirm => 'Are you sure?', :method => :delete
+  = link_to "View All", collection_url

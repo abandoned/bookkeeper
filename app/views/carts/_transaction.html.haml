@@ -1,0 +1,7 @@
+%tr.smaller
+  %td= link_to(transaction.account.name, account_path(transaction.account))
+  %td= link_to(transaction.sender.name, person_path(transaction.sender))
+  %td= link_to(transaction.recipient.name, person_path(transaction.recipient))
+  %td= transaction.issued_on || transaction.created_at.to_date
+  %td= monetize transaction.total_amount, transaction.currency_symbol
+  %td= monetize transaction.tax_amount || 0, transaction.currency_symbol

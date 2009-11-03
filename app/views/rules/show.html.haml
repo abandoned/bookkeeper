@@ -1,0 +1,22 @@
+- title "Rule"
+
+%p
+  %strong Description Match String:
+  = resource.description_matcher 
+%p
+  %strong Debit:
+  = resource.debit
+%p
+  %strong Sender
+  = resource.sender.name
+%p
+  %strong Recipient
+  = resource.recipient.name
+%p
+  %strong Matching Account:
+  = resource.matching_account.name
+
+%footer
+  = link_to "Edit", edit_resource_path
+  = link_to "Destroy", resource_path, :confirm => 'Are you sure?', :method => :delete
+  = link_to "View All", collection_path

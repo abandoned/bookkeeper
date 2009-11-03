@@ -1,0 +1,5 @@
+- title "Accounts"
+
+- tree_ul(collection) { |account| link_to(h(account.name), resource_path(account)) }
+%footer
+  = link_to "New Account +", new_resource_path

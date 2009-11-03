@@ -1,0 +1,21 @@
+- form_tag(collection_path, :method => "get", :class => "search") do
+  %fieldset
+    %ul
+      %li
+        %label.smaller From:
+        = select_date(nil, :prompt => true, :prefix => "from")
+      %li
+        %label.smaller To:
+        = select_date(nil, :prompt => true, :prefix => "to")
+  %fieldset
+    %ul
+      - if params[:account_id].nil?
+        %li
+          - account_select(Account.roots, params[:account].blank? ? nil : Account.find(params[:account]))
+      - if Person.self.count > 1
+        %li= select_tag(:person, options_for_select(Person.self.inject({ "All selves" => "" }) { |r, p| r[p.name] = p.id; r}, params[:person].to_i))
+      %li= text_field_tag(:query, params[:query])
+      %li
+        =check_box_tag(:unmatched, nil, params[:unmatched])
+        %label.smaller Unmatched only
+      %li= submit_tag("Search", :name => nil)

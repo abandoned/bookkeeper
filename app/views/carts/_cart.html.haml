@@ -1,0 +1,24 @@
+.cart
+  %table.data
+    %thead
+      %tr
+        %th.small
+          Account
+        %th.small
+          Sender
+        %th.small
+          Recipient
+        %th.small
+          Date
+        %th.small
+          Total
+        %th.small
+          Tax
+    %tfoot
+      %tr
+        %td.smaller
+          = link_to "Discard all", cart_path, :method => :delete
+          - if @cart.balance == 0
+            = link_to "Reconcile", save_cart_path
+    %tbody
+      = render(:partial => "carts/transaction", :collection => cart.transactions)

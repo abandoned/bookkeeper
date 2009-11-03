@@ -9,9 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091025191438) do
+ActiveRecord::Schema.define(:version => 20091027094008) do
 
-  create_table "file_import_formats", :force => true do |t|
+  create_table "accounts", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mappings", :force => true do |t|
     t.string   "name"
     t.string   "currency",               :limit => 3
     t.integer  "date_row"
@@ -22,45 +29,17 @@ ActiveRecord::Schema.define(:version => 20091025191438) do
     t.integer  "identifier_row"
     t.boolean  "has_title_row"
     t.boolean  "day_follows_month"
+    t.boolean  "reverses_sign"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "ledger_accounts", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
+  create_table "matches", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "ledger_item_groups", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "ledger_items", :force => true do |t|
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
-    t.date     "issued_on"
-    t.decimal  "total_amount",                      :precision => 20, :scale => 4
-    t.decimal  "tax_amount",                        :precision => 20, :scale => 4
-    t.string   "currency",             :limit => 3,                                :null => false
-    t.string   "description"
-    t.string   "identifier"
-    t.integer  "ledger_account_id"
-    t.integer  "ledger_item_group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ledger_items", ["identifier"], :name => "index_ledger_items_on_identifier"
-  add_index "ledger_items", ["issued_on"], :name => "index_ledger_items_on_issued_on"
-  add_index "ledger_items", ["ledger_account_id"], :name => "index_ledger_items_on_ledger_account_id"
-  add_index "ledger_items", ["recipient_id"], :name => "index_ledger_items_on_recipient_id"
-  add_index "ledger_items", ["sender_id"], :name => "index_ledger_items_on_sender_id"
-  add_index "ledger_items", ["total_amount"], :name => "index_ledger_items_on_total_amount"
-
-  create_table "ledger_people", :force => true do |t|
+  create_table "people", :force => true do |t|
     t.boolean  "is_self",                   :default => false
     t.string   "name"
     t.string   "contact_name"
@@ -75,16 +54,48 @@ ActiveRecord::Schema.define(:version => 20091025191438) do
     t.datetime "updated_at"
   end
 
-  create_table "match_rules", :force => true do |t|
+  create_table "rules", :force => true do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
-    t.integer  "ledger_account_id"
-    t.integer  "matching_ledger_account_id"
+    t.integer  "account_id"
+    t.integer  "matching_account_id"
     t.string   "description_matcher"
     t.boolean  "debit"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "transactions", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.date     "issued_on"
+    t.decimal  "total_amount",              :precision => 20, :scale => 4
+    t.decimal  "tax_amount",                :precision => 20, :scale => 4
+    t.string   "currency",     :limit => 3,                                :null => false
+    t.string   "description"
+    t.string   "identifier"
+    t.integer  "account_id"
+    t.integer  "match_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transactions", ["account_id"], :name => "index_transactions_on_account_id"
+  add_index "transactions", ["identifier"], :name => "index_transactions_on_identifier"
+  add_index "transactions", ["issued_on"], :name => "index_transactions_on_issued_on"
+  add_index "transactions", ["recipient_id"], :name => "index_transactions_on_recipient_id"
+  add_index "transactions", ["sender_id"], :name => "index_transactions_on_sender_id"
+  add_index "transactions", ["total_amount"], :name => "index_transactions_on_total_amount"
 
   create_table "users", :force => true do |t|
     t.string   "login",                              :null => false

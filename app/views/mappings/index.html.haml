@@ -1,0 +1,35 @@
+- title "Mappings"
+
+%table.data
+  %tr.small
+    %th Name
+    %th Currency
+    %th Date
+    %th Total Amount
+    %th Tax Amount
+    %th Description
+    %th 2nd Description
+    %th Identifier
+    %th Has Title
+    %th Day Follows Month
+    %th Reverses Sign
+  - for mapping in collection
+    %tr{:class => "smaller #{cycle('odd', 'even')}"}
+      %td= mapping.name
+      %td= mapping.currency
+      %td= mapping.date_row
+      %td= mapping.total_amount_row
+      %td= mapping.tax_amount_row
+      %td= mapping.description_row
+      %td= mapping.second_description_row
+      %td= mapping.identifier_row
+      %td= mapping.has_title_row
+      %td= mapping.day_follows_month
+      %td= mapping.reverses_sign
+      %td
+        = link_to "Show", resource_path(mapping)
+        = link_to "Edit", edit_resource_path(mapping)
+        = link_to "Destroy", resource_path(mapping), :confirm => 'Are you sure?', :method => :delete
+
+%footer
+  = link_to "New Mapping +", new_resource_path

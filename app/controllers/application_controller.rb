@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
-  before_filter :set_nav_links
   
   private
   
@@ -24,7 +23,7 @@ class ApplicationController < ActionController::Base
     unless current_user
       store_location
       flash[:notice] = "You must be logged in to access this page"
-      redirect_to login_url
+      redirect_to login_path
       return false
     end
   end
@@ -33,7 +32,7 @@ class ApplicationController < ActionController::Base
     if current_user
       store_location
       flash[:notice] = "You must be logged out to access this page"
-      redirect_to root_url
+      redirect_to root_path
       return false
     end
   end
@@ -45,18 +44,5 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
-  end
-  
-  def set_nav_links
-    if current_user
-      @nav_links = [
-        { :name => "Accounts",  :path => ledger_accounts_url },
-        { :name => "People",    :path => ledger_people_url },
-        { :name => "Reports",   :path => "/not-done-yet.html" },
-        { :name => "Log out",   :path => logout_url }]
-    else
-      @nav_links = [
-        { :name => "Log in",    :path => login_url }]
-    end
   end
 end

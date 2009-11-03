@@ -7,14 +7,14 @@ Feature: Default Ledger
     Given I am logged in as bookkeeper
   
   Scenario: List root accounts
-    Given the following ledger account records:
+    Given the following account records:
     | name        |
     | Assets      |
     | Liabilities |
     | Equity      |
     | Income      |
     | Expenses    |
-    When I go to the list of ledger accounts
+    When I go to the list of accounts
     Then I should see "Assets"
     And I should see "Liabilities"
     And I should see "Equity"

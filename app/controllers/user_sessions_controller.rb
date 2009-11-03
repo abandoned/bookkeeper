@@ -6,13 +6,13 @@ class UserSessionsController < InheritedResources::Base
   
   def create
     create! do |success, failure|
-      success.html { redirect_back_or_default root_url }
+      success.html { redirect_back_or_default root_path }
     end
   end
   
   def destroy
     current_user_session.destroy
     flash[:notice] = "You are logged out."
-    redirect_back_or_default root_url
+    redirect_back_or_default root_path
   end
 end

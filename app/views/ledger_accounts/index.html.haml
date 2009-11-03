@@ -1,5 +1,0 @@
-- title "Ledger Accounts"
-#ledger_accounts
-  - tree_ul(@ledger_accounts) { |ledger_account| link_to(h(ledger_account.name), resource_url(ledger_account)) }
-  %footer
-    = link_to "New Ledger Account", new_resource_url

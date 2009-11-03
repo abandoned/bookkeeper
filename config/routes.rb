@@ -1,16 +1,21 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :ledger_accounts do |account|
-    account.resource :file_import
-    account.resources :ledger_items
-    account.resources :match_rules
-  end
-  map.resources :file_import_formats
-  map.resources :ledger_people
+  map.resources :accounts, :has_many => [:rules, :transactions]
+  map.resource :cart, :only => [:show, :update, :destroy]
+  map.resource  :import, :only => [:new, :create]
+  map.resources :matches, :only => [:show]
+  map.resources :mappings, :transactions
+  map.resources :people, :has_many => :transactions
   map.resource :user_session, :only => [:new, :create, :destroy]
+  
+  map.save_cart "/save_cart", :controller => "transactions", :action => "save_cart"
+  map.empty_cart "/empty_cart", :controller => "transactions", :action => "empty_cart"
   map.login  "/login",  :controller => "user_sessions", :action => "new"
   map.logout  "/logout",  :controller => "user_sessions", :action => "destroy"
+  
   map.root :controller => "landing", :action => "index"
 
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -19,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
+  # This route can be invoked with purchase_path(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
@@ -50,6 +55,4 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.
-  #map.connect ':controller/:action/:id'
-  #map.connect ':controller/:action/:id.:format'
 end

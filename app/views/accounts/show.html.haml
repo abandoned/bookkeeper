@@ -1,0 +1,17 @@
+- title resource.name, false
+%h1= account_title
+#account
+  - unless resource.children.length == 0
+    %p
+      Subaccounts:
+      %br
+      = render :partial => "child", :collection => resource.children
+  %p
+    = link_to "Transactions", account_transactions_path(resource)
+  %p
+    = link_to "Rules", account_rules_path(resource)
+  %p TODO Display other summary info on account
+  %footer
+    = link_to "Edit", edit_resource_path(resource)
+    = link_to "Destroy", resource_path(resource), :confirm => 'Are you sure?', :method => :delete
+    = link_to "View all accounts", collection_path

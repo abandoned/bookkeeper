@@ -1,37 +1,27 @@
-!left_col_width = 20%
-!input_width = 45%
+!left_col_width = 210px
+!input_width = 360px
 
 form.formtastic
   fieldset
     ol
-      li.string
-        input
-          width = !input_width
-      li.password
-        input
-          width = !input_width
-      li.numeric
-        input
-          width = !input_width
-      li.text
-        textarea
-          width =  !input_width
       li
+        &.string input, &.password input, &.numeric input, &.text textarea
+          width =  !input_width
         label
-          padding-top: 0.1em
           width = !left_col_width
         fieldset
           ol
             padding-left = !left_col_width
-      p.inline-hints
-        margin-left = !left_col_width
-      p.inline-errors
-        margin-left = !left_col_width
-      li
+        p
+          &.inline-errors
+            margin-left = !left_col_width
+          &.inline-hints
+            margin-left = !left_col_width
+            font-size: 0.8em
         ul.errors
           margin-left = !left_col_width
       li.boolean
         label
           padding-left = !left_col_width
-  fieldset.buttons
-    padding-left = !left_col_width
+    &.buttons
+      padding-left = !left_col_width

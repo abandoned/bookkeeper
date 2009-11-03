@@ -594,7 +594,7 @@ describe 'SemanticFormBuilder#input' do
 
   describe ':as any type of input' do
 
-    it 'should create a list item for each input' do
+    it 'should create a list transaction for each input' do
       semantic_form_for(@new_post) do |builder|
         concat(builder.input(:title))
         concat(builder.input(:body))
@@ -610,7 +610,7 @@ describe 'SemanticFormBuilder#input' do
         @new_post.stub!(:errors).and_return(@errors)
       end
 
-      it 'should apply an errors class to the list item' do
+      it 'should apply an errors class to the list transaction' do
         semantic_form_for(@new_post) do |builder|
           concat(builder.input(:title))
         end
@@ -648,7 +648,7 @@ describe 'SemanticFormBuilder#input' do
         end
       end
 
-      it 'should not apply an errors class to the list item' do
+      it 'should not apply an errors class to the list transaction' do
         output_buffer.should_not have_tag('form li.error')
       end
 
@@ -668,7 +668,7 @@ describe 'SemanticFormBuilder#input' do
         end
       end
 
-      it 'should not apply an errors class to the list item' do
+      it 'should not apply an errors class to the list transaction' do
         output_buffer.should_not have_tag('form li.error')
       end
 
@@ -1091,7 +1091,7 @@ describe 'SemanticFormBuilder#input' do
         output_buffer.should have_tag('form li fieldset legend', /Author/)
       end
 
-      it 'should generate an ordered list with a list item for each choice' do
+      it 'should generate an ordered list with a list transaction for each choice' do
         output_buffer.should have_tag('form li fieldset ol')
         output_buffer.should have_tag('form li fieldset ol li', :count => ::Author.find(:all).size)
       end
@@ -1149,18 +1149,18 @@ describe 'SemanticFormBuilder#input' do
           output_buffer.should have_tag('form li fieldset legend', /Author/)
         end
 
-        it 'should generate an li tag for each item in the collection' do
+        it 'should generate an li tag for each transaction in the collection' do
           output_buffer.should have_tag('form li fieldset ol li', :count => ::Author.find(:all).size)
         end
 
-        it 'should generate labels for each item' do
+        it 'should generate labels for each transaction' do
           ::Author.find(:all).each do |author|
             output_buffer.should have_tag('form li fieldset ol li label', /#{author.to_label}/)
             output_buffer.should have_tag("form li fieldset ol li label[@for='project_author_id_#{author.id}']")
           end
         end
 
-        it 'should generate inputs for each item' do
+        it 'should generate inputs for each transaction' do
           ::Author.find(:all).each do |author|
             output_buffer.should have_tag("form li fieldset ol li label input#project_author_id_#{author.id}")
             output_buffer.should have_tag("form li fieldset ol li label input[@type='radio']")
@@ -1368,7 +1368,7 @@ describe 'SemanticFormBuilder#input' do
         output_buffer.should have_tag('form li select option', :count => ::Author.find(:all).size + 1)
       end
 
-      it 'should generate an option to each item' do
+      it 'should generate an option to each transaction' do
         ::Author.find(:all).each do |author|
           output_buffer.should have_tag("form li select option[@value='#{author.id}']", /#{author.to_label}/)
         end
@@ -1399,7 +1399,7 @@ describe 'SemanticFormBuilder#input' do
         output_buffer.should have_tag('form li fieldset legend', /Posts/)
       end
 
-      it 'should generate an ordered list with a list item for each choice' do
+      it 'should generate an ordered list with a list transaction for each choice' do
         output_buffer.should have_tag('form li fieldset ol')
         output_buffer.should have_tag('form li fieldset ol li', :count => ::Post.find(:all).size)
       end
@@ -1452,18 +1452,18 @@ describe 'SemanticFormBuilder#input' do
           output_buffer.should have_tag('form li fieldset legend', /Author/)
         end
 
-        it 'shold generate an li tag for each item in the collection' do
+        it 'shold generate an li tag for each transaction in the collection' do
           output_buffer.should have_tag('form li fieldset ol li', :count => ::Author.find(:all).size)
         end
 
-        it 'should generate labels for each item' do
+        it 'should generate labels for each transaction' do
           ::Author.find(:all).each do |author|
             output_buffer.should have_tag('form li fieldset ol li label', /#{author.to_label}/)
             output_buffer.should have_tag("form li fieldset ol li label[@for='project_author_id_#{author.id}']")
           end
         end
 
-        it 'should generate inputs for each item' do
+        it 'should generate inputs for each transaction' do
           ::Author.find(:all).each do |author|
             output_buffer.should have_tag("form li fieldset ol li label input#project_author_id_#{author.id}")
             output_buffer.should have_tag("form li fieldset ol li label input[@type='checkbox']")
@@ -1884,7 +1884,7 @@ describe 'SemanticFormBuilder#input' do
       output_buffer.should have_tag('form li.date fieldset legend', /Publish at/)
     end
 
-    it 'should have an ordered list of three items inside the fieldset' do
+    it 'should have an ordered list of three transactions inside the fieldset' do
       output_buffer.should have_tag('form li.date fieldset ol')
       output_buffer.should have_tag('form li.date fieldset ol li', :count => 3)
     end
@@ -1924,7 +1924,7 @@ describe 'SemanticFormBuilder#input' do
       output_buffer.should have_tag('form li.datetime fieldset legend', /Publish at/)
     end
 
-    it 'should have an ordered list of five items inside the fieldset' do
+    it 'should have an ordered list of five transactions inside the fieldset' do
       output_buffer.should have_tag('form li.datetime fieldset ol')
       output_buffer.should have_tag('form li.datetime fieldset ol li', :count => 5)
     end
@@ -2079,7 +2079,7 @@ describe 'SemanticFormBuilder#input' do
       output_buffer.should have_tag('form li.time fieldset legend', /Publish at/)
     end
 
-    it 'should have an ordered list of two items inside the fieldset' do
+    it 'should have an ordered list of two transactions inside the fieldset' do
       output_buffer.should have_tag('form li.time fieldset ol')
       output_buffer.should have_tag('form li.time fieldset ol li', :count => 2)
     end

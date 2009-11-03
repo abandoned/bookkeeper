@@ -276,21 +276,21 @@ describe 'SemanticFormBuilder#inputs' do
         output_buffer.should have_tag('form > fieldset.inputs > ol')
       end
 
-      it 'should render a list item in the ol for each column and reflection' do
+      it 'should render a list transaction in the ol for each column and reflection' do
         # Remove the :has_many macro and :created_at column
         count = ::Post.content_columns.size + ::Post.reflections.size - 2
         output_buffer.should have_tag('form > fieldset.inputs > ol > li', :count => count)
       end
 
-      it 'should render a string list item for title' do
+      it 'should render a string list transaction for title' do
         output_buffer.should have_tag('form > fieldset.inputs > ol > li.string')
       end
 
-      it 'should render a text list item for body' do
+      it 'should render a text list transaction for body' do
         output_buffer.should have_tag('form > fieldset.inputs > ol > li.text')
       end
 
-      it 'should render a select list item for author_id' do
+      it 'should render a select list transaction for author_id' do
         output_buffer.should have_tag('form > fieldset.inputs > ol > li.select', :count => 1)
       end
 
@@ -301,7 +301,7 @@ describe 'SemanticFormBuilder#inputs' do
 
     describe 'with column names as args' do
       describe 'and an object is given' do
-        it 'should render a form with a fieldset containing two list items' do
+        it 'should render a form with a fieldset containing two list transactions' do
           semantic_form_for(@new_post) do |builder|
             concat(builder.inputs(:title, :body))
           end
@@ -313,7 +313,7 @@ describe 'SemanticFormBuilder#inputs' do
       end
 
       describe 'and no object is given' do
-        it 'should render a form with a fieldset containing two list items' do
+        it 'should render a form with a fieldset containing two list transactions' do
           semantic_form_for(:project, :url => 'http://test.host') do |builder|
             concat(builder.inputs(:title, :body))
           end
@@ -356,7 +356,7 @@ describe 'SemanticFormBuilder#inputs' do
         end
       end
 
-      it 'should render a form with a fieldset containing two list items' do
+      it 'should render a form with a fieldset containing two list transactions' do
         output_buffer.should have_tag('form > fieldset.inputs > ol > li', :count => 2)
       end
 

@@ -15,17 +15,18 @@
       %script{ :src => "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
   
   %body
-    %section#headline
-      %h1= link_to_unless_current "Bookkeeper", root_url
+    %section.headline
+      %h1= link_to_unless_current "Bookkeeper", root_path
       = render :partial => "shared/nav"
     
     - flash.each do |name, msg|
-      = content_tag(:section, msg, :id => "flash_#{name}")
+      - haml_tag(:section, msg, :id => "flash_#{name}")
     
-    %section#main
+    %section.main
       - if show_title?
-        %h1= h yield(:title)
+        %h1
+          %span= yield(:title)
       = yield
     
-    %section#footer
+    %section{:class => "small footer"}
       &copy; 2009 Paper Cavalier

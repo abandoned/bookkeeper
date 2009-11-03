@@ -101,11 +101,11 @@ module Formtastic #:nodoc:
       input_parts = @@inline_order.dup
       input_parts.delete(:errors) if options[:as] == :hidden
       
-      list_item_content = input_parts.map do |type|
+      list_transaction_content = input_parts.map do |type|
         send(:"inline_#{type}_for", method, options)
       end.compact.join("\n")
 
-      return template.content_tag(:li, list_item_content, wrapper_html)
+      return template.content_tag(:li, list_transaction_content, wrapper_html)
     end
 
     # Creates an input fieldset and ol tag wrapping for use around a set of inputs.  It can be
@@ -257,7 +257,7 @@ module Formtastic #:nodoc:
     end
     alias :input_field_set :inputs
 
-    # Creates a fieldset and ol tag wrapping for form buttons / actions as list items.
+    # Creates a fieldset and ol tag wrapping for form buttons / actions as list transactions.
     # See inputs documentation for a full example.  The fieldset's default class attriute
     # is set to "buttons".
     #
@@ -624,7 +624,7 @@ module Formtastic #:nodoc:
     end
 
     # Outputs a fieldset containing a legend for the label text, and an ordered list (ol) of list
-    # items, one for each possible choice in the belongs_to association.  Each li contains a
+    # transactions, one for each possible choice in the belongs_to association.  Each li contains a
     # label and a radio input.
     #
     # Example:
@@ -686,7 +686,7 @@ module Formtastic #:nodoc:
       input_name = generate_association_input_name(method)
       value_as_class = options.delete(:value_as_class)
 
-      list_item_content = collection.map do |c|
+      list_transaction_content = collection.map do |c|
         label = c.is_a?(Array) ? c.first : c
         value = c.is_a?(Array) ? c.last  : c
 
@@ -699,12 +699,12 @@ module Formtastic #:nodoc:
         template.content_tag(:li, li_content, li_options)
       end
 
-      field_set_and_list_wrapping_for_method(method, options, list_item_content)
+      field_set_and_list_wrapping_for_method(method, options, list_transaction_content)
     end
     alias :boolean_radio_input :radio_input
 
     # Outputs a fieldset with a legend for the method label, and a ordered list (ol) of list
-    # items (li), one for each fragment for the date (year, month, day).  Each li contains a label
+    # transactions (li), one for each fragment for the date (year, month, day).  Each li contains a label
     # (eg "Year") and a select box.  See date_or_datetime_input for a more detailed output example.
     #
     # Some of Rails' options for select_date are supported, but not everything yet.
@@ -715,7 +715,7 @@ module Formtastic #:nodoc:
 
 
     # Outputs a fieldset with a legend for the method label, and a ordered list (ol) of list
-    # items (li), one for each fragment for the date (year, month, day, hour, min, sec).  Each li
+    # transactions (li), one for each fragment for the date (year, month, day, hour, min, sec).  Each li
     # contains a label (eg "Year") and a select box.  See date_or_datetime_input for a more
     # detailed output example.
     #
@@ -727,7 +727,7 @@ module Formtastic #:nodoc:
 
 
     # Outputs a fieldset with a legend for the method label, and a ordered list (ol) of list
-    # items (li), one for each fragment for the time (hour, minute, second).  Each li contains a label
+    # transactions (li), one for each fragment for the time (hour, minute, second).  Each li contains a label
     # (eg "Hour") and a select box.  See date_or_datetime_input for a more detailed output example.
     #
     # Some of Rails' options for select_time are supported, but not everything yet.
@@ -777,7 +777,7 @@ module Formtastic #:nodoc:
       time_inputs = [:hour, :minute]
       time_inputs << [:second] if options[:include_seconds]
 
-      list_items_capture = ""
+      list_transactions_capture = ""
       hidden_fields_capture = ""
 
       # Gets the datetime object. It can be a Fixnum, Date or Time, or nil.
@@ -794,21 +794,21 @@ module Formtastic #:nodoc:
           hidden_fields_capture << template.hidden_field_tag("#{@object_name}[#{field_name}]", (hidden_value || 1), :id => html_id)
         else
           opts = set_options(options).merge(:prefix => @object_name, :field_name => field_name)
-          item_label_text = I18n.t(input.to_s, :default => input.to_s.humanize, :scope => [:datetime, :prompts])
+          transaction_label_text = I18n.t(input.to_s, :default => input.to_s.humanize, :scope => [:datetime, :prompts])
 
-          list_items_capture << template.content_tag(:li,
-            template.content_tag(:label, item_label_text, :for => html_id) +
+          list_transactions_capture << template.content_tag(:li,
+            template.content_tag(:label, transaction_label_text, :for => html_id) +
             template.send("select_#{input}".intern, datetime, opts, html_options.merge(:id => html_id))
           )
         end
       end
 
-      hidden_fields_capture + field_set_and_list_wrapping_for_method(method, options, list_items_capture)
+      hidden_fields_capture + field_set_and_list_wrapping_for_method(method, options, list_transactions_capture)
     end
 
 
     # Outputs a fieldset containing a legend for the label text, and an ordered list (ol) of list
-    # items, one for each possible choice in the belongs_to association.  Each li contains a
+    # transactions, one for each possible choice in the belongs_to association.  Each li contains a
     # label and a check_box input.
     #
     # This is an alternative for has many and has and belongs to many associations.
@@ -880,7 +880,7 @@ module Formtastic #:nodoc:
       unchecked_value = options.delete(:unchecked_value) || ''
       html_options    = { :name => "#{@object_name}[#{input_name}][]" }.merge(html_options)
 
-      list_item_content = collection.map do |c|
+      list_transaction_content = collection.map do |c|
         label = c.is_a?(Array) ? c.first : c
         value = c.is_a?(Array) ? c.last : c
 
@@ -895,7 +895,7 @@ module Formtastic #:nodoc:
         template.content_tag(:li, li_content, li_options)
       end
 
-      field_set_and_list_wrapping_for_method(method, options, list_item_content)
+      field_set_and_list_wrapping_for_method(method, options, list_transaction_content)
     end
     
     

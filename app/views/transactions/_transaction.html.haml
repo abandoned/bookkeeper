@@ -1,0 +1,24 @@
+%tr{:class => "smaller #{cycle('odd', 'even')}"}
+  %td= link_to transaction.id, transaction
+  %td= link_to transaction.account.name, account_path(transaction.account)
+  %td
+    - if transaction.sender
+      = link_to(transaction.sender.name, person_path(transaction.sender))
+    - else
+      = button_to "Add", edit_resource_path(transaction), :method => :get
+  %td
+    - if transaction.recipient
+      = link_to(transaction.recipient.name, person_path(transaction.recipient))
+    - else
+      = button_to "Add", edit_resource_path(transaction), :method => :get
+  %td= transaction.issued_on || transaction.created_at.to_date
+  %td.currency= monetize(transaction.total_amount, transaction.currency_symbol)
+  %td= truncate transaction.description
+  %td
+    - if transaction.matched?
+      = link_to "View matches", transaction.match
+    - else
+      - if transaction.sender && transaction.recipient
+        - form_tag(cart_path, :method => "put", :class => "add_to_cart") do
+          = hidden_field_tag(:transaction_id, transaction.id)
+          = submit_tag("Reconcile")

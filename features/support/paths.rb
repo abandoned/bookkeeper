@@ -19,11 +19,11 @@ module NavigationHelpers
     when /the login page/
       login_path
     
-    when /the list of ledger ([^ ]+)$/
-      eval("ledger_#{$1}_path")
+    when /the list of ([^ ]+)$/
+      eval("#{$1}_path")
     
-    when /^the (.*) ledger ([^ ]+) page$/
-      eval("ledger_#{$2}_path(Ledger#{$2.capitalize}.find_by_name(\"#{$1}\"))")
+    when /^the (.*) ([^ ]+) page$/
+      eval("#{$2}_path(#{$2.capitalize}.find_by_name(\"#{$1}\"))")
       
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

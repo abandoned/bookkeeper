@@ -95,11 +95,11 @@ describe 'SemanticFormBuilder#buttons' do
         output_buffer.should have_tag('form fieldset.buttons ol')
       end
 
-      it 'should render a list item in the ol for each default button' do
+      it 'should render a list transaction in the ol for each default button' do
         output_buffer.should have_tag('form fieldset.buttons ol li', :count => 1)
       end
 
-      it 'should render a commit list item for the commit button' do
+      it 'should render a commit list transaction for the commit button' do
         output_buffer.should have_tag('form fieldset.buttons ol li.commit')
       end
 
@@ -113,7 +113,7 @@ describe 'SemanticFormBuilder#buttons' do
         end
       end
 
-      it 'should render a form with a fieldset containing a list item for each button arg' do
+      it 'should render a form with a fieldset containing a list transaction for each button arg' do
         output_buffer.should have_tag('form > fieldset.buttons > ol > li', :count => 1)
         output_buffer.should have_tag('form > fieldset.buttons > ol > li.commit')
       end
@@ -128,7 +128,7 @@ describe 'SemanticFormBuilder#buttons' do
         end
       end
 
-      it 'should render a form with a fieldset containing a list item for each button arg' do
+      it 'should render a form with a fieldset containing a list transaction for each button arg' do
         output_buffer.should have_tag('form > fieldset.buttons > ol > li', :count => 1)
         output_buffer.should have_tag('form > fieldset.buttons > ol > li.commit', :count => 1)
       end

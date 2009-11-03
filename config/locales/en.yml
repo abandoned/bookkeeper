@@ -3,21 +3,21 @@ en:
     user_sessions:
       create:
         notice: "You are logged in."
-    ledger_accounts:
+    accounts:
       create:
-        notice: "Successfully created ledger account."
+        notice: "Successfully created account."
       update:
-        notice: "Successfully updated ledger account."
+        notice: "Successfully updated account."
       destroy:
-        notice: "Successfully deleted ledger account."
-    ledger_people:
+        notice: "Successfully deleted account."
+    people:
       create:
-        notice: "Successfully created ledger person."
+        notice: "Successfully created person."
       update:
-        notice: "Successfully updated ledger person."
+        notice: "Successfully updated person."
       destroy:
-        notice: "Successfully deleted ledger person."
-    match_rules:
+        notice: "Successfully deleted person."
+    rules:
       create:
         notice: "Successfully created match rule."
       update:
@@ -30,17 +30,17 @@ en:
         login: "Username"
         password: "Password"
         create: "Log in"
-      ledger_account:
+      account:
         parent_id: "Parent"
         name: "Name"
         commit: "Submit"
-      ledger_person:
+      person:
         commit: "Submit"
-      ledger_item:
+      transaction:
         commit: "Submit"
-      match_rule:
+      rule:
         commit: "Submit"
-      file_import:
+      import:
         commit: "Upload file"
-      file_import_format:
+      mapping:
         commit: "Submit"

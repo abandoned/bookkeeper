@@ -1,12 +1,12 @@
-// Color scheme
+// Colors
 !headline_color = #f66
 !headline_bg_color = #c00
-!nav_color = #bbb
-!nav_bg_color = #333
+!nav_color = #ccc
+!nav_bg_color = #000
 !main_color = #000
 !main_bg_color = #fff
-!footer_color = #888
-!footer_bg_color = #ddd
+!footer_color = #999
+!footer_bg_color = #eee
 
 // Some defaults
 *
@@ -25,69 +25,105 @@ a
   height: 0
   overflow: hidden
 .highlight
-  background-color: #ffc
+  background-color: #ffd
 .large
   font-size: 1.25em
+.small
+  font-size: 0.8em
+.smaller
+  font-size: 0.7em
 .fieldWithErrors
   display: inline
 
 // Headline
-= nav_mixin
-  margin-right: 6px
-  padding: 5px 4px 9px
-#headline
+.headline
   position: relative
-  padding: 9px 48px 3px
+  padding: 12px 48px 3px
   background-color = !headline_bg_color
   h1
     color = !headline_color
-    font-size: 3em
-    font-weight: normal
+    font:
+      size: 3em
+      weight: normal
     a
       color = !headline_color
       text-decoration: none
   
-  // Nav in headline
+  // Navigation bar
   nav
     position: absolute
     bottom: 0
     right: 18px
-    padding: 6px 9px
+    padding: 6px 15px
     background-color = !nav_bg_color
     -moz-border-radius-topleft: 6px
     -moz-border-radius-topright: 6px
     -webkit-border-top-left-radius: 6px
     -webkit-border-top-right-radius: 6px
-    font-size: 0.9em
     a
       color = !nav_color
-      +nav_mixin
+      margin-right: 6px
+      padding: 6px 4px
       text-decoration: none
     .current
-      color = !nav_color - #222
-      +nav_mixin
+      color = !nav_color - #333
+      margin-right: 6px
+      padding: 6px 4px
 
 // Main
-#main
+.main
   padding: 48px
   color = !main_color
   background-color = !main_bg_color
-  a
-    color: #444
-    background-color: #ddd
   h1
-    margin-bottom: 24px
-    color: #999
-    font-size: 2.2em
+    margin-bottom: 30px
+    font-size: 1.6em
     font-weight: normal
+    span
+      border-bottom: 1px solid
   p
     margin-bottom: 12px
+  a
+    color: #57558d
   footer
-    margin-top: 24px
+    margin-top: 36px
+    a
+      margin-right: 12px
+      padding: 6px 12px
+      color: #2175b6
+      background-color: #eee
+      text-decoration: none
+      -moz-border-radius: 6px
+      -webkit-border-radius: 6px
+  .pagination
+    margin: 12px 0 0 6px
 
+// Search form
+form.search
+  margin-bottom: 12px
+  fieldset
+    padding: 0 0 12px 0
+    border: none
+  label
+    margin-right: 3px
+  ul
+    list-style: none
+    padding: 0
+  li
+    display: inline
+    margin-left: 12px
+  li:first-child
+    margin-left: 0
+  input[type="text"]
+    width: 200px
+  
+//Cart of pending matches
+.cart
+  margin-bottom: 36px
+  
 // Footer
-#footer
-  padding: 24px 48px
+.footer
+  padding: 12px 48px
   color= !footer_color
   background-color = !footer_bg_color
 
@@ -137,9 +173,25 @@ a
 // Tables
 table
   border-collapse: collapse
-tr
-  &:hover
-    background-color: #eee
-  &:first-child
-    &:hover
-      background-color: inherit
+  a
+    margin-right: 9px
+    &:last-child
+      margin-right: 0
+  &.data
+    tr
+      &.even
+        background-color: #f4f4f4
+      &:first-child
+        &:hover
+          background-color: inherit
+    td
+      vertical-align: top
+    td.currency
+      text-align: right
+    td, th
+      border: 1px solid #ddd
+      padding: 9px
+      text-align: left
+    tfoot
+      font-weight: bold
+      border: 1px solid #eee

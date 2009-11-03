@@ -1,6 +1,6 @@
 -title "Login", false
 
-- semantic_form_for @user_session, :url => user_session_url do |f| 
+- semantic_form_for @user_session, :url => user_session_path do |f| 
   - f.inputs do 
     = f.input :login, :input_html => { :size => 30 }
     = f.input :password, :input_html => { :size => 30 }

@@ -24,6 +24,10 @@ Rails::Initializer.run do |config|
   config.gem 'inherited_resources',
              :source => 'http://gemcutter.org',
              :version => '>= 0.9.2'
+  config.gem 'jnunemaker-validatable',
+             :lib => "validatable",
+             :source => "http://gemcutter.org",
+             :version => '>= 1.8.0'
   config.gem 'will_paginate',
              :source => 'http://gemcutter.org',
              :version => '~> 2.3.11'
@@ -49,3 +53,5 @@ Rails::Initializer.run do |config|
 end
 
 Haml::Template.options[:format] = :html5
+
+require 'ar-extensions'

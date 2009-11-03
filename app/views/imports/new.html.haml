@@ -1,0 +1,20 @@
+- title "Import transactions"
+
+- semantic_form_for @import, :url => import_path, :html => { :multipart => true } do |f|
+  = f.error_messages
+  - f.inputs do
+    %li{:class => "select required account", :id => "import_account_input"}
+      %label{:for => "import_account_id"}
+        Account
+        <abbr title="required">*</abbr>
+      - hamlified_grouped_tree_select(Account.roots, "import", "account_id")
+    = f.input :ending_balance
+    = f.input :mapping_id, :as => :select, :collection => Mapping.all, :include_blank => "Select format"
+    = f.input :file, :as => :file
+  - f.buttons do
+    = f.commit_button :button_html => { :value => t('formtastic.labels.import.commit') }
+  
+%footer
+  = link_to "&#x2190; Back to Transactions", transactions_path
+  
+  

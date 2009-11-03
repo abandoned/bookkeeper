@@ -19,6 +19,6 @@
       = link_to "View matches", transaction.match
     - else
       - if transaction.sender && transaction.recipient
-        - form_tag(cart_path, :method => "put", :class => "add_to_cart") do
+        - form_tag(add_to_cart_path, :method => "post", :class => "ajaxForm") do
           = hidden_field_tag(:transaction_id, transaction.id)
           = submit_tag("Reconcile")

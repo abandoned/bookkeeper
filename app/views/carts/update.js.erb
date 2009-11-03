@@ -1,5 +1,0 @@
-// Create a cart div if it doesn't exist
-if ($('#cart').length == 0) {
-  $('#cart').before("<div id='cart'></div>");
-}
-$('#cart').replaceWith("<%= escape_javascript(render(:partial => "cart", :object => @cart)) %>");

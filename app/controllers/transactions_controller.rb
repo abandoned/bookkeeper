@@ -1,6 +1,6 @@
 class TransactionsController < InheritedResources::Base
   before_filter :require_user
-  before_filter :find_cart, :only => [:index, :add_to_cart, :save_cart]
+  before_filter :find_cart, :only => [:index, :add_to_cart, :save_cart, :empty_cart]
   after_filter :match, :only => [:create, :update]
   belongs_to :account, :optional => true
   respond_to :html, :xml
@@ -20,16 +20,35 @@ class TransactionsController < InheritedResources::Base
     index!
   end
   
+  def add_to_cart
+    if params[:transaction_id]
+      transaction = Transaction.find(params[:transaction_id])
+      @cart.add(transaction)
+    end
+    respond_to do |format|  
+      format.html { redirect_to transactions_path }
+      format.js { render :layout => false }
+    end
+  end
+  
   def save_cart
-    if @cart.balance == 0
+    if @cart.transactions.count > 0 && @cart.balance == 0
       match = Match.create! :transactions => @cart.transactions
       @cart = Cart.new
+      session[:cart] = @cart
       flash[:notice] = "Transactions successfully reconciled"
     else
       flash[:error] = "Could not reconcile transactions"
     end
+    redirect_to transactions_path
+  end
+  
+  def empty_cart
+    @cart = Cart.new
+    session[:cart] = @cart
     respond_to do |format|  
-      format.html { redirect_to :action => :index }
+      format.html { redirect_to transactions_path }
+      format.js { render :layout => false }
     end
   end
     
@@ -47,7 +66,7 @@ class TransactionsController < InheritedResources::Base
     end
   end
   
-  private
+  protected
   
   def find_cart
     session[:cart] ||= Cart.new

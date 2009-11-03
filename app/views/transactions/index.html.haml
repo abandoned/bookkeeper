@@ -1,9 +1,8 @@
 - title "Transactions"
--javascript "transactions"
 
 - unless @cart.transactions.empty?
   = render :partial => "carts/cart"
-
+  
 = render :partial => "search"
 
 - if collection.size > 0
@@ -19,9 +18,9 @@
         %th Description
     %tfoot
       %tr.smaller
-        %td{:colspan => 3}
+        %td{:colspan => 2}
           Total:
-        %td{:colspan => 2, :class => "currency"}
+        %td{:colspan => 4, :class => "currency"}
           - counter = 0
           - @totals.each do |k, v|
             - counter += 1

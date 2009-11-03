@@ -17,8 +17,9 @@
     %tfoot
       %tr
         %td.smaller
-          = link_to "Discard all", cart_path, :method => :delete
+          = link_to "Discard all", empty_cart_path, :class => "get"
           - if @cart.balance == 0
             = link_to "Reconcile", save_cart_path
     %tbody
       = render(:partial => "carts/transaction", :collection => cart.transactions)
+= javascript_tag "ajaxLinks()"

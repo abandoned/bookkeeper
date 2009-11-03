@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :people, :has_many => :transactions
   map.resource :user_session, :only => [:new, :create, :destroy]
   
+  map.add_to_cart "/add_to_cart", :controller => "transactions", :action => "add_to_cart"
   map.save_cart "/save_cart", :controller => "transactions", :action => "save_cart"
   map.empty_cart "/empty_cart", :controller => "transactions", :action => "empty_cart"
   map.login  "/login",  :controller => "user_sessions", :action => "new"

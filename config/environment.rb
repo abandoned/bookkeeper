@@ -20,7 +20,7 @@ Rails::Initializer.run do |config|
              :version => '>= 2.1.2'
   config.gem 'formtastic',
              :source => 'http://gemcutter.org',
-             :version => '>= 0.9.0'
+             :version => '>= 0.9.1'
   config.gem 'inherited_resources',
              :source => 'http://gemcutter.org',
              :version => '>= 0.9.2'

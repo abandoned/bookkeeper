@@ -21,8 +21,8 @@ Feature: Authentication
     When I go to the list of people
     Then I should be on the login page
   
-  Scenario: Require login on list of transactions
-    When I go to the list of transactions
+  Scenario: Require login on list of ledger items
+    When I go to the list of ledger_items
     Then I should be on the login page
   
   Scenario: Require login on list of mappings

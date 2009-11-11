@@ -1,35 +1,28 @@
 !!!
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
-    %meta{:name => "viewport", :content => "width=660"}
     %link{:href => "/images/icon.png", :rel => "shortcut icon", :type => "image/x-icon" }
-    %title= strip_tags(yield(:title))
-    = stylesheet_link_tag "application", "formtastic", "formtastic_changes"
-    - if Rails.env == "production"
-      %script{:type => "text/javascript", :src =>"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"}
-    - else
-      = javascript_include_tag "jquery-1.3.2.min"
+    %title= yield(:title)
+    = stylesheet_link_tag :all
+    = javascript_include_tag "jquery-1.3.2.min"
     = javascript_include_tag "application"
     - if @content_for_head
       = yield(:head)
-    /[if IE]
-      %script{ :src => "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
-    - if protect_against_forgery?
-      %script{ :type => "text/javascript"}
-        = "var AUTH_TOKEN = #{form_authenticity_token.inspect}"
   %body
-    %section.headline
+    #header
       %h1= link_to_unless_current "Bookkeeper", root_path
-      = render :partial => "shared/nav"
+      #nav
+        - for link in nav_links
+          = link_to_unless_current(link[:name], link[:path]) { |l| content_tag(:span, l, :class => "current") }
     
     - flash.each do |name, msg|
-      - haml_tag(:section, msg, :id => "flash_#{name}")
-    
-    %section.main
+      - haml_tag(:div, :id => "flash_#{name}") do
+        - haml_tag(:div, msg)
+    #main
       - if show_title?
         %h1
           %span= yield(:title)
       = yield
-    
-    %section{:class => "small footer"}
-      &copy; 2009 Paper Cavalier
+    #footer
+      %p.small
+        &copy; 2009 Paper Cavalier

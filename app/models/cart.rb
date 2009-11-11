@@ -1,14 +1,14 @@
 class Cart
-  def transactions
-    @transactions ||= []
+  def ledger_items
+    @ledger_items ||= []
   end
   
-  def add(transaction)
-    self.transactions << transaction unless transaction.matched? || self.transactions.include?(transaction)
+  def add(ledger_item)
+    self.ledger_items << ledger_item unless ledger_item.matched? || self.ledger_items.include?(ledger_item)
   end
   
   def balance
-    self.transactions.sum{ |t| t.total_amount }
+    self.ledger_items.sum{ |t| t.total_amount }
   end
   
   def reconciled?

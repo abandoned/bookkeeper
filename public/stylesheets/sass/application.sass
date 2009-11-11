@@ -1,22 +1,24 @@
 // Colors
-!headline_color = #f66
-!headline_bg_color = #c00
-!nav_color = #ccc
-!nav_bg_color = #000
+!color = #475159
+!bg_color = #b2bdb7
+!headline_color = #f2f2f2
+!headline_bg_color = #839795
+!nav_color = #f2f2f2
+!nav_bg_color = #475159
 !main_color = #000
-!main_bg_color = #fff
-!footer_color = #999
-!footer_bg_color = #eee
+!main_bg_color = #f2f2f2
 
 // Some defaults
 *
   margin: 0
-header, footer, nav, section, article
-  display: block
+body, html
+  height: 100%
 body
   font:
     family: Helvetica, Arial
     size: 20px
+  color = !color
+  background-color = !bg_color
 a
   img
     border: none
@@ -26,6 +28,8 @@ a
   overflow: hidden
 .highlight
   background-color: #ffd
+.underline
+  text-decoration: underline
 .large
   font-size: 1.25em
 .small
@@ -35,10 +39,10 @@ a
 .fieldWithErrors
   display: inline
 
-// Headline
-.headline
+// Header
+#header
   position: relative
-  padding: 12px 48px 3px
+  padding: 0.8em 3em 0.2em
   background-color = !headline_bg_color
   h1
     color = !headline_color
@@ -49,30 +53,31 @@ a
       color = !headline_color
       text-decoration: none
   
-  // Navigation bar
-  nav
-    position: absolute
-    bottom: 0
-    right: 18px
-    padding: 6px 15px
-    background-color = !nav_bg_color
-    -moz-border-radius-topleft: 6px
-    -moz-border-radius-topright: 6px
-    -webkit-border-top-left-radius: 6px
-    -webkit-border-top-right-radius: 6px
-    a
-      color = !nav_color
-      margin-right: 6px
-      padding: 6px 4px
-      text-decoration: none
-    .current
-      color = !nav_color - #333
-      margin-right: 6px
-      padding: 6px 4px
+// Navigation
+#nav
+  position: absolute
+  bottom: 0
+  right: 18px
+  padding: 6px 15px
+  background-color = !nav_bg_color
+  -moz-border-radius-topleft: 6px
+  -moz-border-radius-topright: 6px
+  -webkit-border-top-left-radius: 6px
+  -webkit-border-top-right-radius: 6px
+  font-size: 0.9em
+  a
+    color = !nav_color
+    margin-right: 6px
+    padding: 6px 3px
+    text-decoration: none
+  .current
+    color = !nav_color - #444
+    margin-right: 6px
+    padding: 6px 3px
 
 // Main
-.main
-  padding: 48px
+#main
+  padding: 3em
   color = !main_color
   background-color = !main_bg_color
   h1
@@ -84,14 +89,14 @@ a
   p
     margin-bottom: 12px
   a
-    color: #57558d
-  footer
+    color = !main_color + #777
+  .footer
     margin-top: 36px
     a
       margin-right: 12px
       padding: 6px 12px
-      color: #2175b6
-      background-color: #eee
+      color: #f2f2f2
+      background-color: #839795
       text-decoration: none
       -moz-border-radius: 6px
       -webkit-border-radius: 6px
@@ -116,29 +121,26 @@ form.search
     margin-left: 0
   input[type="text"]
     width: 200px
+    border: 1px solid #999
   
 //Cart of pending matches
 .cart
   margin-bottom: 36px
   
 // Footer
-.footer
-  padding: 12px 48px
-  color= !footer_color
-  background-color = !footer_bg_color
+#footer
+  padding: 0.5em 3em
 
 // Flash messages
-=flash_mixin
+#flash_notice div, #flash_error div
   padding: 9px 48px
   color: #000
 #flash_notice
-  +flash_mixin
   background-color: #cfc
-  border-bottom: dashed 1px #6C6
+  border-bottom: solid 1px #6C6
 #flash_error
-  +flash_mixin
   background-color: #fcc
-  border-bottom: dashed 1px #C66
+  border-bottom: solid 1px #C66
 
 // Error element in forms
 #errorExplanation
@@ -180,18 +182,16 @@ table
   &.data
     tr
       &.even
-        background-color: #f4f4f4
-      &:first-child
-        &:hover
-          background-color: inherit
+        background-color: #eaeaea
     td
       vertical-align: top
     td.currency
       text-align: right
     td, th
       border: 1px solid #ddd
-      padding: 9px
+      padding: 9px 6px
       text-align: left
     tfoot
       font-weight: bold
-      border: 1px solid #eee
+      td
+        border: none

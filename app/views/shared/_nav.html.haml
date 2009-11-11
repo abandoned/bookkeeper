@@ -1,3 +1,0 @@
-%nav
-  - for link in nav_links
-    = link_to_unless_current(link[:name], link[:path]) { |l| content_tag(:span, l, :class => "current") }

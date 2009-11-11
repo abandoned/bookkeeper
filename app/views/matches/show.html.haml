@@ -1,0 +1,19 @@
+-title "Matches"
+  
+.cart
+  %table.data
+    %thead
+      %tr.small
+        %th ID
+        %th Account
+        %th Sender
+        %th Recipient
+        %th Issue Date
+        %th Amount
+        %th Description
+    %tfoot
+      %tr
+        %td.smaller
+          = link_to "Delete match", "#"
+    %tbody
+      = render(:partial => "ledger_item", :collection => resource.ledger_items)

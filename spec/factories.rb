@@ -14,13 +14,17 @@ Factory.define :person do |f|
   f.sequence(:name) { |n| "foo#{n}" }
 end
 
-Factory.define :transaction do |f|
-  f.issued_on { Date.today }
+Factory.define :ledger_item do |f|
+  f.transacted_on { Date.today }
   f.total_amount 10
   f.currency "USD"
+  f.association :account
 end
 
 Factory.define :rule do |f|
-  f.description_matcher "foo"
+  f.regexp "foo"
   f.debit true
+end
+
+Factory.define :match do |f|
 end

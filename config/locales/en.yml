@@ -19,13 +19,14 @@ en:
         notice: "Successfully deleted person."
     rules:
       create:
-        notice: "Successfully created match rule."
+        notice: "Successfully created rule."
       update:
-        notice: "Successfully updated match rule."
+        notice: "Successfully updated rule."
       destroy:
-        notice: "Successfully deleted match rule."
+        notice: "Successfully deleted rule."
   formtastic:
     labels:
+      commit: "Submit"
       user_session:
         login: "Username"
         password: "Password"
@@ -33,14 +34,5 @@ en:
       account:
         parent_id: "Parent"
         name: "Name"
-        commit: "Submit"
-      person:
-        commit: "Submit"
-      transaction:
-        commit: "Submit"
-      rule:
-        commit: "Submit"
       import:
         commit: "Upload file"
-      mapping:
-        commit: "Submit"

@@ -13,6 +13,7 @@
 #  identifier_row         :integer
 #  has_title_row          :boolean
 #  day_follows_month      :boolean
+#  reverses_sign          :boolean
 #  created_at             :datetime
 #  updated_at             :datetime
 #

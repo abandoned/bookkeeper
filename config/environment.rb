@@ -15,6 +15,9 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
+  config.gem 'ancestry',
+             :source => 'http://gemcutter.org',
+             :version => '1.1.4'
   config.gem 'ar-extensions',
              :source => 'http://gemcutter.org',
              :version => '>= 0.9.2'

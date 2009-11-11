@@ -7,11 +7,11 @@
       %br
       = render :partial => "child", :collection => resource.children
   %p
-    = link_to "Transactions", account_transactions_path(resource)
+    = link_to "View ledger items", account_ledger_items_path(resource)
   %p
     = link_to "Rules", account_rules_path(resource)
   %p TODO Display other summary info on account
-  %footer
+  .footer
     = link_to "Edit", edit_resource_path(resource)
     = link_to "Destroy", resource_path(resource), :confirm => 'Are you sure?', :method => :delete
     = link_to "View all accounts", collection_path

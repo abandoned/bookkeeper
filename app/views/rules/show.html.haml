@@ -2,7 +2,7 @@
 
 %p
   %strong Description Match String:
-  = resource.description_matcher 
+  = resource.regexp 
 %p
   %strong Debit:
   = resource.debit
@@ -16,7 +16,7 @@
   %strong Matching Account:
   = resource.matching_account.name
 
-%footer
+.footer
   = link_to "Edit", edit_resource_path
   = link_to "Destroy", resource_path, :confirm => 'Are you sure?', :method => :delete
   = link_to "View All", collection_path

@@ -18,19 +18,19 @@
 #
 
 class Person < ActiveRecord::Base
-  has_many :sent_transactions,
-           :class_name => "Transaction",
+  has_many :sent_ledger_items,
+           :class_name => "LedgerItem",
            :foreign_key => "sender_id"
-  has_many :received_transactions,
-           :class_name => "Transaction",
+  has_many :received_ledger_items,
+           :class_name => "LedgerItem",
            :foreign_key => "recipient_id"
-  before_destroy :may_not_have_sent_or_received_transactions
+  before_destroy :may_not_orphan_ledger_items
   named_scope :self, :conditions => ["is_self = ?", true]
   
   protected
   
-  def may_not_have_sent_or_received_transactions
-    if self.received_transactions.size > 0 || self.sent_transactions.size > 0
+  def may_not_orphan_ledger_items
+    if self.received_ledger_items.size > 0 || self.sent_ledger_items.size > 0
       raise ActiveRecord::RecordNotDestroyed
     end
   end

@@ -14,7 +14,7 @@ class Import
     mapping = Mapping.find(self.mapping_id)
     counter = 0
     
-    transactions = []
+    ledger_items = []
     data = self.file.read
     data.each_line do |line|
     
@@ -28,13 +28,13 @@ class Import
       sign = mapping.reverses_sign? ? -1 : 1
         
       CSV.parse line do |row|
-        t = Transaction.new(:account_id => self.account_id)
+        t = LedgerItem.new(:account_id => self.account_id)
         
         # Format date
         if mapping.day_follows_month?
-          t.issued_on = row[mapping.date_row - 1]
+          t.transacted_on = row[mapping.date_row - 1]
         else
-          t.issued_on = Date.strptime(row[mapping.date_row - 1], '%d/%m/%Y')
+          t.transacted_on = Date.strptime(row[mapping.date_row - 1], '%d/%m/%Y')
         end
         
         # Money entries
@@ -52,17 +52,17 @@ class Import
         
         # Save
         if t.valid?
-          transactions << t
+          ledger_items << t
           counter += 1
         end
       end
     end
     
     # Calculate ending balance
-    new_balance = account.transactions.sum("total_amount").to_f.round(2) + 
-      transactions.sum { |t| t.total_amount }.to_f.round(2)
+    new_balance = account.ledger_items.sum("total_amount").to_f.round(2) + 
+      ledger_items.sum { |t| t.total_amount }.to_f.round(2)
     if new_balance == self.ending_balance.to_f
-      Transaction.import transactions
+      LedgerItem.import ledger_items
     else
       return 0
     end

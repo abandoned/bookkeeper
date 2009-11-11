@@ -1,14 +1,16 @@
 class CreateAccounts < ActiveRecord::Migration
   def self.up
     create_table :accounts do |t|
-      t.integer :parent_id
+      t.string :ancestry
       t.string :name
       
       t.timestamps
-    end
+    end    
+    add_index :accounts, :ancestry
   end
   
   def self.down
     drop_table :accounts
+    remove_index :accounts, :ancestry
   end
 end

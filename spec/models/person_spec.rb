@@ -24,7 +24,7 @@ describe Person do
     @account = Factory(:account)
     @sender = Factory(:person)
     @recipient = Factory(:person)
-    @transaction = Factory(:transaction,
+    @ledger_item = Factory(:ledger_item,
                            :sender => @sender,
                            :recipient => @recipient,
                            :account => @account,
@@ -32,17 +32,17 @@ describe Person do
                            :currency => "USD")
   end
 
-  it "should not destroy if he has sent transactions" do
+  it "should not expire if he has sent ledger items" do
     lambda {@sender.destroy}.should raise_error(ActiveRecord::RecordNotDestroyed)
   end
   
-  it "should not destroy if he has received transactions" do
+  it "should not expire if he has received ledger items" do
     lambda {@sender.destroy}.should raise_error(ActiveRecord::RecordNotDestroyed)
   end
   
-  it "should destroy if has no sent transactions" do
-    @transaction.destroy
+  it "should expire if has no sent ledger items" do
+    @ledger_item.destroy
     @sender.destroy
-    lambda {Person.find(@sender.id).should be_nil}.should raise_error(ActiveRecord::RecordNotFound)
+    lambda {Person.find(@sender.id)}.should raise_error(ActiveRecord::RecordNotFound)
   end
 end

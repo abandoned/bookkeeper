@@ -2,7 +2,7 @@
 
 #person
   %p @/ TODO display summary info on account
-  %footer
+  .footer
     = link_to "Edit", edit_resource_path(resource)
     = link_to "Destroy", resource_path(resource), :confirm => 'Are you sure?', :method => :delete
     = link_to "View all people", collection_path

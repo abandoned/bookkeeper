@@ -1,19 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :accounts, :has_many => [:rules, :transactions]
-  map.resource :cart, :only => [:show, :update, :destroy]
+  map.resources :accounts, :has_many => [:rules, :ledger_items]
   map.resource  :import, :only => [:new, :create]
-  map.resources :matches, :only => [:show]
-  map.resources :mappings, :transactions
-  map.resources :people, :has_many => :transactions
+  map.resources :matches, :except => [:index]
+  map.resources :mappings, :ledger_items
+  map.resources :people, :has_many => :ledger_items
   map.resource :user_session, :only => [:new, :create, :destroy]
   
-  map.add_to_cart "/add_to_cart", :controller => "transactions", :action => "add_to_cart"
-  map.save_cart "/save_cart", :controller => "transactions", :action => "save_cart"
-  map.empty_cart "/empty_cart", :controller => "transactions", :action => "empty_cart"
-  map.login  "/login",  :controller => "user_sessions", :action => "new"
   map.logout  "/logout",  :controller => "user_sessions", :action => "destroy"
   
-  map.root :controller => "landing", :action => "index"
+  map.add_to_cart "/add_to_cart", :controller => "ledger_items", :action => "add_to_cart"
+  map.save_cart "/save_cart", :controller => "ledger_items", :action => "save_cart"
+  map.empty_cart "/empty_cart", :controller => "ledger_items", :action => "empty_cart"
+  
+  map.root :controller => "welcome", :action => "index"
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

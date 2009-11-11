@@ -5,7 +5,7 @@ class CreateRules < ActiveRecord::Migration
       t.integer :recipient_id
       t.integer :account_id
       t.integer :matching_account_id
-      t.string :description_matcher
+      t.string :regexp
       t.boolean :debit
       t.timestamps
     end

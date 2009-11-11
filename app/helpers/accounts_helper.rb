@@ -12,7 +12,7 @@ module AccountsHelper
       collection.collect do |parent|
         next if parent.parent_id && init
         haml_tag :li do
-          haml_concat(yield parent)
+          haml_concat(yield(parent))
           tree_ul(parent.children, false, &block) 
         end
       end

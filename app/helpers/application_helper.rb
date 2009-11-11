@@ -3,13 +3,13 @@
 module ApplicationHelper
   def nav_links
     if current_user
-      [{ :name => "Transactions",  :path => transactions_path },
+      [{ :name => "Ledger Items",  :path => ledger_items_path },
        { :name => "Accounts",      :path => accounts_path },
        { :name => "People",        :path => people_path },
        { :name => "Reports",       :path => "/not-done-yet.html" },
        { :name => "Log out",       :path => logout_path }]
     else
-      [{ :name => "Log in",    :path => login_path }]
+      [{ :name => "Log in",        :path => new_user_session_path }]
     end
   end
 end

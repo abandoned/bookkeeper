@@ -10,14 +10,8 @@ Given /^I have a default ledger set up$/ do
 end
 
 Given /^I have an? (.*) account descending from (.*)$/ do |name, parent_name|
-  family_tree = parent_name.split(/,\s*/) << name
-  parent = family_tree.inject(nil) do |parent, name|
-    if parent.nil?
-      Account.find_by_name(name, :conditions => "parent_id IS NULL")
-    else
-      parent.children.find_by_name(name) || Factory(:account, { :name => name, :parent => parent })
-    end
-  end
+  parent = Account.find_by_name(parent_name)
+  Factory(:account, { :name => name, :parent => parent })
 end
 
 Given /^the following accounts?$/ do |table|

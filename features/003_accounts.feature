@@ -24,6 +24,8 @@ Feature: Manage Accounts
     And I press "Submit"
     Then I should see "Assets > Fixed Assets"
   
+  Scenario: Cannot create an account without a parent
+  
   Scenario: Do not have option to set parent of account to itself or its descendants
     Given I have a Current Assets account descending from Assets
     And I am on the Assets account page
@@ -32,14 +34,6 @@ Feature: Manage Accounts
     And the "Parent" select list should not have option "Assets"
     And the "Parent" select list should not have option "Current Assets"
   
-  Scenario: Cannot create an account with no parent set
-    Given I am on the list of accounts
-    When I follow "New Account"
-    And I fill in "Name" with "Impossible account"
-    And I press "Submit"
-    Then I should see "1 error prohibited this account from being saved"
-    And I should see "Parent does not exist"
-  
   Scenario: Cannot create two accounts with identical names under the same parent
     Given I have a Current Assets account descending from Assets
     And I am on the list of accounts
@@ -47,8 +41,7 @@ Feature: Manage Accounts
     And I fill in "Name" with "Current Assets"
     And I select "Assets" from "parent"
     And I press "Submit"
-    Then I should see "1 error prohibited this account from being saved"
-    And I should see "Name has already been taken"
+    Then I should see "has already been taken"
     
   Scenario: Destroy an account with no children
     Given I have a Current Assets account descending from Assets
@@ -57,8 +50,3 @@ Feature: Manage Accounts
     Then I should see "Successfully deleted account"
     
   Scenario: Cannot destroy an account that has children
-    Given I have a Current Assets account descending from Assets
-    And I am on the Assets account page
-    When I follow "Destroy"
-    Then I should see "Account may not be deleted"
-    And I should see "Assets"

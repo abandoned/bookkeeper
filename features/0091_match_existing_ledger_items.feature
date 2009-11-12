@@ -1,7 +1,7 @@
-Feature: Matches
+Feature: Match Existing Ledger Items
   In order to keep the company in order
   As a bookkeeper
-  I want to be able to reconcile ledger items
+  I want to be able to reconcile by matching existing ledger items
   
   Background:
     Given I have a default ledger set up

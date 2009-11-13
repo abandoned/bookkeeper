@@ -28,3 +28,6 @@ end
 
 Factory.define :match do |f|
 end
+
+Factory.define :mapping do |f|
+end

@@ -7,9 +7,18 @@ class ImportsController < ApplicationController
 
   def create
     @import = Import.new(params[:import])
-    return render(:action => 'new') unless @import.valid?
-    count = @import.process
-    flash[:notice] = "#{count} ledger items imported"
-    redirect_to ledger_items_path
+    if @import.valid_for_processing?
+      @import.process
+
+      if @import.valid_for_importing?
+        count = @import.import
+        flash[:notice] = "#{count} ledger items imported"
+        redirect_to ledger_items_path
+        return
+      end
+    end
+
+    flash[:notice] = 'Import failed'
+    render(:action => 'new')
   end
 end

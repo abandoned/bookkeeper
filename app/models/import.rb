@@ -2,11 +2,18 @@ require 'csv'
 
 class Import
   include Validatable
-  validates_presence_of :ending_balance, :account_id, :mapping_id, :file
-  attr_accessor :mapping_id, :ending_balance, :account_id, :file
+  validates_presence_of :ending_balance, :account_id, :mapping_id, :file, :groups => [:processing]
+  validates_each :ending_balance_confirmation, :groups => [:importing],
+                 :logic => lambda {
+                   unless ending_balance.to_f == ending_balance_confirmation.to_f
+                     errors.add(:ending_balance, "of #{ending_balance_confirmation} did not match expected balance of #{ending_balance}")
+                   end
+                  }
+  attr_accessor :ledger_items, :mapping_id, :ending_balance, :ending_balance_confirmation, :account_id, :file
   
   def initialize(params={})
     params.each{ |k, v| self.send "#{k}=", v }
+    self.ledger_items = []
   end
   
   def process
@@ -14,7 +21,6 @@ class Import
     mapping = Mapping.find(self.mapping_id)
     counter = 0
     
-    ledger_items = []
     data = self.file.read
     data.each_line do |line|
     
@@ -59,14 +65,14 @@ class Import
     end
     
     # Calculate ending balance
-    new_balance = account.ledger_items.sum("total_amount").to_f.round(2) + 
+    self.ending_balance_confirmation = account.ledger_items.sum("total_amount").to_f.round(2) + 
       ledger_items.sum { |t| t.total_amount }.to_f.round(2)
-    if new_balance == self.ending_balance.to_f
-      LedgerItem.import ledger_items
-    else
-      return 0
-    end
-    return mapping.has_title_row? ? counter - 1 : counter
+  end
+  
+  def import
+    LedgerItem.import ledger_items
+    
+    return ledger_items.size
   end
   
   def new_record?

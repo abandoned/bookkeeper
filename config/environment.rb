@@ -59,5 +59,3 @@ Rails::Initializer.run do |config|
 end
 
 Haml::Template.options[:format] = :html5
-
-require 'ar-extensions'

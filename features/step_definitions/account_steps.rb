@@ -1,18 +1,13 @@
 Given /^I have a default ledger set up$/ do
-  Given "the following account records:", table(%{
-    | name        |
-    | Assets      |
-    | Liabilities |
-    | Equity      |
-    | Income      |
-    | Expenses    |
-  })
+  steps %Q{
+    Given an account: "Assets" exists with name: "Assets"
+    And an account: "Liabilities" exists with name: "Liabilities"
+    And an account: "Equity" exists with name: "Equity"
+    And an account: "Income" exists with name: "Income"
+    And an account: "Expenses" exists with name: "Expenses"
+  }
 end
 
-Given /^I have an? (.*) account descending from (.*)$/ do |name, parent_name|
-  parent = Account.find_by_name(parent_name)
-  Factory(:account, { :name => name, :parent => parent })
-end
 
 Given /^the following accounts?$/ do |table|
   table.hashes.each do |hash|

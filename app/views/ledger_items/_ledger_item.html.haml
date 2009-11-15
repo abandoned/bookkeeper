@@ -17,8 +17,7 @@
   %td
     - if ledger_item.matched?
       = link_to("View matches", ledger_item.match)
-    - else
-      - if ledger_item.matchable?
-        - form_tag("#", :method => "post") do
-          = hidden_field_tag(:ledger_item_id, ledger_item.id)
-          = submit_tag("Match")
+    - elsif ledger_item.matchable?
+      - form_tag("#", :method => "post") do
+        = hidden_field_tag(:ledger_item_id, ledger_item.id)
+        = submit_tag("Match")

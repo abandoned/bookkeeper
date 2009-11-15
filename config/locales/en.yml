@@ -24,6 +24,13 @@ en:
         notice: "Successfully updated rule."
       destroy:
         notice: "Successfully deleted rule."
+    ledger_items:
+      create:
+        notice: "Successfully created ledger item."
+      update:
+        notice: "Successfully updated ledger item."
+      destroy:
+        notice: "Successfully deleted ledger item."
   formtastic:
     labels:
       commit: "Submit"

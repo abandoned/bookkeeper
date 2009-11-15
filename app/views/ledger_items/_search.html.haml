@@ -2,7 +2,7 @@
   %fieldset
     %ul
       %li
-        %label.smaller From:
+        %label.smaller{:for => "from_date"} From:
         = select_date(params_to_date(params[:from_date]), :prompt => true, :prefix => "from_date")
       %li
         %label.smaller To:

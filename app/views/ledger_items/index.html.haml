@@ -30,11 +30,11 @@
             - else
               = monetize(v, k)
     %tbody
-      = render :partial => "ledger_item", :collection => collection
+      = render(:partial => "ledger_item", :collection => collection)
   = will_paginate(collection, :inner_window => 2, :class => "small pagination")
 - else
-  %p.small No records
+  %p.small No ledger items found
       
 .footer
-  = link_to "New Ledger Item +", new_resource_path
-  = link_to "Import Ledger Items +", new_import_path
+  = link_to "New Ledger Item", new_resource_path
+  = link_to "Import Ledger Items", new_import_path

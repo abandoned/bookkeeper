@@ -14,6 +14,7 @@ class Account < ActiveRecord::Base
   has_many :ledger_items
   has_many :rules
   validates_uniqueness_of :name
+  validates_presence_of :name
   before_destroy :do_not_orphan_ledger_items
   
   protected

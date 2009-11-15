@@ -55,7 +55,6 @@ class LedgerItem < ActiveRecord::Base
         sql << " AND (description LIKE ? OR identifier LIKE ?)"
         vars << "%#{q}%"
         vars << "%#{q}%"
-        p ([sql] + vars).inspect
       end
       { :conditions => [sql] + vars }
     end

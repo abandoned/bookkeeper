@@ -182,16 +182,18 @@ a {
 <div class="example_group">
   <dl>
   <dt id="example_group_1">Account</dt>
-    <script type="text/javascript">moveProgressBar('5.5');</script>
+    <script type="text/javascript">moveProgressBar('5.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not descend from itself</span></dd>
-    <script type="text/javascript">moveProgressBar('11.1');</script>
+    <script type="text/javascript">moveProgressBar('10.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not descend from its descendants</span></dd>
-    <script type="text/javascript">moveProgressBar('16.6');</script>
+    <script type="text/javascript">moveProgressBar('15.7');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not come into being if parent is not found</span></dd>
-    <script type="text/javascript">moveProgressBar('22.2');</script>
+    <script type="text/javascript">moveProgressBar('21.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not orphan children</span></dd>
-    <script type="text/javascript">moveProgressBar('27.7');</script>
+    <script type="text/javascript">moveProgressBar('26.3');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not orphan ledger items</span></dd>
+    <script type="text/javascript">moveProgressBar('31.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should not have a blank name</span></dd>
   </dl>
 </div>
 <div class="example_group">
@@ -199,18 +201,18 @@ a {
   <dt id="example_group_2">Import</dt>
     <script type="text/javascript">makeYellow('rspec-header');</script>
     <script type="text/javascript">makeYellow('example_group_2');</script>
-    <script type="text/javascript">moveProgressBar('33.3');</script>
+    <script type="text/javascript">moveProgressBar('36.8');</script>
     <dd class="spec not_implemented"><span class="not_implemented_spec_name">should test something (PENDING: Not Yet Implemented)</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
   <dt id="example_group_3">LedgerItem</dt>
-    <script type="text/javascript">moveProgressBar('38.8');</script>
+    <script type="text/javascript">moveProgressBar('42.1');</script>
     <dd class="spec passed"><span class="passed_spec_name">should belong to a account</span></dd>
-    <script type="text/javascript">moveProgressBar('44.4');</script>
+    <script type="text/javascript">moveProgressBar('47.3');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not have a tax amount that exceeds the total amount</span></dd>
-    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <script type="text/javascript">moveProgressBar('52.6');</script>
     <dd class="spec passed"><span class="passed_spec_name">should have a valid currency code</span></dd>
   </dl>
 </div>
@@ -219,43 +221,43 @@ a {
   <dt id="example_group_4">Mapping</dt>
     <script type="text/javascript">makeYellow('rspec-header');</script>
     <script type="text/javascript">makeYellow('example_group_4');</script>
-    <script type="text/javascript">moveProgressBar('55.5');</script>
+    <script type="text/javascript">moveProgressBar('57.8');</script>
     <dd class="spec not_implemented"><span class="not_implemented_spec_name">should test something (PENDING: Not Yet Implemented)</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
   <dt id="example_group_5">Match</dt>
-    <script type="text/javascript">moveProgressBar('61.1');</script>
+    <script type="text/javascript">moveProgressBar('63.1');</script>
     <dd class="spec passed"><span class="passed_spec_name">should reconcile if sum of totals of matched ledger items is 0</span></dd>
-    <script type="text/javascript">moveProgressBar('66.6');</script>
+    <script type="text/javascript">moveProgressBar('68.4');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not validate if not reconciled</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
   <dt id="example_group_6">Person</dt>
-    <script type="text/javascript">moveProgressBar('72.2');</script>
+    <script type="text/javascript">moveProgressBar('73.6');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not expire if he has sent ledger items</span></dd>
-    <script type="text/javascript">moveProgressBar('77.7');</script>
+    <script type="text/javascript">moveProgressBar('78.9');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not expire if he has received ledger items</span></dd>
-    <script type="text/javascript">moveProgressBar('83.3');</script>
+    <script type="text/javascript">moveProgressBar('84.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">should expire if has no sent ledger items</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
   <dt id="example_group_7">Rule</dt>
-    <script type="text/javascript">moveProgressBar('88.8');</script>
+    <script type="text/javascript">moveProgressBar('89.4');</script>
     <dd class="spec passed"><span class="passed_spec_name">should update a matching ledger item</span></dd>
-    <script type="text/javascript">moveProgressBar('94.4');</script>
+    <script type="text/javascript">moveProgressBar('94.7');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not update a ledger item when debit rule matches but description does not</span></dd>
     <script type="text/javascript">moveProgressBar('100.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not update a ledger item when description matches but debit rule does not</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.451312 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "18 examples, 0 failures, 2 pending";</script>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.510851 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "19 examples, 0 failures, 2 pending";</script>
 </div>
 </div>
 </body>

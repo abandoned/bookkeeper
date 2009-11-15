@@ -1,52 +1,76 @@
 Feature: Manage Accounts
   In order to keep the company in order
-  As a bookkeeper
+  As a user
   I want to be able to create and manage accounts
   
   Background:
-    Given I have a default ledger set up
-    And I am logged in as bookkeeper
+    Given I am logged in
+    And I have a default ledger set up
   
   Scenario: Create an account
-    Given I am on the list of accounts
+    Given I am on path "/accounts"
     When I follow "New Account"
     And I fill in "Name" with "Current Assets"
-    And I select "Assets" from "Parent*"
+    And I select "Assets" from "Parent"
     And I press "Submit"
-    Then I should see "Successfully created account"
-    And I should see "Assets > Current Assets"
-    
+    Then an account should exist with name: "Current Assets"
+    And that account should be one of account "Assets"'s children
+    And I should be on the show page for that account
+  
   Scenario: Rename an existing account
-    Given I have a Current Assets account descending from Assets
-    And I am on the Current Assets account page
+    Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
+    And I am on the show page for account "Current Assets"
     When I follow "Edit"
     And I fill in "Name" with "Fixed Assets"
     And I press "Submit"
-    Then I should see "Assets > Fixed Assets"
-  
-  Scenario: Cannot create an account without a parent
-  
+    Then I should see "Assets > Fixed Assets" within "#main h1"
+    And an account should exist with name: "Fixed Assets"
+    And that account should be one of account "Assets"'s children
+    
   Scenario: Do not have option to set parent of account to itself or its descendants
-    Given I have a Current Assets account descending from Assets
-    And I am on the Assets account page
+    Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
+    And I am on the show page for account "Assets"
     When I follow "Edit"
-    Then the "Parent" select list should have option "Liabilities"
-    And the "Parent" select list should not have option "Assets"
-    And the "Parent" select list should not have option "Current Assets"
+    Then I should see "Liabilities" within "#account_parent_id"
+    And I should not see "Assets" within "#account_parent_id"
+    And I should not see "Current Assets" within "#account_parent_id"
   
   Scenario: Cannot create two accounts with identical names under the same parent
-    Given I have a Current Assets account descending from Assets
-    And I am on the list of accounts
+    Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
+    And I am on path "/accounts"
     When I follow "New Account"
     And I fill in "Name" with "Current Assets"
     And I select "Assets" from "parent"
     And I press "Submit"
     Then I should see "has already been taken"
-    
-  Scenario: Destroy an account with no children
-    Given I have a Current Assets account descending from Assets
-    And I am on the Current Assets account page
-    When I follow "Destroy"
+  
+  Scenario: Delete an account with no children
+    Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
+    And I am on the show page for account "Current Assets"
+    When I follow "Delete"
     Then I should see "Successfully deleted account"
+    And an account should not exist with name: "Current Assets"
     
-  Scenario: Cannot destroy an account that has children
+  Scenario: Cannot Delete an account that has children
+    Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
+    And I am on the show page for account "Assets"
+    When I follow "Delete"
+    Then I should see "Cannot delete account because it has descendants" within "#flash_error"
+    And an account should exist with name: "Current Assets"
+    
+  Scenario: Cannot Delete an account that has ledger items
+    Given a ledger_item exists with account: account "Assets"
+    And I am on the show page for account "Assets"
+    When I follow "Delete"
+    Then I should see "Cannot delete account because it has dependants" within "#flash_error"
+    And an account should exist with name: "Assets"
+  
+  Scenario: Create new subaccount from show page of an account
+    Given I am on the show page for account "Assets"
+    When I follow "New"
+    And I fill in "Name" with "Current Assets"
+    And I press "Submit"
+    Then an account should exist with name: "Current Assets"
+    And that account should be one of account "Assets"'s children
+    And I should be on the show page for that account
+    

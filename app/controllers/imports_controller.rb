@@ -18,7 +18,7 @@ class ImportsController < ApplicationController
       end
     end
 
-    flash[:notice] = 'Import failed'
+    flash.now[:error] = 'Import failed'
     render(:action => 'new')
   end
 end

@@ -26,6 +26,7 @@
         %td= person.tax_number
         %td= person.is_self
 - else
-  %p Nothing recorded yet.
+  %p No people found
+
 .footer
-  = link_to "New Person +", new_resource_path
+  = link_to "New Person", new_resource_path

@@ -8,7 +8,15 @@
 !main_color = #000
 !main_bg_color = #f2f2f2
 
-// Some defaults
+// Mixins
+=large-font
+  font-size: 1.25em
+=small-font
+  font-size: 0.8em
+=smaller-font
+  font-size: 0.7em
+
+// Some resetting
 *
   margin: 0
 body, html
@@ -27,15 +35,15 @@ a
   height: 0
   overflow: hidden
 .highlight
-  background-color: #ffd
+  background-color: #ffc
 .underline
   text-decoration: underline
 .large
-  font-size: 1.25em
+  +large-font
 .small
-  font-size: 0.8em
+  +small-font
 .smaller
-  font-size: 0.7em
+  +smaller-font
 .fieldWithErrors
   display: inline
 
@@ -91,15 +99,11 @@ a
   a
     color = !main_color + #777
   .footer
-    margin-top: 36px
+    margin-top: 24px
     a
       margin-right: 12px
-      padding: 6px 12px
-      color: #f2f2f2
-      background-color: #839795
-      text-decoration: none
-      -moz-border-radius: 6px
-      -webkit-border-radius: 6px
+      background-color= !main_bg_color - #111
+  
   .pagination
     margin: 12px 0 0 6px
 
@@ -122,6 +126,7 @@ form.search
   input[type="text"]
     width: 200px
     border: 1px solid #999
+    padding: 1px
   
 //Cart of pending matches
 .cart
@@ -130,6 +135,8 @@ form.search
 // Footer
 #footer
   padding: 0.5em 3em
+  a
+    color = !color + #222
 
 // Flash messages
 #flash_notice div, #flash_error div

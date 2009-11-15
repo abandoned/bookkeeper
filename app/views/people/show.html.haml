@@ -1,8 +1,8 @@
 - title resource.name
 
-#person
-  %p @/ TODO display summary info on account
-  .footer
-    = link_to "Edit", edit_resource_path(resource)
-    = link_to "Destroy", resource_path(resource), :confirm => 'Are you sure?', :method => :delete
-    = link_to "View all people", collection_path
+%p @/ TODO display summary info on account
+
+.footer
+  = link_to "Edit", edit_resource_path(resource)
+  = link_to "Delete", resource_path(resource), :confirm => 'Are you sure?', :method => :delete
+  = link_to "Back to List", collection_path

@@ -1,35 +1,41 @@
-Feature: Manage Ledger Items
+Feature: Search Ledger Items
   In order to keep the company in order
-  As a bookkeeper
-  I want to be able to create and manage ledger items
+  As a user
+  I want to be able to search ledger items
   
   Background:
-    Given I am logged in as bookkeeper
+    Given I am logged in
     And I have a default ledger set up
-    And I have a Current Assets account descending from Assets
-    And I have a Bank Accounts account descending from Current Assets
-    And I have a Bank Account account descending from Bank Accounts
-    And I have a Shipping Expenses account descending from Expenses
-    And the following person records:
-      | name                | is_self |
-      | Paper Cavalier | true   |
-      | US Postal Service   | false   |
-    
-  Scenario: Create a new credit entry under the Citibank account
-    Given I am on the list of ledger_items
-    And I follow "New ledger item"
-    And I select "Bank Account" from "Account"
-    And I select "January 1, 2009" as the date
-    And I select "Paper Cavalier" from "Sender"
-    And I select "US Postal Service" from "Recipient"
-    And I select "USD" from "Currency"
-    And I fill in "Total Amount" with "-20"
-    And I fill in "Description" with "US Postal Service charge"
-    And I press "Submit"
-    Then I should see "US Postal Service charge"
-    And I should see "Bank Account"
-    And I should see "-20.0"
-    
-  Scenario: View ledger ledger items for a date range
-    
+    And a ledger_item exists with description: "Coffee", total_amount: "2.99", currency: "USD", account: account "Expenses", transacted_on: "1/1/2009"
+    And a ledger_item exists with description: "Hot Chocolate", total_amount: "3.99", currency: "USD", account: account "Expenses", transacted_on: "1/2/2009"
+    And a ledger_item exists with description: "Tea", identifier: "Foo bar", total_amount: "1.99", currency: "USD", account: account "Expenses", transacted_on: "1/3/2009"
+    And a ledger_item exists with description: "Money owed", total_amount: "-10", currency: "USD", account: account "Liabilities", transacted_on: "1/4/2009"
   
+  Scenario: Search by description
+    Given I am on the path "/ledger_items"
+    When I fill in "query" with "Coffee"
+    And I press "Search"
+    Then I should see "Coffee" within "table"
+    And I should not see "Tea" within "table"
+  
+  Scenario: Search by account type
+    Given I am on the path "/ledger_items"
+    When I select "Liabilities" from "account"
+    And I press "Search"
+    Then I should see "Money owed" within "table"
+    And I should not see "Coffee" within "table"
+    And I should not see "Tea" within "table"
+  
+  Scenario: Search unmatched only
+    Given a ledger_item exists with description: "Foo", match_id: "1"
+    And I am on the path "/ledger_items"
+    When I check "unmatched"
+    And I press "Search"
+    Then I should see "Coffee" within "table"
+    And I should not see "Foo" within "table"
+  
+  Scenario: Search after a date
+  
+  Scenario: Search prior to a date
+  
+  Scenario: Search between two dates

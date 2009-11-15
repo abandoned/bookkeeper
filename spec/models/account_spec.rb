@@ -40,4 +40,9 @@ describe Account do
                           :account => @child)
     lambda {@child.destroy}.should raise_error(ActiveRecord::RecordNotDestroyed)
   end
+  
+  it "should not have a blank name" do
+    @parent.name = ""
+    lambda {@parent.save!}.should raise_error(ActiveRecord::RecordInvalid)
+  end
 end

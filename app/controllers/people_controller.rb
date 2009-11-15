@@ -7,8 +7,8 @@ class PeopleController < InheritedResources::Base
     begin
       destroy!
     rescue ActiveRecord::RecordNotDestroyed
-      flash.now[:error] = "Person may not be deleted"
-      render :action => :show
+      flash.now[:error] = "Cannot delete person because she has dependants"
+      render(:action => :show)
     end
   end
 end

@@ -17,7 +17,7 @@
   %td
     - if ledger_item.matched?
       = link_to("View matches", ledger_item.match)
-    - elsif ledger_item.matchable?
+    - elsif ledger_item.matchable? && !@cart.ledger_items.include?(ledger_item)
       - form_tag(add_to_cart_path, :method => "post") do
         = hidden_field_tag(:id, ledger_item.id)
         = submit_tag("Match")

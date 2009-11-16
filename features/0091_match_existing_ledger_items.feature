@@ -6,13 +6,15 @@ Feature: Match Existing Ledger Items
   Background:
     Given I am logged in
       And I have a default ledger set up
+      And an account "Bank A/C" exists with parent: account "Assets"
+      And an account "Coffee" exists with parent: account "Expenses"
       And a person "Self" exists with name: "Self"
-      And a person "Other" exists with name: "Other"
+      And a person "Starbucks" exists with name: "Other"
     
   Scenario: View matched ledger items    
     Given a match exists
-      And a ledger_item exists with total_amount: "2.99", currency: "USD", account: account "Expenses", sender: person "Self", recipient: person "Other", match: the match
-      And a ledger_item exists with total_amount: "-2.99", currency: "USD", account: account "Assets", sender: person "Other", recipient: person "Self", match: the match
+      And a ledger_item exists with total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: person "Self", recipient: person "Other", match: the match
+      And a ledger_item exists with total_amount: "2.99", currency: "USD", account: account "Coffee", sender: person "Other", recipient: person "Self", match: the match
     When I go to path "/ledger_items"
     Then I should see "View matches"
     When I follow "View matches"
@@ -25,13 +27,14 @@ Feature: Match Existing Ledger Items
       
     
   Scenario: Match two ledger items and reconcile
-    Given a ledger_item exists with id: 1, total_amount: "2.99", currency: "USD", account: account "Expenses", sender: person "Self", recipient: person "Other"
-      And a ledger_item exists with id: 2, total_amount: "-2.99", currency: "USD", account: account "Assets", sender: person "Other", recipient: person "Self"
+    Given a ledger_item exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: person "Self", recipient: person "Other"
+      And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: person "Other", recipient: person "Self"
     When I go to path "/ledger_items"
       And I press "Match" within "#ledger_item_1"
     Then I should see "$2.99" within "#cart"
       And I should see "Expenses" within "#cart"
       And I should not see "Save match"
+      And I should not see a button called "Match" within "#ledger_item_1"
     When I press "Match" within "#ledger_item_2"
     Then I should see "- $2.99" within "#cart"
       And I should see "Assets" within "#cart"

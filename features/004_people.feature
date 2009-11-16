@@ -15,7 +15,7 @@ Feature: Manage People
     And a person should exist with name: "Vendor"
   
   Scenario: Cannot delete a person who is the sender of a ledger item
-    Given a person "Vendor" exists
+    Given a person "Vendor" exists 
     Given a ledger_item "Transaction" exists with sender: person "Vendor"
     When I am on the show page for person "Vendor"
     And I follow "Delete"

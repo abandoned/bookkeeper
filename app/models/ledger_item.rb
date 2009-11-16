@@ -27,7 +27,8 @@ class LedgerItem < ActiveRecord::Base
   validates_numericality_of :total_amount
   validates_numericality_of :tax_amount, :allow_nil => true
   validate :must_have_valid_currency_code,
-           :tax_may_not_exceed_total
+           :tax_may_not_exceed_total,
+           :tax_may_not_have_inverse_sign_of_total
   named_scope :matched, :conditions => "match_id IS NOT NULL"
   named_scope :unmatched, :conditions => "match_id IS NULL"
   
@@ -90,7 +91,7 @@ class LedgerItem < ActiveRecord::Base
     CURRENCY_SYMBOLS[self.currency]
   end
   
-  protected
+  private
   
   def must_have_valid_currency_code
     unless ISO4217::CODE.has_key?(self.currency)
@@ -99,8 +100,14 @@ class LedgerItem < ActiveRecord::Base
   end
   
   def tax_may_not_exceed_total
-    if !self.tax_amount.nil? && self.tax_amount > self.total_amount
+    if self.tax_amount.abs > self.total_amount.abs
       errors.add(:tax_amount, "may not exceed total amount")
+    end
+  end
+  
+  def tax_may_not_have_inverse_sign_of_total
+    if self.tax_amount * self.total_amount < 0
+      errors.add(:tax_amount, "may not have inverse sign of total amount")
     end
   end
 end

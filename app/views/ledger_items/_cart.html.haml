@@ -1,0 +1,35 @@
+#cart
+  %h1
+    %span Matches
+  
+  .cart
+    %table.data
+      %thead
+        %tr
+          %th.small
+            Account
+          %th.small
+            Sender
+          %th.small
+            Recipient
+          %th.small
+            Date
+          %th.small
+            Total
+          %th.small
+            Tax
+      %tfoot
+        %tr
+          %td.smaller
+            = link_to "Discard all", empty_cart_path
+            - if @cart.reconciled?
+              = button_to "Reconcile", save_cart_path
+      %tbody
+        - for ledger_item in @cart.ledger_items
+          %tr[ledger_item]
+            %td= ledger_item.account.name
+            %td= ledger_item.sender.name
+            %td= ledger_item.recipient.name
+            %td= ledger_item.transacted_on
+            %td.currency= monetize(ledger_item.total_amount, ledger_item.currency_symbol)
+            %td.currency= monetize(ledger_item.tax_amount, ledger_item.currency_symbol)

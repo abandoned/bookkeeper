@@ -1,25 +1,30 @@
 class Bootstrapper
+  def self.record(name, object)
+    instance_variable_set("@#{name.tr(' ', '_').downcase}".to_sym, object)
+  end
+  
   def self.bootstrap!
-    Person.create!([
-      { :name => "Paper Cavalier, Llc",
+    @self, @starbucks = Person.create!([
+      { :name => "Self",
         :country => "United States",
-        :is_self => true },
-      { :name => "Paper Cavalier, Ltd",
-        :country => "United Kingdom",
         :is_self => true },
       { :name => "Starbucks",
         :country => "United States",
-        :is_self => false },
-      { :name => "Costa Coffee",
-        :country => "United Kingdom",
         :is_self => false }
     ])
-    {"Bank Accounts" => ["Citibank", "Barclays"]}.
-      each_pair do |parent_name, children|
+    {
+      "Bank Accounts" => ["Demo Bank Account"],
+      "Expenses" => ["Coffee"]
+    }.each_pair do |parent_name, children|
       parent = Account.find_by_name(parent_name)
-      children.each{ |name| Account.create(
-        :name => name,
-        :parent => parent) }
+      record(parent_name, parent)
+      children.each do |name|
+        account = Account.create(
+          :name => name,
+          :parent => parent
+        )
+        record(name, account)
+      end
     end
     Mapping.create!([
       { :name => "Citibank",
@@ -48,6 +53,42 @@ class Bootstrapper
         :has_title_row => false,
         :day_follows_month => false,
         :reverses_sign => true }
+    ])
+    
+    @i1, @i2, @i3, @i4 = LedgerItem.create!([
+      { :sender => @self,
+        :recipient => @starbucks,
+        :total_amount => 2.99,
+        :currency => "USD",
+        :account => @demo_bank_account,
+        :transacted_on => 1.days.ago
+      },
+      { :sender => @self,
+        :recipient => @starbucks,
+        :total_amount => 3.99,
+        :currency => "USD",
+        :account => @demo_bank_account,
+        :transacted_on => Date.today
+      },
+      { :sender => @starbucks,
+        :recipient => @self,
+        :total_amount => -2.99,
+        :currency => "USD",
+        :account => @coffee,
+        :transacted_on => 1.days.ago
+      },
+      { :sender => @starbucks,
+        :recipient => @self,
+        :total_amount => -3.99,
+        :currency => "USD",
+        :account => @coffee,
+        :transacted_on => Date.today
+      }
+    ])
+    Match.create!([
+      {
+        :ledger_items => [@i1, @i3]
+      }
     ])
   end
 end

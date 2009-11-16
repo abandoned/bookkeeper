@@ -16,6 +16,6 @@
       %td= rule.matching_account.name
       %td= link_to "Show", resource_path(rule)
       %td= link_to "Edit", edit_resource_path(rule)
-      %td= link_to "Destroy", resource_path(rule), :confirm => 'Are you sure?', :method => :delete
+      %td= link_to "Delete", resource_path(rule), :confirm => 'Are you sure?', :method => :delete
 
-.footer= link_to "New rule +", new_account_rule_path
+.footer= link_to "New rule", new_account_rule_path

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091027094008) do
+ActiveRecord::Schema.define(:version => 20091116111536) do
 
   create_table "accounts", :force => true do |t|
     t.string   "ancestry"
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(:version => 20091027094008) do
     t.integer  "sender_id"
     t.integer  "recipient_id"
     t.date     "transacted_on"
-    t.decimal  "total_amount",               :precision => 20, :scale => 4
-    t.decimal  "tax_amount",                 :precision => 20, :scale => 4
-    t.string   "currency",      :limit => 3,                                :null => false
+    t.decimal  "total_amount"
+    t.decimal  "tax_amount",                 :default => 0.0
+    t.string   "currency",      :limit => 3,                  :null => false
     t.string   "description"
     t.string   "identifier"
     t.integer  "account_id"

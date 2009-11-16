@@ -1,4 +1,4 @@
-%tr{:class => "smaller #{cycle('odd', 'even')}"}
+%tr{:class => "smaller #{cycle('odd', 'even')}"}[ledger_item]
   %td= link_to(ledger_item.id, ledger_item)
   %td= link_to(ledger_item.account.name, account_path(ledger_item.account))
   %td
@@ -11,13 +11,13 @@
       = link_to(ledger_item.recipient.name, person_path(ledger_item.recipient))
     - else
       = button_to("Add", edit_resource_path(ledger_item), :method => :get)
-  %td= ledger_item.transacted_on || ledger_item.created_at.to_date
+  %td= ledger_item.transacted_on
   %td.currency= monetize(ledger_item.total_amount, ledger_item.currency_symbol)
   %td= truncate(ledger_item.description)
   %td
     - if ledger_item.matched?
       = link_to("View matches", ledger_item.match)
     - elsif ledger_item.matchable?
-      - form_tag("#", :method => "post") do
-        = hidden_field_tag(:ledger_item_id, ledger_item.id)
+      - form_tag(add_to_cart_path, :method => "post") do
+        = hidden_field_tag(:id, ledger_item.id)
         = submit_tag("Match")

@@ -17,7 +17,7 @@
 #  updated_at   :datetime
 #
 
-require 'spec_helper'
+require File.dirname(__FILE__) + '/../spec_helper'
 
 describe LedgerItem do
   before(:each) do
@@ -36,8 +36,19 @@ describe LedgerItem do
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
   end
   
-  it "should not have a tax amount that exceeds the total amount" do
+  it "should not have a tax amount that exceeds the total amount when transaction is a debit" do
     @ledger_item.tax_amount = 21
+    lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
+  end
+  
+  it "should not have a tax amount that exceeds the total amount when transaction is a credit" do
+    @ledger_item.total_amount = -20
+    @ledger_item.tax_amount = -21
+    lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
+  end
+  
+  it "should not have a tax amount that is the inverse sign of the total amount" do
+    @ledger_item.tax_amount = -1
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
   end
   

@@ -20,14 +20,14 @@ Feature: Import Ledger Items
     And I attach the file at "spec/fixtures/amex-uk-sample.csv" to "File"
     And I press "Upload file"
     Then I should see "Import failed"
-    And I should see "Ending balance of 2323.7 did not match expected balance of 0"
+    And I should see "Ending balance of 6587.42 did not match expected balance of 0"
 
   Scenario: Attempt to import a CSV with an incorrect ending balance
     Given I am on path "/ledger_items"
     When I follow "Import Ledger Items"
     And I select "AMEX" from "Account"
-    And I fill in "Ending Balance" with "2323.7"
+    And I fill in "Ending Balance" with "6587.42"
     And I select "Amex, UK" from "Mapping"
     And I attach the file at "spec/fixtures/amex-uk-sample.csv" to "File"
     And I press "Upload file"
-    Then I should see "1784 ledger items imported"
+    Then I should see "265 ledger items imported"

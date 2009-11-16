@@ -32,7 +32,7 @@ class LedgerItem < ActiveRecord::Base
   named_scope :matched, :conditions => "match_id IS NOT NULL"
   named_scope :unmatched, :conditions => "match_id IS NULL"
   before_update :prevent_edit_of_total_amount_after_reconciliation
-  after_save :match_rules
+  after_save :look_for_matches!
   
   # These are the short-hand named scopes used the search form
   named_scope :account, proc { |account|
@@ -113,13 +113,18 @@ class LedgerItem < ActiveRecord::Base
     end
   end
   
+  # We don't want look_for_matches! to trigger this hook. Hence, the last condition
   def prevent_edit_of_total_amount_after_reconciliation
-    if self.matched? && total_amount_changed?
+    if self.matched? && self.total_amount_changed? && !self.match_id_changed?
       raise ActiveRecord::RecordNotSaved, "Cannot edit total amount after reconciliation"
     end
   end
   
-  def match_rules
-    Rule.match(self)
+  def look_for_matches!
+    unless self.matched?
+      self.account.rules.each do |rule|
+        break if rule.match!(self)
+      end
+    end
   end
 end

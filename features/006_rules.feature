@@ -22,7 +22,8 @@ Feature: Rules
     And I press "Submit"
     Then I should see "Successfully created rule" within "#flash_notice"
     And a rule should exist with regexp: "Consumption", account: account "Bank A/C"
-    
+  
+  @tag
   Scenario: Match an existing rule when set up
     Given a rule exists with account: account "Bank A/C", regexp: "Consumption", debit: false, sender: person "Self", recipient: person "Other", matching_account: account "Expenses"
     When I go to the show page for account "Bank A/C"

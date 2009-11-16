@@ -9,7 +9,6 @@ class LedgerItemsController < InheritedResources::Base
   has_scope     :to_date, :only => :index
   before_filter :require_user
   before_filter :find_cart, :only => [:index, :add_to_cart, :balance_cart, :save_cart]
-  after_filter  :match_by_rules, :only => [:create, :update]
   
   def index
     calculate_totals
@@ -85,13 +84,6 @@ class LedgerItemsController < InheritedResources::Base
     end_of_association_chain.all.each do |t|
       @totals[t.currency_symbol] = @totals[t.currency_symbol] || 0.0
       @totals[t.currency_symbol] += t.total_amount.round(2)
-    end
-  end
-  
-  # Tries to match ledger item by running existing rules
-  def match_by_rules
-    resource.account.rules.each do |rule|
-      break if rule.match(resource)
     end
   end
 end

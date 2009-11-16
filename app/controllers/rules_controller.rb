@@ -8,12 +8,12 @@ class RulesController < InheritedResources::Base
       ledger_item = LedgerItem.find(params[:ledger_item_id])
       @account = ledger_item.account
       @rule = Rule.new
-      @rule.sender, @rule.recipient = ledger_item.recipient, ledger_item.sender
+      @rule.sender, @rule.recipient = ledger_item.sender, ledger_item.recipient
       @rule.account = ledger_item.account
       @rule.regexp = ledger_item.description
       @rule.debit = ledger_item.total_amount > 0
     else
-      @account = Account.find(params[:id])
+      @account = Account.find(params[:account_id])
     end
     
     new!

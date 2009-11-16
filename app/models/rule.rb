@@ -22,6 +22,12 @@ class Rule < ActiveRecord::Base
   validates_presence_of :sender, :recipient, :account, :matching_account, :regexp
   after_save :match_ledger_items
   
+  def self.match(ledger_item)
+    all.each do |rule|
+      break if rule.match(ledger_item)
+    end
+  end
+  
   def match_ledger_items
     self.account.ledger_items.unmatched.each { |i| self.match(i) }
   end

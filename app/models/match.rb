@@ -30,7 +30,7 @@ class Match < ActiveRecord::Base
       -current_item.total_amount, -current_item.tax_amount
     new_item.account = account
     new_item.match = self
-
+    
     ledger_items << new_item
     
     new_item

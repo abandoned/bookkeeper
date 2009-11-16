@@ -22,6 +22,5 @@ Feature: Match by Defining a Rule
     Then I should see "Successfully created rule"
     Given a ledger_item exists with id: 3, total_amount: "3.99", currency: "USD", account: account "Bank A/C", sender: person "Self", recipient: person "Starbucks", description: "Latte Coffee"
     When I go to path "/ledger_items"
-      And show me the page
     Then I should see "View matches" within "#ledger_item_1"
       And I should see "View matches" within "#ledger_item_3"

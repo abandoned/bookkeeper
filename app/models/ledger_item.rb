@@ -31,6 +31,7 @@ class LedgerItem < ActiveRecord::Base
            :tax_may_not_have_inverse_sign_of_total
   named_scope :matched, :conditions => "match_id IS NOT NULL"
   named_scope :unmatched, :conditions => "match_id IS NULL"
+  after_save :match_rules
   
   # These are the short-hand named scopes used the search form
   named_scope :account, proc { |account|
@@ -109,5 +110,9 @@ class LedgerItem < ActiveRecord::Base
     if self.tax_amount * self.total_amount < 0
       errors.add(:tax_amount, "may not have inverse sign of total amount")
     end
+  end
+  
+  def match_rules
+    Rule.match(self)
   end
 end

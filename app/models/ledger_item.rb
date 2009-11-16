@@ -31,6 +31,7 @@ class LedgerItem < ActiveRecord::Base
            :tax_may_not_have_inverse_sign_of_total
   named_scope :matched, :conditions => "match_id IS NOT NULL"
   named_scope :unmatched, :conditions => "match_id IS NULL"
+  before_update :prevent_edit_of_total_amount_after_reconciliation
   
   # These are the short-hand named scopes used the search form
   named_scope :account, proc { |account|
@@ -110,4 +111,11 @@ class LedgerItem < ActiveRecord::Base
       errors.add(:tax_amount, "may not have inverse sign of total amount")
     end
   end
+  
+  def prevent_edit_of_total_amount_after_reconciliation
+    if self.matched? && total_amount_changed?
+      raise ActiveRecord::RecordNotSaved, "Cannot edit total amount after reconciliation"
+    end
+  end
+  
 end

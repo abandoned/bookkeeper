@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :mappings, :ledger_items
   map.resources :people, :has_many => :ledger_items
   map.resource :user_session, :only => [:new, :create, :destroy]
+  map.resources :reports, :only => [:index, :show]
   
   map.logout  "/logout",  :controller => "user_sessions", :action => "destroy"
   

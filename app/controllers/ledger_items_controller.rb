@@ -22,6 +22,15 @@ class LedgerItemsController < InheritedResources::Base
     new!
   end
   
+  def update
+    begin
+      update!
+    rescue ActiveRecord::RecordNotSaved => e
+      flash.now[:error] = e.message
+      render :action => :edit
+    end
+  end
+  
   def add_to_cart
     ledger_item = LedgerItem.find(params[:id])
     @cart.add(ledger_item)

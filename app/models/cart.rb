@@ -3,6 +3,10 @@ class Cart
     @ledger_items ||= []
   end
   
+  def size
+    ledger_items.size
+  end
+  
   def add(ledger_item)
     self.ledger_items << ledger_item unless ledger_item.matched? || self.ledger_items.include?(ledger_item)
   end

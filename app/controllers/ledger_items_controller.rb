@@ -8,10 +8,11 @@ class LedgerItemsController < InheritedResources::Base
   has_scope     :from_date, :only => :index
   has_scope     :to_date, :only => :index
   before_filter :require_user
-  before_filter :find_cart, :only => [:index, :add_to_cart, :save_cart]
+  before_filter :find_cart, :only => [:index, :add_to_cart, :balance_cart, :save_cart]
   after_filter  :match_by_rules, :only => [:create, :update]
   
   def index
+    @ledger_item = LedgerItem.new
     calculate_totals
     index!
   end
@@ -28,6 +29,20 @@ class LedgerItemsController < InheritedResources::Base
     redirect_to collection_path
   end
   
+  def balance_cart
+    account = Account.find(params[:ledger_item][:account_id])
+    match = Match.new(:ledger_items => @cart.ledger_items)
+    match.create_balancing_item(account)
+    if match.save
+      flash[:notice] = 'Ledger item successfully reconciled'
+      reset_cart
+    else
+      flash[:notice] = 'Reconciliation failed'
+    end
+    
+    redirect_to collection_path
+  end
+  
   def save_cart
     if Match.create(:ledger_items => @cart.ledger_items)
       flash[:notice] = "Ledger items successfully reconciled"
@@ -36,7 +51,7 @@ class LedgerItemsController < InheritedResources::Base
       flash.now[:error] = 'Reconciliation failed'
     end
     
-    redirect_to(collection_path)
+    redirect_to collection_path
   end
   
   protected

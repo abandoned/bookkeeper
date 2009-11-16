@@ -16,6 +16,26 @@ class Match < ActiveRecord::Base
     self.ledger_items.inject(0) { |sum, i| sum + i.total_amount } == 0 ? true : false
   end
   
+  def create_balancing_item(account)
+    if ledger_items.size > 1
+      raise ArgumentError
+    end
+    
+    current_item = ledger_items.first
+    new_item = current_item.clone
+    
+    new_item.sender, new_item.recipient =
+      current_item.recipient, current_item.sender
+    new_item.total_amount, new_item.tax_amount =
+      -current_item.total_amount, -current_item.tax_amount
+    new_item.account = account
+    new_item.match = self
+
+    ledger_items << new_item
+    
+    new_item
+  end
+  
   protected
   
   def must_be_reconciled

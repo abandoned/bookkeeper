@@ -24,6 +24,15 @@
             = link_to "Discard all", empty_cart_path
             - if @cart.reconciled?
               = button_to "Reconcile", save_cart_path
+            - else
+              - if @cart.size == 1
+                - semantic_form_for @ledger_item, :url => balance_cart_path do |f|
+                  - f.inputs do
+                    %label{:for => "ledger_item_account_id"} Account
+                    - hamlified_grouped_tree_select(Account.roots, "ledger_item", "account_id", @ledger_item.account)
+                  - f.buttons do
+                    = f.commit_button :button_html => { :value => 'Create match' }
+
       %tbody
         - for ledger_item in @cart.ledger_items
           %tr[ledger_item]

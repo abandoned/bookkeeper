@@ -12,7 +12,6 @@ class LedgerItemsController < InheritedResources::Base
   after_filter  :match_by_rules, :only => [:create, :update]
   
   def index
-    @ledger_item = LedgerItem.new
     calculate_totals
     index!
   end

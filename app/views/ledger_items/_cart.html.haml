@@ -26,16 +26,18 @@
               = button_to "Reconcile", save_cart_path
             - else
               - if @cart.size == 1
-                - semantic_form_for @ledger_item, :url => balance_cart_path do |f|
+                - item = @cart.ledger_items.first
+                - semantic_form_for item, :url => balance_cart_path do |f|
                   - f.inputs do
                     %label{:for => "ledger_item_account_id"} Account
-                    - hamlified_grouped_tree_select(Account.roots, "ledger_item", "account_id", @ledger_item.account)
+                    - hamlified_grouped_tree_select(Account.roots, "ledger_item", "account_id", item.account)
                   - f.buttons do
                     = f.commit_button :button_html => { :value => 'Create match' }
+                = link_to "Create rule", new_account_rule_path(item.account, :ledger_item_id => item.id)
 
       %tbody
         - for ledger_item in @cart.ledger_items
-          %tr[ledger_item]
+          %tr[ledger_item, :cart]
             %td= ledger_item.account.name
             %td= ledger_item.sender.name
             %td= ledger_item.recipient.name

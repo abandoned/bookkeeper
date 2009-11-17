@@ -1,1 +1,5 @@
-- title "Index"
+- title "Financial Reports"
+
+- for report_type in @report_types
+  %p
+    = link_to(report_type.titleize, report_path(report_type))

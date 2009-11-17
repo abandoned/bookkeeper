@@ -1,1 +1,21 @@
-- title @type.titleize
+- title @report_type.titleize
+
+- unless @roots.blank?
+  %table.report
+    - for root in @roots
+      - if root.grand_total?
+        %tr.root_account
+          %td{:colspan => 2}
+            =h root.name
+        = render :partial => "child", :collection => root.children
+            
+        %tr.root_sum
+          %td
+            = "Total #{root.name}"
+          %td.currency
+            = monetize(root.grand_total.abs, root.currency_symbol)
+    %tr.net
+      %td
+        Net
+      %td
+        = monetize(@roots.inject(0) { |s, r| s + r.grand_total }, "$")

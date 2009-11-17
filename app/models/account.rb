@@ -17,6 +17,26 @@ class Account < ActiveRecord::Base
   validates_presence_of :name
   before_destroy :do_not_orphan_ledger_items
   
+  def total
+    @total ||= self.ledger_items.sum('total_amount')
+  end
+  
+  def total?
+    total != 0
+  end
+    
+  def grand_total
+    @grand_total ||= self.subtree.inject(nil) { |sum, a| sum ? sum + a.ledger_items.sum('total_amount') : a.ledger_items.sum('total_amount') }
+  end
+  
+  def grand_total?
+    grand_total != 0
+  end
+  
+  def currency_symbol
+    @currency_symbol ||= self.subtree.each { |a| a.ledger_items.each { |i| return i.currency_symbol } }
+  end
+  
   protected
   
   def do_not_orphan_ledger_items

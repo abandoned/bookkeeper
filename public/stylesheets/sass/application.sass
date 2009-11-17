@@ -202,3 +202,22 @@ table
       font-weight: bold
       td
         border: none
+  &.report
+    tr.root_account
+      font-weight: bold
+      +large-font
+      td
+        padding-bottom: 0.25em
+    tr.root_sum, tr.net
+      font-weight: bold
+      border-top: 1px solid #000
+      td:first-child
+        padding-left: 1em
+        padding-bottom: 0.5em
+    tr.descendant
+      td:first-child
+        padding-left: 1em
+    td:first-child
+      width: 450px
+    td.currency
+      text-align: right

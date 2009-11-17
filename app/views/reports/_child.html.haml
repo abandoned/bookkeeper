@@ -1,0 +1,9 @@
+- if child.grand_total?
+  %tr.descendant
+    %td
+      - ((child.depth - 1) * 2).times { haml_concat "&nbsp;" }
+      =h child.name
+    - if child.total?
+      %td.currency
+        = monetize(child.total.abs, child.currency_symbol)
+  = render :partial => "child", :collection => child.children

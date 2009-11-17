@@ -34,7 +34,7 @@ $(document).ready(function() {
   $('form.search').submit(function() {
     $(this).find('input, select').map(function() {
       if ($.trim($(this).val()) == '') {
-        $(this).attr('disabled', 'disabled').class
+        $(this).attr('disabled', 'disabled')
       }
     })
   })

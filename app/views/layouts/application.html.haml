@@ -4,8 +4,8 @@
     %link{:href => "/images/icon.png", :rel => "shortcut icon", :type => "image/x-icon" }
     %title= yield(:title)
     = stylesheet_link_tag "application", "formtastic", "formtastic_changes"
-    = javascript_include_tag "jquery-1.3.2.min"
-    = javascript_include_tag "application"
+    = javascript_include_tag "jquery-1.3.2.min", "jquery.autocomplete", "jquery.select-autocomplete", "application"
+    
     - if @content_for_head
       = yield(:head)
   %body

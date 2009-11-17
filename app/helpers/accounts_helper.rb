@@ -21,7 +21,7 @@ module AccountsHelper
   
   def account_select(categories, selected=nil, level=0, init=true)
     if init
-      haml_tag :select, {:name => "account", :id => "account"} do
+      haml_tag :select, {:name => "account", :id => "account", :class => "autocomplete"} do
         haml_tag :option, "All accounts", :value => ""
         account_select(categories, selected, level, false)
       end

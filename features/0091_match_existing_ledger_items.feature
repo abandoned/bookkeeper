@@ -57,7 +57,7 @@ Feature: Match Existing Ledger Items
     When I press "Reconcile"
     Then I should see "Ledger items successfully reconciled"
     And I should not see "Matches"
-  @tag
+  
   Scenario: Fail to edit a ledger item that is matched
      Given a match exists
         And a ledger_item exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks", match: the match

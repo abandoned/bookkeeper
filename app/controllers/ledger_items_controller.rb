@@ -50,23 +50,25 @@ class LedgerItemsController < InheritedResources::Base
   
   def update
     # TODO Terrible hack below.
-    @ledger_item = LedgerItem.find params[:id]
+    @ledger_item = LedgerItem.find(params[:id])
     @ledger_items = [@ledger_item]
     begin
       LedgerItem.transaction do
         params[:ledger_item] = params[:ledger_items]["0"]
         @ledger_item.update_attributes! params[:ledger_item]
         items = params[:ledger_items].dup
-        items.delete["0"]
-        items.each_value do |item_attributes|
-          @ledger_items << LedgerItem.new(item_attributes)
-        end
-        @ledger_items.each do |item|
-          item.save!
+        items.delete("0")
+        if items.count > 0
+          items.each_value do |item_attributes|
+            @ledger_items << LedgerItem.new(item_attributes)
+          end
+          @ledger_items.each do |item|
+            item.save!
+          end
         end
       end
-      
       flash[:notice] = 'Items succesfully saved'
+      redirect_to collection_path
 
       #redirect_to collection_path
     rescue ActiveRecord::RecordNotSaved => e

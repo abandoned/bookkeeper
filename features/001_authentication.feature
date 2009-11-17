@@ -15,8 +15,8 @@ Feature: Authentication
     When I go to path "/accounts"
     Then I should be on path "/user_session/new"
     
-  Scenario: Require login on list of people
-    When I go to path "/people"
+  Scenario: Require login on list of contacts
+    When I go to path "/contacts"
     Then I should be on path "/user_session/new"
   
   Scenario: Require login on list of ledger items

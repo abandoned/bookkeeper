@@ -2,7 +2,7 @@ class LedgerItemsController < InheritedResources::Base
   belongs_to    :account, :optional => true
   respond_to    :html
   has_scope     :account, :only => :index
-  has_scope     :person, :only => :index
+  has_scope     :contact, :only => :index
   has_scope     :query, :only => :index
   has_scope     :unmatched, :only => :index
   has_scope     :from_date, :only => :index
@@ -17,7 +17,7 @@ class LedgerItemsController < InheritedResources::Base
   
   def new
     @ledger_items = [LedgerItem.new(:account_id => params[:account_id])]
-    
+
     new!
   end
 

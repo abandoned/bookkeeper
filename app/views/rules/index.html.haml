@@ -9,11 +9,11 @@
     %th Matching Account
   - for rule in collection
     %tr
-      %td= rule.regexp
+      %td=h rule.regexp
       %td= rule.debit
-      %td= rule.sender.name
-      %td= rule.recipient.name
-      %td= rule.matching_account.name
+      %td=h rule.sender.name
+      %td=h rule.recipient.name
+      %td=h rule.matching_account.name
       %td= link_to "Show", resource_path(rule)
       %td= link_to "Edit", edit_resource_path(rule)
       %td= link_to "Delete", resource_path(rule), :confirm => 'Are you sure?', :method => :delete

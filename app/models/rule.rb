@@ -15,8 +15,8 @@
 
 class Rule < ActiveRecord::Base
   belongs_to :account
-  belongs_to :sender, :class_name => "Person"
-  belongs_to :recipient, :class_name => "Person"
+  belongs_to :sender, :class_name => "Contact"
+  belongs_to :recipient, :class_name => "Contact"
   belongs_to :matching_account, :class_name => "Account"
   validates_associated :sender, :recipient, :account, :matching_account
   validates_presence_of :sender, :recipient, :account, :matching_account, :regexp

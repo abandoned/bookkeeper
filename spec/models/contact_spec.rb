@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: people
+# Table name: contacts
 #
 #  id           :integer         not null, primary key
 #  is_self      :boolean
@@ -19,11 +19,11 @@
 
 require 'spec_helper'
 
-describe Person do
+describe Contact do
   before(:each) do
     @account = Factory(:account)
-    @sender = Factory(:person)
-    @recipient = Factory(:person)
+    @sender = Factory(:contact)
+    @recipient = Factory(:contact)
     @ledger_item = Factory(:ledger_item,
                            :sender => @sender,
                            :recipient => @recipient,
@@ -43,6 +43,6 @@ describe Person do
   it "should expire if has no sent ledger items" do
     @ledger_item.destroy
     @sender.destroy
-    lambda {Person.find(@sender.id)}.should raise_error(ActiveRecord::RecordNotFound)
+    lambda {Contact.find(@sender.id)}.should raise_error(ActiveRecord::RecordNotFound)
   end
 end

@@ -15,8 +15,8 @@
     %th Reverses Sign
   - for mapping in collection
     %tr{:class => "smaller #{cycle('odd', 'even')}"}
-      %td= mapping.name
-      %td= mapping.currency
+      %td=h mapping.name
+      %td=h mapping.currency
       %td= mapping.date_row
       %td= mapping.total_amount_row
       %td= mapping.tax_amount_row

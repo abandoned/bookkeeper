@@ -1,6 +1,6 @@
-class CreatePeople < ActiveRecord::Migration
+class CreateContacts < ActiveRecord::Migration
   def self.up
-    create_table :people do |t|
+    create_table :contacts do |t|
       t.boolean :is_self, :default => false
       t.string :name
       t.string :contact_name
@@ -16,6 +16,6 @@ class CreatePeople < ActiveRecord::Migration
   end
   
   def self.down
-    drop_table :people
+    drop_table :contacts
   end
 end

@@ -3,17 +3,17 @@
   %td= link_to(ledger_item.account.name, account_path(ledger_item.account))
   %td
     - if ledger_item.sender
-      = link_to(ledger_item.sender.name, person_path(ledger_item.sender))
+      = link_to(ledger_item.sender.name, contact_path(ledger_item.sender))
     - else
       = button_to("Add", edit_resource_path(ledger_item), :method => :get)
   %td
     - if ledger_item.recipient
-      = link_to(ledger_item.recipient.name, person_path(ledger_item.recipient))
+      = link_to(ledger_item.recipient.name, contact_path(ledger_item.recipient))
     - else
       = button_to("Add", edit_resource_path(ledger_item), :method => :get)
   %td= ledger_item.transacted_on
   %td.currency= monetize(ledger_item.total_amount, ledger_item.currency_symbol)
-  %td= truncate(ledger_item.description)
+  %td=h truncate(ledger_item.description)
   %td
     - if ledger_item.matched?
       = link_to("View matches", ledger_item.match)

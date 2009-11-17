@@ -2,13 +2,13 @@
 
 %p
   %strong Account:
-  = resource.account.name
+  =h resource.account.name
 %p
   %strong Sender:
-  = resource.sender.name if resource.sender
+  =h resource.sender.name if resource.sender
 %p
   %strong Recipient:
-  = resource.recipient.name if resource.recipient
+  =h resource.recipient.name if resource.recipient
 %p
   %strong Transacted On:
   = resource.transacted_on
@@ -20,16 +20,13 @@
   = resource.tax_amount
 %p
   %strong Currency:
-  = resource.currency
+  =h resource.currency
 %p
   %strong Description:
-  = resource.description
+  =h resource.description
 %p
   %strong Identifier:
-  = resource.identifier
-%p
-  %strong Account:
-  = resource.account_id
+  =h resource.identifier
 %p
   %strong LedgerItem Group:
   = resource.match_id

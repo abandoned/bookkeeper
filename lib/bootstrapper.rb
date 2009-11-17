@@ -4,7 +4,7 @@ class Bootstrapper
   end
   
   def self.bootstrap!
-    @self, @starbucks, @customer = Person.create!([
+    @self, @starbucks, @customer = Contact.create!([
       { :name => "Self",
         :country => "United States",
         :is_self => true },

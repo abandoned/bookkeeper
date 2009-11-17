@@ -8,13 +8,13 @@ Feature: Match Existing Ledger Items
       And I have a default ledger set up
       And an account "Bank A/C" exists with name: "Bank A/C", parent: account "Assets"
       And an account "Coffee" exists with name: "Coffee", parent: account "Expenses"
-      And a person "Self" exists with name: "Self"
-      And a person "Starbucks" exists with name: "Starbucks"
+      And a contact "Self" exists with name: "Self"
+      And a contact "Starbucks" exists with name: "Starbucks"
     
   Scenario: View matched ledger items    
     Given a match exists
-      And a ledger_item exists with total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: person "Self", recipient: person "Starbucks", match: the match
-      And a ledger_item exists with total_amount: "2.99", currency: "USD", account: account "Coffee", sender: person "Starbucks", recipient: person "Self", match: the match
+      And a ledger_item exists with total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks", match: the match
+      And a ledger_item exists with total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self", match: the match
     When I go to path "/ledger_items"
     Then I should see "View matches"
     When I follow "View matches"
@@ -27,8 +27,8 @@ Feature: Match Existing Ledger Items
       
     
   Scenario: Match two ledger items and reconcile
-    Given a ledger_item exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: person "Self", recipient: person "Starbucks"
-      And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: person "Starbucks", recipient: person "Self"
+    Given a ledger_item exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks"
+      And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self"
     When I go to path "/ledger_items"
       And I press "Match" within "#ledger_item_1"
     Then I should see "- $2.99" within "#cart"
@@ -43,9 +43,9 @@ Feature: Match Existing Ledger Items
     And I should not see "Matches"
       
   Scenario: Match three ledger items and reconcile
-    Given a ledger_item exists with id: 1, total_amount: "-5.98", currency: "USD", account: account "Bank A/C", sender: person "Self", recipient: person "Starbucks"
-      And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: person "Starbucks", recipient: person "Self"
-      And a ledger_item exists with id: 3, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: person "Starbucks", recipient: person "Self"
+    Given a ledger_item exists with id: 1, total_amount: "-5.98", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks"
+      And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self"
+      And a ledger_item exists with id: 3, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self"
     When I go to path "/ledger_items"
       And I press "Match" within "#ledger_item_1"
       And I press "Match" within "#ledger_item_2"
@@ -60,8 +60,8 @@ Feature: Match Existing Ledger Items
     
   Scenario: Fail to edit a ledger item that is matched
      Given a match exists
-        And a ledger_item exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: person "Self", recipient: person "Starbucks", match: the match
-        And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: person "Starbucks", recipient: person "Self", match: the match
+        And a ledger_item exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks", match: the match
+        And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self", match: the match
       When I go to path "/ledger_items/1/edit"
       And I fill in "Total amount" with "1" 
       And I press "Submit"

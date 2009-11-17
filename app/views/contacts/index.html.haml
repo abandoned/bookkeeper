@@ -1,0 +1,32 @@
+- title "Contacts"
+
+- if collection.size > 0
+  %table.data
+    %tr.small
+      %th Name
+      %th Contact Name
+      %th Address
+      %th City
+      %th State
+      %th Postal Code
+      %th Country
+      %th Country Code
+      %th Tax Number
+      %th Is Self
+    - for contact in collection
+      %tr{:class => "smaller #{cycle('odd', 'even')}"}
+        %td= link_to contact.name, resource_path(contact)
+        %td=h contact.contact_name
+        %td=h contact.address
+        %td=h contact.city
+        %td=h contact.state
+        %td=h contact.postal_code
+        %td=h contact.country
+        %td=h contact.country_code
+        %td=h contact.tax_number
+        %td= contact.is_self
+- else
+  %p No contacts found
+
+.footer
+  = link_to "New Contact", new_resource_path

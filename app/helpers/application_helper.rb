@@ -5,7 +5,7 @@ module ApplicationHelper
     if current_user
       [{ :name => "Ledger Items",  :path => ledger_items_path },
        { :name => "Accounts",      :path => accounts_path },
-       { :name => "People",        :path => people_path },
+       { :name => "Contacts",        :path => contacts_path },
        { :name => "Reports",       :path => reports_path },
        { :name => "Log out",       :path => logout_path }]
     else

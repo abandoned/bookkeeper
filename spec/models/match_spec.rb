@@ -13,8 +13,8 @@ describe Match do
   before(:each) do
     @debit_account = Factory(:account)
     @credit_account = Factory(:account)
-    @sender = Factory(:person)
-    @recipient = Factory(:person)
+    @sender = Factory(:contact)
+    @recipient = Factory(:contact)
     @debit_ledger_item = Factory(:ledger_item,
                           :sender => @recipient,
                           :recipient => @sender,

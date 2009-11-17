@@ -10,7 +10,7 @@ Factory.define :account do |f|
   f.sequence(:name) { |n| "foo#{n}" }
 end
 
-Factory.define :person do |f|
+Factory.define :contact do |f|
   f.sequence(:name) { |n| "foo#{n}" }
 end
 

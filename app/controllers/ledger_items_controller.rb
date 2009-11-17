@@ -16,9 +16,31 @@ class LedgerItemsController < InheritedResources::Base
   end
   
   def new
-    @ledger_item = LedgerItem.new(:account_id => params[:account_id])
-    resource.transacted_on ||= Date.today
+    @ledger_items = [LedgerItem.new(:account_id => params[:account_id])]
+
     new!
+  end
+
+  def create
+    @ledger_items = []
+
+    begin
+      LedgerItem.transaction do
+        params[:ledger_items].each_value do |item_attributes|
+          @ledger_items << LedgerItem.new(item_attributes)
+        end
+        @ledger_items.each do |item|
+          item.save!
+        end
+      end
+      flash[:notice] = 'Items succesfully saved'
+
+      redirect_to collection_path
+    rescue Exception => e
+      flash[:notice] = 'Items failed to save'
+      
+      render :action => :new
+    end
   end
   
   def update

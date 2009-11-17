@@ -5,7 +5,8 @@
     %title= yield(:title)
     = stylesheet_link_tag "application", "autocomplete", "formtastic", "formtastic_changes"
     = javascript_include_tag "jquery-1.3.2.min", "jquery.autocomplete", "jquery.select-autocomplete", "application"
-    
+    - javascript_tag do
+      = yield(:jstemplates)
     - if @content_for_head
       = yield(:head)
   %body

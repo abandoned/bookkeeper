@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091116111536) do
+ActiveRecord::Schema.define(:version => 20091117095203) do
 
   create_table "accounts", :force => true do |t|
     t.string   "ancestry"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(:version => 20091116111536) do
   create_table "ledger_items", :force => true do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
-    t.date     "transacted_on"
+    t.date     "transacted_on",              :default => '2009-11-17'
     t.decimal  "total_amount"
     t.decimal  "tax_amount",                 :default => 0.0
-    t.string   "currency",      :limit => 3,                  :null => false
+    t.string   "currency",      :limit => 3,                           :null => false
     t.string   "description"
     t.string   "identifier"
     t.integer  "account_id"

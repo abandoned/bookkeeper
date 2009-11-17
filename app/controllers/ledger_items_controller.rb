@@ -17,7 +17,6 @@ class LedgerItemsController < InheritedResources::Base
   
   def new
     @ledger_item = LedgerItem.new(:account_id => params[:account_id])
-    resource.transacted_on ||= Date.today
     new!
   end
   

@@ -7,7 +7,6 @@
         <abbr title="required">*</abbr>
       - hamlified_grouped_tree_select(Account.roots, "ledger_item", "account_id", resource.account)
       %p.inline-hints= link_to "New account", new_account_path
-    -# TODO Can't get this to default to today's date
     = f.input :transacted_on, :prompt => true, :start_year => Time.now.year - 2, :end_year => Time.now.year + 1
     = f.input :sender, :prompt => "Select sender", :hint => "<a href=\"/people/new\">New sender</a>"
     = f.input :recipient, :prompt => "Select recipient", :hint => "<a href=\"/people/new\">New recipient</a>"

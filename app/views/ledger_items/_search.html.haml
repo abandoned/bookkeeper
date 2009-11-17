@@ -11,7 +11,8 @@
     %ul
       - if params[:account_id].nil?
         %li
-          - account_select(Account.roots, params[:account].blank? ? nil : Account.find(params[:account]))
+          %label.smaller Select account
+          = select_tag(:account, options_for_select(Account.all.map { |a| [a.name, a.id] }), :class => "autocomplete")
       - if Person.self.count > 1
         %li= select_tag(:person, options_for_select(Person.self.inject({ "All selves" => "" }) { |r, p| r[p.name] = p.id; r}, params[:person].to_i))
       %li= text_field_tag(:query, params[:query])

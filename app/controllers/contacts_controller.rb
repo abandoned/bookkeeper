@@ -1,4 +1,4 @@
-class PeopleController < InheritedResources::Base
+class ContactsController < InheritedResources::Base
   before_filter :require_user
   respond_to :html, :xml
   
@@ -7,7 +7,7 @@ class PeopleController < InheritedResources::Base
     begin
       destroy!
     rescue ActiveRecord::RecordNotDestroyed
-      flash.now[:error] = "Cannot delete person because she has dependants"
+      flash.now[:error] = "Cannot delete contact because she has dependants"
       render(:action => :show)
     end
   end

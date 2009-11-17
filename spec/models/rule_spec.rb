@@ -19,8 +19,8 @@ describe Rule do
   before(:each) do
     @account = Factory(:account)
     @matching_account = Factory(:account)
-    @sender = Factory(:person)
-    @recipient = Factory(:person)
+    @sender = Factory(:contact)
+    @recipient = Factory(:contact)
     @ledger_item = Factory(:ledger_item,
                            :total_amount => 20,
                            :description => "Foo bar baz",

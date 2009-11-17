@@ -1,8 +1,8 @@
 %tr.smaller
   %td= link_to(ledger_item.id, ledger_item)
   %td= link_to(ledger_item.account.name, account_path(ledger_item.account))
-  %td= link_to(ledger_item.sender.name, person_path(ledger_item.sender))
-  %td= link_to(ledger_item.recipient.name, person_path(ledger_item.recipient))
+  %td= link_to(ledger_item.sender.name, contact_path(ledger_item.sender))
+  %td= link_to(ledger_item.recipient.name, contact_path(ledger_item.recipient))
   %td= ledger_item.transacted_on || ledger_item.created_at.to_date
   %td= monetize ledger_item.total_amount, ledger_item.currency_symbol
   %td= monetize ledger_item.tax_amount || 0, ledger_item.currency_symbol

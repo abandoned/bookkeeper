@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: people
+# Table name: contacts
 #
 #  id           :integer         not null, primary key
 #  is_self      :boolean
@@ -17,7 +17,7 @@
 #  updated_at   :datetime
 #
 
-class Person < ActiveRecord::Base
+class Contact < ActiveRecord::Base
   has_many :sent_ledger_items,
            :class_name => "LedgerItem",
            :foreign_key => "sender_id"

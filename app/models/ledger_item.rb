@@ -19,8 +19,8 @@
 
 class LedgerItem < ActiveRecord::Base
   belongs_to :account
-  belongs_to :sender, :class_name => "Person"
-  belongs_to :recipient, :class_name => "Person"
+  belongs_to :sender, :class_name => "Contact"
+  belongs_to :recipient, :class_name => "Contact"
   belongs_to :match
   validates_associated :sender, :recipient, :account
   validates_presence_of :account, :currency, :transacted_on
@@ -40,9 +40,9 @@ class LedgerItem < ActiveRecord::Base
      { :conditions => { :account_id => account.to_i } }
     end
   }
-  named_scope :person, proc { |person|
-    unless person.blank?
-      { :conditions => ["sender_id = ? OR recipient_id = ?", person, person] }
+  named_scope :contact, proc { |contact|
+    unless contact.blank?
+      { :conditions => ["sender_id = ? OR recipient_id = ?", contact, contact] }
     end
   }
   named_scope :query, proc { |query| 

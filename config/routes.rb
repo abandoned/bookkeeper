@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :import, :only => [:new, :create]
   map.resources :matches, :except => [:index]
   map.resources :mappings, :ledger_items
-  map.resources :people, :has_many => :ledger_items
+  map.resources :contacts, :has_many => :ledger_items
   map.resource :user_session, :only => [:new, :create, :destroy]
   map.resources :reports, :only => [:index, :show]
   

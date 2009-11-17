@@ -10,13 +10,13 @@ en:
         notice: "Successfully updated account."
       destroy:
         notice: "Successfully deleted account."
-    people:
+    contacts:
       create:
-        notice: "Successfully created person."
+        notice: "Successfully created contact."
       update:
-        notice: "Successfully updated person."
+        notice: "Successfully updated contact."
       destroy:
-        notice: "Successfully deleted person."
+        notice: "Successfully deleted contact."
     rules:
       create:
         notice: "Successfully created rule."

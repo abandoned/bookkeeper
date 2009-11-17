@@ -22,7 +22,7 @@ Feature: Search Ledger Items
   
   Scenario: Search by account type
     Given I am on the path "/ledger_items"
-    When I select "&nbsp;&nbsp;&nbsp;Bank A/C" from "account"
+    When I select "Bank A/C" from "account"
     And I press "Search"
     Then I should see "Something purchased" within "table"
     And I should not see "Coffee" within "table"

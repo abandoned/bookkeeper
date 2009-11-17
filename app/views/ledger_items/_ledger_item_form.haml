@@ -10,13 +10,13 @@
     %td
       = f.select :currency, ["USD", "GBP", "EUR", "CAD", "JPY", "AUD"]
     %td
-      = f.select :account_id, options_for_select(Account.all.inject(['Select account', '']) { |r,a| r << [a.name, a.id] }), {}, :class => 'autocomplete'
+      = f.select :account_id, options_for_select(Account.all.inject(['Select account', '']) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.account_id : nil), {}, :class => 'autocomplete'
     %td
-      = f.select :sender_id, options_for_select(Contact.all.map { |a| [a.name, a.id] }), {}, :class => 'autocomplete'
+      = f.select :sender_id, options_for_select(Contact.all.map { |a| [a.name, a.id] }, @ledger_item ? @ledger_item.sender_id : nil), {}, :class => 'autocomplete'
     %td
       = link_to '<>', '#', :class => 'swap_columns'
     %td
-      = f.select :recipient_id, options_for_select(Contact.all.map { |a| [a.name, a.id] }), {}, :class => 'autocomplete'
+      = f.select :recipient_id, options_for_select(Contact.all.map { |a| [a.name, a.id] }, @ledger_item ? @ledger_item.recipient_id : nil), {}, :class => 'autocomplete'
     %td
       = f.text_field :total_amount, :class => 'currency'
     %td

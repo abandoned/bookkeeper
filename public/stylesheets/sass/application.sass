@@ -142,15 +142,20 @@ form.search
     color = !color + #222
 
 // Flash messages
+#flash_notice, #flash_error
+  position: absolute
+  width: 100%
+  top: 0
+  opacity: 0.9
 #flash_notice div, #flash_error div
-  padding: 9px 48px
+  padding: 12px 48px
   color: #000
 #flash_notice
   background-color: #cfc
-  border-bottom: solid 1px #6C6
+  border-bottom: solid 2px #6C6
 #flash_error
   background-color: #fcc
-  border-bottom: solid 1px #C66
+  border-bottom: solid 2px #C66
 
 // Error element in forms
 #errorExplanation

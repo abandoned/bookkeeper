@@ -23,18 +23,16 @@ Feature: Rules
     Then I should see "Successfully created rule" within "#flash_notice"
     And a rule should exist with regexp: "Consumption", account: account "Bank A/C"
   
-  @tag
   Scenario: Match an existing rule when set up
     Given a rule exists with account: account "Bank A/C", regexp: "Consumption", debit: false, sender: contact "Self", recipient: contact "Other", matching_account: account "Expenses"
     When I go to the show page for account "Bank A/C"
     And I follow "View ledger items"
     And I follow "New ledger item"
-    And I select "Self" from "Sender"
-    And I select "Other" from "Recipient"
-    And I fill in "Total Amount" with "-20"
-    And I select "USD" from "Currency"
-    And I fill in "Description" with "Consumption"
+    And I select "Self" from "ledger_items_0_sender_id"
+    And I select "Other" from "ledger_items_0_recipient_id"
+    And I fill in "ledger_items_0_total_amount" with "-20"
+    And I select "USD" from "ledger_items_0_currency"
+    And I fill in "ledger_items_0_description" with "Consumption"
     And I press "Submit"
-    Then I should see "Successfully created ledger item" within "#flash_notice"
-    And 1 matches should exist
+    Then 1 matches should exist
     And a ledger_item should exist with sender: contact "Other", recipient: contact "Self", total_amount: 20, account: account "Expenses"

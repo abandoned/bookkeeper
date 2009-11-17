@@ -57,12 +57,12 @@ Feature: Match Existing Ledger Items
     When I press "Reconcile"
     Then I should see "Ledger items successfully reconciled"
     And I should not see "Matches"
-    
+  @tag
   Scenario: Fail to edit a ledger item that is matched
      Given a match exists
         And a ledger_item exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks", match: the match
         And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self", match: the match
       When I go to path "/ledger_items/1/edit"
-      And I fill in "Total amount" with "1" 
+      And I fill in "ledger_items_0_total_amount" with "1" 
       And I press "Submit"
       Then I should see "Cannot edit total amount after reconciliation" within "#flash_error"

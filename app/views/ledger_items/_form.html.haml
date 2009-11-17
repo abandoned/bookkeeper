@@ -1,17 +1,39 @@
-- semantic_form_for resource do |f|
-  - f.inputs do
-    = f.error_messages
-    = f.input :transacted_on, :prompt => true, :start_year => Time.now.year - 2, :end_year => Time.now.year + 1
-    = f.input :currency, :as => :select, :prompt => "Select currency", :collection => ["USD", "GBP", "EUR", "CAD", "JPY", "AUD"]
-    -# For some reason if we don't specify the label here it breaks
-    -# This should be a grouped select
-    = f.input :account, :label => 'Account', :input_html => { :class => 'autocomplete' }, :hint => link_to('New account', new_account_path)
-    = f.input :sender, :prompt => "Select sender", :hint => link_to('New sender', new_person_path)
-    = f.input :recipient, :prompt => "Select recipient", :hint => link_to('New recipient', new_person_path)
-    -# TODO The following collection should be put away somewhere, perhaps a currency resource the bookkeeper can edit.
-    = f.input :total_amount, :input_html => { :size => 30 }
-    = f.input :tax_amount, :required => false, :input_html => { :size => 30 }
-    = f.input :description, :required => false, :input_html => { :size => 30 }
-    = f.input :identifier, :required => false, :input_html => { :size => 30 }
-  - f.buttons do
-    = f.commit_button :button_html => { :value => t('formtastic.labels.commit') }
+- content_for :jstemplates do
+  = "var ledger_item='#{ escape_javascript(render(:partial => 'ledger_item_form', :object => @ledger_items.first )) }'"
+
+- form_for @ledger_items.first do |f|
+  %table
+    %thead
+      %tr
+        %th
+          = f.label :transacted_on
+        %th
+          = f.label :currency
+        %th
+          = f.label :account
+        %th
+          = f.label :sender
+        %td
+        %th
+          = f.label :recipient
+        %th
+          = f.label :total_amount, 'Total'
+        %th
+          = f.label :tax_amount, 'Tax'
+        %th
+          = f.label :description
+        %th
+          = f.label :identifier
+        %td
+    %tbody
+      = render :partial => 'ledger_item_form', :collection => @ledger_items
+    %tfoot
+      %tr
+        %td
+          = link_to('New', new_account_path)
+        %td
+          = link_to('New', new_person_path)
+        %td
+        %td
+          = link_to('New', new_person_path)
+  = f.submit t('formtastic.labels.commit')

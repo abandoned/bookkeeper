@@ -27,4 +27,6 @@ config.gem 'rspec-rails', :lib => false,        :version => '>=1.2.9' unless Fil
 config.gem 'factory_girl',
            :version => '>= 1.2.3',
            :source => 'http://gemcutter.org'
-config.gem 'pickle'
+config.gem 'pickle',
+           :version => ">= 0.1.22",
+           :source => 'http://gemcutter.org'

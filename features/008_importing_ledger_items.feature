@@ -11,6 +11,16 @@ Feature: Import Ledger Items
       | name     | currency | date_row | total_amount_row | description_row | identifier_row | has_title_row | day_follows_month | reverses_sign |
       | Amex, UK | GBP      | 1        | 3                | 4               | 2              | false         | false             | true          |
   
+    Scenario: Import a CSV with a correct ending balance
+      Given I am on path "/ledger_items"
+      When I follow "Import Ledger Items"
+      And I select "AMEX" from "Account"
+      And I fill in "Ending Balance" with "6587.42"
+      And I select "Amex, UK" from "Mapping"
+      And I attach the file at "spec/fixtures/amex-uk-sample.csv" to "File"
+      And I press "Upload file"
+      Then I should see "265 ledger items imported"
+      
   Scenario: Attempt to import a CSV with an incorrect ending balance
     Given I am on path "/ledger_items"
     When I follow "Import Ledger Items"
@@ -21,13 +31,16 @@ Feature: Import Ledger Items
     And I press "Upload file"
     Then I should see "Import failed"
     And I should see "Ending balance of 6587.42 did not match expected balance of 0"
-
-  Scenario: Attempt to import a CSV with an incorrect ending balance
+    
+  Scenario: Attempt to import with a mapping that does not have identifier and description rows
     Given I am on path "/ledger_items"
+      And the following mappings exist
+      | name     | currency | date_row | total_amount_row | has_title_row | day_follows_month | reverses_sign |
+      | Amex, UK2 | GBP      | 1        | 3                | false         | false             | true          |
     When I follow "Import Ledger Items"
-    And I select "AMEX" from "Account"
-    And I fill in "Ending Balance" with "6587.42"
-    And I select "Amex, UK" from "Mapping"
-    And I attach the file at "spec/fixtures/amex-uk-sample.csv" to "File"
-    And I press "Upload file"
+      And I select "AMEX" from "Account"
+      And I fill in "Ending Balance" with "6587.42"
+      And I select "Amex, UK2" from "Mapping"
+      And I attach the file at "spec/fixtures/amex-uk-sample.csv" to "File"
+      And I press "Upload file"
     Then I should see "265 ledger items imported"

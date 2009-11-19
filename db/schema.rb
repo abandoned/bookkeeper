@@ -38,10 +38,10 @@ ActiveRecord::Schema.define(:version => 20091117095203) do
   create_table "ledger_items", :force => true do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
-    t.date     "transacted_on"
+    t.date     "transacted_on",              :default => '2009-11-19'
     t.decimal  "total_amount"
     t.decimal  "tax_amount",                 :default => 0.0
-    t.string   "currency",      :limit => 3,                  :null => false
+    t.string   "currency",      :limit => 3,                           :null => false
     t.string   "description"
     t.string   "identifier"
     t.integer  "account_id"
@@ -74,21 +74,6 @@ ActiveRecord::Schema.define(:version => 20091117095203) do
   end
 
   create_table "matches", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "people", :force => true do |t|
-    t.boolean  "is_self",                   :default => false
-    t.string   "name"
-    t.string   "contact_name"
-    t.text     "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "postal_code"
-    t.string   "country"
-    t.string   "country_code", :limit => 2
-    t.string   "tax_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

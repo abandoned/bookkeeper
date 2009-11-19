@@ -23,10 +23,10 @@ Rails::Initializer.run do |config|
              :version => '>= 0.9.2'
   config.gem 'authlogic',
              :source => 'http://gemcutter.org',
-             :version => '>= 2.1.2'
+             :version => '>= 2.1.3'
   config.gem 'formtastic',
              :source => 'http://gemcutter.org',
-             :version => '>= 0.9.1'
+             :version => '>= 0.9.2'
   config.gem 'haml',
              :source => 'http://gemcutter.org',
              :version => '>= 2.2.13'

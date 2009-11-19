@@ -48,8 +48,8 @@ class Import
         end
         
         # Money entries
-        t.total_amount = row[mapping.total_amount_row - 1].to_f * sign
-        t.tax_amount = row[mapping.tax_amount_row - 1].to_f * sign unless mapping.tax_amount_row.blank?
+        t.total_amount = row[mapping.total_amount_row - 1].gsub(/[^0-9.-]/, '').to_f * sign
+        t.tax_amount = row[mapping.tax_amount_row - 1].gsub(/[^0-9.-]/, '').to_f * sign unless mapping.tax_amount_row.blank?
         t.currency = mapping.currency
         
         # Descriptive entries

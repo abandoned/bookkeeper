@@ -15,7 +15,7 @@ Feature: Match by Creating a New Ledger Item
     Given a ledger_item exists with id: 1, total_amount: "2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks"
     When I go to path "/ledger_items"
       And I press "Match" within "#ledger_item_1"
-      And I select "Coffee" from "Account"
+      And I select "Coffee" from "ledger_item_account_id"
     When I press "Create match"
     Then I should see "Ledger item successfully reconciled"
       And I should not see "Matches"

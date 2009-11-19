@@ -15,7 +15,7 @@ Feature: Match by Defining a Rule
     Given a ledger_item exists with id: 1, total_amount: "2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks", description: "Cappucino Coffee"
     When I go to path "/ledger_items"
       And I press "Match" within "#ledger_item_1"
-      And I follow "Create rule"
+      And I press "Set up rule"
       And I fill in "Coffee" for "Regexp"
       And I select "Coffee" from "Matching account"
       And I press "Submit"

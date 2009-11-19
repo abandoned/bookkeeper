@@ -41,11 +41,3 @@ Feature: Search Ledger Items
   Scenario: Search prior to a date
   
   Scenario: Search between two dates
-  
-  Scenario: Edit an unmatched ledger item
-    Given a ledger_item exists with description: "Foo"
-      And I am on the show page for that ledger_item
-    When I follow "Edit"
-      And I fill in "ledger_items_0_total_amount" with "2"
-      And I press "Submit"
-    Then I should see "  Items succesfully saved"

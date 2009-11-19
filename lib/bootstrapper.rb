@@ -22,7 +22,7 @@ class Bootstrapper
       parent = Account.find_by_name(parent_name)
       record(parent_name, parent)
       children.each do |name|
-        account = Account.create(
+        account = Account.create!(
           :name => name,
           :parent => parent
         )

@@ -22,17 +22,20 @@ class LedgerItem < ActiveRecord::Base
   belongs_to :sender, :class_name => "Contact"
   belongs_to :recipient, :class_name => "Contact"
   belongs_to :match
-  validates_associated :sender, :recipient, :account
-  validates_presence_of :account, :currency, :transacted_on
+  
+  validates_associated      :sender, :recipient, :account
+  validates_presence_of     :account, :currency, :transacted_on
   validates_numericality_of :total_amount
   validates_numericality_of :tax_amount, :allow_nil => true
   validate :must_have_valid_currency_code,
            :tax_may_not_exceed_total,
            :tax_may_not_have_inverse_sign_of_total
+  
+  before_update :prevent_edit_of_total_amount_after_reconciliation
+  after_save    :find_matches!
+  
   named_scope :matched, :conditions => "match_id IS NOT NULL"
   named_scope :unmatched, :conditions => "match_id IS NULL"
-  before_update :prevent_edit_of_total_amount_after_reconciliation
-  after_save :look_for_matches!
   
   # These are the short-hand named scopes used the search form
   named_scope :account, proc { |account|
@@ -42,7 +45,14 @@ class LedgerItem < ActiveRecord::Base
   }
   named_scope :contact, proc { |contact|
     unless contact.blank?
-      { :conditions => ["sender_id = ? OR recipient_id = ?", contact, contact] }
+      if contact == "All selves"
+        {
+          :joins => "INNER JOIN contacts AS senders ON senders.id = sender_id INNER JOIN contacts AS recipients ON recipients.id = recipient_id",
+          :conditions => ["senders.is_self = ? OR recipients.is_self = ?", true, true]
+        }
+      else
+        { :conditions => ["sender_id = ? OR recipient_id = ?", contact, contact] }
+      end
     end
   }
   named_scope :query, proc { |query| 
@@ -113,14 +123,14 @@ class LedgerItem < ActiveRecord::Base
     end
   end
   
-  # We don't want look_for_matches! to trigger this hook. Hence, the last condition
+  # We don't want find_matches! to trigger this hook. Hence, the last condition
   def prevent_edit_of_total_amount_after_reconciliation
     if self.matched? && self.total_amount_changed? && !self.match_id_changed?
       raise ActiveRecord::RecordNotSaved, "Cannot edit total amount after reconciliation"
     end
   end
   
-  def look_for_matches!
+  def find_matches!
     unless self.matched?
       self.account.rules.each do |rule|
         break if rule.match!(self)

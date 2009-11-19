@@ -2,45 +2,44 @@
   %h1
     %span Pending Matches
   
-  .cart
-    %table.data
-      %thead
-        %tr
-          %th.small
-            Account
-          %th.small
-            Sender
-          %th.small
-            Recipient
-          %th.small
-            Date
-          %th.small
-            Total
-          %th.small
-            Tax
-      %tfoot
-        %tr
-          %td.smaller
-            = link_to "Discard all", empty_cart_path
-            - if @cart.reconciled?
-              = button_to "Reconcile", save_cart_path
-            - else
-              - if @cart.size == 1
-                - item = @cart.ledger_items.first
-                - semantic_form_for item, :url => balance_cart_path do |f|
-                  - f.inputs do
-                    %label{:for => "ledger_item_account_id"} Account
-                    - hamlified_grouped_tree_select(Account.roots, "ledger_item", "account_id", item.account)
-                  - f.buttons do
-                    = f.commit_button :button_html => { :value => 'Create match' }
-                = link_to "Create rule", new_account_rule_path(item.account, :ledger_item_id => item.id)
+  %table.data
+    %thead
+      %tr
+        %th.small
+          Account
+        %th.small
+          Sender
+        %th.small
+          Recipient
+        %th.small
+          Date
+        %th.small
+          Amount
+        %th.small
+          Tax
+        %th.small
+          Description
+    %tfoot
+      %tr
+        %td.smaller
+          = button_to "Empty", empty_cart_path
+          - if @cart.reconciled?
+            = button_to "Reconcile", save_cart_path
+          - else
+            - if @cart.size == 1
+              - item = @cart.ledger_items.first
+              - form_for item, :url => balance_cart_path do |f|
+                - hamlified_grouped_tree_select(Account.roots, "ledger_item", "account_id", item.account)
+                = f.submit 'Create match'
+              = button_to "Set up rule", new_account_rule_path(item.account, :ledger_item_id => item.id), :method => :get
 
-      %tbody
-        - for ledger_item in @cart.ledger_items
-          %tr[ledger_item, :cart]
-            %td= ledger_item.account.name
-            %td= ledger_item.sender.name
-            %td= ledger_item.recipient.name
-            %td= ledger_item.transacted_on
-            %td.currency= monetize(ledger_item.total_amount, ledger_item.currency_symbol)
-            %td.currency= monetize(ledger_item.tax_amount, ledger_item.currency_symbol)
+    %tbody
+      - for ledger_item in @cart.ledger_items
+        %tr{:class => "smaller #{cycle('odd', 'even')}"}[ledger_item, :cart]
+          %td=h ledger_item.account.name
+          %td=h ledger_item.sender.name
+          %td=h ledger_item.recipient.name
+          %td= ledger_item.transacted_on
+          %td.currency= monetize(ledger_item.total_amount, ledger_item.currency_symbol)
+          %td.currency= monetize(ledger_item.tax_amount, ledger_item.currency_symbol)
+          %th.small=h ledger_item.description 

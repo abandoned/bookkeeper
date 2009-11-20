@@ -1,4 +1,6 @@
 require 'csv'
+require 'ar-extensions/adapters/postgresql'
+require 'ar-extensions/import/postgresql'
 
 class Import
   include Validatable

@@ -58,7 +58,7 @@ class LedgerItem < ActiveRecord::Base
   named_scope :query, proc { |query| 
     unless query.blank?
       q = query.dup
-      sql, vars = "1", []
+      sql, vars = "TRUE", []
       if query =~ /(-?[0-9]+\.[0-9]{2})/ || q =~ /(-?[0-9]+)(\s|$)/
         sql << " AND total_amount = ?"
         vars << $1.to_f

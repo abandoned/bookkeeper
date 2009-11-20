@@ -6,9 +6,6 @@ class ImportsController < ApplicationController
   end
 
   def create
-    flash[:notice] = "import"
-    return redirect_to ledger_items_path
-    
     @import = Import.new(params[:import])
     if @import.valid_for_processing?
       @import.process

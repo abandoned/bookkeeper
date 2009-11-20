@@ -6,6 +6,9 @@ class ImportsController < ApplicationController
   end
 
   def create
+    flash[:notice] = "import"
+    return redirect_to ledger_items_path
+    
     @import = Import.new(params[:import])
     if @import.valid_for_processing?
       @import.process
@@ -13,8 +16,7 @@ class ImportsController < ApplicationController
       if @import.valid_for_importing?
         count = @import.import
         flash[:notice] = "#{count} ledger items imported"
-        redirect_to ledger_items_path
-        return
+        return redirect_to ledger_items_path
       end
     end
 

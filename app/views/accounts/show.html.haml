@@ -8,10 +8,11 @@
     = render :partial => "child", :collection => resource.children
 %p= link_to "New", new_resource_path(resource, :parent_id => resource.id)
 %p= link_to "View ledger items", account_ledger_items_path(resource)
+%p= link_to "Import Ledger Items", new_account_import_path(resource)
 %p= link_to "Rules", account_rules_path(resource)
 %p TODO Display other summary info on account
   
 .footer
-  = link_to "Edit", edit_resource_path(resource)
-  = link_to "Delete", resource_path(resource), :confirm => 'Are you sure?', :method => :delete
+  = link_to "Edit", edit_resource_path
+  = link_to "Delete", resource_path, :confirm => 'Are you sure?', :method => :delete
   = link_to "View All", collection_path

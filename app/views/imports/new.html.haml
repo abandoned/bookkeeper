@@ -1,13 +1,13 @@
 - title "Import ledger items"
 
-- semantic_form_for @import, :url => import_path, :html => { :multipart => true } do |f|
+- semantic_form_for [@account, @import], :url => account_import_path(@account), :html => { :multipart => true } do |f|
   = f.error_messages
   - f.inputs do
     %li{:class => "select required account", :id => "import_account_input"}
       %label{:for => "import_account_id"}
         Account
         <abbr title="required">*</abbr>
-      - hamlified_grouped_tree_select(Account.roots, "import", "account_id")
+      - hamlified_grouped_tree_select(Account.roots, "import", "account_id", @account)
     = f.input :ending_balance
     = f.input :mapping_id, :as => :select, :collection => Mapping.all, :include_blank => "Select mapping", :hint => link_to("New mapping", new_mapping_path)
     = f.input :file, :as => :file
@@ -15,6 +15,6 @@
     = f.commit_button :button_html => { :value => t('formtastic.labels.import.commit') }
   
 .footer
-  = link_to "&#x2190; Back to LedgerItems", ledger_items_path
+  = link_to "Back to Ledger Items", ledger_items_path
   
   

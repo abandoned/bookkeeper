@@ -5,12 +5,16 @@ Feature: Import Ledger Items
   
   Background:
     Given I am logged in
-    And I have a default ledger set up
-    Given an account "AMEX" exists with name: "AMEX", parent: account "Liabilities"
-    And the following mappings exist
-      | name     | currency | date_row | total_amount_row | description_row | second_description_row | identifier_row | has_title_row | day_follows_month | reverses_sign |
-      | Amex, UK | GBP      | 1        | 3                | 4               |                        | 2              | false         | false             | true          |
-      | Amex, US | USD      | 1        | 5                | 2               | 4                      |                | true          | true              | true          |
+      And I have a default ledger set up
+      And an account "AMEX" exists with name: "AMEX", parent: account "Liabilities"
+      And an account "Citi" exists with name: "Citi", parent: account "Assets"
+      And a ledger_item "Opening Balance" exists with total_amount: "1047.98", currency: "USD", account: account "Citi", transacted_on: "12/10/2008"
+      And the following mappings exist
+        | name     | currency | date_row | total_amount_row | description_row | second_description_row | identifier_row | has_title_row | day_follows_month | reverses_sign |
+        | Amex, UK | GBP      | 1        | 3                | 4               |                        | 2              | false         | false             | true          |
+        | Amex, US | USD      | 1        | 5                | 2               | 4                      |                | true          | true              | true          |
+        | Citi     | USD      | 1        | 3                | 2               |                        |                | false         | true              | false         |
+  
   Scenario: Import a CSV with a correct ending balance
     Given I am on the show page for account "Amex"
     When I follow "Import Ledger Items"
@@ -41,3 +45,12 @@ Feature: Import Ledger Items
       And I attach the file at "spec/fixtures/amex-us-sample.csv" to "File"
       And I press "Upload file"
     Then I should see "998 ledger items imported"
+  
+  Scenario: Import a Citi statement into an account with opening balance
+    Given I am on the show page for account: "Citi"
+    When I follow "Import Ledger Items"
+      And I fill in "Ending Balance" with "20475.49"
+      And I select "Citi" from "Mapping"
+      And I attach the file at "spec/fixtures/citi-sample.csv" to "File"
+      And I press "Upload file"
+    Then I should see "51 ledger items imported"

@@ -7,7 +7,7 @@ class Import
   validates_presence_of :ending_balance, :account_id, :mapping_id, :file, :groups => [:processing]
   validates_each :ending_balance_confirmation, :groups => [:importing],
                  :logic => lambda {
-                   unless ending_balance.to_f == ending_balance_confirmation.to_f
+                   unless (ending_balance.to_f - ending_balance_confirmation.to_f).abs  < 0.01
                      errors.add(:ending_balance, "of #{ending_balance_confirmation} did not match expected balance of #{ending_balance}")
                    end
                   }

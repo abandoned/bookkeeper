@@ -16,7 +16,7 @@ Feature: Import Ledger Items
         | Citi     | USD      | 1        | 3                | 2               |                        |                | false         | true              | false         |
   
   Scenario: Import a CSV with a correct ending balance
-    Given I am on the show page for account "Amex"
+    Given I am on the show page for account "AMEX"
     When I follow "Import Ledger Items"
     And I select "AMEX" from "Account"
     And I fill in "Ending Balance" with "6587.42"
@@ -26,9 +26,8 @@ Feature: Import Ledger Items
     Then I should see "265 ledger items imported"
       
   Scenario: Attempt to import a CSV with an incorrect ending balance
-    Given I am on the show page for account "Amex"
+    Given I am on the show page for account "AMEX"
     When I follow "Import Ledger Items"
-    And I select "AMEX" from "Account"
     And I fill in "Ending Balance" with "0"
     And I select "Amex, UK" from "Mapping"
     And I attach the file at "spec/fixtures/amex-uk-sample.csv" to "File"
@@ -37,9 +36,8 @@ Feature: Import Ledger Items
     And I should see "Ending balance of 6587.42 did not match expected balance of 0"
     
   Scenario: Import a CSV with no identifier row and with thousand separators in numbers
-    Given I am on the show page for account "Amex"
+    Given I am on the show page for account "AMEX"
     When I follow "Import Ledger Items"
-      And I select "AMEX" from "Account"
       And I fill in "Ending Balance" with "1589.11"
       And I select "Amex, US" from "Mapping"
       And I attach the file at "spec/fixtures/amex-us-sample.csv" to "File"

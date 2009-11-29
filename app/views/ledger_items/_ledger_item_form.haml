@@ -5,18 +5,18 @@
 %tr
   - fields_for 'ledger_items[]', ledger_item_form, :index => (ledger_item_form_counter rescue 'NEW_RECORD') do |f|
     %td
-      = f.date_select :transacted_on, :start_year => Time.now.year - 2, :end_year => Time.now.year + 1
+      = f.date_select :transacted_on, :start_year => Time.now.year - 2, :end_year => Time.now.year + 1, :use_short_month => true
       -# TODO The following collection should be put away somewhere, perhaps a currency resource the bookkeeper can edit.
     %td
       = f.select :currency, ["USD", "GBP", "EUR", "CAD", "JPY", "AUD"]
     %td
-      = f.select :account_id, options_for_select(Account.all.inject(['Select account', '']) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.account_id : nil), {}, :class => 'autocomplete'
+      = f.select :account_id, options_for_select(Account.all.inject([['Select account', '']]) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.account_id : nil), {}, :class => 'autocomplete'
     %td
-      = f.select :sender_id, options_for_select(Contact.all.map { |a| [a.name, a.id] }, @ledger_item ? @ledger_item.sender_id : nil), {}, :class => 'autocomplete'
+      = f.select :sender_id, options_for_select(Contact.all.inject([['Select sender', '']]) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.sender_id : nil), {}, :class => 'autocomplete'
     %td
       = link_to '<>', '#', :class => 'swap_columns'
     %td
-      = f.select :recipient_id, options_for_select(Contact.all.map { |a| [a.name, a.id] }, @ledger_item ? @ledger_item.recipient_id : nil), {}, :class => 'autocomplete'
+      = f.select :recipient_id, options_for_select(Contact.all.inject([['Select recipient', '']]) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.recipient_id : nil), {}, :class => 'autocomplete'
     %td
       = f.text_field :total_amount, :class => 'currency'
     %td

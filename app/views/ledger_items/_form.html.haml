@@ -5,17 +5,7 @@
   %table
     %thead
       %tr
-        %th
-          = f.label :transacted_on
-        %th
-          = f.label :currency
-        %th
-          = f.label :account
-        %th
-          = f.label :sender
-        %td
-        %th
-          = f.label :recipient
+        %th{:colspan => 6}
         %th
           = f.label :total_amount, 'Total'
         %th
@@ -27,13 +17,4 @@
         %td
     %tbody
       = render :partial => 'ledger_item_form', :collection => @ledger_items
-    %tfoot
-      %tr
-        %td
-          = link_to('New', new_account_path)
-        %td
-          = link_to('New', new_contact_path)
-        %td
-        %td
-          = link_to('New', new_contact_path)
   = f.submit t('formtastic.labels.commit')

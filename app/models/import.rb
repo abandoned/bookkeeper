@@ -77,7 +77,7 @@ class Import
   
   def import
     LedgerItem.import ledger_items
-    
+    p ledger_items.last
     return ledger_items.size
   end
   

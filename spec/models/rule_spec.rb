@@ -7,7 +7,7 @@
 #  recipient_id        :integer
 #  account_id          :integer
 #  matching_account_id :integer
-#  regexp :string(255)
+#  regexp              :string(255)
 #  debit               :boolean
 #  created_at          :datetime
 #  updated_at          :datetime

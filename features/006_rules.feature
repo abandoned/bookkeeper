@@ -36,3 +36,16 @@ Feature: Rules
     And I press "Submit"
     Then 1 matches should exist
     And a ledger_item should exist with sender: contact "Other", recipient: contact "Self", total_amount: 20, account: account "Expenses"
+  
+  Scenario: Apply a rule to a new ledger item imported via a CSV file
+    Given a rule exists with account: account "Bank A/C", regexp: "SERVICE CHARGE", debit: false, sender: contact "Other", recipient: contact "Self", matching_account: account "Expenses"
+     And a mapping exists with name: "Citi", currency: "USD", date_row: 1, total_amount_row: 3, description_row: 2, has_title_row: false, day_follows_month: true, reverses_sign: false
+      And I am on the show page for account: "Bank A/C"
+    When I follow "Import Ledger Items"
+      And I fill in "Ending Balance" with "19427.51"
+      And I select "Citi" from "Mapping"
+      And I attach the file at "spec/fixtures/citi-sample.csv" to "File"
+      And I press "Upload file"
+    Then I should see "SERVICE CHARGE" within "#ledger_item_43"
+      And I should see "View matches" within "#ledger_item_43"
+    

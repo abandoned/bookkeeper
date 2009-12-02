@@ -1,10 +1,10 @@
 // Colors
 !color = #475159
-!bg_color = #b2bdb7
-!headline_color = #f2f2f2
-!headline_bg_color = #839795
+!bg_color = #ddd
+!headline_color = #eee
+!headline_bg_color = #555
 !nav_color = #f2f2f2
-!nav_bg_color = #475159
+!nav_bg_color = #333
 !main_color = #000
 !main_bg_color = #f2f2f2
 
@@ -55,7 +55,7 @@ a
   h1
     color = !headline_color
     font:
-      size: 3em
+      size: 2.8em
       weight: normal
     a
       color = !headline_color
@@ -65,14 +65,14 @@ a
 #nav
   position: absolute
   bottom: 0
-  right: 18px
-  padding: 6px 15px
+  right: 1.5em
+  +small-font
+  padding: 0.4em 1em
   background-color = !nav_bg_color
   -moz-border-radius-topleft: 6px
   -moz-border-radius-topright: 6px
   -webkit-border-top-left-radius: 6px
   -webkit-border-top-right-radius: 6px
-  font-size: 0.9em
   a
     color = !nav_color
     margin-right: 6px
@@ -85,7 +85,7 @@ a
 
 // Main
 #main
-  padding: 3em
+  padding: 2em 3em 3em
   color = !main_color
   background-color = !main_bg_color
   h1
@@ -147,19 +147,16 @@ form.search
 
 // Flash messages
 #flash_notice, #flash_error
-  position: absolute
-  width: 100%
-  top: 0
-  opacity: 0.9
-#flash_notice div, #flash_error div
-  padding: 12px 48px
+  width: 60%
+  padding: 0.5em
+  margin-bottom: 1em
   color: #000
 #flash_notice
   background-color: #cfc
-  border-bottom: solid 2px #6C6
+  border: solid 2px #6C6
 #flash_error
   background-color: #fcc
-  border-bottom: solid 2px #C66
+  border: solid 2px #C66
 
 // Error element in forms
 #errorExplanation

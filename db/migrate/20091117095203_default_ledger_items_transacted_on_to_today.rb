@@ -4,6 +4,6 @@ class DefaultLedgerItemsTransactedOnToToday < ActiveRecord::Migration
   end
 
   def self.down
-    change_column :ledger_items, :transacted_on, :date
+    change_column :ledger_items, :transacted_on, :date, :default => nil
   end
 end

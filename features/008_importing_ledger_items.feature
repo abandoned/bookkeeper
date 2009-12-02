@@ -38,11 +38,11 @@ Feature: Import Ledger Items
   Scenario: Import a CSV with no identifier row and with thousand separators in numbers
     Given I am on the show page for account "AMEX"
     When I follow "Import Ledger Items"
-      And I fill in "Ending Balance" with "1589.11"
+      And I fill in "Ending Balance" with "7886.55"
       And I select "Amex, US" from "Mapping"
       And I attach the file at "spec/fixtures/amex-us-sample.csv" to "File"
       And I press "Upload file"
-    Then I should see "998 ledger items imported"
+    Then I should see "197 ledger items imported"
   
   Scenario: Import a Citi statement into an account with opening balance
     Given I am on the show page for account: "Citi"

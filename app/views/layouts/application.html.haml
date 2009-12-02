@@ -16,13 +16,12 @@
         - for link in nav_links
           = link_to_unless_current(link[:name], link[:path]) { |l| content_tag(:span, l, :class => "current") }
     #main
+      - flash.each do |name, msg|
+        - haml_tag(:div, msg, :id => "flash_#{name}")
       - if show_title?
         %h1
           %span= yield(:title)
       = yield
     #footer
       %p.small
-        Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a>.
-    - flash.each do |name, msg|
-      - haml_tag(:div, :id => "flash_#{name}") do
-        - haml_tag(:div, msg)
+        Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a>

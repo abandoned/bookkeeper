@@ -2,19 +2,19 @@
 #
 # Table name: ledger_items
 #
-#  id           :integer         not null, primary key
-#  sender_id    :integer
-#  recipient_id :integer
-#  transacted_on    :date
-#  total_amount :decimal(20, 4)
-#  tax_amount   :decimal(20, 4)
-#  currency     :string(3)       not null
-#  description  :string(255)
-#  identifier   :string(255)
-#  account_id   :integer
-#  match_id     :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id            :integer         not null, primary key
+#  sender_id     :integer
+#  recipient_id  :integer
+#  transacted_on :date
+#  total_amount  :decimal(, )
+#  tax_amount    :decimal(, )     default(0.0)
+#  currency      :string(3)       not null
+#  description   :string(255)
+#  identifier    :string(255)
+#  account_id    :integer
+#  match_id      :integer
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 class LedgerItem < ActiveRecord::Base
@@ -27,10 +27,12 @@ class LedgerItem < ActiveRecord::Base
   validates_presence_of     :account, :currency, :transacted_on
   validates_numericality_of :total_amount
   validates_numericality_of :tax_amount, :allow_nil => true
+  
   validate :must_have_valid_currency_code,
            :tax_may_not_exceed_total,
            :tax_may_not_have_inverse_sign_of_total
   
+  before_create :set_transacted_on_to_curdate
   before_update :prevent_edit_of_total_amount_after_reconciliation
   after_save    :find_matches!
   
@@ -104,6 +106,10 @@ class LedgerItem < ActiveRecord::Base
   end
   
   private
+  
+  def set_transacted_on_to_curdate
+    self.transacted_on = Date.today if self.transacted_on.nil?
+  end
   
   def must_have_valid_currency_code
     unless ISO4217::CODE.has_key?(self.currency)

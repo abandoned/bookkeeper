@@ -47,7 +47,7 @@ class LedgerItem < ActiveRecord::Base
   }
   named_scope :contact, proc { |contact|
     unless contact.blank?
-      if contact == "All selves"
+      if contact == "0"
         {
           :joins => "INNER JOIN contacts AS senders ON senders.id = sender_id INNER JOIN contacts AS recipients ON recipients.id = recipient_id",
           :conditions => ["senders.is_self = ? OR recipients.is_self = ?", true, true]

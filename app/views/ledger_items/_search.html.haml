@@ -11,9 +11,8 @@
     %ul
       - if params[:account_id].nil?
         %li
-          = select_tag(:account, options_for_select(Account.all.inject([['Select account', '']]) { |r, a| r << [a.name, a.id] }, params[:account].to_i), :class => "autocomplete")
-      - if Contact.self.count > 1
-        %li= select_tag(:contact, options_for_select(Contact.self.inject([['All selves' => '']]) { |r, c| r << [c.name, c.id] }, params[:contact].to_i))
+          = select_tag(:account, options_for_select(Account.all.inject([['Select account', '']]) { |r, a| r << [a.name, a.id.to_s] }, params[:account]), :class => "autocomplete")
+      %li= select_tag(:contact, options_for_select(Contact.all.inject([['Select contact', ''], ['All selves', '0']]) { |r, c| r << [c.name, c.id.to_s] }, params[:contact]), :class => "autocomplete")
       %li= text_field_tag(:query, params[:query])
       %li
         =check_box_tag(:unmatched, nil, params[:unmatched])

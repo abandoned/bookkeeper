@@ -1,13 +1,13 @@
-- title resource.name, false
+- title @account.name, false
 %h1= account_title
 
 %h2
   Subaccounts
-- unless resource.children.length == 0
+- unless @account.children.length == 0
   %ul
-    = render :partial => "child", :collection => resource.children
-%p= link_to "New", new_resource_path(resource, :parent_id => resource.id)
-%p= link_to "View ledger items", account_ledger_items_path(resource)
+    = render :partial => "child", :collection => @account.children
+%p= link_to "New", new_resource_path(resource, :parent_id => @account.id)
+%p= link_to "View ledger items", ledger_items_path(resource, :account => @account.id)
 %p= link_to "Import Ledger Items", new_account_import_path(resource)
 %p= link_to "Rules", account_rules_path(resource)
 %p TODO Display other summary info on account

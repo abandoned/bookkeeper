@@ -1,12 +1,33 @@
 $(document).ready(function() {
   
+  $.fn.gray_out_labels = function() {
+    $(this).find('select.autocomplete').map(function() {
+      if($(this).val() == '') {
+        $(this).next().addClass('labeled').focus(function() {
+          $(this).val('').removeClass('labeled')
+        })
+      }
+    })
+    return this;
+  }
+  
   $('select.autocomplete').select_autocomplete();
   
   var copy_row = function(row) {
     var new_id = new Date().getTime();
     row.after(ledger_item.replace(/NEW_RECORD/g, new_id))
-    var next_row = row.next('tr').find('select.autocomplete').select_autocomplete()
-    next_row.find('select')
+    var next_row = row.next('tr')
+    
+    row.find('td').each(function() {
+      var index_in_row = row.children().index($(this))
+      $(this).find('select').map(function() {
+        var index_in_parent = $(this).parent().children().index($(this))
+        var default_value = $(this).val()
+        next_row.find('td:eq(' + (index_in_row) + ') select:eq(' + (index_in_parent) + ')').val(default_value)
+      })
+    })
+    next_row.find('select.autocomplete').select_autocomplete()
+    next_row.gray_out_labels()
   }
   
   $('form table a.add_row').live('click', function(ev) {
@@ -32,7 +53,6 @@ $(document).ready(function() {
   
   // Strip unnecessary attributes from search gets
   $('form.search').find('input, select').removeAttr('disabled')
-  
   $('form.search').submit(function() {
     $(this).find('input, select').map(function() {
       if ($.trim($(this).val()) == '') {
@@ -41,12 +61,6 @@ $(document).ready(function() {
     })
   })
   
-  // Dress up the autocomplete select field a bit
-  $('form').find('select.autocomplete').map(function() {
-    if($(this).val() == '') {
-      $(this).next().addClass('labeled').focus(function() {
-        $(this).val('').removeClass('labeled');
-      });
-    }
-  });
+  // Gray out label values in autocomplete selects
+  $('form').gray_out_labels();
 })

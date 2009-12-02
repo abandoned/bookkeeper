@@ -1,11 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :accounts do |account|
     account.resources :rules
-    account.resources :ledger_items
     account.resource :import, :only => [:new, :create]
   end
   map.resources :matches, :except => [:index]
-  map.resources :mappings, :ledger_items
+  map.resources :mappings
+  map.resources :ledger_items
   map.resources :contacts, :has_many => :ledger_items
   map.resource :user_session, :only => [:new, :create, :destroy]
   map.resources :reports, :only => [:index, :show]

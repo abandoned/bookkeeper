@@ -16,8 +16,8 @@ class LedgerItemsController < InheritedResources::Base
   end
   
   def new
-    @ledger_items = [LedgerItem.new(:account_id => params[:account_id])]
-
+    @ledger_item = LedgerItem.new(:account_id => params[:account])
+    @ledger_items = [@ledger_item]
     new!
   end
 

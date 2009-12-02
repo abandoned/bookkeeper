@@ -36,4 +36,4 @@
   %p.small No ledger items found
       
 .footer
-  = link_to "New Ledger Item", new_resource_path
+  = link_to "New Ledger Item", new_ledger_item_path(:account => params[:account])

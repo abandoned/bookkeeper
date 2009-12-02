@@ -5,7 +5,8 @@ $(document).ready(function() {
   var copy_row = function(row) {
     var new_id = new Date().getTime();
     row.after(ledger_item.replace(/NEW_RECORD/g, new_id))
-    row.next('tr').find('select.autocomplete').select_autocomplete()
+    var next_row = row.next('tr').find('select.autocomplete').select_autocomplete()
+    next_row.find('select')
   }
   
   $('form table a.add_row').live('click', function(ev) {
@@ -29,6 +30,7 @@ $(document).ready(function() {
     b.val(v)
   })
   
+  // Strip unnecessary attributes from search gets
   $('form.search').find('input, select').removeAttr('disabled')
   
   $('form.search').submit(function() {
@@ -38,4 +40,13 @@ $(document).ready(function() {
       }
     })
   })
+  
+  // Dress up the autocomplete select field a bit
+  $('form').find('select.autocomplete').map(function() {
+    if($(this).val() == '') {
+      $(this).next().addClass('labeled').focus(function() {
+        $(this).val('').removeClass('labeled');
+      });
+    }
+  });
 })

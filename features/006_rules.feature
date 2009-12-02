@@ -46,6 +46,7 @@ Feature: Rules
       And I select "Citi" from "Mapping"
       And I attach the file at "spec/fixtures/citi-sample.csv" to "File"
       And I press "Upload file"
-    Then I should see "SERVICE CHARGE" within "#ledger_item_43"
-      And I should see "View matches" within "#ledger_item_43"
+    Then I should see "View matches"
+      And a ledger_item should exist with description: "SERVICE CHARGE"
+      And that ledger_item should be matched
     

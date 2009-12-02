@@ -76,8 +76,7 @@ class Import
   end
   
   def import
-    LedgerItem.import ledger_items
-    p ledger_items.last
+    ledger_items.each { |i| i.save! }
     return ledger_items.size
   end
   

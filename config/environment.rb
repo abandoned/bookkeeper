@@ -18,9 +18,7 @@ Rails::Initializer.run do |config|
   config.gem 'ancestry',
              :source => 'http://gemcutter.org',
              :version => '1.1.4'
-  config.gem 'ar-extensions',
-             :source => 'http://gemcutter.org',
-             :version => '>= 0.9.2'
+
   config.gem 'authlogic',
              :source => 'http://gemcutter.org',
              :version => '>= 2.1.3'

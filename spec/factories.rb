@@ -22,8 +22,6 @@ Factory.define :ledger_item do |f|
 end
 
 Factory.define :rule do |f|
-  f.regexp "foo"
-  f.debit true
 end
 
 Factory.define :match do |f|

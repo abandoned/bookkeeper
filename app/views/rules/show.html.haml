@@ -1,20 +1,26 @@
 - title "Rule"
 
 %p
-  %strong Description Match String:
-  =h resource.regexp 
+  %strong Matched Description:
+  =h @rule.matched_description
 %p
-  %strong Debit:
-  = resource.debit
+  %strong Matched Debit:
+  = @rule.matched_debit
 %p
-  %strong Sender
-  =h resource.sender.name
+  %strong Matched Sender
+  =h @rule.matched_sender.name if @rule.matched_sender
 %p
-  %strong Recipient
-  =h resource.recipient.name
+  %strong Matched Recipient
+  =h @rule.matched_recipient.name if @rule.matched_recipient
 %p
-  %strong Matching Account:
-  =h resource.matching_account.name
+  %strong New Sender
+  =h @rule.new_sender.name if @rule.new_sender
+%p
+  %strong New Recipient
+  =h @rule.new_recipient.name if @rule.new_recipient
+%p
+  %strong New Account:
+  =h @rule.new_account.name
 
 .footer
   = link_to "Edit", edit_resource_path

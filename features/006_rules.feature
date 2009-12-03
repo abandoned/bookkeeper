@@ -14,17 +14,17 @@ Feature: Rules
     Given I am on the show page for account "Bank A/C"
     When I follow "Rules"
     And I follow "New rule"
-    And I fill in "Regexp" with "Consumption"
-    And I select "No" from "Debit"
-    And I select "Self" from "Sender"
-    And I select "Other" from "Recipient"
-    And I select "Expenses" from "Matching account"
+    And I fill in "Matched Description" with "Consumption"
+    And I select "No" from "Matched Debit"
+    And I select "Self" from "New Sender"
+    And I select "Other" from "New Recipient"
+    And I select "Expenses" from "New account"
     And I press "Submit"
     Then I should see "Successfully created rule" within "#flash_notice"
-    And a rule should exist with regexp: "Consumption", account: account "Bank A/C"
+    And a rule should exist with matched_description: "Consumption", account: account "Bank A/C"
   
   Scenario: Match an existing rule when set up
-    Given a rule exists with account: account "Bank A/C", regexp: "Consumption", debit: false, sender: contact "Self", recipient: contact "Other", matching_account: account "Expenses"
+    Given a rule exists with account: account "Bank A/C", matched_description: "Consumption", matched_debit: false, new_sender: contact "Self", new_recipient: contact "Other", new_account: account "Expenses"
     When I go to the show page for account "Bank A/C"
     And I follow "View ledger items"
     And I follow "New ledger item"
@@ -38,7 +38,7 @@ Feature: Rules
     And a ledger_item should exist with sender: contact "Other", recipient: contact "Self", total_amount: 20, account: account "Expenses"
   
   Scenario: Apply a rule to a new ledger item imported via a CSV file
-    Given a rule exists with account: account "Bank A/C", regexp: "SERVICE CHARGE", debit: false, sender: contact "Other", recipient: contact "Self", matching_account: account "Expenses"
+    Given a rule exists with account: account "Bank A/C", matched_description: "SERVICE CHARGE", matched_debit: false, new_sender: contact "Other", new_recipient: contact "Self", new_account: account "Expenses"
      And a mapping exists with name: "Citi", currency: "USD", date_row: 1, total_amount_row: 3, description_row: 2, has_title_row: false, day_follows_month: true, reverses_sign: false
       And I am on the show page for account: "Bank A/C"
     When I follow "Import Ledger Items"

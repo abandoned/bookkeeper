@@ -2,18 +2,22 @@
 
 %table
   %tr
-    %th Description Match String
-    %th Debit
-    %th Sender
-    %th Recipient
-    %th Matching Account
+    %th Matched Description
+    %th Matched Debit
+    %th Matched Sender
+    %th Matched Recipient
+    %th New Sender
+    %th New Recipient
+    %th New Account
   - for rule in collection
     %tr
-      %td=h rule.regexp
-      %td= rule.debit
-      %td=h rule.sender.name
-      %td=h rule.recipient.name
-      %td=h rule.matching_account.name
+      %td=h rule.matched_description
+      %td= rule.matched_debit
+      %td=h rule.matched_sender.name
+      %td=h rule.matched_recipient.name
+      %td=h rule.new_sender.name
+      %td=h rule.new_recipient.name
+      %td=h rule.new_account.name
       %td= link_to "Show", resource_path(rule)
       %td= link_to "Edit", edit_resource_path(rule)
       %td= link_to "Delete", resource_path(rule), :confirm => 'Are you sure?', :method => :delete

@@ -1,10 +1,12 @@
-- semantic_form_for [@account, resource] do |f|
+- semantic_form_for [@account, @rule] do |f|
   - f.inputs do
     = f.error_messages
-    = f.input :regexp
-    = f.input :debit, :as => :select, :prompt => "Select value"
-    = f.input :sender, :prompt => "Select sender"
-    = f.input :recipient, :prompt => "Select recipient"
-    = f.input :matching_account, :prompt => "Select account"
+    = f.input :matched_description
+    = f.input :matched_sender, :prompt => 'Select contact'
+    = f.input :matched_recipient, :prompt => 'Select contact'
+    = f.input :matched_debit, :as => :select, :prompt => 'Select value'
+    = f.input :new_sender, :prompt => 'Select contact'
+    = f.input :new_recipient, :prompt => 'Select contact'
+    = f.input :new_account, :prompt => 'Select account'
     - f.buttons do
       = f.commit_button :button_html => { :value => t('formtastic.labels.commit') }

@@ -13,10 +13,10 @@
     %tr
       %td=h rule.matched_description
       %td= rule.matched_debit
-      %td=h rule.matched_sender.name if @rule.matched_sender
-      %td=h rule.matched_recipient.name if @rule.matched_recipient
-      %td=h rule.new_sender.name  if @rule.new_sender
-      %td=h rule.new_recipient.name if @rule.new_recipient
+      %td=h rule.matched_sender.name if rule.matched_sender
+      %td=h rule.matched_recipient.name if rule.matched_recipient
+      %td=h rule.new_sender.name  if rule.new_sender
+      %td=h rule.new_recipient.name if rule.new_recipient
       %td=h rule.new_account.name
       %td= link_to "Show", resource_path(rule)
       %td= link_to "Edit", edit_resource_path(rule)

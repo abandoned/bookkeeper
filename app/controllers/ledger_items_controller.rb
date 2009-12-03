@@ -33,11 +33,11 @@ class LedgerItemsController < InheritedResources::Base
           item.save!
         end
       end
-      flash[:notice] = 'Items succesfully saved'
+      flash[:notice] = 'Items successfully saved.'
 
       redirect_to collection_path
     rescue Exception => e
-      flash[:error] = 'Items failed to save'
+      flash[:error] = 'Items failed to save.'
       
       render :action => :new
     end

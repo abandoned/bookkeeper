@@ -2,11 +2,11 @@
   - f.inputs do
     = f.error_messages
     = f.input :matched_description
-    = f.input :matched_sender, :prompt => 'Select contact'
-    = f.input :matched_recipient, :prompt => 'Select contact'
+    = f.input :matched_sender, :prompt => 'Select contact', :input_html => { :class => 'autocomplete' }
+    = f.input :matched_recipient, :prompt => 'Select contact', :input_html => { :class => 'autocomplete' }
     = f.input :matched_debit, :as => :select, :prompt => 'Select value'
-    = f.input :new_sender, :prompt => 'Select contact'
-    = f.input :new_recipient, :prompt => 'Select contact'
-    = f.input :new_account, :prompt => 'Select account'
+    = f.input :new_sender, :prompt => 'Select contact', :input_html => { :class => 'autocomplete' }
+    = f.input :new_recipient, :prompt => 'Select contact', :input_html => { :class => 'autocomplete' }
+    = f.input :new_account, :prompt => 'Select account', :input_html => { :class => 'autocomplete' }
     - f.buttons do
       = f.commit_button :button_html => { :value => t('formtastic.labels.commit') }

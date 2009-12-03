@@ -30,7 +30,7 @@ class LedgerItemsController < InheritedResources::Base
           @ledger_items << LedgerItem.new(item_attributes)
         end
         @ledger_items.each do |item|
-          item.save!
+          item.save! unless item.sender_id.blank? && item.recipient_id.blank? && item.total_amount.blank?
         end
       end
       flash[:notice] = 'Items successfully saved.'

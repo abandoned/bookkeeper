@@ -33,7 +33,7 @@ class LedgerItem < ActiveRecord::Base
            :tax_may_not_have_inverse_sign_of_total
   
   before_create :set_transacted_on_to_curdate
-  before_update :prevent_edit_of_total_amount_after_reconciliation
+  before_update :update_matched_ledger_items
   after_save    :find_matches!
   
   named_scope :matched,   :conditions => 'match_id IS NOT NULL'
@@ -127,9 +127,24 @@ class LedgerItem < ActiveRecord::Base
   end
   
   # We don't want find_matches! to trigger this hook. Hence, the last condition
-  def prevent_edit_of_total_amount_after_reconciliation
-    if self.matched? && self.total_amount_changed? && !self.match_id_changed?
-      raise ActiveRecord::RecordNotSaved, "Cannot edit total amount after reconciliation"
+  def update_matched_ledger_items
+    if self.matched? && self.changed? && !self.match_id_changed?
+      
+      if self.match.ledger_items.count == 2
+        matched_ledger_item = self.match.ledger_items.find(:first, :conditions => ['ledger_items.id != ?', self.id])
+        matched_ledger_item.update_attributes!(
+          :total_amount   => self.total_amount * -1.0,
+          :sender_id      => self.recipient_id,
+          :recipient_id   => self.sender_id,
+          :match_id       => nil,
+          :transacted_on  => self.transacted_on
+        )
+        matched_ledger_item.update_attribute(:match_id, self.match_id)
+
+      # Not done yet
+      else
+        raise ActiveRecord::RecordNotSaved, "Not done yet"
+      end
     end
   end
   

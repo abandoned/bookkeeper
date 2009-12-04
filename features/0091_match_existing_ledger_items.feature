@@ -58,11 +58,25 @@ Feature: Match Existing Ledger Items
     Then I should see "Ledger items successfully reconciled"
     And I should not see "Matches"
   
-  Scenario: Fail to edit a ledger item that is matched
+  Scenario: When I edit a ledger item that is matched with another transaction, the latter should be updated
      Given a match exists
-        And a ledger_item exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks", match: the match
-        And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self", match: the match
+        And a ledger_item "l1" exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks", match: the match
+        And a ledger_item "l2" exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self", match: the match
       When I go to path "/ledger_items/1/edit"
-      And I fill in "Total Amount" with "1" 
+      And I fill in "Total Amount" with "1"
+      And I select "Starbucks" from "Sender"
+      And I select "Self" from "Recipient"
       And I press "Submit"
-      Then I should see "Cannot edit total amount after reconciliation" within "#flash_error"
+      Then I should see "Successfully updated ledger item."
+      And ledger_item "l2" should exist with total_amount: "-1", sender: contact "Self", recipient: contact "Starbucks"
+
+  Scenario: When I edit a ledger item that is matched with two other transactions, the match should be deleted
+     Given a match exists
+        And a ledger_item "l1" exists with id: 1, total_amount: "-5.98", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks", match: the match
+        And a ledger_item "l2" exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self", match: the match
+        And a ledger_item "l3" exists with id: 3, total_amount: "2.99", currency: "USD", account: account "Coffee", sender: contact "Starbucks", recipient: contact "Self", match: the match
+      When I go to path "/ledger_items/1/edit"
+      And I fill in "Total Amount" with "1"
+      And I select "Starbucks" from "Sender"
+      And I select "Self" from "Recipient"
+      And I press "Submit"

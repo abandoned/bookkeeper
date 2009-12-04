@@ -36,8 +36,10 @@ class LedgerItem < ActiveRecord::Base
   before_update :prevent_edit_of_total_amount_after_reconciliation
   after_save    :find_matches!
   
-  named_scope :matched, :conditions => "match_id IS NOT NULL"
-  named_scope :unmatched, :conditions => "match_id IS NULL"
+  named_scope :matched,   :conditions => 'match_id IS NOT NULL'
+  named_scope :unmatched, :conditions => 'match_id IS NULL'
+  named_scope :debit,     :conditions => 'total_amount > 0'
+  named_scope :credit,    :conditions => 'total_amount < 0'
   
   # These are the short-hand named scopes used the search form
   named_scope :account, proc { |account|
@@ -72,11 +74,6 @@ class LedgerItem < ActiveRecord::Base
         vars << "%#{q}%"
       end
       { :conditions => [sql] + vars }
-    end
-  }
-  named_scope :matched, proc { |matched|
-    if matched == 1
-      { :conditions => "match_id IS NULL" }
     end
   }
   named_scope :from_date, proc { |from|

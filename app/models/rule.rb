@@ -25,16 +25,17 @@ class Rule < ActiveRecord::Base
   belongs_to :matched_sender,     :class_name => "Contact"
   belongs_to :matched_recipient,  :class_name => "Contact"
   
-  validates_associated  :new_sender, :new_recipient, :matched_sender, :matched_recipient, :account, :new_account
-  validates_presence_of :account, :new_account
+  validates_associated    :new_sender, :new_recipient, :matched_sender, :matched_recipient, :account, :new_account
+  validates_presence_of   :account, :new_account
+  validates_inclusion_of  :matched_debit, :in => [true, false]
   
-  validate              :must_have_at_least_one_matcher
-  validate              :must_either_match_or_assign_contacts
+  validate  :must_have_at_least_one_matcher,
+            :must_either_match_or_assign_contacts
   
   after_save :apply_to_ledger
   
   def apply_to_ledger
-    self.account.ledger_items.unmatched.each { |i| self.match!(i) }
+    self.account.ledger_items.unmatched.send( self.matched_debit ? :debit : :credit).each { |i| self.match!(i) }
   end
   
   def match!(ledger_item)

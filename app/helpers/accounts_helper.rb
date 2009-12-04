@@ -1,7 +1,7 @@
 module AccountsHelper
   def account_title
     ret = ""
-    for parent in resource.ancestors.reverse
+    for parent in resource.ancestors
       ret << link_to(h(parent.name), parent) + " &gt; " 
     end
     ret + h(resource.name)

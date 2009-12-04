@@ -113,9 +113,8 @@ class LedgerItemsController < InheritedResources::Base
   # for each currency
   def calculate_totals
     @totals = {}
-    end_of_association_chain.all.each do |t|
-      @totals[t.currency_symbol] = @totals[t.currency_symbol] || 0.0
-      @totals[t.currency_symbol] += t.total_amount.round(2)
+    end_of_association_chain.sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
+      @totals[LedgerItem::CURRENCY_SYMBOLS[currency]] = total_amount.round(2)
     end
   end
 end

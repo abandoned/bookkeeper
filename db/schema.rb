@@ -87,6 +87,21 @@ ActiveRecord::Schema.define(:version => 20091203123815) do
     t.datetime "updated_at"
   end
 
+  create_table "people", :force => true do |t|
+    t.boolean  "is_self",                   :default => false
+    t.string   "name"
+    t.string   "contact_name"
+    t.text     "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal_code"
+    t.string   "country"
+    t.string   "country_code", :limit => 2
+    t.string   "tax_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "rules", :force => true do |t|
     t.integer  "new_sender_id"
     t.integer  "new_recipient_id"
@@ -109,6 +124,28 @@ ActiveRecord::Schema.define(:version => 20091203123815) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "transactions", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.date     "issued_on"
+    t.decimal  "total_amount",              :precision => 20, :scale => 4
+    t.decimal  "tax_amount",                :precision => 20, :scale => 4
+    t.string   "currency",     :limit => 3,                                :null => false
+    t.string   "description"
+    t.string   "identifier"
+    t.integer  "account_id"
+    t.integer  "match_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transactions", ["account_id"], :name => "index_transactions_on_account_id"
+  add_index "transactions", ["identifier"], :name => "index_transactions_on_identifier"
+  add_index "transactions", ["issued_on"], :name => "index_transactions_on_issued_on"
+  add_index "transactions", ["recipient_id"], :name => "index_transactions_on_recipient_id"
+  add_index "transactions", ["sender_id"], :name => "index_transactions_on_sender_id"
+  add_index "transactions", ["total_amount"], :name => "index_transactions_on_total_amount"
 
   create_table "users", :force => true do |t|
     t.string   "login",                              :null => false

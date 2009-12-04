@@ -30,14 +30,14 @@ class LedgerItemsController < InheritedResources::Base
           @ledger_items << LedgerItem.new(item_attributes)
         end
         @ledger_items.each do |item|
-          item.save!
+          item.save! unless item.sender_id.blank? && item.recipient_id.blank? && item.total_amount.blank?
         end
       end
-      flash[:notice] = 'Items succesfully saved'
+      flash[:notice] = 'Items successfully saved.'
 
       redirect_to collection_path
     rescue Exception => e
-      flash[:error] = 'Items failed to save'
+      flash[:error] = 'Items failed to save.'
       
       render :action => :new
     end

@@ -69,6 +69,7 @@ Feature: Match Existing Ledger Items
       And I press "Submit"
       Then I should see "Successfully updated ledger item."
       And ledger_item "l2" should exist with total_amount: "-1", sender: contact "Self", recipient: contact "Starbucks"
+      And a match should exist
 
   Scenario: When I edit a ledger item that is matched with two other transactions, the match should be deleted
      Given a match exists

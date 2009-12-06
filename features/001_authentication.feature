@@ -10,23 +10,15 @@ Feature: Authentication
     And I fill in "Password" with "secret"
     And I press "Log in"
     Then I should see "You are logged in" within "#flash_notice"
-    
-  Scenario: Require login on list of accounts
-    When I go to path "/accounts"
-    Then I should be on path "/user_session/new"
-    
-  Scenario: Require login on list of contacts
-    When I go to path "/contacts"
+  
+  Scenario Outline: Require login on resource
+    When I go to path "<path>"
     Then I should be on path "/user_session/new"
   
-  Scenario: Require login on list of ledger items
-    When I go to path "/ledger_items"
-    Then I should be on path "/user_session/new"
-  
-  Scenario: Require login on list of mappings
-    When I go to path "/mappings"
-    Then I should be on path "/user_session/new"
-  
-  Scenario: Require login on list of rules
-    When I go to path "/accounts/1/rules"
-    Then I should be on path "/user_session/new"
+  Examples:
+      | path              |
+      | /accounts         |
+      | /contacts         |
+      | /ledger_items     |
+      | /mappings         |
+      | /accounts/1/rules |

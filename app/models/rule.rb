@@ -39,14 +39,13 @@ class Rule < ActiveRecord::Base
   end
   
   def match!(ledger_item)
-    
     # Match sign
     if ledger_item.total_amount * (self.matched_debit? ? 1 : -1) < 0
       return false
     end
     
     # Match description
-    unless self.matched_description.nil?
+    unless self.matched_description.nil? || (!self.matched_sender_id.nil? && !self.matched_recipient_id.nil?)
       regexp = Regexp.new(self.matched_description, true)
       unless ledger_item.description =~ regexp
         return false
@@ -68,16 +67,11 @@ class Rule < ActiveRecord::Base
     end
     
     # Populate contacts
-    if ledger_item.sender_id.nil?
-      ledger_item.update_attribute(:sender_id, self.new_sender_id)
-    end
-    
-    if ledger_item.recipient_id.nil?
-      ledger_item.update_attribute(:recipient_id, self.new_recipient_id)
-    end
+    ledger_item.sender_id = self.new_sender_id if ledger_item.sender_id.nil?
+    ledger_item.recipient_id = self.new_recipient_id if ledger_item.recipient_id.nil?
     
     # Create matching ledger item
-    new_ledger_item = LedgerItem.create!(
+    new_ledger_item = LedgerItem.new(
       :transacted_on  => ledger_item.transacted_on,
       :total_amount   => ledger_item.total_amount * -1.0,
       :currency       => ledger_item.currency,
@@ -86,9 +80,12 @@ class Rule < ActiveRecord::Base
       :recipient_id   => ledger_item.sender_id
     )
     
-    # Create match
-    group = Match.create!
-    group.ledger_items << [ledger_item, new_ledger_item]
+    # Create match and save ledger items
+    match = Match.create!
+    [ledger_item, new_ledger_item].each do |i|
+      i.match_id = match.id
+      i.save!
+    end
   end
   
   private

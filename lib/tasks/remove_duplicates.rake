@@ -3,7 +3,8 @@ namespace :bugs do
   task :remove_duplicates => :environment do
     Match.all.each do |m|
       if m.ledger_items.count == 1
-        m.ledger_items.destroy_all
+        p '.'
+        m.ledger_items.first.destroy!
         m.destroy
       end
     end

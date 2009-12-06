@@ -12,7 +12,7 @@
       %th Country
       %th Country Code
       %th Tax Number
-      %th Is Self
+      %th Self?
     - for contact in collection
       %tr{:class => "smaller #{cycle('odd', 'even')}"}
         %td= link_to contact.name, resource_path(contact)

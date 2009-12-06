@@ -30,7 +30,8 @@ class LedgerItem < ActiveRecord::Base
   
   validate :must_have_valid_currency_code,
            :tax_may_not_exceed_total,
-           :tax_may_not_have_inverse_sign_of_total
+           :tax_may_not_have_inverse_sign_of_total,
+           :must_have_perspective_of_self
   
   before_create :set_transacted_on_to_curdate
   after_save    :find_matches!
@@ -123,6 +124,17 @@ class LedgerItem < ActiveRecord::Base
     if self.tax_amount * self.total_amount < 0
       errors.add(:tax_amount, "may not have inverse sign of total amount")
     end
+  end
+  
+  # Some more business logic to validate. If self is part of the transaction,
+  # i.e. is sender and/or recipient, she should not be solely on the receiving
+  # end if transacted_amount is negative and similarly, should not be solely
+  # on the sending end if the transacted amount is positive. Either case would
+  # imply we are recording in the ledger of the other party, not that of the 
+  # self!
+  #
+  # This should help ease erroneous manual entries.
+  def must_have_perspective_of_self
   end
   
   def find_matches!

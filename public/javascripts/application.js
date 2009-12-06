@@ -62,5 +62,18 @@ $(document).ready(function() {
   })
   
   // Gray out label values in autocomplete selects
-  $('form').gray_out_labels();
+  $('form').gray_out_labels()
+  
+  // Calculate total on new ledger item form
+  $('form#new_ledger_item table').prepend('<tfoot><tr><td class="small" id="grand-total"></td></tr></tfoot>')
+  
+  $('form#new_ledger_item').map(function() {
+    $(this).find('td input.total-amount').live('change', function() {
+      var total = 0
+      $('form#new_ledger_item').find('td input.total-amount').each(function() {
+        total += parseFloat($(this).val())
+      })
+      $('#grand-total').html(Math.round(total * 100) / 100)
+    })
+  })
 })

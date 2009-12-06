@@ -56,4 +56,31 @@ describe LedgerItem do
     @ledger_item.currency = "ZZZ"
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
   end
+  
+  it "should validate if transaction is between selves" do
+    @sender.self = true
+    @sender.save
+    @recipient.self = true
+    @recipient.save
+    lambda { @ledger_item.save! }.should_not raise_error
+  end
+  
+  it "should validate if transacting parties are not defined" do
+    @ledger_item.sender = nil
+    @ledger_item.recipient = nil
+    lambda { @ledger_item.save! }.should_not raise_error
+  end
+  
+  it "should not validate if debit and not from perspective of self" do
+    @sender.self = true
+    @sender.save
+    lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
+  end
+  
+  it "should not validate if credit and not from perspective of self" do
+    @recipient.self = true
+    @recipient.save
+    @ledger_item.total_amount = -20.0
+    lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
+  end
 end

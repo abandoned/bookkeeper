@@ -52,7 +52,7 @@ class LedgerItem < ActiveRecord::Base
       if contact == "0"
         {
           :joins => "INNER JOIN contacts AS senders ON senders.id = sender_id INNER JOIN contacts AS recipients ON recipients.id = recipient_id",
-          :conditions => ["senders.is_self = ? OR recipients.is_self = ?", true, true]
+          :conditions => ["senders.self = ? OR recipients.self = ?", true, true]
         }
       else
         { :conditions => ["sender_id = ? OR recipient_id = ?", contact, contact] }
@@ -95,6 +95,14 @@ class LedgerItem < ActiveRecord::Base
     self.sender && self.recipient
   end
   
+  def debit?
+    self.total_amount > 0
+  end
+  
+  def credit?
+    self.total_amount < 0
+  end
+  
   # Curreny stuff probably be moved out of here.
   CURRENCY_SYMBOLS = { "USD" => "$", "EUR" => "€", "GBP" => "£", "CAD" => "CAD$", "JPY" => "¥"}
   
@@ -110,19 +118,19 @@ class LedgerItem < ActiveRecord::Base
   
   def must_have_valid_currency_code
     unless ISO4217::CODE.has_key?(self.currency)
-      errors.add(:currency, "is invalid")
+      errors.add(:currency, 'is invalid')
     end
   end
   
   def tax_may_not_exceed_total
     if self.tax_amount.abs > self.total_amount.abs
-      errors.add(:tax_amount, "may not exceed total amount")
+      errors.add(:tax_amount, 'may not exceed total amount')
     end
   end
   
   def tax_may_not_have_inverse_sign_of_total
     if self.tax_amount * self.total_amount < 0
-      errors.add(:tax_amount, "may not have inverse sign of total amount")
+      errors.add(:tax_amount, 'may not have inverse sign of total amount')
     end
   end
   
@@ -135,6 +143,13 @@ class LedgerItem < ActiveRecord::Base
   #
   # This should help ease erroneous manual entries.
   def must_have_perspective_of_self
+    if self.debit? && self.sender && self.sender.self? && self.recipient && !self.recipient.self?
+      errors.add_to_base('Not set up from perspective of self')
+    end
+    
+    if self.credit? && self.recipient && self.recipient.self? && self.sender && !self.sender.self?
+      errors.add_to_base('Not set up from perspective of self')
+    end
   end
   
   def find_matches!

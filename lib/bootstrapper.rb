@@ -7,13 +7,13 @@ class Bootstrapper
     @self, @starbucks, @customer = Contact.create!([
       { :name => "Self",
         :country => "United States",
-        :is_self => true },
+        :self => true },
       { :name => "Starbucks",
         :country => "United States",
-        :is_self => false },
+        :self => false },
       { :name => "Customer",
         :country => "United States",
-        :is_self => false },
+        :self => false },
     ])
     {
       "Bank Accounts" => ["Demo Bank Account"],

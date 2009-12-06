@@ -7,11 +7,11 @@ Feature: Search Ledger Items
     Given I am logged in
       And I have a default ledger set up
       And an account "Beverages" exists with name: "Beverages", parent: account "Expenses"
-      And a contact "Me" exists with name: "Me", is_self: true
-      And a contact "Myself" exists with name: "Myself", is_self: true
-      And a contact "Other" exists with name: "Other", is_self: false
-      And a ledger_item exists with description: "Coffee", total_amount: "2.99", currency: "USD", account: account "Beverages", sender: contact "Me", recipient: contact "Other"
-      And a ledger_item exists with description: "Hot Chocolate", total_amount: "3.99", currency: "USD", account: account "Beverages", sender: contact "Myself", recipient: contact "Other"
+      And a contact "Me" exists with name: "Me", self: true
+      And a contact "Myself" exists with name: "Myself", self: true
+      And a contact "Other" exists with name: "Other", self: false
+      And a ledger_item exists with description: "Coffee", total_amount: "2.99", currency: "USD", account: account "Beverages", sender: contact "Other", recipient: contact "Me"
+      And a ledger_item exists with description: "Hot Chocolate", total_amount: "3.99", currency: "USD", account: account "Beverages", sender: contact "Other", recipient: contact "Myself"
       And a ledger_item exists with description: "Tea", identifier: "Foo bar", total_amount: "1.99", currency: "USD", account: account "Beverages", sender: contact "Other", recipient: contact "Other"
   
   Scenario: Search for "Me"

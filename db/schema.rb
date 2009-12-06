@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091203123815) do
+ActiveRecord::Schema.define(:version => 20091206014351) do
 
   create_table "accounts", :force => true do |t|
     t.string   "ancestry"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20091203123815) do
   add_index "accounts", ["ancestry"], :name => "index_accounts_on_ancestry"
 
   create_table "contacts", :force => true do |t|
-    t.boolean  "is_self",                   :default => false
+    t.boolean  "self",                      :default => false
     t.string   "name"
     t.string   "contact_name"
     t.text     "address"

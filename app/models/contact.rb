@@ -3,7 +3,7 @@
 # Table name: contacts
 #
 #  id           :integer         not null, primary key
-#  is_self      :boolean
+#  self      :boolean
 #  name         :string(255)
 #  contact_name :string(255)
 #  address      :text
@@ -25,7 +25,7 @@ class Contact < ActiveRecord::Base
            :class_name => "LedgerItem",
            :foreign_key => "recipient_id"
   before_destroy :may_not_orphan_ledger_items
-  named_scope :self, :conditions => ["is_self = ?", true]
+  named_scope :self, :conditions => ["self = ?", true]
   
   protected
   

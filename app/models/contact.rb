@@ -24,7 +24,12 @@ class Contact < ActiveRecord::Base
   has_many :received_ledger_items,
            :class_name => "LedgerItem",
            :foreign_key => "recipient_id"
+  
+  validates_presence_of :name
+  validates_uniqueness_of :name
+  
   before_destroy :may_not_orphan_ledger_items
+  
   named_scope :self, :conditions => ["self = ?", true]
   
   protected

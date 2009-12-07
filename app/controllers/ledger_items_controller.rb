@@ -48,33 +48,6 @@ class LedgerItemsController < InheritedResources::Base
     @ledger_items = [@ledger_item]
   end
   
-  def update
-    begin
-      update! {
-        # Update matched ledger_items if necessary.
-        # Had to move this out of the model because of some unintended looping.
-        if @ledger_item.matched?
-          if @ledger_item.match.ledger_items.count == 2
-            i = @ledger_item.match.ledger_items.find(:first, :conditions => ['ledger_items.id != ?', @ledger_item.id])
-            i.update_attributes(
-              :total_amount   => @ledger_item.total_amount * -1.0,
-              :sender_id      => @ledger_item.recipient_id,
-              :recipient_id   => @ledger_item.sender_id,
-              :transacted_on  => @ledger_item.transacted_on
-            )
-        
-          # Not done yet
-          else
-            raise(ActiveRecord::RecordNotSaved, 'Not done yet')
-          end
-        end
-      }
-    rescue Exception => e
-      flash[:error] = e.message
-      redirect_to collection_path
-    end
-  end
-  
   def add_to_cart
     ledger_item = LedgerItem.find(params[:id])
     @cart.add(ledger_item)

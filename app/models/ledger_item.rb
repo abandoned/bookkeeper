@@ -33,8 +33,9 @@ class LedgerItem < ActiveRecord::Base
            :tax_may_not_have_inverse_sign_of_total,
            :must_have_perspective_of_self
   
-  before_create :set_transacted_on_to_curdate
-  after_save    :find_matches!
+  before_create :set_transacted_on_to_today
+  after_create  :create_matches
+  after_update  :update_matches
   
   named_scope :matched,   :conditions => 'match_id IS NOT NULL'
   named_scope :unmatched, :conditions => 'match_id IS NULL'
@@ -103,6 +104,10 @@ class LedgerItem < ActiveRecord::Base
     self.total_amount < 0
   end
   
+  def matched_ledger_items
+    self.match.ledger_items.reject { |i| i.id == self.id }
+  end
+  
   # Curreny stuff probably be moved out of here.
   CURRENCY_SYMBOLS = { "USD" => "$", "EUR" => "€", "GBP" => "£", "CAD" => "CAD$", "JPY" => "¥"}
   
@@ -112,7 +117,7 @@ class LedgerItem < ActiveRecord::Base
   
   private
   
-  def set_transacted_on_to_curdate
+  def set_transacted_on_to_today
     self.transacted_on = Date.today if self.transacted_on.nil?
   end
   
@@ -152,10 +157,30 @@ class LedgerItem < ActiveRecord::Base
     end
   end
   
-  def find_matches!
+  def create_matches
     unless self.matched?
       self.account.rules.each do |rule|
         break if rule.match!(self)
+      end
+    end
+  end
+  
+  def update_matches
+    if self.matched?
+      if self.match.ledger_items.count == 2
+        i = self.matched_ledger_items.first
+        if (i.total_amount + self.total_amount).to_f.abs > 0.01 ||
+          i.sender_id != self.recipient_id ||
+          i.recipient_id != self.sender_id
+          i.update_attributes(
+            :total_amount   => self.total_amount * -1.0,
+            :sender_id      => self.recipient_id,
+            :recipient_id   => self.sender_id
+          )
+        end
+      elsif self.match.ledger_items.count > 2
+        self.match.ledger_items.each { |i| i.update_attribute(:match_id, nil)}
+        self.match.destroy
       end
     end
   end

@@ -1,5 +1,5 @@
 - content_for :jstemplates do
-  = "var ledger_item='#{ escape_javascript(render(:partial => 'ledger_item_form', :object => @ledger_items.first )) }'"
+  = "var ledger_item='#{ escape_javascript(render(:partial => 'ledger_item_form', :object => @ledger_items.first )) }'".html_safe!
 
 - form_for @ledger_items.first do |f|
   %table

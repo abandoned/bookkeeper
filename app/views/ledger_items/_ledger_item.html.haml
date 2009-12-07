@@ -5,12 +5,12 @@
     - if ledger_item.sender
       = link_to(ledger_item.sender.name, contact_path(ledger_item.sender))
     - else
-      = button_to("Add", edit_resource_path(ledger_item), :method => :get)
+      = button_to("Add", edit_resource_path(ledger_item), :method => :get).html_safe!
   %td
     - if ledger_item.recipient
       = link_to(ledger_item.recipient.name, contact_path(ledger_item.recipient))
     - else
-      = button_to("Add", edit_resource_path(ledger_item), :method => :get)
+      = button_to("Add", edit_resource_path(ledger_item), :method => :get).html_safe!
   %td= ledger_item.transacted_on
   %td.currency= monetize(ledger_item.total_amount, ledger_item.currency_symbol)
   %td=h truncate(ledger_item.description)

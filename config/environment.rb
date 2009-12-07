@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -16,27 +16,19 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'ancestry',
-             :source => 'http://gemcutter.org',
              :version => '1.1.4'
-
   config.gem 'authlogic',
-             :source => 'http://gemcutter.org',
              :version => '>= 2.1.3'
   config.gem 'formtastic',
-             :source => 'http://gemcutter.org',
              :version => '>= 0.9.2'
   config.gem 'haml',
-             :source => 'http://gemcutter.org',
              :version => '>= 2.2.13'
   config.gem 'inherited_resources',
-             :source => 'http://gemcutter.org',
              :version => '>= 0.9.2'
   config.gem 'jnunemaker-validatable',
              :lib => "validatable",
-             :source => "http://gemcutter.org",
              :version => '>= 1.8.0'
   config.gem 'will_paginate',
-             :source => 'http://gemcutter.org',
              :version => '~> 2.3.11'
 
   # Only load the plugins named here, in the order given (default is alphabetical).

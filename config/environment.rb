@@ -19,10 +19,12 @@ Rails::Initializer.run do |config|
              :version => '1.1.4'
   config.gem 'authlogic',
              :version => '>= 2.1.3'
+  config.gem 'erubis',
+             :version => '>= 2.6.5'
   config.gem 'formtastic',
              :version => '>= 0.9.2'
   config.gem 'haml',
-             :version => '>= 2.2.13'
+             :version => '>= 2.2.15'
   config.gem 'inherited_resources',
              :version => '>= 0.9.2'
   config.gem 'jnunemaker-validatable',

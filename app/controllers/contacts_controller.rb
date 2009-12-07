@@ -11,4 +11,12 @@ class ContactsController < InheritedResources::Base
       render(:action => :show)
     end
   end
+  
+  private
+  
+  def collection
+    @contacts ||= end_of_association_chain.paginate(
+      :page => params[:page],
+      :order => 'name')
+  end
 end

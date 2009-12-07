@@ -1,7 +1,7 @@
 - title "Ledger Items", false
 
 - unless @cart.ledger_items.empty?
-  = render :partial => "cart"
+  = render(:partial => "cart").html_safe!
 
 %h1
   %span Ledger Items

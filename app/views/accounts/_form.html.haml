@@ -3,7 +3,7 @@
     - # TODO There are three different tree select helpers strewn across the views. It does call for a master helper that does it all!
     %li
       = f.label(:parent_id, t("formtastic.labels.account.parent_id") + '<abbr title="required">*</abbr>')
-      - tree_select(Account.roots, "account", "parent_id", resource)
+      = tree_select(Account.roots, "account", "parent_id", resource)
     = f.input :name, :input_html => { :size => 30 }
     - f.buttons do
       = f.commit_button :button_html => { :value => t('formtastic.labels.commit') }

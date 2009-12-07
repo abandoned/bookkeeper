@@ -1,6 +1,6 @@
-- title "Contacts"
+- title 'Contacts'
 
-- if collection.size > 0
+- if @contacts.size > 0
   %table.data
     %tr.small
       %th Name
@@ -13,7 +13,7 @@
       %th Country Code
       %th Tax Number
       %th Self?
-    - for contact in collection
+    - for contact in @contacts
       %tr{:class => "smaller #{cycle('odd', 'even')}"}
         %td= link_to contact.name, resource_path(contact)
         %td=h contact.contact_name
@@ -25,8 +25,9 @@
         %td=h contact.country_code
         %td=h contact.tax_number
         %td= contact.self
+  = will_paginate(@contacts, :inner_window => 2, :class => "small pagination")
 - else
   %p No contacts found
 
 .footer
-  = link_to "New Contact", new_resource_path
+  = link_to "New Contact", new_contact_path

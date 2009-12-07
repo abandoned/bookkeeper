@@ -7,7 +7,7 @@
       %label{:for => "import_account_id"}
         Account
         <abbr title="required">*</abbr>
-      - hamlified_grouped_tree_select(Account.roots, "import", "account_id", @account)
+      = grouped_tree_select(Account.roots, "import", "account_id", @account)
     = f.input :ending_balance
     = f.input :mapping_id, :as => :select, :collection => Mapping.all, :include_blank => "Select mapping", :hint => link_to("New mapping", new_mapping_path)
     = f.input :file, :as => :file

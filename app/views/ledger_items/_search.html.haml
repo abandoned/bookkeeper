@@ -3,10 +3,10 @@
     %ul
       %li
         %label.smaller{:for => "from_date"} From:
-        = select_date(params_to_date(params[:from_date]), :prompt => true, :prefix => "from_date")
+        = select_date(params_to_date(params[:from_date]), :prompt => true, :prefix => "from_date").html_safe!
       %li
         %label.smaller To:
-        = select_date(params_to_date(params[:to_date]), :prompt => true, :prefix => "to_date")
+        = select_date(params_to_date(params[:to_date]), :prompt => true, :prefix => "to_date").html_safe!
   %fieldset
     %ul
       - if params[:account_id].nil?

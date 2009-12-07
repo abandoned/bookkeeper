@@ -7,7 +7,7 @@
       %label{:for => "ledger_item_account_id"}
         Account
         <abbr title="required">*</abbr>
-      - hamlified_grouped_tree_select(Account.roots, "ledger_item", "account_id", resource.account)
+      = grouped_tree_select(Account.roots, "ledger_item", "account_id", resource.account)
       %p.inline-hints= link_to "New account", new_account_path
     = f.input :transacted_on, :prompt => true, :start_year => Time.now.year - 2, :end_year => Time.now.year + 1
     = f.input :sender, :prompt => "Select sender", :input_html => { :class => 'autocomplete' }, :hint => "<a href=\"/contacts/new\">New sender</a>"

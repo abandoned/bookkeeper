@@ -34,31 +34,32 @@ module LedgerItemsHelper
     end
   end
   
-  def hamlified_grouped_tree_select(categories, model, name, selected=nil, prompt=true, level=0, init=true)
+  def grouped_tree_select(categories, model, name, selected=nil, prompt=true, level=0, init=true)
     if init
-      haml_tag :select, {:name => "#{model}[#{name}]", :id => "#{model}_#{name}"} do
+      content_tag :select, {:name => "#{model}[#{name}]", :id => "#{model}_#{name}"} do
         if prompt
           prompt = "Select #{categories.first.class.to_s.humanize.downcase}" if prompt == true
-          haml_tag :option, prompt, :value => ""
+          content_tag :option, prompt, :value => ''
         end
-        hamlified_grouped_tree_select(categories, model, name, selected, nil, level, false)
+        grouped_tree_select(categories, model, name, selected, nil, level, false)
       end
     else
       level += 1 # keep position
       categories.collect do |category|
         if level == 1
-          haml_tag :optgroup, { :label => category.name } do
+          content_tag :optgroup, { :label => category.name } do
             if category.children
-              hamlified_grouped_tree_select(category.children, model, name, selected, nil, level, false)
+              grouped_tree_select(category.children, model, name, selected, nil, level, false)
             end
           end
         else
           attributes = {:value => category.id}
           attributes[:selected] = "selected" if selected && category.id == selected.id
-          haml_tag :option, category.name, attributes
+          html = content_tag(:option, category.name, attributes)
           if category.children
-            hamlified_grouped_tree_select(category.children, model, name, selected, nil, level, false)
+            html += grouped_tree_select(category.children, model, name, selected, nil, level, false).to_s
           end
+          html
         end
       end
     end

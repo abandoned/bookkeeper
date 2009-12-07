@@ -21,17 +21,17 @@
           Description
     %tfoot
       %tr
-        %td.smaller
-          = button_to "Empty", empty_cart_path
+        %td.smaller{:colspan => 7}
+          = button_to("Empty", empty_cart_path).html_safe!
           - if @cart.reconciled?
-            = button_to "Reconcile", save_cart_path
+            = button_to("Reconcile", save_cart_path).html_safe!
           - else
             - if @cart.size == 1
               - item = @cart.ledger_items.first
-              - form_for item, :url => balance_cart_path do |f|
-                - hamlified_grouped_tree_select(Account.roots, "ledger_item", "account_id", item.account)
+              - form_for(item, :url => balance_cart_path) do |f|
+                = collection_select(:ledger_item, :account_id, Account.all, :id, :name, { :prompt => 'Select account' })
                 = f.submit 'Create match'
-              = button_to "Set up rule", new_account_rule_path(item.account, :ledger_item_id => item.id), :method => :get
+              = button_to("Set up rule", new_account_rule_path(item.account, :ledger_item_id => item.id), :method => :get).html_safe!
 
     %tbody
       - for ledger_item in @cart.ledger_items

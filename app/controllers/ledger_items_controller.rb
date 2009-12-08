@@ -27,6 +27,7 @@ class LedgerItemsController < InheritedResources::Base
           :description,
         ],
         :methods => [
+          :account_name,
           :sender_name,
           :recipient_name
         ])

@@ -18,10 +18,10 @@ Feature: Export in CSV format
     When I follow "Export"
     Then I should download
     """
-    transacted_on,currency,total_amount,tax_amount,description,sender_name,recipient_name
-    2009-01-01,USD,2.0,0.0,Coffee,,
-    2009-01-02,USD,1.5,0.0,Hot Chocolate,,
-    2009-01-03,USD,2.59,0.0,Tea,,
+    transacted_on,currency,total_amount,tax_amount,description,account_name,sender_name,recipient_name
+    2009-01-01,USD,2.0,0.0,Coffee,Beverages,,
+    2009-01-02,USD,1.5,0.0,Hot Chocolate,Beverages,,
+    2009-01-03,USD,2.59,0.0,Tea,Beverages,,
     
     """
   
@@ -34,8 +34,8 @@ Feature: Export in CSV format
     When I follow "Export"
     Then I should download
     """
-    transacted_on,currency,total_amount,tax_amount,description,sender_name,recipient_name
-    2009-01-01,USD,2.0,0.0,Coffee,,
+    transacted_on,currency,total_amount,tax_amount,description,account_name,sender_name,recipient_name
+    2009-01-01,USD,2.0,0.0,Coffee,Beverages,,
     
     """
     

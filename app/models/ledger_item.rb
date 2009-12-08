@@ -88,6 +88,10 @@ class LedgerItem < ActiveRecord::Base
    end
   }
   
+  def account_name
+    self.account.name
+  end
+  
   def sender_name
     self.sender.name if self.sender
   end

@@ -9,16 +9,16 @@ class LedgerItemsController < InheritedResources::Base
   before_filter :find_cart, :only => [:index, :add_to_cart, :balance_cart, :save_cart]
   
   def index
-    calculate_totals
-    index! do |format|
-      format.csv do
-        unless params[:account].blank?
-          file_name = Account.find(params[:account]).name
-        else
-          file_name = 'Ledger'
-        end
-        
-        csv = @ledger_items.to_csv(
+    if request.format.csv?
+      unless params[:account].blank?
+        file_name = Account.find(params[:account]).name
+      else
+        file_name = 'Ledger'
+      end
+      
+      csv = end_of_association_chain.all(
+        :include => [:sender, :recipient],
+        :order => 'ledger_items.transacted_on ASC').to_csv(
         :only => [
           :transacted_on,
           :currency,
@@ -30,10 +30,12 @@ class LedgerItemsController < InheritedResources::Base
           :sender_name,
           :recipient_name
         ])
-        
-        send_data(csv, :filename => "#{file_name}.#{Time.now.strftime('%y%m%d%H%M%S')}.csv")
-      end
+      
+      return send_data(csv, :filename => "#{file_name}.#{Time.now.strftime('%y%m%d%H%M%S')}.csv")
     end
+    
+    calculate_totals
+    index!
   end
   
   def new
@@ -105,7 +107,14 @@ class LedgerItemsController < InheritedResources::Base
     redirect_to collection_path
   end
   
-  protected
+  private
+  
+  def collection
+    end_of_association_chain.paginate(
+      :page => params[:page],
+      :include => [:sender, :recipient],
+      :order => 'ledger_items.transacted_on ASC')
+  end
   
   def find_cart
     @cart ||= session[:cart] ||= Cart.new
@@ -113,13 +122,6 @@ class LedgerItemsController < InheritedResources::Base
   
   def reset_cart
     @cart = session[:cart] = Cart.new
-  end
-  
-  def collection
-    @ledger_items ||= end_of_association_chain.paginate(
-      :page => params[:page],
-      :include => [:sender, :recipient],
-      :order => "ledger_items.transacted_on ASC")
   end
   
   # Iterates over ledger items in the collection, summing up the totals

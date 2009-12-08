@@ -25,7 +25,7 @@ Feature: Export in CSV format
     
     """
   
-  Scenario: Search by description
+  Scenario: Export a search
     Given I am on the path "/ledger_items"
     When I fill in "query" with "Coffee"
     And I press "Search"
@@ -38,5 +38,4 @@ Feature: Export in CSV format
     2009-01-01,USD,2.0,0.0,Coffee,,
     
     """
-    
     

@@ -88,6 +88,14 @@ class LedgerItem < ActiveRecord::Base
    end
   }
   
+  def sender_name
+    self.sender.name if self.sender
+  end
+  
+  def recipient_name
+    self.recipient.name if self.recipient
+  end
+  
   def matched?
     !self.match_id.nil?
   end

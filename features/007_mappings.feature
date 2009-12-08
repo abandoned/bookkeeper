@@ -1,5 +1,5 @@
 Feature: Mappings
-  In order to keep the company in order
+  In order to do proper accounting
   As a bookkeeper
   I want to be able to define mappings for file imports
   

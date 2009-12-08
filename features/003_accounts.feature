@@ -1,5 +1,5 @@
 Feature: Manage Accounts
-  In order to keep the company in order
+  In order to do proper accounting
   As a user
   I want to be able to create and manage accounts
   

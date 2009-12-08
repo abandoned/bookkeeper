@@ -19,3 +19,7 @@ end
 Then /^I should not see a button called "([^\"]*)" within "([^\"]*)"$/ do |button, parent|
   response.should_not have_selector("#{parent} input[type='submit']", :value => button)
 end
+
+Then /^I should download$/ do |output|
+  response_body.should == output
+end

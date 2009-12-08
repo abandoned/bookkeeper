@@ -1,18 +1,39 @@
 class LedgerItemsController < InheritedResources::Base
   belongs_to    :account, :optional => true
   respond_to    :html
-  has_scope     :account, :only => :index
-  has_scope     :contact, :only => :index
-  has_scope     :query, :only => :index
-  has_scope     :unmatched, :only => :index
-  has_scope     :from_date, :only => :index
-  has_scope     :to_date, :only => :index
+  respond_to    :csv, :only => [:index]
+  
+  has_scope     :account, :contact, :query, :unmatched, :from_date, :to_date, :only => :index
+  
   before_filter :require_user
   before_filter :find_cart, :only => [:index, :add_to_cart, :balance_cart, :save_cart]
   
   def index
     calculate_totals
-    index!
+    index! do |format|
+      format.csv do
+        unless params[:account].blank?
+          file_name = Account.find(params[:account]).name
+        else
+          file_name = 'Ledger'
+        end
+        
+        csv = @ledger_items.to_csv(
+        :only => [
+          :transacted_on,
+          :currency,
+          :total_amount,
+          :tax_amount,
+          :description,
+        ],
+        :methods => [
+          :sender_name,
+          :recipient_name
+        ])
+        
+        send_data(csv, :filename => "#{file_name}.#{Time.now.strftime('%y%m%d%H%M%S')}.csv")
+      end
+    end
   end
   
   def new
@@ -97,6 +118,7 @@ class LedgerItemsController < InheritedResources::Base
   def collection
     @ledger_items ||= end_of_association_chain.paginate(
       :page => params[:page],
+      :include => [:sender, :recipient],
       :order => "ledger_items.transacted_on ASC")
   end
   

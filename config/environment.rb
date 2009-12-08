@@ -19,6 +19,8 @@ Rails::Initializer.run do |config|
              :version => '1.1.4'
   config.gem 'authlogic',
              :version => '>= 2.1.3'
+  config.gem 'fastercsv',
+             :version => '>= 1.5.0'
   config.gem 'formtastic',
              :version => '>= 0.9.7'
   config.gem 'haml',

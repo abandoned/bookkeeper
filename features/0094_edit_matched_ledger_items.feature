@@ -1,5 +1,5 @@
 Feature: Match Existing Ledger Items
-  In order to keep the company in order
+  In order to do proper accounting
   As a user
   I want to be able to reconcile by matching existing ledger items
   

@@ -1,5 +1,5 @@
 Feature: Rules
-  In order to keep the company in order
+  In order to do proper accounting
   As a user
   I want to be able to manage rules that match ledger items
   
@@ -26,7 +26,7 @@ Feature: Rules
     Given a rule exists with account: account "Bank A/C", matched_description: "Purchase", matched_debit: false, new_sender: contact "Self", new_recipient: contact "Other", new_account: account "Expenses"
     When I go to the show page for account "Bank A/C"
     And I follow "View ledger items"
-    And I follow "New ledger item"
+    And I follow "Create new ledger item"
     And I fill in "ledger_items_0_total_amount" with "-20"
     And I select "USD" from "ledger_items_0_currency"
     And I fill in "ledger_items_0_description" with "Purchase"
@@ -39,7 +39,7 @@ Feature: Rules
     Given a rule exists with account: account "Bank A/C", matched_sender: contact "Self", matched_recipient: contact "Other", matched_debit: false, new_account: account "Expenses"
     When I go to the show page for account "Bank A/C"
     And I follow "View ledger items"
-    And I follow "New ledger item"
+    And I follow "Create new ledger item"
     And I select "Self" from "ledger_items_0_sender_id"
     And I select "Other" from "ledger_items_0_recipient_id"
     And I fill in "ledger_items_0_total_amount" with "-20"

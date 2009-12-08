@@ -36,4 +36,5 @@
   %p.small No ledger items found
       
 .footer
-  = link_to "New Ledger Item", new_ledger_item_path(:account => params[:account])
+  = link_to "Create new ledger item", new_ledger_item_path(:account => params[:account])
+  = link_to 'Export', ledger_items_path(params.merge(:format => :csv))

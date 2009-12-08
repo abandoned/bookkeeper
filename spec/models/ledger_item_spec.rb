@@ -83,4 +83,9 @@ describe LedgerItem do
     @ledger_item.total_amount = -20.0
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
   end
+  
+  it "should not total 0" do
+    @ledger_item.total_amount = 0
+    lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
+  end
 end

@@ -26,7 +26,7 @@
           - @totals.each do |k, v|
             - counter += 1
             - if counter != @totals.size
-              = monetize(v, k) + "<br />"
+              = (monetize(v, k) + "<br />").html_safe!
             - else
               = monetize(v, k)
     %tbody

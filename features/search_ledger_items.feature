@@ -21,6 +21,20 @@ Feature: Search Ledger Items
     Then I should see "Coffee" within "table"
     And I should not see "Tea" within "table"
   
+  Scenario: Search by amount
+    Given I am on the path "/ledger_items"
+    When I fill in "query" with "2.99"
+    And I press "Search"
+    Then I should see "Coffee" within "table"
+    And I should not see "Tea" within "table"
+  
+  Scenario: Search by description and amount
+    Given I am on the path "/ledger_items"
+    When I fill in "query" with "Coffee 2.99"
+    And I press "Search"
+    Then I should see "Coffee" within "table"
+    And I should not see "Tea" within "table"
+  
   Scenario: Search by account type
     Given I am on the path "/ledger_items"
     When I select "Starbux" from "account"

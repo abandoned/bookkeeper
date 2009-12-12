@@ -71,8 +71,8 @@ class LedgerItem < ActiveRecord::Base
         q.gsub!(/ ?#{$1} ?/, '')
       end
       unless q.empty?
-        sql << ' AND (description LIKE ? OR identifier LIKE ?)'
-        vars += 2.times.collect { "%#{q}%" }
+        sql << ' AND (UPPER(description) LIKE ? OR UPPER(identifier) LIKE ?)'
+        vars += ["%#{q.upcase}%", "%#{q.upcase}%"]
       end
       { :conditions => [sql] + vars }
     end

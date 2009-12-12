@@ -195,7 +195,7 @@ class LedgerItem < ActiveRecord::Base
   def update_matches
     if self.matched? && self.changed? && !self.match_id_changed?
       matches = self.matched_ledger_items
-      if matches.count == 1
+      if matches.size == 1
         # Update match
         i = matches.first
         if (i.total_amount + self.total_amount).to_f.abs > 0.01 || i.sender_id != self.recipient_id || i.recipient_id != self.sender_id
@@ -205,7 +205,7 @@ class LedgerItem < ActiveRecord::Base
             :recipient_id   => self.sender_id
           )
         end
-      elsif matches.count > 1
+      elsif matches.size > 1
         # Destroy matches
         self.matched_ledger_items.each { |i| i.update_attribute(:match_id, nil) }
         self.match.destroy

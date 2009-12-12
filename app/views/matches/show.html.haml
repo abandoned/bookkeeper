@@ -1,4 +1,4 @@
--title "Matches"
+-title 'Matches'
   
 .cart
   %table.data
@@ -14,6 +14,6 @@
     %tfoot
       %tr
         %td.smaller
-          = link_to "Delete match", "#"
+          = link_to 'Delete match', resource_path, :method => :delete
     %tbody
-      = render(:partial => "ledger_item", :collection => resource.ledger_items)
+      = render(:partial => 'ledger_item', :collection => @match.ledger_items)

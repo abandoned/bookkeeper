@@ -11,6 +11,7 @@ class Match < ActiveRecord::Base
   has_many :ledger_items
   accepts_nested_attributes_for :ledger_items
   validate :must_be_reconciled
+  before_destroy :unmatch_ledger_items
   
   def reconciled?
     self.ledger_items.inject(0) { |sum, i| sum + i.total_amount } == 0 ? true : false
@@ -36,9 +37,13 @@ class Match < ActiveRecord::Base
     new_item
   end
   
-  protected
+  private
   
   def must_be_reconciled
     errors.add_to_base("Must be reconciled") unless self.reconciled?
+  end
+  
+  def unmatch_ledger_items
+    self.ledger_items.each { |i| i.update_attribute(:match_id, nil) }
   end
 end

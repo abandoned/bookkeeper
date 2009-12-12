@@ -8,7 +8,7 @@ class Bootstrapper
       { :name => "Self",
         :country => "United States",
         :self => true },
-      { :name => "Starbucks",
+      { :name => "Starbux",
         :country => "United States",
         :self => false },
       { :name => "Customer",

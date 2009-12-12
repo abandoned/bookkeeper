@@ -1,36 +1,15 @@
 en:
   flash:
+    actions:
+      create:
+        notice: "Successfully created {{resource_name}}."
+      update:
+        notice: "Successfully updated {{resource_name}}."
+      destroy:
+        notice: "Successfully deleted {{resource_name}}."
     user_sessions:
       create:
         notice: "You are logged in."
-    accounts:
-      create:
-        notice: "Successfully created account."
-      update:
-        notice: "Successfully updated account."
-      destroy:
-        notice: "Successfully deleted account."
-    contacts:
-      create:
-        notice: "Successfully created contact."
-      update:
-        notice: "Successfully updated contact."
-      destroy:
-        notice: "Successfully deleted contact."
-    rules:
-      create:
-        notice: "Successfully created rule."
-      update:
-        notice: "Successfully updated rule."
-      destroy:
-        notice: "Successfully deleted rule."
-    ledger_items:
-      create:
-        notice: "Successfully created ledger item."
-      update:
-        notice: "Successfully updated ledger item."
-      destroy:
-        notice: "Successfully deleted ledger item."
   formtastic:
     labels:
       commit: "Submit"

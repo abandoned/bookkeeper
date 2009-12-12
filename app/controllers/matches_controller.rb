@@ -1,6 +1,5 @@
 class MatchesController < InheritedResources::Base
   before_filter :require_user
-  respond_to :html
   
   def new
     @match = Match.new
@@ -8,7 +7,11 @@ class MatchesController < InheritedResources::Base
   end
   
   def create
-    flash[:error] = params["match"].inspect
+    flash[:error] = params['match'].inspect
     redirect_to :action => :new
+  end
+  
+  def destroy
+    destroy!{ ledger_items_path }
   end
 end

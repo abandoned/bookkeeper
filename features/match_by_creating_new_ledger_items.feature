@@ -6,13 +6,13 @@ Feature: Match by Creating a New Ledger Item
   Background:
     Given I am logged in
       And I have a default ledger set up
-      And an account "Bank A/C" exists with name: "Bank A/C", parent: account "Assets"
+      And an account "Starbux" exists with name: "Starbux", parent: account "Assets"
       And an account "Coffee" exists with name: "Coffee", parent: account "Expenses"
       And a contact "Self" exists with name: "Self"
-      And a contact "Starbucks" exists with name: "Starbucks"
+      And a contact "Starbux" exists with name: "Starbux"
   
   Scenario: Create a matching item to balance the cart
-    Given a ledger_item exists with id: 1, total_amount: "2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks"
+    Given a ledger_item exists with id: 1, total_amount: "2.99", currency: "USD", account: account "Starbux", sender: contact "Self", recipient: contact "Starbux"
     When I go to path "/ledger_items"
       And I press "Match" within "#ledger_item_1"
       And I select "Coffee" from "ledger_item_account_id"
@@ -21,8 +21,8 @@ Feature: Match by Creating a New Ledger Item
       And I should not see "Matches"
 
   Scenario: Try to create a matching item when there is more than one transaction in the cart
-    Given a ledger_item exists with id: 1, total_amount: "2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks"
-      And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Bank A/C", sender: contact "Self", recipient: contact "Starbucks"
+    Given a ledger_item exists with id: 1, total_amount: "2.99", currency: "USD", account: account "Starbux", sender: contact "Self", recipient: contact "Starbux"
+      And a ledger_item exists with id: 2, total_amount: "2.99", currency: "USD", account: account "Starbux", sender: contact "Self", recipient: contact "Starbux"
     When I go to path "/ledger_items"
       And I press "Match" within "#ledger_item_1"
       And I press "Match" within "#ledger_item_2"

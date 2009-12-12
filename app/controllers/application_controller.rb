@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
   
+  def interpolation_options
+    { :resource_name => resource_class.to_s.underscore.humanize.downcase }
+  end
+  
   private
   
   def current_user_session

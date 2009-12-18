@@ -1,0 +1,33 @@
+=  Fixer
+
+Fixer is a light-weight Rails plugin that interfaces with the current and historical foreign exchange rate feeds provided by the European Central Bank.
+
+It includes a generator to set up a model for the rates as well as rake tasks to populate the table.
+
+== Usage
+
+Generate model and migration:
+
+  ruby script/generate fixer
+
+Migrate.
+
+Populate the newly-created table by running either of the following rake tasks:
+
+  rake fixer:download:current
+  rake fixer:download:history:ninety_days
+  rake fixer:download:history:all
+
+In your application, query for an exchange rate like so:
+
+  ExchangeRate.historical('USD', 'GBP', 1.year.ago)
+  => 0.65
+  
+  ExchangeRate.current('EUR', 'USD')
+  => 1.43
+  
+As should be apparent, the first parameter is the base and second is the quoted currency.
+
+This is a sparse plugin and gets the job done if this is the functionality you need.
+
+Copyright © 2009 Hakan Senol Ensari, released under the MIT license

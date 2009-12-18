@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091206014351) do
+ActiveRecord::Schema.define(:version => 20091218154431) do
 
   create_table "accounts", :force => true do |t|
     t.string   "ancestry"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(:version => 20091206014351) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "exchange_rates", :force => true do |t|
+    t.string  "currency"
+    t.decimal "rate",        :precision => 20, :scale => 4
+    t.date    "recorded_on"
+  end
+
+  add_index "exchange_rates", ["currency"], :name => "index_exchange_rates_on_currency"
+  add_index "exchange_rates", ["recorded_on"], :name => "index_exchange_rates_on_recorded_on"
 
   create_table "imports", :force => true do |t|
     t.integer  "account_id"

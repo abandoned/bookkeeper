@@ -30,6 +30,8 @@ Rails::Initializer.run do |config|
   config.gem 'jnunemaker-validatable',
              :lib => "validatable",
              :version => '>= 1.8.0'
+  config.gem 'nokogiri',
+             :version => '>= 1.4.1'
   config.gem 'will_paginate',
              :version => '~> 2.3.11'
 

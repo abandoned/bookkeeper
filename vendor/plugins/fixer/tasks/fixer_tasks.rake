@@ -1,5 +1,5 @@
 require 'open-uri'
-require 'xmlsimple'
+require 'nokogiri'
 
 # http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html
 
@@ -40,10 +40,11 @@ module EcbFeed
   end
   
   def self.download(url)
-    feed = XmlSimple.xml_in(open(url).read)
-    feed['Cube'][0]['Cube'].each do |snapshot|
+    doc = Nokogiri::XML(open(url).read)
+    doc.xpath('/gesmes:Envelope/xmlns:Cube/xmlns:Cube', doc.root.namespaces).each do |snapshot|
       date = snapshot['time']
-      snapshot['Cube'].each do |fx|
+      puts "-> #{date}"
+      snapshot.xpath('./xmlns:Cube/xmlns:Cube').each do |fx|
         ExchangeRate.find_or_create_by_currency_and_recorded_on(
           :currency     => fx['currency'],
           :recorded_on  => date,

@@ -44,7 +44,7 @@ module EcbFeed
     doc.xpath('/gesmes:Envelope/xmlns:Cube/xmlns:Cube', doc.root.namespaces).each do |snapshot|
       date = snapshot['time']
       puts "-> #{date}"
-      snapshot.xpath('./xmlns:Cube/xmlns:Cube').each do |fx|
+      snapshot.xpath('./xmlns:Cube').each do |fx|
         ExchangeRate.find_or_create_by_currency_and_recorded_on(
           :currency     => fx['currency'],
           :recorded_on  => date,

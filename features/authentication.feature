@@ -9,7 +9,7 @@ Feature: Authentication
     And I fill in "Username" with "bookkeeper"
     And I fill in "Password" with "secret"
     And I press "Log in"
-    Then I should see "You are logged in" within "#flash_notice"
+    Then I should see "You are logged in" within "#flash_success"
   
   Scenario Outline: Require login on resource
     When I go to path "<path>"

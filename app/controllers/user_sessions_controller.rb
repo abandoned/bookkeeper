@@ -6,7 +6,7 @@ class UserSessionsController < InheritedResources::Base
   
   def create
     create! do |success, failure|
-      success.html { redirect_back_or_default root_path }
+      success.html { flash[:notice] = ''; redirect_back_or_default root_path }
     end
   end
   

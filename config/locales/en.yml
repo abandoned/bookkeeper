@@ -2,14 +2,14 @@ en:
   flash:
     actions:
       create:
-        notice: "Successfully created {{resource_name}}."
+        success: "Successfully created {{resource_name}}."
       update:
-        notice: "Successfully updated {{resource_name}}."
+        success: "Successfully updated {{resource_name}}."
       destroy:
-        notice: "Successfully deleted {{resource_name}}."
+        success: "Successfully deleted {{resource_name}}."
     user_sessions:
       create:
-        notice: "You are logged in."
+        success: "You are logged in."
   formtastic:
     labels:
       commit: "Submit"

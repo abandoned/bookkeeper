@@ -10,7 +10,7 @@ Feature: Manage Contacts
     Given I am on the path "/contacts/new"
     When I fill in "Name" with "Vendor"
     And I press "Submit"
-    Then I should see "Successfully created contact" within "#flash_notice"
+    Then I should see "Successfully created contact" within "#flash_success"
     And I should see "Vendor" within "#main h1"
     And a contact should exist with name: "Vendor"
   

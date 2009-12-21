@@ -4,11 +4,11 @@ class Bootstrapper
   end
   
   def self.bootstrap!
-    @self, @starbucks, @customer = Contact.create!([
+    @self, @coffee_vendor, @customer = Contact.create!([
       { :name => "Self",
         :country => "United States",
         :self => true },
-      { :name => "Starbux",
+      { :name => "Coffee Vendor",
         :country => "United States",
         :self => false },
       { :name => "Customer",
@@ -17,7 +17,7 @@ class Bootstrapper
     ])
     {
       "Bank Accounts" => ["Demo Bank Account"],
-      "Expenses" => ["Coffee"]
+      "Expenses" => ["Beverages"]
     }.each_pair do |parent_name, children|
       parent = Account.find_by_name(parent_name)
       record(parent_name, parent)
@@ -60,31 +60,31 @@ class Bootstrapper
     
     @i1, @i2, @i3, @i4 = LedgerItem.create!([
       { :sender => @self,
-        :recipient => @starbucks,
+        :recipient => @coffee_vendor,
         :total_amount => -2.99,
         :currency => "USD",
         :account => @demo_bank_account,
         :transacted_on => 1.days.ago
       },
       { :sender => @self,
-        :recipient => @starbucks,
+        :recipient => @coffee_vendor,
         :total_amount => -3.99,
         :currency => "USD",
         :account => @demo_bank_account,
         :transacted_on => Date.today
       },
-      { :sender => @starbucks,
+      { :sender => @coffee_vendor,
         :recipient => @self,
         :total_amount => 2.99,
         :currency => "USD",
-        :account => @coffee,
+        :account => @beverages,
         :transacted_on => 1.days.ago
       },
-      { :sender => @starbucks,
+      { :sender => @coffee_vendor,
         :recipient => @self,
         :total_amount => 3.99,
         :currency => "USD",
-        :account => @coffee,
+        :account => @beverages,
         :transacted_on => Date.today
       },
       { :sender => @customer,

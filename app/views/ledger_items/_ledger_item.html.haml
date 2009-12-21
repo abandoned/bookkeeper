@@ -16,7 +16,7 @@
   %td=h truncate(ledger_item.description)
   %td
     - if ledger_item.matched?
-      - if ledger_item.matched_ledger_items.count > 1
+      - if ledger_item.matched_ledger_items.size > 1
         = link_to('Split matches', ledger_item.match)
       - else
         = link_to(ledger_item.matched_ledger_items.first.account.name, ledger_item.match)

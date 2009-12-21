@@ -55,7 +55,7 @@ Feature: Rules
     When I follow "Import Ledger Items"
     And I fill in "Ending Balance" with "19427.51"
     And I select "Citi" from "Mapping"
-    And I attach the file at "spec/fixtures/citi-sample.csv" to "File"
+    And I attach the file "spec/fixtures/citi-sample.csv" to "File"
     And I press "Upload file"
     Then I should see "View matches"
     And a ledger_item should exist with description: "SERVICE CHARGE"

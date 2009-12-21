@@ -34,10 +34,8 @@ Check the work-in-progress demo {here}[http://bookkeeper.heroku.com].
 
 === Database
 
-<pre>
-rake db:migrate
-rake db:seed
-</pre>
+  rake db:migrate
+  rake db:seed
 
 === Login
 

@@ -39,3 +39,7 @@ rake db:migrate
 rake db:seed
 </pre>
 
+=== Login
+
+* username is bookkeeper
+* password is secret

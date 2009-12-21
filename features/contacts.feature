@@ -19,7 +19,7 @@ Feature: Manage Contacts
     Given a ledger_item "Transaction" exists with sender: contact "Vendor"
     When I am on the show page for contact "Vendor"
     And I follow "Delete"
-    Then I should see "Cannot delete contact because she has dependants" within "#flash_error"
+    Then I should see "Cannot delete contact because she has dependants" within "#flash_failure"
     And a contact "Vendor" should exist
   
   Scenario: Cannot delete a contact who is the recipient of a ledger item
@@ -27,5 +27,5 @@ Feature: Manage Contacts
     Given a ledger_item "Transaction" exists with recipient: contact "Self"
     When I am on the show page for contact "Self"
     And I follow "Delete"
-    Then I should see "Cannot delete contact because she has dependants" within "#flash_error"
+    Then I should see "Cannot delete contact because she has dependants" within "#flash_failure"
     And a contact "Self" should exist

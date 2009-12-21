@@ -55,14 +55,14 @@ Feature: Manage Accounts
     Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
     And I am on the show page for account "Assets"
     When I follow "Delete"
-    Then I should see "Cannot delete account because it has descendants" within "#flash_error"
+    Then I should see "Cannot delete account because it has descendants" within "#flash_failure"
     And an account should exist with name: "Current Assets"
     
   Scenario: Cannot Delete an account that has ledger items
     Given a ledger_item exists with account: account "Assets"
     And I am on the show page for account "Assets"
     When I follow "Delete"
-    Then I should see "Cannot delete account because it has dependants" within "#flash_error"
+    Then I should see "Cannot delete account because it has dependants" within "#flash_failure"
     And an account should exist with name: "Assets"
   
   Scenario: Create new subaccount from show page of an account

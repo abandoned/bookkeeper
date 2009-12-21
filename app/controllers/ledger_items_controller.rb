@@ -9,6 +9,7 @@ class LedgerItemsController < InheritedResources::Base
   before_filter :find_cart, :only => [:index, :add_to_cart, :balance_cart, :save_cart]
   
   def index
+    store_location
     if request.format.csv?
       unless params[:account].blank?
         file_name = Account.find(params[:account]).name
@@ -59,7 +60,7 @@ class LedgerItemsController < InheritedResources::Base
       end
       flash[:success] = 'Items successfully saved.'
 
-      redirect_to collection_path
+      redirect_back_or_default(collection_path)
     rescue Exception => e
       flash[:failure] = 'Items failed to save.'
       
@@ -75,7 +76,8 @@ class LedgerItemsController < InheritedResources::Base
   def add_to_cart
     ledger_item = LedgerItem.find(params[:id])
     @cart.add(ledger_item)
-    redirect_to collection_path
+    
+    redirect_back_or_default(collection_path)
   end
   
   def balance_cart
@@ -89,23 +91,24 @@ class LedgerItemsController < InheritedResources::Base
       flash[:success] = 'Reconciliation failed'
     end
     
-    redirect_to collection_path
+    redirect_back_or_default(collection_path)
   end
   
   def save_cart
     if Match.create(:ledger_items => @cart.ledger_items)
-      flash[:success] = "Ledger items successfully reconciled"
+      flash[:success] = 'Ledger items successfully reconciled'
       reset_cart
     else
       flash.now[:failure] = 'Reconciliation failed'
     end
     
-    redirect_to collection_path
+    redirect_back_or_default(collection_path)
   end
   
   def empty_cart
     reset_cart
-    redirect_to collection_path
+    
+    redirect_back_or_default(collection_path)
   end
   
   private

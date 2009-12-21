@@ -57,7 +57,5 @@ Feature: Rules
     And I select "Citi" from "Mapping"
     And I attach the file "spec/fixtures/citi-sample.csv" to "File"
     And I press "Upload file"
-    Then I should see "View matches"
-    And a ledger_item should exist with description: "SERVICE CHARGE"
-    And that ledger_item should be matched
+    Then a match should exist
     

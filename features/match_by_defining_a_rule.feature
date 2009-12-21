@@ -5,46 +5,44 @@ Feature: Match by Defining a Rule
 
   Background:
     Given I am logged in
-      And I have a default ledger set up
-      And an account "Starbux" exists with name: "Starbux", parent: account "Assets"
-      And an account "Coffee" exists with name: "Coffee", parent: account "Expenses"
-      And a contact "Self" exists with name: "Self"
-      And a contact "Starbux" exists with name: "Starbux"
+    And I have a default ledger set up
+    And I have accounts set up for purchasing beverages
+    And I have contacts set up for purchasing beverages
   
   Scenario: Create a rule to balance the cart
-    Given a ledger_item exists with id: 1, total_amount: "2.99", currency: "USD", account: account "Starbux", sender: contact "Self", recipient: contact "Starbux", description: "Cappucino Coffee"
+    Given a ledger_item exists with id: 1, total_amount: 3.00, currency: "USD", account: account "Beverages", sender: contact "Self", recipient: contact "Coffee Vendor", description: "Coffee"
     When I go to path "/ledger_items"
-      And I press "Match" within "#ledger_item_1"
-      And I press "Set up rule"
-      And I fill in "Coffee" for "Matched description"
-      And I select "Coffee" from "New account"
-      And I press "Submit"
+    And I press "Match" within "#ledger_item_1"
+    And I press "Set up rule"
+    And I fill in "Coffee" for "Matched description"
+    And I select "Bank Account" from "New account"
+    And I press "Submit"
     Then I should see "Successfully created rule"
-    Given a ledger_item exists with id: 3, total_amount: "3.99", currency: "USD", account: account "Starbux", sender: contact "Self", recipient: contact "Starbux", description: "Latte Coffee"
+    Given a ledger_item exists with id: 3, total_amount: 4.00, currency: "USD", account: account "Beverages", sender: contact "Self", recipient: contact "Coffee Vendor", description: "Another Coffee"
     When I go to path "/ledger_items"
-    Then I should see "View matches" within "#ledger_item_1"
-      And I should see "View matches" within "#ledger_item_3"
+    Then I should see "Bank Account" within "#ledger_item_1"
+    And I should see "Bank Account" within "#ledger_item_3"
+    And 2 matches should exist
   
   Scenario: When I edit a ledger item that is matched with another transaction through a rule, the latter should be updated
-    Given a rule exists with account: account "Starbux", matched_sender: contact "Self", matched_recipient: contact "Starbux", matched_debit: false, new_account: account "Coffee"
-      And a rule exists with account: account "Starbux", matched_sender: contact "Starbux", matched_recipient: contact "Self", matched_debit: true, new_account: account "Coffee"
-      And a ledger_item "l1" exists with id: 1, total_amount: "-2.99", currency: "USD", account: account "Starbux", sender: contact "Self", recipient: contact "Starbux"
-     Then a match should exist
-      And ledger_item "l1" should be matched
-      And a ledger_item should exist with total_amount: "2.99", account: account "Coffee", sender: contact: "Starbux", recipient: contact "Self"
-     When I go to path "/ledger_items/1/edit"
-      And I fill in "Total Amount" with "1"
-      And I select "Starbux" from "Sender"
-      And I select "Self" from "Recipient"
-      And I press "Submit"
+    Given a rule exists with account: account "Bank Account", matched_sender: contact "Self", matched_recipient: contact "Coffee Vendor", matched_debit: false, new_account: account "Beverages"
+    And a ledger_item "l1" exists with id: 1, total_amount: -3.00, currency: "USD", account: account "Bank Account", sender: contact "Self", recipient: contact "Coffee Vendor"
+    Then a match should exist
+    And ledger_item "l1" should be matched
+    And a ledger_item should exist with total_amount: 3.00, account: account "Beverages", sender: contact: "Coffee Vendor", recipient: contact "Self"
+    When I go to path "/ledger_items/1/edit"
+    And I fill in "Total Amount" with "1"
+    And I select "Coffee Vendor" from "Sender"
+    And I select "Self" from "Recipient"
+    And I press "Submit"
     Then I should see "Successfully updated ledger item."
-      And a ledger_item should exist with total_amount: "-1", sender: contact "Self", recipient: contact "Starbux"
-      And 1 matches should exist
-     When I go to path "/ledger_items/2/edit"
-      And I fill in "Total Amount" with "5"
-      And I select "Starbux" from "Sender"
-      And I select "Self" from "Recipient"
-      And I press "Submit"
+    And a ledger_item should exist with account: account "Beverages", total_amount: -1.00, sender: contact "Self", recipient: contact "Coffee Vendor"
+    And 1 matches should exist
+    When I go to path "/ledger_items/2/edit"
+    And I fill in "Total Amount" with "5"
+    And I select "Coffee Vendor" from "Sender"
+    And I select "Self" from "Recipient"
+    And I press "Submit"
     Then I should see "Successfully updated ledger item."
-      And a ledger_item should exist with total_amount: "-5", sender: contact "Self", recipient: contact "Starbux"
-      And 1 matches should exist
+    And a ledger_item should exist with account: account "Bank Account", total_amount: "-5", sender: contact "Self", recipient: contact "Coffee Vendor"
+    And 1 matches should exist

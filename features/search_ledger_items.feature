@@ -40,7 +40,9 @@ Feature: Search Ledger Items
     And I should not see "Tea" within "table"
   
   Scenario: Search unmatched only
-    Given a ledger_item exists with description: "Foo", match_id: "1"
+    Given a match exists
+    And a ledger_item exists with description: "Foo", match: that match
+    And a ledger_item exists with description: "Bar", match: that match
     And I am on the path "/ledger_items"
     When I check "unmatched"
     And I press "Search"

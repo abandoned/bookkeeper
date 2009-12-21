@@ -1,15 +1,7 @@
 class MatchesController < InheritedResources::Base
   before_filter :require_user
   
-  def new
-    @match = Match.new
-    @match.ledger_items.build
-  end
-  
-  def create
-    flash[:failure] = params['match'].inspect
-    redirect_to :action => :new
-  end
+  actions :show, :destroy
   
   def destroy
     destroy!{ ledger_items_path }

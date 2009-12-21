@@ -16,7 +16,10 @@
   %td=h truncate(ledger_item.description)
   %td
     - if ledger_item.matched?
-      = link_to("View matches", ledger_item.match)
+      - if ledger_item.matched_ledger_items.count > 1
+        = link_to('Split matches', ledger_item.match)
+      - else
+        = link_to(ledger_item.matched_ledger_items.first.account.name, ledger_item.match)
     - elsif ledger_item.matchable? && !@cart.ledger_items.include?(ledger_item)
       - form_tag(add_to_cart_path, :method => "post") do
         = hidden_field_tag(:id, ledger_item.id)

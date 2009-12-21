@@ -26,7 +26,7 @@ Rails::Initializer.run do |config|
   config.gem 'haml',
              :version => '>= 2.2.15'
   config.gem 'inherited_resources',
-             :version => '>= 0.9.2'
+             :version => '>= 0.9.4'
   config.gem 'jnunemaker-validatable',
              :lib => "validatable",
              :version => '>= 1.8.0'

@@ -7,7 +7,7 @@ class ContactsController < InheritedResources::Base
     begin
       destroy!
     rescue ActiveRecord::RecordNotDestroyed
-      flash.now[:error] = "Cannot delete contact because she has dependants"
+      flash.now[:failure] = "Cannot delete contact because she has dependants"
       render(:action => :show)
     end
   end

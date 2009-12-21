@@ -15,10 +15,10 @@ class AccountsController < InheritedResources::Base
     begin
       destroy!
     rescue Ancestry::AncestryException
-      flash.now[:error] = "Cannot delete account because it has descendants"
+      flash.now[:failure] = "Cannot delete account because it has descendants"
       render(:action => :show)
     rescue ActiveRecord::RecordNotDestroyed
-      flash.now[:error] = "Cannot delete account because it has dependants"
+      flash.now[:failure] = "Cannot delete account because it has dependants"
       render(:action => :show)
     end
   end

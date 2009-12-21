@@ -57,11 +57,11 @@ class LedgerItemsController < InheritedResources::Base
           item.save! unless item.sender_id.blank? && item.recipient_id.blank? && item.total_amount.blank?
         end
       end
-      flash[:notice] = 'Items successfully saved.'
+      flash[:success] = 'Items successfully saved.'
 
       redirect_to collection_path
     rescue Exception => e
-      flash[:error] = 'Items failed to save.'
+      flash[:failure] = 'Items failed to save.'
       
       render :action => :new
     end
@@ -83,10 +83,10 @@ class LedgerItemsController < InheritedResources::Base
     match = Match.new(:ledger_items => @cart.ledger_items)
     match.create_balancing_item(account)
     if match.save
-      flash[:notice] = 'Ledger item successfully reconciled'
+      flash[:success] = 'Ledger item successfully reconciled'
       reset_cart
     else
-      flash[:notice] = 'Reconciliation failed'
+      flash[:success] = 'Reconciliation failed'
     end
     
     redirect_to collection_path
@@ -94,10 +94,10 @@ class LedgerItemsController < InheritedResources::Base
   
   def save_cart
     if Match.create(:ledger_items => @cart.ledger_items)
-      flash[:notice] = "Ledger items successfully reconciled"
+      flash[:success] = "Ledger items successfully reconciled"
       reset_cart
     else
-      flash.now[:error] = 'Reconciliation failed'
+      flash.now[:failure] = 'Reconciliation failed'
     end
     
     redirect_to collection_path

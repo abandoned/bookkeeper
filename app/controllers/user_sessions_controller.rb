@@ -12,7 +12,7 @@ class UserSessionsController < InheritedResources::Base
   
   def destroy
     current_user_session.destroy
-    flash[:notice] = "You are logged out."
+    flash[:success] = "You are logged out."
     redirect_back_or_default root_path
   end
 end

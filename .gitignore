@@ -3,4 +3,4 @@ log/*.log
 tmp/**/*
 db/*.sqlite3
 public/stylesheets/*.css
-
+rerun.txt

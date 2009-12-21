@@ -13,12 +13,12 @@ class ImportsController < ApplicationController
 
       if @import.valid_for_importing?
         count = @import.import
-        flash[:notice] = "#{count} ledger items imported"
+        flash[:success] = "#{count} ledger items imported"
         return(redirect_to ledger_items_path)
       end
     end
 
-    flash.now[:error] = 'Import failed'
+    flash.now[:failure] = 'Import failed'
     render(:action => 'new')
   end
   

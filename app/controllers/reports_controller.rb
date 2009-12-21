@@ -6,7 +6,7 @@ class ReportsController < ApplicationController
     if @report_types.include? @report_type
       @roots = Report.send @report_type.to_sym
     else
-      flash.now[:error] = 'That report does not exist'
+      flash.now[:failure] = 'That report does not exist'
       # TODO redirect to 404 here, instead
     end
   end

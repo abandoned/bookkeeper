@@ -7,7 +7,7 @@ class MatchesController < InheritedResources::Base
   end
   
   def create
-    flash[:error] = params['match'].inspect
+    flash[:failure] = params['match'].inspect
     redirect_to :action => :new
   end
   

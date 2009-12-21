@@ -66,7 +66,7 @@ class LedgerItem < ActiveRecord::Base
       q = query.dup
       sql, vars = '1 = 1', []
       if query =~ /(-?[0-9]+\.[0-9]{2})/
-        sql << ' AND total_amount = ?'
+        sql << ' AND ABS(total_amount) = ?'
         vars << $1.to_f
         q.gsub!(/ ?#{$1} ?/, '')
       end

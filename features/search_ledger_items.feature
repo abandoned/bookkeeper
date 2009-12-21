@@ -6,13 +6,7 @@ Feature: Search Ledger Items
   Background:
     Given I am logged in
     And I have a default ledger set up
-    And an account "Starbux" exists with name: "Starbux", parent: account "Assets"
-    And an account "Beverages" exists with name: "Beverages", parent: account "Expenses"
-    And a match exists
-    And a ledger_item exists with description: "Coffee", total_amount: "2.99", currency: "USD", account: account "Beverages", transacted_on: "1/1/2009", match: the match
-    And a ledger_item exists with description: "Hot Chocolate", total_amount: "3.99", currency: "USD", account: account "Beverages", transacted_on: "1/2/2009"
-    And a ledger_item exists with description: "Tea", identifier: "Foo bar", total_amount: "1.99", currency: "USD", account: account "Beverages", transacted_on: "1/3/2009"
-    And a ledger_item exists with description: "Something purchased", total_amount: "-2.99", currency: "USD", account: account "Starbux", transacted_on: "1/4/2009", match: the match
+    And I have bought some beverages
   
   Scenario: Search by description
     Given I am on the path "/ledger_items"
@@ -23,23 +17,25 @@ Feature: Search Ledger Items
   
   Scenario: Search by amount
     Given I am on the path "/ledger_items"
-    When I fill in "query" with "2.99"
+    When I fill in "query" with "3.00"
     And I press "Search"
     Then I should see "Coffee" within "table"
+    And I should see "Purchase" within "table"
     And I should not see "Tea" within "table"
   
   Scenario: Search by description and amount
     Given I am on the path "/ledger_items"
-    When I fill in "query" with "Coffee 2.99"
+    When I fill in "query" with "Coffee 3.00"
     And I press "Search"
     Then I should see "Coffee" within "table"
+    And I should not see "Purchase" within "table"
     And I should not see "Tea" within "table"
   
   Scenario: Search by account type
     Given I am on the path "/ledger_items"
-    When I select "Starbux" from "account"
+    When I select "Bank Account" from "account"
     And I press "Search"
-    Then I should see "Something purchased" within "table"
+    Then I should see "Purchase" within "table"
     And I should not see "Coffee" within "table"
     And I should not see "Tea" within "table"
   
@@ -48,8 +44,8 @@ Feature: Search Ledger Items
     And I am on the path "/ledger_items"
     When I check "unmatched"
     And I press "Search"
-    Then I should not see "Coffee" within "table"
-    And I should see "Tea" within "table"
+    Then I should see "Coffee" within "table"
+    And I should not see "Foo" within "table"
   
   Scenario: Search after a date
     Given I am on the path "/ledger_items"
@@ -58,6 +54,7 @@ Feature: Search Ledger Items
     And I fill in "from_date_day" with "2"
     And I press "Search"
     Then I should see "Hot Chocolate" within "table"
+    And I should see "Tea" within "table"
     And I should not see "Coffee" within "table"
   
   Scenario: Search prior to a date
@@ -66,8 +63,8 @@ Feature: Search Ledger Items
     And I fill in "to_date_month" with "1"
     And I fill in "to_date_day" with "2"
     And I press "Search"
-    Then I should see "Hot Chocolate" within "table"
-    And I should see "Coffee" within "table"
+    Then I should see "Coffee" within "table"
+    And I should see "Hot Chocolate" within "table"
     And I should not see "Tea" within "table"
       
   Scenario: Search between two dates
@@ -82,16 +79,16 @@ Feature: Search Ledger Items
     Then I should not see "Coffee" within "table"
     And I should see "Hot Chocolate" within "table"
     And I should see "Tea" within "table"
-    And I should not see "Something purchased" within "table"
     
   Scenario: Search for a particular date
     Given I am on the path "/ledger_items"
     When I fill in "from_date_year" with "2009"
     And I fill in "from_date_month" with "1"
-    And I fill in "from_date_day" with "1"
+    And I fill in "from_date_day" with "2"
     And I fill in "to_date_year" with "2009"
     And I fill in "to_date_month" with "1"
-    And I fill in "to_date_day" with "1"
+    And I fill in "to_date_day" with "2"
     And I press "Search"
-    Then I should see "Coffee" within "table"
-    And I should not see "Hot Chocolate" within "table"
+    Then I should not see "Coffee" within "table"
+    And I should see "Hot Chocolate" within "table"
+    And I should not see "Tea" within "table"

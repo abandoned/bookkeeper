@@ -29,7 +29,8 @@
             - if @cart.size == 1
               - item = @cart.ledger_items.first
               - form_for(item, :url => balance_cart_path) do |f|
-                = collection_select(:ledger_item, :account_id, Account.all, :id, :name, { :prompt => 'Select account' })
+                = #f.collection_select(:account_id, Account.all.inject([['Select account', '']]), :id, :name { |r, a| r << [a.name, a.id.to_s] }, params[:account]), :class => "autocomplete")
+                = collection_select(:ledger_item, :account_id, Account.all, :id, :name, { :prompt => 'Select account' }, :class => 'autocomplete')
                 = f.submit 'Create match'
               = button_to("Set up rule", new_account_rule_path(item.account, :ledger_item_id => item.id), :method => :get).html_safe!
 

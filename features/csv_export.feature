@@ -6,25 +6,23 @@ Feature: Export in CSV format
   Background:
     Given I am logged in
     And I have a default ledger set up
-    And an account "Petty Cash" exists with name: "Petty Cash", parent: account "Assets"
-    And an account "Beverages" exists with name: "Beverages", parent: account "Expenses"
-    And a match exists
-    And a ledger_item exists with description: "Coffee", total_amount: "2", currency: "USD", account: account "Beverages", transacted_on: "1/1/2009", match: the match
+    And I have a double entry for a beverage purchase
     And a ledger_item exists with description: "Hot Chocolate", total_amount: "1.50", currency: "USD", account: account "Beverages", transacted_on: "1/2/2009"
-    And a ledger_item exists with description: "Tea", total_amount: "2.59", currency: "USD", account: account "Beverages", transacted_on: "1/3/2009", match: the match
   
+  @wip @tag
   Scenario: Export entire ledger
     Given I am on the path "/ledger_items"
     When I follow "Export"
     Then I should download
     """
-    transacted_on,currency,total_amount,tax_amount,description,account_name,sender_name,recipient_name
-    2009-01-01,USD,2.0,0.0,Coffee,Beverages,,
-    2009-01-02,USD,1.5,0.0,Hot Chocolate,Beverages,,
-    2009-01-03,USD,2.59,0.0,Tea,Beverages,,
+    transacted on,account,currency,total amount,tax amount,description,sender,recipient,match
+    2009-01-01,Beverages,USD,2.0,0.0,Coffee,Coffee Vendor,Self,Bank Account
+    2009-01-01,Bank Account,USD,1.5,0.0,Purchase,Bank Account,Coffee Vendor,Self,Beverages
+    2009-01-02,Beverages,USD,2.59,0.0,Hot Chocolate,Beverages,,,
     
     """
   
+  @wip
   Scenario: Export a search
     Given I am on the path "/ledger_items"
     When I fill in "query" with "Coffee"
@@ -34,7 +32,7 @@ Feature: Export in CSV format
     When I follow "Export"
     Then I should download
     """
-    transacted_on,currency,total_amount,tax_amount,description,account_name,sender_name,recipient_name
+    transacted on,account,currency,total amount,tax amount,description,sender,recipient,match
     2009-01-01,USD,2.0,0.0,Coffee,Beverages,,
     
     """

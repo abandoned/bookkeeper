@@ -10,30 +10,54 @@ class LedgerItemsController < InheritedResources::Base
   
   def index
     store_location
+    
+    # todo need some refactoring below!
     if request.format.csv?
       unless params[:account].blank?
-        file_name = Account.find(params[:account]).name
+        filename = Account.find(params[:account]).name.gsub(/\s/, '').underscore
       else
-        file_name = 'Ledger'
+        filename = 'ledger'
       end
       
-      csv = end_of_association_chain.all(
-        :include => [:sender, :recipient],
-        :order => 'ledger_items.transacted_on ASC').to_csv(
-        :only => [
-          :transacted_on,
-          :currency,
-          :total_amount,
-          :tax_amount,
-          :description,
-        ],
-        :methods => [
-          :account_name,
-          :sender_name,
-          :recipient_name
-        ])
+      headers.merge!(
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => "attachment; filename=\"#{filename}.#{Time.now.strftime('%y%m%d%H%M%S')}.csv\"",
+        'Content-Transfer-Encoding' => 'binary'
+      )
+      @performed_render = false
       
-      return send_data(csv, :filename => "#{file_name}.#{Time.now.strftime('%y%m%d%H%M%S')}.csv")
+      return render :status => 200, :text => Proc.new { |response, output|
+        headings = ['transacted on', 'account', 'currency', 'total amount', 'tax amount', 'description', 'sender', 'recipient', 'match']
+        output.write FasterCSV.generate_line(headings)
+      
+        end_of_association_chain.find_in_batches(
+          :include => [:sender, :recipient, :match]
+        ) do |batch|
+          batch.each do |ledger_item|
+            if ledger_item.matched?
+              if ledger_item.matched_ledger_items.size > 1
+                match = 'Split'
+              else
+                match = ledger_item.matched_ledger_items.first.account.name
+              end
+            else
+              match = ''
+            end
+            data = [
+              ledger_item.transacted_on,
+              ledger_item.account_name,
+              ledger_item.currency,
+              ledger_item.total_amount,
+              ledger_item.tax_amount,
+              ledger_item.description,
+              ledger_item.sender_name,
+              ledger_item.recipient_name,
+              match
+            ]
+            output.write FasterCSV.generate_line(data)
+          end
+        end
+      }
     end
     
     calculate_totals

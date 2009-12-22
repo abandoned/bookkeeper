@@ -1,0 +1,9 @@
+%p
+  %span.highlight WIP. Will rework reports once I refactor LedgerItem. For now, this page will generate a basic report for 2009, which is all that matters at this point anyways.
+  
+- form_tag('', :method => "get", :class => "search") do
+  %fieldset
+    %ul
+      %li
+        = select_tag(:contact, options_for_select(Contact.all.reject{|c| c.self == false}.collect{ |c| [c.name, c.id.to_s] }, params[:contact]))
+      %li= submit_tag('Generate report', :name => nil)

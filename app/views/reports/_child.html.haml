@@ -1,9 +1,12 @@
-- if child.grand_total?
+- if child.grand_total_for?(params[:contact])
   %tr.descendant
     %td
-      - ((child.depth - 1) * 2).times { haml_concat "&nbsp;" }
+      - ((child.depth - 1) * 2).times do
+        &nbsp;
       =h child.name
-    - if child.total?
+    - if child.total_for?(params[:contact])
       %td.currency
-        = monetize(child.total.abs, child.currency_symbol)
+        - child.total_for(params[:contact]).each_pair do |currency, total|
+          = monetize(total.abs, currency)
+          %br
   = render :partial => "child", :collection => child.children

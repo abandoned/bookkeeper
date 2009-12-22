@@ -17,29 +17,43 @@ class Account < ActiveRecord::Base
   validates_presence_of :name
   before_destroy :do_not_orphan_ledger_items
   
-  def total
-    @total ||= self.ledger_items.sum('total_amount')
+  def total_for(contact=0)
+    @total ||= calculate_total_for(self, contact)
   end
   
-  def total?
-    total != 0
+  def total_for?(contact=0)
+    !total_for(contact).blank?
   end
     
-  def grand_total
-    @grand_total ||= self.subtree.inject(nil) { |sum, a| sum ? sum + a.ledger_items.sum('total_amount') : a.ledger_items.sum('total_amount') }
+  def grand_total_for(contact=0)
+    @grand_total ||= self.subtree.inject({}) do |grand_total, account| 
+      calculate_total_for(account, contact, grand_total)
+    end
   end
   
-  def grand_total?
-    grand_total != 0
+  def grand_total_for?(contact=0)
+    !grand_total_for(contact).blank?
   end
   
   def currency_symbol
     @currency_symbol ||= self.subtree.each { |a| a.ledger_items.each { |i| return i.currency_symbol } }
   end
   
-  protected
+  private
   
   def do_not_orphan_ledger_items
     raise ActiveRecord::RecordNotDestroyed if self.ledger_items.size > 0
   end
+  
+  def calculate_total_for(account,contact,total={})
+    account.ledger_items.contact(contact).sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
+      if total[LedgerItem::CURRENCY_SYMBOLS[currency]].blank?
+        total[LedgerItem::CURRENCY_SYMBOLS[currency]] = total_amount.round(2)
+      else
+        total[LedgerItem::CURRENCY_SYMBOLS[currency]] += total_amount.round(2)
+      end
+    end
+    total
+  end
+    
 end

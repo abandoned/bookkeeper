@@ -1,21 +1,27 @@
 - title @report_type.titleize
 
+= render :partial => 'form'
+
 - unless @roots.blank?
   %table.report
     - for root in @roots
-      - if root.grand_total?
+      - if root.grand_total_for?(params[:contact])
         %tr.root_account
           %td{:colspan => 2}
             =h root.name
-        = render :partial => "child", :collection => root.children
+        = render(:partial => "child", :collection => root.children)
             
         %tr.root_sum
           %td
             = "Total #{root.name}"
           %td.currency
-            = monetize(root.grand_total.abs, root.currency_symbol)
+            - root.grand_total_for(params[:contact]).each_pair do |currency, total|
+              = monetize(total.abs, currency)
+              %br
     %tr.net
       %td
         Net
       %td
-        = monetize(@roots.inject(0) { |s, r| s + r.grand_total }, "$")
+        - @roots.inject({}) { |m, a| m.merge(a.grand_total_for(params[:contact])) { |k, v1, v2| v1 + v2 } }.each_pair do |currency, total|
+          = monetize(total.abs, currency)
+          %br

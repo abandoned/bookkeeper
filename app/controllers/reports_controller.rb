@@ -16,4 +16,11 @@ class ReportsController < ApplicationController
   def find_report_types
     @report_types = Report::TYPES
   end
+  
+  def calculate_totals
+    @totals = {}
+    end_of_association_chain.sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
+      @totals[LedgerItem::CURRENCY_SYMBOLS[currency]] = total_amount.round(2)
+    end
+  end
 end

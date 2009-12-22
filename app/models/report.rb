@@ -12,6 +12,6 @@ class Report
   private
   
   def self.collect_accounts(range)
-    range.collect { |i|  Account.find(i) }
+    range.collect { |i|  Account.find(i) }    
   end
 end

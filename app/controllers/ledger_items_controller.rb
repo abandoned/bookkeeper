@@ -24,38 +24,36 @@ class LedgerItemsController < InheritedResources::Base
         'Content-Disposition' => "attachment; filename=\"#{filename}.#{Time.now.strftime('%y%m%d%H%M%S')}.csv\"",
         'Content-Transfer-Encoding' => 'binary'
       )
-      @performed_render = false
       
-      return render :status => 200, :text => Proc.new { |response, output|
+      return render :text => Proc.new { |response, output|
         headings = ['transacted on', 'account', 'currency', 'total amount', 'tax amount', 'description', 'sender', 'recipient', 'match']
         output.write FasterCSV.generate_line(headings)
       
-        end_of_association_chain.find_in_batches(
-          :include => [:sender, :recipient, :match]
-        ) do |batch|
-          batch.each do |ledger_item|
-            if ledger_item.matched?
-              if ledger_item.matched_ledger_items.size > 1
-                match = 'Split'
-              else
-                match = ledger_item.matched_ledger_items.first.account.name
-              end
+        data = end_of_association_chain.all(
+          :include  => [:sender, :recipient, :match],
+          :order    => 'ledger_items.transacted_on ASC')
+        data.each do |ledger_item|
+          if ledger_item.matched?
+            if ledger_item.matched_ledger_items.size > 1
+              match = 'Split'
             else
-              match = ''
+              match = ledger_item.matched_ledger_items.first.account.name
             end
-            data = [
-              ledger_item.transacted_on,
-              ledger_item.account_name,
-              ledger_item.currency,
-              ledger_item.total_amount,
-              ledger_item.tax_amount,
-              ledger_item.description,
-              ledger_item.sender_name,
-              ledger_item.recipient_name,
-              match
-            ]
-            output.write FasterCSV.generate_line(data)
+          else
+            match = ''
           end
+          data = [
+            ledger_item.transacted_on,
+            ledger_item.account_name,
+            ledger_item.currency,
+            ledger_item.total_amount,
+            ledger_item.tax_amount,
+            ledger_item.description,
+            ledger_item.sender_name,
+            ledger_item.recipient_name,
+            match
+          ]
+          output.write(FasterCSV.generate_line(data))
         end
       }
     end

@@ -19,43 +19,37 @@ class LedgerItemsController < InheritedResources::Base
         filename = 'ledger'
       end
       
-      headers.merge!(
-        'Content-Type' => 'text/csv',
-        'Content-Disposition' => "attachment; filename=\"#{filename}.#{Time.now.strftime('%y%m%d%H%M%S')}.csv\"",
-        'Content-Transfer-Encoding' => 'binary'
-      )
+      headings = ['transacted on', 'account', 'currency', 'total amount', 'tax amount', 'description', 'sender', 'recipient', 'match']
+      output = FasterCSV.generate_line(headings)
       
-      return render :text => Proc.new { |response, output|
-        headings = ['transacted on', 'account', 'currency', 'total amount', 'tax amount', 'description', 'sender', 'recipient', 'match']
-        output.write FasterCSV.generate_line(headings)
-      
-        data = end_of_association_chain.all(
-          :include  => [:sender, :recipient, :match],
-          :order    => 'ledger_items.transacted_on ASC')
-        data.each do |ledger_item|
-          if ledger_item.matched?
-            if ledger_item.matched_ledger_items.size > 1
-              match = 'Split'
-            else
-              match = ledger_item.matched_ledger_items.first.account.name
-            end
+      data = end_of_association_chain.all(
+        :include  => [:sender, :recipient, :match],
+        :order    => 'ledger_items.transacted_on ASC')
+      data.each do |ledger_item|
+        if ledger_item.matched?
+          if ledger_item.matched_ledger_items.size > 1
+            match = 'Split'
           else
-            match = ''
+            match = ledger_item.matched_ledger_items.first.account.name
           end
-          data = [
-            ledger_item.transacted_on,
-            ledger_item.account_name,
-            ledger_item.currency,
-            ledger_item.total_amount,
-            ledger_item.tax_amount,
-            ledger_item.description,
-            ledger_item.sender_name,
-            ledger_item.recipient_name,
-            match
-          ]
-          output.write(FasterCSV.generate_line(data))
+        else
+          match = nil
         end
-      }
+        data = [
+          ledger_item.transacted_on,
+          ledger_item.account_name,
+          ledger_item.currency,
+          ledger_item.total_amount,
+          ledger_item.tax_amount,
+          ledger_item.description,
+          ledger_item.sender_name,
+          ledger_item.recipient_name,
+          match
+        ]
+        output << FasterCSV.generate_line(data)
+      end
+      
+      return send_data(output, :filename => "#{filename}.#{Time.now.strftime('%y%m%d%H%M%S')}.csv")
     end
     
     calculate_totals

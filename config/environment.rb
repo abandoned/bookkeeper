@@ -1,5 +1,3 @@
-require 'slim_attributes'
-
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present

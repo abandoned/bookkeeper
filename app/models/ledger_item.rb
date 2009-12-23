@@ -61,6 +61,7 @@ class LedgerItem < ActiveRecord::Base
       end
     end
   }
+  
   named_scope :query, proc { |query| 
     unless query.blank?
       q = query.dup
@@ -77,20 +78,22 @@ class LedgerItem < ActiveRecord::Base
       { :conditions => [sql] + vars }
     end
   }
+  
   named_scope :from_date, proc { |from|
     unless from.blank?
-      if from.is_a?(Array)
+      if from.is_a?(Hash) && !from[:year].blank?
         { :conditions => ['transacted_on >= ?', Date.new(from[:year].to_i, from[:month].to_i, from[:day].to_i)] }
-      else
+      elsif from.is_a?(Date)
         { :conditions => ['transacted_on >= ?', from] }
       end
     end
   }
+  
   named_scope :to_date, proc { |to|
     unless to.blank?
-      if to.is_a?(Array)
+      if to.is_a?(Hash) && !to[:year].blank?
         { :conditions => ['transacted_on <= ?', Date.new(to[:year].to_i, to[:month].to_i, to[:day].to_i)] }
-      else
+      elsif to.is_a?(Date)
         { :conditions => ['transacted_on <= ?', to] }
       end
     end

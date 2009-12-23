@@ -28,7 +28,8 @@ describe LedgerItem do
                            :sender => @sender,
                            :recipient => @recipient,
                            :total_amount => 20.0,
-                           :account => @account)
+                           :account => @account,
+                           :transacted_on => Date.new(2009,1,31))
   end
   
   it "should belong to a account" do
@@ -87,5 +88,38 @@ describe LedgerItem do
   it "should not total 0" do
     @ledger_item.total_amount = 0
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
+  end
+  
+  describe "date scope" do
+    before(:each) do
+      Factory(:ledger_item,
+              :transacted_on => Date.new(2009, 1, 1))
+    end
+    
+    it "should scope transaction date on or after a date object" do
+      from = Date.new(2009, 1, 15)
+      LedgerItem.from_date(from).size.should == 1
+    end
+    
+    it "should scope transaction date on or after a date hash" do
+      from = { :year => 2009,
+               :month => 1,
+               :day => 15
+             }
+      LedgerItem.from_date(from).size.should == 1
+    end
+    
+    it "should scope transaction date on or before a date object" do
+      to = Date.new(2009, 1, 15)
+      LedgerItem.to_date(to).size.should == 1
+    end
+    
+    it "should scope transaction date on or before a date hash" do
+      to = { :year => 2009,
+               :month => 1,
+               :day => 15
+             }
+      LedgerItem.to_date(to).size.should == 1
+    end
   end
 end

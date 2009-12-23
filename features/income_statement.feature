@@ -21,7 +21,6 @@ Feature: Generate Income Statement
   Scenario: View income statement
     Given I am on path "/reports/income_statement"
     Then I should see "Income Statement" within "#main h1"
-    And show me the page
     Then I should see "$10.00"
     And I should see "GBP 3.00"
     And I Should see "$ 3.00"

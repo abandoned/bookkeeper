@@ -9,7 +9,11 @@ module LedgerItemsHelper
     else
       sign = ""
     end
-    sign + number_to_currency(amount.to_s, :unit => symbol, :format => "%u%n")
+    if symbol == '¥'
+      sign + number_to_currency(amount.to_s, :unit => symbol, :format => "%u%n", :precision => 0)
+    else
+      sign + number_to_currency(amount.to_s, :unit => symbol, :format => "%u%n")
+    end
   end
   
   def hamlified_tree_select(categories, model, name, selected=nil, prompt=true, level=0, init=true)

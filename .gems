@@ -7,6 +7,6 @@ heroku --version '>= 1.4'
 inherited_resources --version '>= 0.9.4'
 jnunemaker-validatable --version '>= 1.8.0'
 nokogiri --version '>= 1.4.1'
-slim_attributes --version
+slim_attributes
 slim_scrooge --version '>= 1.0.3'
 will_paginate --version '~> 2.3.11'

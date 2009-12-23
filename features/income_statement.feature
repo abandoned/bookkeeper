@@ -17,6 +17,7 @@ Feature: Generate Income Statement
     And a ledger_item "Sale" exists with total_amount: -10.00, currency: "USD", account: account "Sales", transacted_on: "2009/01/02", sender: contact "Self", recipient: contact "Customer", match: match "m3"
     And a ledger_item "Income" exists with total_amount: 10.00, currency: "USD", account: account "Bank Account", transacted_on: "2009/01/02", sender: contact "Customer", recipient: contact "Customer", match: match "m3"
   
+  @wip
   Scenario: View income statement
     Given I am on path "/reports/income_statement"
     Then I should see "Income Statement" within "#main h1"

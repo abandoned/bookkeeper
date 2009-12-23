@@ -5,7 +5,13 @@
   %table
     %thead
       %tr
-        %th{:colspan => 6}
+        %th{:colspan => 2}
+        %th
+          = f.label :account, 'Account'
+        %th{:colspan => 2}
+          = f.label :sender, 'Sender'
+        %th
+          = f.label :recipient, 'Recipient'
         %th
           = f.label :total_amount, 'Total'
         %th

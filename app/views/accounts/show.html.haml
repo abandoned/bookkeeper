@@ -6,13 +6,13 @@
 - unless @account.children.length == 0
   %ul
     = render :partial => "child", :collection => @account.children
-%p= link_to "New", new_resource_path(resource, :parent_id => @account.id)
+%p= link_to "Create new account", new_resource_path(resource, :parent_id => @account.id)
 %p= link_to "View ledger items", ledger_items_path(resource, :account => @account.id)
-%p= link_to "Import Ledger Items", new_account_import_path(resource)
-%p= link_to "Rules", account_rules_path(resource)
+%p= link_to "Import ledger items", new_account_import_path(resource)
+%p= link_to "View rules", account_rules_path(resource)
 %p TODO Display other summary info on account
   
 .footer
   = link_to "Edit", edit_resource_path
   = link_to "Delete", resource_path, :confirm => 'Are you sure?', :method => :delete
-  = link_to "View All", collection_path
+  = link_to "View all", collection_path

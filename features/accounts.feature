@@ -9,7 +9,7 @@ Feature: Manage Accounts
   
   Scenario: Create an account
     Given I am on path "/accounts"
-    When I follow "New Account"
+    When I follow "Create new account"
     And I fill in "Name" with "Current Assets"
     And I select "Assets" from "Parent"
     And I press "Submit"
@@ -38,7 +38,7 @@ Feature: Manage Accounts
   Scenario: Cannot create two accounts with identical names under the same parent
     Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
     And I am on path "/accounts"
-    When I follow "New Account"
+    When I follow "Create new account"
     And I fill in "Name" with "Current Assets"
     And I select "Assets" from "parent"
     And I press "Submit"

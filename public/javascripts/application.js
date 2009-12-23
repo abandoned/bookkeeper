@@ -1,16 +1,5 @@
 $(document).ready(function() {
   
-  $.fn.gray_out_labels = function() {
-    $(this).find('select.autocomplete').map(function() {
-      if($(this).val() == '') {
-        $(this).next().addClass('labeled').focus(function() {
-          $(this).val('').removeClass('labeled')
-        })
-      }
-    })
-    return this;
-  }
-  
   $('select.autocomplete').select_autocomplete();
   
   var copy_row = function(row) {
@@ -27,7 +16,6 @@ $(document).ready(function() {
       })
     })
     next_row.find('select.autocomplete').select_autocomplete()
-    next_row.gray_out_labels()
   }
   
   $('form table a.add_row').live('click', function(ev) {
@@ -60,10 +48,7 @@ $(document).ready(function() {
       }
     })
   })
-  
-  // Gray out label values in autocomplete selects
-  $('form').gray_out_labels()
-  
+    
   // Calculate total on new ledger item form
   $('form#new_ledger_item table').prepend('<tfoot><tr><td class="small" id="grand-total"></td></tr></tfoot>')
   

@@ -57,8 +57,7 @@
 			$input.autocomplete(data, options);
  
 			$input.bind('keydown', function(e) {
-			  console.log(e.which)
-			  if (e.which == 8 && $input.val() == '') {
+			  if (e.which == 8) {
 			    $($this.find('option[value=]')[0]).attr('selected', true);
 			  }
 			})

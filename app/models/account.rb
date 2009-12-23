@@ -46,7 +46,7 @@ class Account < ActiveRecord::Base
   end
   
   def calculate_total_for(account,contact,total={})
-    account.ledger_items.contact(contact).from_date({ :year => 2009, :month => 1, :day => 1}).sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
+    account.ledger_items.contact(contact).from_date(Date.new(2006, 8, 1)).to_date(Date.new(2006, 8, 31)).sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
       if total[LedgerItem::CURRENCY_SYMBOLS[currency]].blank?
         total[LedgerItem::CURRENCY_SYMBOLS[currency]] = total_amount.round(2)
       else

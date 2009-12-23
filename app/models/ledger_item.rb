@@ -78,14 +78,22 @@ class LedgerItem < ActiveRecord::Base
     end
   }
   named_scope :from_date, proc { |from|
-    unless from.blank? || from[:year].blank?
-      { :conditions => ['transacted_on >= ?', Date.new(from[:year].to_i, from[:month].to_i, from[:day].to_i)] }
+    unless from.blank?
+      if from.is_a?(Array)
+        { :conditions => ['transacted_on >= ?', Date.new(from[:year].to_i, from[:month].to_i, from[:day].to_i)] }
+      else
+        { :conditions => ['transacted_on >= ?', from] }
+      end
     end
   }
   named_scope :to_date, proc { |to|
-    unless to.blank? || to[:year].blank?
-      { :conditions => ['transacted_on <= ?', Date.new(to[:year].to_i, to[:month].to_i, to[:day].to_i)] }
-   end
+    unless to.blank?
+      if to.is_a?(Array)
+        { :conditions => ['transacted_on <= ?', Date.new(to[:year].to_i, to[:month].to_i, to[:day].to_i)] }
+      else
+        { :conditions => ['transacted_on <= ?', to] }
+      end
+    end
   }
   
   def account_name

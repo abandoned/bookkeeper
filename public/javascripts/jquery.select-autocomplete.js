@@ -10,7 +10,7 @@
 			  minChars: 0
 			, width: 310
 			, matchContains: true
-			, autoFill: true
+			, autoFill: false
 			, formatItem: function(row, i, max) {
 				return row.name;
 			}
@@ -52,21 +52,21 @@
  
 			// add it our data
 			options.data = data;
- 
-			//make the input box into an autocomplete for the select items
+      
+      //make the input box into an autocomplete for the select items
 			$input.autocomplete(data, options);
- 
-			$input.bind('keydown', function(e) {
-			  if (e.which == 8) {
-			    $($this.find('option[value=]')[0]).attr('selected', true);
-			  }
-			})
 			
 			//make the result handler set the selected item in the select list
-			$input.result(function(event, selected_item, formatted) { 
-				$($this.find('option[value=' + selected_item.value + ']')[0]).attr('selected', true);
+			$input.result(function(event, selected_item, formatted) {
+			  $($this.find('option[value=' + selected_item.value + ']')[0]).attr('selected', true);
 			});
- 
+			
+			$input.blur(function() {
+			  if ($input.val() == '') {
+			    $($this.find('option[value=]')[0]).attr('selected', true)
+		    }
+			})
+
 			//set the initial text value of the autocomplete input box to the text node of the selected item in the select control
 			$selected = $this.find('[selected]')
 			if ($selected) {

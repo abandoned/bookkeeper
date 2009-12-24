@@ -25,13 +25,17 @@ Rails::Initializer.run do |config|
              :version => '>= 0.9.7'
   config.gem 'haml',
              :version => '>= 2.2.15'
+  config.gem 'has_scope',
+             :version => '>= 0.4'
   config.gem 'inherited_resources',
-             :version => '>= 0.9.4'
+             :version => '>= 1.0.0'
   config.gem 'jnunemaker-validatable',
              :lib => "validatable",
              :version => '>= 1.8.0'
   config.gem 'nokogiri',
              :version => '>= 1.4.1'
+  config.gem 'responders',
+            :version => '>= 0.4.1'
   config.gem 'will_paginate',
              :version => '~> 2.3.11'
   
@@ -56,3 +60,4 @@ Rails::Initializer.run do |config|
 end
 
 Haml::Template.options[:format] = :html5
+InheritedResources.flash_keys = [ :success, :failure ]

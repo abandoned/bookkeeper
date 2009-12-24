@@ -1,0 +1,2 @@
+class CurrencyConversion < Account
+end

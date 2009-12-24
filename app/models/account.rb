@@ -11,11 +11,18 @@
 
 class Account < ActiveRecord::Base
   acts_as_tree :orphan_strategy => :restrict
+  
   has_many :ledger_items
   has_many :rules
+  
   validates_uniqueness_of :name
-  validates_presence_of :name
+  validates_presence_of   :name
+  
   before_destroy :do_not_orphan_ledger_items
+  
+  def all_ledger_items
+    self.subtree.inject([]) { |m, a| m + a.ledger_items }
+  end
   
   def total_for(contact=0)
     @total ||= calculate_total_for(self, contact)
@@ -37,6 +44,16 @@ class Account < ActiveRecord::Base
   
   def currency_symbol
     @currency_symbol ||= self.subtree.each { |a| a.ledger_items.each { |i| return i.currency_symbol } }
+  end
+  
+  # cf. http://code.alexreisner.com/articles/single-table-inheritance-in-rails.html
+  def self.model_name
+    name = 'account'
+    name.instance_eval do
+      def plural;   pluralize;   end
+      def singular; singularize; end
+    end
+    return name
   end
   
   private

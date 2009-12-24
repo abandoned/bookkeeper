@@ -9,16 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091221171832) do
+ActiveRecord::Schema.define(:version => 20091224002832) do
 
   create_table "accounts", :force => true do |t|
     t.string   "ancestry"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   add_index "accounts", ["ancestry"], :name => "index_accounts_on_ancestry"
+  add_index "accounts", ["type"], :name => "index_accounts_on_type"
 
   create_table "contacts", :force => true do |t|
     t.boolean  "self",                      :default => false

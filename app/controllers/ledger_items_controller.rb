@@ -3,7 +3,12 @@ class LedgerItemsController < InheritedResources::Base
   respond_to    :html
   respond_to    :csv, :only => [:index]
   
-  has_scope     :account, :contact, :query, :unmatched, :from_date, :to_date, :only => :index
+  has_scope     :account, :only => :index
+  has_scope     :contact, :only => :index
+  has_scope     :query, :only => :index
+  has_scope     :unmatched, :only => :index
+  has_scope     :from_date, :type => :hash, :only => :index
+  has_scope     :to_date, :type => :hash, :only => :index
   
   before_filter :require_user
   before_filter :find_cart, :only => [:index, :add_to_cart, :balance_cart, :save_cart]

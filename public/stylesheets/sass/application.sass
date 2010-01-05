@@ -1,93 +1,81 @@
-// Colors
-!color = #475159
-!bg_color = #ddd
-!headline_color = #eee
-!headline_bg_color = #555
-!nav_color = #f2f2f2
-!nav_bg_color = #333
-!main_color = #000
-!main_bg_color = #f2f2f2
-
-// Mixins
-=large-font
-  font-size: 1.25em
-=small-font
-  font-size: 0.8em
-=smaller-font
-  font-size: 0.7em
-
-// Some resetting
-*
+/* 
+  Reset
+*/
+html, body, div, span, h1, h2, h3, p, a, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td
   margin: 0
+  padding: 0
+  border: 0
+  outline: 0
+  vertical-align: baseline
+
+body
+  line-height: 1
+
+\:focus
+  outline: 0
+
+table
+  border:
+    collapse: collapse
+    spacing: 0
+
+
+
+/*
+  Main
+*/
 body, html
   height: 100%
+
 body
   font:
     family: Helvetica, Arial
-    size: 20px
-  color = !color
-  background-color = !bg_color
-a
-  img
-    border: none
-.clear
-  clear: both
-  height: 0
-  overflow: hidden
-.highlight
+    size: 14px
+  color: #ccc
+  background-color: #f2f2f2
+  
+.highlighted
   background-color: #ffc
-.underline
+
+.underlined
   text-decoration: underline
+
 .large
-  +large-font
-.small
-  +small-font
-.smaller
-  +smaller-font
-.fieldWithErrors
-  display: inline
+  font:
+    size: 1.5em
+
+
+/*
+  Aside
+*/
+aside
+  a
+    img
+      position: absolute
+      top: 0
+      left: 0
+      border: 0
+
+
 
 // Header
 #header
   position: relative
-  padding: 0.8em 3em 0.2em
-  background-color = !headline_bg_color
-  h1
-    color = !headline_color
-    font:
-      size: 2.8em
-      weight: normal
-    a
-      color = !headline_color
-      text-decoration: none
+  height: 1.8em
+  background-color: #a0cae2
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(128, 173, 199, 1)), to(rgba(188, 226, 248, 1)))
+  border-bottom: 1px solid #999
   
 // Navigation
 #nav
-  position: absolute
-  bottom: 0
-  right: 1.5em
-  +small-font
-  padding: 0.4em 1em
-  background-color = !nav_bg_color
-  -moz-border-radius-topleft: 6px
-  -moz-border-radius-topright: 6px
-  -webkit-border-top-left-radius: 6px
-  -webkit-border-top-right-radius: 6px
-  a
-    color = !nav_color
-    margin-right: 6px
-    padding: 6px 3px
-    text-decoration: none
-  .current
-    color = !nav_color - #444
-    margin-right: 6px
-    padding: 6px 3px
-
+  
+  
+    
 // Main
 #main
-  padding: 2em 3em 3em
-  color = !main_color
-  background-color = !main_bg_color
+  padding: 2em 3em
+  color: #000
+  background-color: #f4f4f4
   h1
     margin-bottom: 30px
     font-size: 1.6em
@@ -97,12 +85,11 @@ a
   p
     margin-bottom: 12px
   a
-    color = !main_color + #777
+    color: #666
   .footer
-    margin-top: 24px
+    margin-top: 1.5em
     a
       margin-right: 12px
-      background-color= !main_bg_color - #111
   
   .pagination
     margin: 12px 0 0 6px
@@ -173,20 +160,7 @@ form#new_ledger_item
 #footer
   padding: 0.5em 3em
   a
-    color = !color + #222
-
-// Flash messages
-#flash_success, #flash_failure
-  width: 60%
-  padding: 0.5em
-  margin-bottom: 1em
-  color: #000
-#flash_success
-  background-color: #cfc
-  border: solid 2px #6C6
-#flash_failure
-  background-color: #fcc
-  border: solid 2px #C66
+    color: #fff
 
 // Error element in forms
 #errorExplanation
@@ -220,11 +194,12 @@ form#new_ledger_item
 
 // Tables
 table
-  border-collapse: collapse
+  
   a
     margin-right: 9px
     &:last-child
       margin-right: 0
+  
   &.data
     tr
       &.even
@@ -235,8 +210,9 @@ table
       text-align: right
     td, th
       border: 1px solid #ddd
-      padding: 9px 6px
+      padding: 3px
       text-align: left
+      vertical-align: middle
     tfoot
       font-weight: bold
       td
@@ -245,8 +221,9 @@ table
     tr
       vertical-align: top
     tr.root_account
-      font-weight: bold
-      +large-font
+      font:
+        weight: bold
+        size: 1.25em
       td
         padding-bottom: 0.25em
     tr.root_sum, tr.net

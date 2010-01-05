@@ -4,7 +4,7 @@ module LedgerItemsHelper
   # entries in a pretty manner.
   def monetize(amount, symbol)
     if amount < 0
-      sign = "- "
+      sign = "CR "
       amount *= -1
     else
       sign = ""

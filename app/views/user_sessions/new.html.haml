@@ -1,8 +1,11 @@
--title "Login", false
+-title 'Log in to Bookkeeper', false
 
-- semantic_form_for @user_session, :url => user_session_path do |f| 
-  - f.inputs do 
-    = f.input :login, :input_html => { :size => 30 }
-    = f.input :password, :input_html => { :size => 30 }
-    - f.buttons do
-      = f.commit_button :button_html => { :value => t('formtastic.labels.user_session.create') }
+- form_for(@user_session, :url => user_session_path, :html => { :class => 'bp' }) do |f|
+  %dl
+    %dt= f.label :login, 'Username'
+    %dd= f.text_field :login, :class => 'title'
+  %dl
+    %dt= f.label :password, 'Password'
+    %dd= f.password_field :password, :class => 'title'
+  %dl
+    %dd= submit_tag 'Log in »', :class => 'button'

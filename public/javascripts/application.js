@@ -1,5 +1,26 @@
 $(document).ready(function() {
   
+  // Obesify search
+  $("#search label, #search input[type=submit]").hide();
+  $input = $("#search input[type=text]");
+  if ($input.val() == "") {
+	  $input
+	    .addClass("labeled")
+	    .val($input.prev().html())
+	    .bind('focus.label', function() {
+        $(this)
+          .val("")
+          .removeClass("labeled");
+      })
+      .bind("blur.unbindLabel", function() {
+        $(this)
+          .unbind("focus.label")
+          .unbind("blur.unbindLabel");
+      })
+      .obesify(data);
+  }
+  
+  
   $('select.autocomplete').select_autocomplete();
   
   var copy_row = function(row) {
@@ -40,8 +61,8 @@ $(document).ready(function() {
   })
   
   // Strip unnecessary attributes from search gets
-  $('form.search').find('input, select').removeAttr('disabled')
-  $('form.search').submit(function() {
+  $('#search').find('input, select').removeAttr('disabled')
+  $('#search').submit(function() {
     $(this).find('input, select').map(function() {
       if ($.trim($(this).val()) == '') {
         $(this).attr('disabled', 'disabled')

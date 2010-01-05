@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  before_filter :require_user
   before_filter :find_report_types
   
   def show

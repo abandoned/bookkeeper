@@ -2,6 +2,10 @@ class LedgerItemsController < InheritedResources::Base
   belongs_to    :account, :optional => true
   respond_to    :html
   respond_to    :csv, :only => [:index]
+  defaults      :resource_class         => LedgerItem,
+                :collection_name        => 'ledger_items',
+                :instance_name          => 'ledger_item',
+                :route_collection_name  => 'transactions', :route_instance_name => 'transaction'
   
   has_scope     :account, :only => :index
   has_scope     :contact, :only => :index

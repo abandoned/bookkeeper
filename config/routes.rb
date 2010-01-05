@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :matches, :only => [:show, :destroy]
   map.resources :mappings
-  map.resources :ledger_items
+  map.resources :ledger_items, :as => 'transactions'
   map.resources :contacts, :has_many => :ledger_items
   map.resource :user_session, :only => [:new, :create, :destroy]
   map.resources :reports, :only => [:index, :show]

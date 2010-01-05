@@ -2,16 +2,16 @@
 
 - if @contacts.size > 0
   %table.data
-    %tr.small
+    %tr
       %th Name
       %th Contact Name
       %th Country
     - for contact in @contacts
-      %tr{:class => "smaller #{cycle('odd', 'even')}"}
+      %tr{:class => "#{cycle('odd', 'even')}"}
         %td= link_to contact.name, resource_path(contact)
         %td=h contact.contact_name
         %td=h contact.country
-  = will_paginate(@contacts, :inner_window => 2, :class => "small pagination")
+  = will_paginate(@contacts, :inner_window => 2, :class => "pagination")
 - else
   %p No contacts found
 

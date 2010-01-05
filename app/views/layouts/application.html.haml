@@ -1,27 +1,32 @@
 !!!
-%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+%html
   %head
-    %link{:href => "/images/icon.png", :rel => "shortcut icon", :type => "image/x-icon" }
+    %link{:href => '/images/icon.png', :rel => 'shortcut icon', :type => 'image/x-icon' }
     %title= yield(:title)
-    = stylesheet_link_tag "application", "autocomplete", "formtastic", "formtastic_changes"
-    = javascript_include_tag "jquery-1.3.2.min", "jquery.autocomplete", "jquery.select-autocomplete", "application"
-    - javascript_tag do
-      = yield(:jstemplates)
+    = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'compiled/print.css', :media => 'print'
+    /[if lt IE 8]
+      = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
+    = javascript_include_tag 'jquery-1.3.2.min', 'jquery.autocomplete', 'jquery.select-autocomplete', 'jquery.obese-autocomplete', 'application'
     - if @content_for_head
       = yield(:head)
-  %body
-    #header
-      %h1= link_to_unless_current "Bookkeeper", root_path
-      #nav
-        - for link in nav_links
-          = link_to_unless_current(link[:name], link[:path]) { |l| content_tag(:span, l, :class => "current") }
-    #main
+  %body{:class => 'bp one-col'}
+    %header#top
+      - if current_user
+        %nav#segmented-controls
+          %span.wrapper
+            - segmented_controls.each do |sc|
+              - if (current_page?(sc[:path]))
+                %span{:class => 'clickable'}>= sc[:text]
+              - else
+                %a{:href => "#{sc[:path]}", :class => 'clickable'}>= sc[:text]
+    #container
       - flash.each do |name, msg|
-        - haml_tag(:div, msg, :id => "flash_#{name}")
-      - if show_title?
-        %h1
-          %span= yield(:title)
-      = yield
-    #footer
-      %p.small
-        Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a>
+        %section.flash_wrapper
+          - haml_tag(:div, msg, :id => "flash_#{name}", :class => 'large')
+      %section#content
+        - if show_title?
+          %h1
+            %span= yield(:title)
+          %hr
+        = yield

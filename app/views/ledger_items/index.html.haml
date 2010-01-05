@@ -1,15 +1,16 @@
-- title "Ledger Items", false
+- title 'Ledger Items', false
+
+- content_for :head do
+  - javascript_tag do
+    = "var data= { 'of': [#{Contact.all(:order => 'name ASC').inject('') {|m, i| m = m + ', ' unless m.blank?; m + "'#{i.name}'"}}], 'in': [#{Account.all(:order => 'name ASC').inject('') {|m, i| m = m + ', ' unless m.blank?; m + "'#{i.name}'"}}] };".html_safe!
 
 - unless @cart.ledger_items.empty?
-  = render(:partial => "cart").html_safe!
+  = render(:partial => 'cart').html_safe!
 
-%h1
-  %span Ledger Items
-
-= render :partial => "search"
+= render :partial => 'search'
 
 - if collection.size > 0
-  %table.data
+  %table.data-grid
     %thead
       %tr.small
         %th ID
@@ -19,22 +20,23 @@
         %th Date
         %th Amount
         %th Description
+        %th Match
     %tfoot
-      %tr.smaller
-        %td{:colspan => 6, :class => "currency underline"}
+      %tr
+        %td{:colspan => 6, :class => 'currency underlined'}
           - counter = 0
           - @totals.each do |k, v|
             - counter += 1
             - if counter != @totals.size
-              = (monetize(v, k) + "<br />").html_safe!
+              = (monetize(v, k) + '<br />').html_safe!
             - else
               = monetize(v, k)
     %tbody
-      = render(:partial => "ledger_item", :collection => collection)
-  = will_paginate(collection, :inner_window => 2, :class => "small pagination")
+      = render(:partial => 'ledger_item', :collection => collection)
+  = will_paginate(collection, :inner_window => 2, :class => 'small pagination')
 - else
-  %p.small No ledger items found
+  %p No transactions found
       
-.footer
-  = link_to "Create new ledger item", new_ledger_item_path(:account => params[:account])
-  = link_to 'Export', ledger_items_path(params.merge(:format => :csv))
+%footer
+  = link_to('Record new transaction »', new_ledger_item_path(:account => params[:account]), :class => 'button')
+  = link_to('Export »', ledger_items_path(params.merge(:format => :csv)), :class => 'button')

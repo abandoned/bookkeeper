@@ -1,6 +1,3 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -26,7 +23,6 @@ class ApplicationController < ActionController::Base
   def require_user
     unless current_user
       store_location
-      flash[:failure] = "You must be logged in to access this page"
       redirect_to new_user_session_path
       return false
     end

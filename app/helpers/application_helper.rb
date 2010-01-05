@@ -1,15 +1,13 @@
 # Methods added to this helper will be available to all templates in the application.
 
 module ApplicationHelper
-  def nav_links
-    if current_user
-      [{ :name => "Ledger Items",  :path => ledger_items_path },
-       { :name => "Accounts",      :path => accounts_path },
-       { :name => "Contacts",        :path => contacts_path },
-       { :name => "Reports",       :path => reports_path },
-       { :name => "Log out",       :path => logout_path }]
-    else
-      [{ :name => "Log in",        :path => new_user_session_path }]
-    end
+  def segmented_controls
+    [
+      { :text => 'Transactions',  :path => ledger_items_path },
+      { :text => 'Accounts',      :path => accounts_path },
+      { :text => 'Contacts',      :path => contacts_path },
+      { :text => 'Reports',       :path => reports_path },
+      { :text => 'Log out',       :path => logout_path },
+    ]
   end
 end

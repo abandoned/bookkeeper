@@ -1,14 +1,22 @@
-!left_col_width = 180px
-!input_width = 300px
+!left_col_width = 10em
+!input_width = 5em
 
 form.formtastic
   fieldset
     ol
       li
+        width: 25em
+        clear: both
+        border: 1px solid black
+        
+        label
+          border: 1px solid black
+        
+        
         &.string input, &.password input, &.numeric input, &.text textarea, &.select input.ac_input
           width =  !input_width
-          padding: 1px
-          border: 1px solid #999
+          padding: 0.2em
+          border: 1px solid #ccc
         label
           width = !left_col_width
         fieldset

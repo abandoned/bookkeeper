@@ -22,7 +22,7 @@ class Match < ActiveRecord::Base
       raise ArgumentError
     end
     
-    current_item = ledger_items.first
+    current_item = self.ledger_items.first
     new_item = current_item.clone
     
     new_item.sender, new_item.recipient =

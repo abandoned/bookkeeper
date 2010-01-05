@@ -1,5 +1,6 @@
 class ContactsController < InheritedResources::Base
   before_filter :require_user
+  
   respond_to :html, :xml
   
   # http://joshuaclayton.github.com/code/2009/06/02/getting-explicit-with-before-destroy.html

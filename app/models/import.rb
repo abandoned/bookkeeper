@@ -74,7 +74,9 @@ class Import
   end
   
   def import
-    ledger_items.each { |i| i.save! }
+    ActiveRecord::Base.transaction do
+      ledger_items.each { |i| i.save! }
+    end
     return ledger_items.size
   end
   

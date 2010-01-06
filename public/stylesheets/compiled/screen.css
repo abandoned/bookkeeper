@@ -517,8 +517,7 @@ body.one-col #content {
     display: inline;
     float: left;
     margin-right: 10px;
-    width: 950px;
-    margin-top: 2em; }
+    width: 950px; }
     /* line 101, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/chriseppstein-compass-0.8.17/frameworks/blueprint/stylesheets/blueprint/modules/_grid.sass */
     * html body.one-col #content footer {
       overflow-x: hidden; }
@@ -528,10 +527,9 @@ body.one-col #content {
   display: block;
   position: relative;
   height: 2em;
-  margin-bottom: 4em;
+  margin-bottom: 3.5em;
   border-bottom: 1px solid #949494;
-  background-color: #a0cae2;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(128, 173, 199, 1)), to(rgba(188, 226, 248, 1))); }
+  background-color: #80adc7; }
   /* line 12, ../../../app/stylesheets/partials/_top_header.sass */
   #top #segmented-controls {
     position: absolute;
@@ -609,13 +607,13 @@ body.one-col #content {
   float: left;
   margin-right: 10px;
   width: 950px;
-  margin-bottom: 1em; }
+  margin-right: 0; }
   /* line 101, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/chriseppstein-compass-0.8.17/frameworks/blueprint/stylesheets/blueprint/modules/_grid.sass */
   * html #search {
     overflow-x: hidden; }
-  /* line 5, ../../../app/stylesheets/partials/_search_form.sass */
+  /* line 4, ../../../app/stylesheets/partials/_search_form.sass */
   #search input {
-    width: 590px; }
+    width: 938px; }
 
 /* line 2, ../../../app/stylesheets/partials/_data_grid.sass */
 body.bp .data-grid {
@@ -623,71 +621,69 @@ body.bp .data-grid {
   float: left;
   margin-right: 10px;
   width: 950px;
-  margin-right: 0;
-  margin-top: 1em; }
+  margin-right: 0; }
   /* line 101, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/chriseppstein-compass-0.8.17/frameworks/blueprint/stylesheets/blueprint/modules/_grid.sass */
   * html body.bp .data-grid {
     overflow-x: hidden; }
   /* line 8, ../../../app/stylesheets/partials/_data_grid.sass */
-  body.bp .data-grid thead th {
+  body.bp .data-grid thead tr th {
     line-height: 1.3;
-    text-align: center;
-    border-top: 1px solid #cacaca;
+    border-top: 1px solid #949494;
     text-shadow: 0 1px 1px #f7f7f7;
     background-color: #a0cae2;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f7f7f7), to(#cacaca)); }
-    /* line 16, ../../../app/stylesheets/partials/_data_grid.sass */
-    body.bp .data-grid thead th:first-child {
+    /* line 15, ../../../app/stylesheets/partials/_data_grid.sass */
+    body.bp .data-grid thead tr th:first-child {
       border-left: 1px solid #949494; }
-    /* line 18, ../../../app/stylesheets/partials/_data_grid.sass */
-    body.bp .data-grid thead th:last-child {
+    /* line 17, ../../../app/stylesheets/partials/_data_grid.sass */
+    body.bp .data-grid thead tr th:last-child {
       border-right: 1px solid #949494; }
-  /* line 23, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 22, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody tr.even td {
     background-color: #eaeaea; }
-  /* line 25, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 24, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody td {
     border-top: 1px solid #949494;
     border-right: 1px solid #949494; }
-    /* line 29, ../../../app/stylesheets/partials/_data_grid.sass */
+    /* line 28, ../../../app/stylesheets/partials/_data_grid.sass */
     body.bp .data-grid tbody td:first-child {
       border-left: 1px solid #949494; }
-    /* line 31, ../../../app/stylesheets/partials/_data_grid.sass */
+    /* line 30, ../../../app/stylesheets/partials/_data_grid.sass */
     body.bp .data-grid tbody td a {
       color: #333; }
-  /* line 34, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 33, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody tr:last-child td {
     border-bottom: 1px solid #949494; }
-  /* line 38, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 37, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody td:nth-child(1) {
     width: 30px; }
-  /* line 41, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 40, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody td:nth-child(2) {
     width: 150px; }
-  /* line 44, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 43, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody td:nth-child(3) {
     width: 110px; }
-  /* line 47, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 46, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody td:nth-child(4) {
     width: 110px; }
-  /* line 50, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 49, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody td:nth-child(5) {
     width: 70px; }
-  /* line 53, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 52, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody td:nth-child(6) {
     width: 110px; }
-  /* line 56, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 55, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody td:nth-child(7) {
     width: 150px; }
-  /* line 59, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 58, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody td:nth-child(8) {
     width: 110px;
     margin-right: 0; }
-  /* line 64, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 63, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tfoot td {
     font-weight: bold;
     font-style: normal; }
-  /* line 69, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 68, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid td.currency {
     text-align: right; }
 
@@ -717,7 +713,7 @@ body.bp .ac_over {
   background-color: #f2f2f2; }
 /* line 27, ../../../app/stylesheets/partials/_autocomplete.sass */
 body.bp .labeled {
-  color: #ddd; }
+  color: #eee; }
 
 /* line 2, ../../../app/stylesheets/partials/_button.sass */
 body.bp .button {

@@ -15,29 +15,19 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'ancestry',
-             :version => '1.1.4'
-  config.gem 'authlogic',
-             :version => '>= 2.1.3'
-  config.gem 'fastercsv',
-             :version => '>= 1.5.0'
-  config.gem 'formtastic',
-             :version => '>= 0.9.7'
-  config.gem 'haml',
-             :version => '>= 2.2.15'
-  config.gem 'has_scope',
-             :version => '>= 0.4'
-  config.gem 'inherited_resources',
-             :version => '>= 1.0.0'
+  config.gem 'ancestry'
+  config.gem 'authlogic'
+  config.gem 'compass'
+  config.gem 'fastercsv'
+  config.gem 'formtastic'
+  config.gem 'haml'
+  config.gem 'has_scope'
+  config.gem 'inherited_resources'
   config.gem 'jnunemaker-validatable',
-             :lib => "validatable",
-             :version => '>= 1.8.0'
-  config.gem 'nokogiri',
-             :version => '>= 1.4.1'
-  config.gem 'responders',
-            :version => '>= 0.4.1'
-  config.gem 'will_paginate',
-             :version => '~> 2.3.11'
+             :lib => "validatable"
+  config.gem 'nokogiri'
+  config.gem 'responders'
+  config.gem 'will_paginate'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

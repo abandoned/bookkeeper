@@ -1,8 +1,6 @@
 body.bp
   .data-grid
-    +column(24)
-    +last
-    
+    :width 100%
     thead
       tr
         th
@@ -16,7 +14,6 @@ body.bp
             :border-left 1px solid #949494
           &:last-child
             :border-right 1px solid #949494
-    
     tbody
       tr.even
         td
@@ -32,7 +29,6 @@ body.bp
       tr:last-child
         td
           :border-bottom 1px solid #949494
-      
       td.id
         +span(1)
       td.account
@@ -45,9 +41,6 @@ body.bp
         +span(3)
       td.description
         +span(4)
-      td.match(8)
-        +span(3)
-        +last
     
     tfoot
       td

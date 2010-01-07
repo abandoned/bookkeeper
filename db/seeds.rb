@@ -8,7 +8,7 @@ User.create!([{
 # Set up root accounts in ledger
 %w{Assets Liabilities Equity Revenue Expenses CurrencyConversion}.each do |name|
   klass = Object.const_get(name.singularize)
-  klass.create!(:name => name)
+  klass.create!(:name => name.underscore.titleize)
 end
 
 def seed_accounts(hash)

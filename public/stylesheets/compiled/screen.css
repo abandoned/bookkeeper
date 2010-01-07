@@ -324,7 +324,7 @@ body.bp {
     padding-bottom: 0; }
   /* line 7, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/chriseppstein-compass-0.8.17/frameworks/blueprint/stylesheets/blueprint/modules/_debug.sass */
   body.bp .showgrid {
-    background: url('/images/grid.png?1262608705'); }
+    background: url('/images/grid.png?1262789221'); }
   /* line 5, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/chriseppstein-compass-0.8.17/frameworks/blueprint/stylesheets/blueprint/modules/_interaction.sass */
   body.bp .error {
     padding: .8em;
@@ -654,36 +654,33 @@ body.bp .data-grid {
   /* line 33, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tbody tr:last-child td {
     border-bottom: 1px solid #949494; }
-  /* line 37, ../../../app/stylesheets/partials/_data_grid.sass */
-  body.bp .data-grid tbody td:nth-child(1) {
+  /* line 36, ../../../app/stylesheets/partials/_data_grid.sass */
+  body.bp .data-grid tbody td.id {
     width: 30px; }
-  /* line 40, ../../../app/stylesheets/partials/_data_grid.sass */
-  body.bp .data-grid tbody td:nth-child(2) {
+  /* line 38, ../../../app/stylesheets/partials/_data_grid.sass */
+  body.bp .data-grid tbody td.account {
     width: 150px; }
-  /* line 43, ../../../app/stylesheets/partials/_data_grid.sass */
-  body.bp .data-grid tbody td:nth-child(3) {
+  /* line 40, ../../../app/stylesheets/partials/_data_grid.sass */
+  body.bp .data-grid tbody td.contact {
+    width: 110px; }
+  /* line 42, ../../../app/stylesheets/partials/_data_grid.sass */
+  body.bp .data-grid tbody td.date {
+    width: 70px; }
+  /* line 44, ../../../app/stylesheets/partials/_data_grid.sass */
+  body.bp .data-grid tbody td.currency {
     width: 110px; }
   /* line 46, ../../../app/stylesheets/partials/_data_grid.sass */
-  body.bp .data-grid tbody td:nth-child(4) {
-    width: 110px; }
-  /* line 49, ../../../app/stylesheets/partials/_data_grid.sass */
-  body.bp .data-grid tbody td:nth-child(5) {
-    width: 70px; }
-  /* line 52, ../../../app/stylesheets/partials/_data_grid.sass */
-  body.bp .data-grid tbody td:nth-child(6) {
-    width: 110px; }
-  /* line 55, ../../../app/stylesheets/partials/_data_grid.sass */
-  body.bp .data-grid tbody td:nth-child(7) {
+  body.bp .data-grid tbody td.description {
     width: 150px; }
-  /* line 58, ../../../app/stylesheets/partials/_data_grid.sass */
-  body.bp .data-grid tbody td:nth-child(8) {
+  /* line 48, ../../../app/stylesheets/partials/_data_grid.sass */
+  body.bp .data-grid tbody td.match(8) {
     width: 110px;
     margin-right: 0; }
-  /* line 63, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 53, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid tfoot td {
     font-weight: bold;
     font-style: normal; }
-  /* line 68, ../../../app/stylesheets/partials/_data_grid.sass */
+  /* line 58, ../../../app/stylesheets/partials/_data_grid.sass */
   body.bp .data-grid td.currency {
     text-align: right; }
 
@@ -710,10 +707,10 @@ body.bp .ac_results {
     overflow: hidden; }
 /* line 24, ../../../app/stylesheets/partials/_autocomplete.sass */
 body.bp .ac_over {
-  background-color: #f2f2f2; }
+  background-color: #e4e4e4; }
 /* line 27, ../../../app/stylesheets/partials/_autocomplete.sass */
 body.bp .labeled {
-  color: #eee; }
+  color: #dadada; }
 
 /* line 2, ../../../app/stylesheets/partials/_button.sass */
 body.bp .button {

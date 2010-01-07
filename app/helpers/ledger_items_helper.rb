@@ -73,4 +73,12 @@ module LedgerItemsHelper
     return nil if param.blank? || param[:year].blank? || param[:month].blank? || param[:day].blank?
     Date.new(param[:year].to_i, param[:month].to_i, param[:day].to_i)
   end
+  
+  def data_for_obese_autocomplete
+    content_for :head do
+      javascript_tag do
+        "var data = { 'of': [#{Contact.all(:order => 'name ASC').inject('') {|m, i| m = m + ', ' unless m.blank?; m + "'#{i.name}'"}}], 'in': [#{Account.all(:order => 'name ASC').inject('') {|m, i| m = m + ', ' unless m.blank?; m + "'#{i.name}'"}}] };".html_safe!
+      end
+    end
+  end
 end

@@ -47,13 +47,17 @@ class Account < ActiveRecord::Base
   end
   
   # cf. http://code.alexreisner.com/articles/single-table-inheritance-in-rails.html
+  class <<self
+    alias_method :real_model_name, :model_name
+  end
+  
   def self.model_name
     name = 'account'
     name.instance_eval do
       def plural;   pluralize;   end
       def singular; singularize; end
     end
-    return name
+    name
   end
   
   private
@@ -72,5 +76,4 @@ class Account < ActiveRecord::Base
     end
     total
   end
-    
 end

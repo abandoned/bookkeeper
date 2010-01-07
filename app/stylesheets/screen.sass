@@ -1,35 +1,12 @@
-// This import applies a global reset to any page that imports this stylesheet.
 @import blueprint/reset.sass
-// To configure blueprint, edit the partials/base.sass file.
 @import partials/base.sass
-// Import all the default blueprint modules so that we can access their mixins.
 @import blueprint
 
-// To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
-// +blueprint
-
-//Recommended Blueprint configuration with scoping and semantic layout:
-+blueprint-typography("body.bp")
++blueprint
 
 body.bp
-  +blueprint-utilities
-  +blueprint-debug
-  +blueprint-interaction
-  
-  // Remove the scaffolding when you're ready to start doing visual design.
-  // Or leave it in if you're happy with how blueprint looks out-of-the-box
+  //+showgrid
   :background-color #f4f4f4
-  
-form.bp
-  +blueprint-form
-  +blueprint-form-layout
-  dd
-    :margin-left 0
-  dl
-    margin-bottom: 1em
-
-// Page layout can be done using mixins applied to your semantic classes and IDs:
-body.one-col
   #container
     +container
   #content
@@ -37,6 +14,7 @@ body.one-col
 
 @import partials/top_header.sass
 @import partials/flash.sass
+@import partials/form.sass
 @import partials/search_form.sass
 @import partials/data_grid.sass
 @import partials/autocomplete.sass

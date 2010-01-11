@@ -33,7 +33,6 @@ You will notice that the transactions page contains only one search input box. T
 Try:
 
     in Demo Bank Account; by Customer; since December 2009; until yesterday
-
     not matched
     
 You get the idea.
@@ -55,6 +54,6 @@ Check the work-in-progress demo {here}[http://bookkeeper.heroku.com].
 
 == Final word
 
- This obviously is an unfinished app, which you can tell from the UI and missing features.
+This obviously is an unfinished app, which you can tell from the UI and missing features.
  
- We do not require invoicing from within the app. Hence no support for that at the moment. I left some room for refactoring in existing solutions.
+We do not require invoicing from within the app. Hence no support for that at the moment. I left some room for refactoring in existing solutions.

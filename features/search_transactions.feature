@@ -23,7 +23,7 @@ Feature: Search Transactions
     And I should not see "Tea" within "table"
   
   Scenario: Search by description and amount
-    When I fill in "query" with "Coffee, = 3.00"
+    When I fill in "query" with "Coffee; = 3.00"
     And I press "Search"
     Then I should see "Coffee" within "table"
     And I should not see "Purchase" within "table"
@@ -60,7 +60,7 @@ Feature: Search Transactions
     And I should not see "Tea" within "table"
       
   Scenario: Search between two dates
-    When I fill in "query" with "since Jan 2 2009, until 1/3/2009"
+    When I fill in "query" with "since Jan 2 2009; until 1/3/2009"
     And I press "Search"
     Then I should not see "Coffee" within "table"
     And I should see "Hot Chocolate" within "table"

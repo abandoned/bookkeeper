@@ -7,7 +7,8 @@
 	    minChars: 0,
       multiple: true,
       matchContains: true,
-      autoFill: false
+      autoFill: false,
+      multipleSeparator : "; "
     }
     options = $.extend(defaults, options || {});
 		

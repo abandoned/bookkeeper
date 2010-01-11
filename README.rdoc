@@ -2,26 +2,27 @@
 
 Bookkeeper is a minimal double-entry bookkeeping and accounting application. 
 
-We are writing this because:
+I am writing this because:
 
-* Existing accounting applications generally suck (Think: Intuit Quickbooks).
-* While smallish, our business has idiosyncratic needs: We need multiple-currency support and have multiple selves, i.e. formally distinct companies inextricably linked to each other operationally.
+* Popular accounting applications generally suck
+* My business has idiosyncratic needs: Multiple-currency and multiple 'selves,' i.e. formally distinct companies that are linked operationally and controlled by same interests.
 
 == Design
 
-Bookkeeper builds on a tree-structured model of accounts descending from the following roots:
+Bookkeeper builds on a tree-structured model of accounts descending from the following root accounts:
 
 * Assets
 * Liabilities
 * Equity
 * Income
 * Expenses
+* Currency Conversion
 
-An account may have one or more ledger items, each of which may be matched or unmatched. When matched, a ledger item will have a sender and recipient and belong to a group of two or more ledger items. The sum of the total amounts in a group always equals to zero.
+An account may have one or more transactionss, each of which may be matched or unmatched. When matched, a transactions will have a sender and recipient and belong to a group of two or more transactions. The sum of the total amounts in a group always equals to zero.
 
-An account may have one or more rules defined to match ledger items. A rule parses descriptions of unmatched ledger items in an account and creates matching entries if the description matches.
+An account may have one or more rules defined to match transactions. A rule parses descriptions of unmatched transactions in an account and creates matching entries if the description matches.
 
-You may create ledger items one by one or import en masse with a tab-delimited file.
+You may record transactions one by one or import en masse with a tab-delimited file.
 
 All financial reports can be generated per company for accounting purposes.
 
@@ -31,13 +32,17 @@ Check the work-in-progress demo {here}[http://bookkeeper.heroku.com].
 
 == Running
 
-
 === Database
 
-  rake db:migrate
-  rake db:seed
+  rake bootstrap
 
 === Login
 
-* username is bookkeeper
-* password is secret
+* The username is bookkeeper.
+* The password is secret.
+
+== Final word
+
+ This obviously is an unfinished app, which you can tell from the UI and missing features.
+ 
+ We do not require invoicing from within the app. Hence no support for that at the moment. I left some room for refactoring in existing solutions.

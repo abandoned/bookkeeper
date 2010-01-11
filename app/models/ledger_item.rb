@@ -44,7 +44,7 @@ class LedgerItem < ActiveRecord::Base
   def self.scope_by(query)
     scope = scoped({})
     return scope if query.blank?
-    query.split(',').each do |q|
+    query.split(';').each do |q|
       case q.strip.upcase
         
       # Scope by total amount

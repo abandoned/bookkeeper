@@ -26,6 +26,18 @@ You may record transactions one by one or import en masse with a tab-delimited f
 
 All financial reports can be generated per company for accounting purposes.
 
+== "Fat" search
+
+You will notice that the transactions page contains only one search input box. That's intentional. The idea is that you can search for anything from within this field.
+
+Try:
+
+    in Demo Bank Account; by Customer; since December 2009; until yesterday
+
+    not matched
+    
+You get the idea.
+
 == Demo
 
 Check the work-in-progress demo {here}[http://bookkeeper.heroku.com].
@@ -34,7 +46,7 @@ Check the work-in-progress demo {here}[http://bookkeeper.heroku.com].
 
 === Database
 
-  rake bootstrap
+    rake bootstrap
 
 === Login
 

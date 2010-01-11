@@ -90,36 +90,20 @@ describe LedgerItem do
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
   end
   
-  describe "date scope" do
+  describe "query scoping" do
     before(:each) do
       Factory(:ledger_item,
               :transacted_on => Date.new(2009, 1, 1))
     end
     
     it "should scope transaction date on or after a date object" do
-      from = Date.new(2009, 1, 15)
-      LedgerItem.from_date(from).size.should == 1
-    end
-    
-    it "should scope transaction date on or after a date hash" do
-      from = { :year => 2009,
-               :month => 1,
-               :day => 15
-             }
-      LedgerItem.from_date(from).size.should == 1
+      from = 'since Jan 15 2009'
+      LedgerItem.scope_by(from).size.should == 1
     end
     
     it "should scope transaction date on or before a date object" do
-      to = Date.new(2009, 1, 15)
-      LedgerItem.to_date(to).size.should == 1
-    end
-    
-    it "should scope transaction date on or before a date hash" do
-      to = { :year => 2009,
-               :month => 1,
-               :day => 15
-             }
-      LedgerItem.to_date(to).size.should == 1
+      to = 'until Jan 15 2009'
+      LedgerItem.scope_by(to).size.should == 1
     end
   end
 end

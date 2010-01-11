@@ -1,4 +1,4 @@
-Feature: Import Ledger Items
+Feature: Import Transactions
   In order to add ledger items quickly
   As a bookkeeper
   I want to be able to import them from a CSV file
@@ -17,7 +17,7 @@ Feature: Import Ledger Items
   
   Scenario: Import a CSV with a correct ending balance
     Given I am on the show page for account "AMEX"
-    When I follow "Import Ledger Items"
+    When I follow "Import transactions"
     And I select "AMEX" from "Account"
     And I fill in "Ending Balance" with "6587.42"
     And I select "Amex, UK" from "Mapping"
@@ -27,7 +27,7 @@ Feature: Import Ledger Items
       
   Scenario: Attempt to import a CSV with an incorrect ending balance
     Given I am on the show page for account "AMEX"
-    When I follow "Import Ledger Items"
+    When I follow "Import transactions"
     And I fill in "Ending Balance" with "0"
     And I select "Amex, UK" from "Mapping"
     And I attach the file "spec/fixtures/amex-uk-sample.csv" to "File"
@@ -37,7 +37,7 @@ Feature: Import Ledger Items
     
   Scenario: Import a CSV with no identifier row and with thousand separators in numbers
     Given I am on the show page for account "AMEX"
-    When I follow "Import Ledger Items"
+    When I follow "Import transactions"
       And I fill in "Ending Balance" with "7886.55"
       And I select "Amex, US" from "Mapping"
       And I attach the file "spec/fixtures/amex-us-sample.csv" to "File"
@@ -46,7 +46,7 @@ Feature: Import Ledger Items
   
   Scenario: Import a Citi statement into an account with opening balance
     Given I am on the show page for account: "Citi"
-    When I follow "Import Ledger Items"
+    When I follow "Import transactions"
       And I fill in "Ending Balance" with "20475.49"
       And I select "Citi" from "Mapping"
       And I attach the file "spec/fixtures/citi-sample.csv" to "File"

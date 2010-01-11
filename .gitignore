@@ -4,3 +4,4 @@ tmp/**/*
 db/*.sqlite3
 rerun.txt
 public/stylesheets/compiled/*.css
+webrat*

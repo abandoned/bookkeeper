@@ -1,5 +1,5 @@
 Feature: Authentication
-  In order to keep the company books in order
+  In order to take care of my accounting needs
   As a user
   I want to authenticate myself
   
@@ -9,9 +9,17 @@ Feature: Authentication
     And I fill in "Username" with "bookkeeper"
     And I fill in "Password" with "secret"
     And I press "Log in"
-    Then I should see "You are logged in" within "#flash_success"
+    Then I should see "You are logged in"
   
-  Scenario Outline: Require login on resource
+  Scenario: Fail to log in
+    Given a user: "bookkeeper" exists with login: "bookkeeper", password: "secret"
+    When I go to path "/user_session/new"
+    And I fill in "Username" with "bookkeeper"
+    And I fill in "Password" with "wrong"
+    And I press "Log in"
+    Then I should see "Username or password is incorrect"
+  
+  Scenario Outline: Require login to view various resources
     When I go to path "<path>"
     Then I should be on path "/user_session/new"
   
@@ -19,6 +27,6 @@ Feature: Authentication
       | path              |
       | /accounts         |
       | /contacts         |
-      | /ledger_items     |
+      | /transactions     |
       | /mappings         |
       | /accounts/1/rules |

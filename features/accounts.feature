@@ -1,5 +1,5 @@
 Feature: Manage Accounts
-  In order to do proper accounting
+  In order to take care of my accounting needs
   As a user
   I want to be able to create and manage accounts
   
@@ -18,12 +18,12 @@ Feature: Manage Accounts
     And I should be on the show page for that account
   
   Scenario: Rename an existing account
-    Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
+    Given an account "Current Assets" exists with parent: account "Assets"
     And I am on the show page for account "Current Assets"
     When I follow "Edit"
     And I fill in "Name" with "Fixed Assets"
     And I press "Submit"
-    Then I should see "Assets > Fixed Assets" within "#main h1"
+    Then I should see "Assets > Fixed Assets"
     And an account should exist with name: "Fixed Assets"
     And that account should be one of account "Assets"'s children
     
@@ -45,27 +45,35 @@ Feature: Manage Accounts
     Then I should see "has already been taken"
   
   Scenario: Delete an account with no children
-    Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
+    Given an account "Current Assets" exists with parent: account "Assets"
     And I am on the show page for account "Current Assets"
     When I follow "Delete"
     Then I should see "Successfully deleted account"
-    And an account should not exist with name: "Current Assets"
-    
-  Scenario: Cannot Delete an account that has children
-    Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
-    And I am on the show page for account "Assets"
-    When I follow "Delete"
-    Then I should see "Cannot delete account because it has descendants" within "#flash_failure"
-    And an account should exist with name: "Current Assets"
-    
-  Scenario: Cannot Delete an account that has ledger items
-    Given a ledger_item exists with account: account "Assets"
-    And I am on the show page for account "Assets"
-    When I follow "Delete"
-    Then I should see "Cannot delete account because it has dependants" within "#flash_failure"
-    And an account should exist with name: "Assets"
+    And account should not exist with name: "Current Assets"
   
-  Scenario: Create new subaccount from show page of an account
+  Scenario: Cannot delete an account that has children
+    Given an account "Current Assets" exists with parent: account "Assets"
+    And an account "Bank Account" exists with parent: account "Current Assets"
+    And I am on the show page for account "Current Assets"
+    When I follow "Delete"
+    Then I should see "Cannot delete account because it has descendants"
+    And account "Bank Account" should exist
+    
+  Scenario: Cannot delete an account that has transactions
+    Given an account "Current Assets" exists with parent: account "Assets"
+    And a ledger_item exists with account: account "Current Assets"
+    And I am on the show page for account "Current Assets"
+    When I follow "Delete"
+    Then I should see "Cannot delete account because it has dependants"
+    And account "Current Assets" should exist
+  
+  Scenario: Cannot delete a root account
+    Given I am on the show page for account "Assets"
+    When I follow "Delete"
+    Then I should see "Cannot delete root account"
+    And account "Assets" should exist
+  
+  Scenario: Create new child account from show page of an account
     Given I am on the show page for account "Assets"
     When I follow "New"
     And I fill in "Name" with "Current Assets"

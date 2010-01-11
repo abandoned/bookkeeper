@@ -41,63 +41,80 @@ class LedgerItem < ActiveRecord::Base
   named_scope :debit,     :conditions => 'total_amount > 0'
   named_scope :credit,    :conditions => 'total_amount < 0'
   
-  # These named scopes are used by the search form on the ledger items list
-  named_scope :account, proc { |account|
-    unless account.blank?
-     { :conditions => { :account_id => account.to_i } }
-    end
-  }
-  
-  named_scope :contact, proc { |contact|
-    unless contact.blank?
-      if contact == '0'
-        {
+  def self.scope_by(query)
+    scope = scoped({})
+    return scope if query.blank?
+    query.split(',').each do |q|
+      case q.strip.upcase
+        
+      # Scope by total amount
+      when /^(=|<|<=|>|>=|<>)\s*-?([0-9.,]+)$/
+        scope = scope.scoped({
+          :conditions => ["ABS(total_amount) #{$1} ?", $2.gsub(/,/, '').to_f]
+        })
+      
+      # Scope by contact name
+      when /^BY\s+(.*)$/
+        scope = scope.scoped({
           :joins => 'INNER JOIN contacts AS senders ON senders.id = sender_id
                      INNER JOIN contacts AS recipients ON recipients.id = recipient_id',
-          :conditions => ['senders.self = ? OR recipients.self = ?', true, true]
-        }
-      else
-        { :conditions => ['sender_id = ? OR recipient_id = ?', contact, contact] }
+          :conditions => ['UPPER(senders.name) = ? OR UPPER(recipients.name) = ?', $1, $1] 
+        })
+      
+      # Scope by account name
+      when /^IN\s+(.*)$/
+        scope = scope.scoped({
+          :include => [:account],
+          :conditions => ['UPPER(accounts.name) = ?', $1]
+        })
+      # Scope by date
+      when /^ON\s+(.*)$/
+        date = Chronic.parse($1).to_date
+        if date
+          scope = scope.scoped({
+            :conditions => ['transacted_on = ?', date]
+          })
+        end
+        
+      # Scope by start date
+      when /^SINCE\s+(.*)$/
+        date = Chronic.parse($1).to_date
+        if date
+          scope = scope.scoped({
+            :conditions => ['transacted_on >= ?', date]
+          })
+        end
+      
+      # Scope by end date
+      when /^UNTIL\s+(.*)$/
+        date = Chronic.parse($1).to_date
+        if date
+          scope = scope.scoped({
+            :conditions => ['transacted_on <= ?', date]
+          })
+        end
+      
+      # Scope by match status
+      when /^\s*NOT MATCHED\s*$/
+        scope = scope.scoped({
+          :conditions => 'match_id IS NULL'
+        })
+      
+      when /^\s*MATCHED\s*$/
+        scope = scope.scoped({
+          :conditions => 'match_id IS NOT NULL'
+        })
+      
+      # Scope by description
+      when /\w/
+        scope = scope.scoped({
+          :conditions => ['UPPER(description) LIKE ? OR UPPER(identifier) LIKE ?', "%#{q}%", "%#{q}%"]
+        })
       end
     end
-  }
-  
-  named_scope :query, proc { |query| 
-    unless query.blank?
-      q = query.dup
-      sql, vars = '1 = 1', []
-      if query =~ /(-?[0-9]+\.[0-9]{2})/
-        sql << ' AND ABS(total_amount) = ?'
-        vars << $1.to_f
-        q.gsub!(/ ?#{$1} ?/, '')
-      end
-      unless q.empty?
-        sql << ' AND (UPPER(description) LIKE ? OR UPPER(identifier) LIKE ?)'
-        vars += ["%#{q.upcase}%", "%#{q.upcase}%"]
-      end
-      { :conditions => [sql] + vars }
-    end
-  }
-  
-  named_scope :from_date, proc { |from|
-    unless from.blank?
-      if from.is_a?(Hash) && !from[:year].blank?
-        { :conditions => ['transacted_on >= ?', Date.new(from[:year].to_i, from[:month].to_i, from[:day].to_i)] }
-      elsif from.is_a?(Date)
-        { :conditions => ['transacted_on >= ?', from] }
-      end
-    end
-  }
-  
-  named_scope :to_date, proc { |to|
-    unless to.blank?
-      if to.is_a?(Hash) && !to[:year].blank?
-        { :conditions => ['transacted_on <= ?', Date.new(to[:year].to_i, to[:month].to_i, to[:day].to_i)] }
-      elsif to.is_a?(Date)
-        { :conditions => ['transacted_on <= ?', to] }
-      end
-    end
-  }
+    
+    scope
+  end  
   
   def account_name
     self.account.name if self.account
@@ -127,11 +144,11 @@ class LedgerItem < ActiveRecord::Base
     self.total_amount < 0
   end
   
-  def matched_ledger_items
+  def matches
     self.match.ledger_items.reject { |i| i.id == self.id }
   end
   
-  # This curreny stuff should probably be moved out of here.
+  # TODO Refactor these out of here.
   CURRENCY_SYMBOLS = {
     'USD' => '$',
     'EUR' => '€',
@@ -184,13 +201,21 @@ class LedgerItem < ActiveRecord::Base
   end
     
   def self_must_not_receive_credit
-    if self.credit? && self.recipient && self.recipient.self? && self.sender && !self.sender.self?
+    if self.credit? &&
+       self.recipient &&
+       self.recipient.self? &&
+       self.sender &&
+       !self.sender.self?
       errors.add_to_base('Not set up from perspective of self')
     end
   end
   
   def self_must_not_send_debit
-    if self.debit? && self.sender && self.sender.self? && self.recipient && !self.recipient.self?
+    if self.debit? &&
+       self.sender && 
+       self.sender.self? && 
+       self.recipient && 
+       !self.recipient.self?
       errors.add_to_base('Not set up from perspective of self')
     end
   end
@@ -205,11 +230,14 @@ class LedgerItem < ActiveRecord::Base
   
   def update_matches
     if self.matched? && self.changed? && !self.match_id_changed?
-      matches = self.matched_ledger_items
+      matches = self.matches
       if matches.size == 1
+        
         # Update match
         i = matches.first
-        if (i.total_amount + self.total_amount).to_f.abs > 0.01 || i.sender_id != self.recipient_id || i.recipient_id != self.sender_id
+        if (i.total_amount + self.total_amount).to_f.abs > 0.01 || 
+            i.sender_id != self.recipient_id ||
+            i.recipient_id != self.sender_id
           i.update_attributes(
             :total_amount   => self.total_amount * -1.0,
             :sender_id      => self.recipient_id,
@@ -217,8 +245,9 @@ class LedgerItem < ActiveRecord::Base
           )
         end
       elsif matches.size > 1
+        
         # Destroy matches
-        self.matched_ledger_items.each { |i| i.update_attribute(:match_id, nil) }
+        self.matches.each { |i| i.update_attribute(:match_id, nil) }
         self.match.destroy
         self.update_attribute(:match_id, nil)
       end

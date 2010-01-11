@@ -7,20 +7,14 @@ class LedgerItemsController < InheritedResources::Base
                 :instance_name          => 'ledger_item',
                 :route_collection_name  => 'transactions', :route_instance_name => 'transaction'
   
-  has_scope     :account, :only => :index
-  has_scope     :contact, :only => :index
-  has_scope     :query, :only => :index
-  has_scope     :unmatched, :only => :index
-  has_scope     :from_date, :type => :hash, :only => :index
-  has_scope     :to_date, :type => :hash, :only => :index
-  
   before_filter :require_user
-  before_filter :find_cart, :only => [:index, :add_to_cart, :balance_cart, :save_cart]
+  before_filter :find_cart,
+                :only => [:index, :add_to_cart, :balance_cart, :save_cart]
   
   def index
     store_location
     
-    # todo need some refactoring below!
+    # TODO Refactor below.
     if request.format.csv?
       unless params[:account].blank?
         filename = Account.find(params[:account]).name.gsub(/\s/, '').underscore
@@ -31,15 +25,17 @@ class LedgerItemsController < InheritedResources::Base
       headings = ['transacted on', 'account', 'currency', 'total amount', 'tax amount', 'description', 'sender', 'recipient', 'match']
       output = FasterCSV.generate_line(headings)
       
-      data = end_of_association_chain.all(
-        :include  => [:sender, :recipient, :match],
-        :order    => 'ledger_items.transacted_on ASC')
+      data = end_of_association_chain.
+        scope_by(params[:query]).
+        all(
+          :include  => [:sender, :recipient, :match],
+          :order    => 'ledger_items.transacted_on ASC')
       data.each do |ledger_item|
         if ledger_item.matched?
-          if ledger_item.matched_ledger_items.size > 1
+          if ledger_item.matches.size > 1
             match = 'Split'
           else
-            match = ledger_item.matched_ledger_items.first.account.name
+            match = ledger_item.matches.first.account.name
           end
         else
           match = nil
@@ -139,7 +135,9 @@ class LedgerItemsController < InheritedResources::Base
   private
   
   def collection
-    end_of_association_chain.paginate(
+    end_of_association_chain.
+      scope_by(params[:query]).
+      paginate(
       :page => params[:page],
       :include => [:sender, :recipient],
       :order => 'ledger_items.transacted_on ASC')
@@ -157,8 +155,11 @@ class LedgerItemsController < InheritedResources::Base
   # for each currency
   def calculate_totals
     @totals = {}
-    end_of_association_chain.sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
-      @totals[LedgerItem::CURRENCY_SYMBOLS[currency]] = total_amount.round(2)
-    end
+    end_of_association_chain.
+      scope_by(params[:query]).
+      sum(:total_amount, :group => :currency).
+      each_pair do |currency, total_amount|
+        @totals[LedgerItem::CURRENCY_SYMBOLS[currency]] = total_amount.round(2)
+      end
   end
 end

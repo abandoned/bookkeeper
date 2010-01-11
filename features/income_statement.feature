@@ -1,5 +1,5 @@
 Feature: Generate Income Statement
-  In order to do proper accounting
+  In order to take care of my accounting needs
   As a bookkeeper
   I want to be able to generate income statements
   
@@ -20,7 +20,7 @@ Feature: Generate Income Statement
   @wip
   Scenario: View income statement
     Given I am on path "/reports/income_statement"
-    Then I should see "Income Statement" within "#main h1"
+    Then I should see "Income Statement" within "#content h1"
     Then I should see "$10.00"
     And I should see "GBP 3.00"
     And I Should see "$ 3.00"

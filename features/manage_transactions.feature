@@ -1,7 +1,7 @@
-Feature: Edit Ledger Items
-  In order to do proper accounting
+Feature: Edit Transactions
+  In order to take care of my accounting needs
   As a user
-  I want to be able to edit ledger items
+  I want to be able to edit transactions
   
   Background:
     Given I am logged in
@@ -9,7 +9,7 @@ Feature: Edit Ledger Items
   
   Scenario: Edit an unmatched ledger item
     Given an account exists with parent: account "Assets"
-      And a ledger_item exists with description: "Foo", account: that account
+      And a ledger_item exists with account: that account
       And I am on the show page for that ledger_item
     When I follow "Edit"
       And I fill in "Total Amount" with "2"

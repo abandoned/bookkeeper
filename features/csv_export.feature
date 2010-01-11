@@ -1,7 +1,7 @@
 Feature: Export in CSV format
-  In order to do proper accounting
+  In order to take care of my accounting needs
   As a user
-  I want to be able to export ledger items in CSV format
+  I want to be able to export transactions in CSV format
   
   Background:
     Given I am logged in
@@ -35,7 +35,7 @@ Feature: Export in CSV format
   
   Scenario: Export an account
     Given I am on the path "/ledger_items"
-    When I select "Beverages" from "account"
+    When I fill in "query" with "in Beverages"
     And I press "Search"
     And I follow "Export"
     Then I should download

@@ -7,8 +7,8 @@
   %ul
     = render :partial => "child", :collection => @account.children
 %p= link_to "Create new account", new_resource_path(resource, :parent_id => @account.id)
-%p= link_to "View ledger items", ledger_items_path(resource, :account => @account.id)
-%p= link_to "Import ledger items", new_account_import_path(resource)
+%p= link_to "View transactions", ledger_items_path(resource, :query => "in #{@account.name}")
+%p= link_to "Import transactions", new_account_import_path(resource)
 %p= link_to "View rules", account_rules_path(resource)
 %p TODO Display other summary info on account
   

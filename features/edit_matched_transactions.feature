@@ -1,5 +1,5 @@
-Feature: Match Existing Ledger Items
-  In order to do proper accounting
+Feature: Match Existing Transactions
+  In order to take care of my accounting needs
   As a user
   I want to be able to reconcile by matching existing ledger items
   
@@ -10,7 +10,7 @@ Feature: Match Existing Ledger Items
   Scenario: When I edit a ledger item that is matched with another transaction, the latter should be updated
     Given I have a double entry for a beverage purchase
     And a contact "Other Seller" exists with name: "Other Seller"
-    When I go to path "/ledger_items/1/edit"
+    When I go to path "/transactions/1/edit"
     And I fill in "Total Amount" with "1"
     And I select "Other Seller" from "Sender"
     And I press "Submit"
@@ -25,7 +25,7 @@ Feature: Match Existing Ledger Items
      And a ledger_item "l1" exists with id: 1, total_amount: -6.00, currency: "USD", account: account "Bank Account", sender: contact "Self", recipient: contact "Coffee Vendor", match: the match
      And a ledger_item "l2" exists with id: 2, total_amount: 3.00, currency: "USD", account: account "Beverages", sender: contact "Coffee Vendor", recipient: contact "Self", match: the match
      And a ledger_item "l3" exists with id: 3, total_amount: 3.00, currency: "USD", account: account "Beverages", sender: contact "Coffee Vendor", recipient: contact "Self", match: the match
-     When I go to path "/ledger_items/1/edit"
+     When I go to path "/transactions/1/edit"
      And I fill in "Total Amount" with "1"
      And I select "Coffee Vendor" from "Sender"
      And I select "Self" from "Recipient"

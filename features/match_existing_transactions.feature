@@ -1,5 +1,5 @@
 Feature: Match Existing Ledger Items
-  In order to do proper accounting
+  In order to take care of my accounting needs
   As a user
   I want to be able to reconcile by matching existing ledger items
   
@@ -10,11 +10,11 @@ Feature: Match Existing Ledger Items
     
   Scenario: View matched ledger items    
     Given a match exists
-    When I go to path "/ledger_items"
+    When I go to path "/transactions"
     Then I should see "Bank Account" within "#ledger_item_1"
     When I follow "Bank Account"
     Then I should see "$3.00"
-    And I should see "- $3.00"
+    And I should see "CR $3.00"
     And I should see "Coffee Vendor"
     And I should see "Self"
     And I should see "Bank Account"
@@ -24,9 +24,9 @@ Feature: Match Existing Ledger Items
   Scenario: Match two ledger items and reconcile
     Given a ledger_item exists with id: 3, total_amount: -2.00, currency: "USD", account: account "Bank Account", sender: contact "Self", recipient: contact "Coffee Vendor"
     And a ledger_item exists with id: 4, total_amount: 2.00, currency: "USD", account: account "Beverages", sender: contact "Coffee Vendor", recipient: contact "Self"
-    When I go to path "/ledger_items"
+    When I go to path "/transactions"
     And I press "Match" within "#ledger_item_3"
-    Then I should see "- $2.00" within "#cart"
+    Then I should see "CR $2.00" within "#cart"
     And I should see "Coffee Vendor" within "#cart"
     And I should not see "Reconcile"
     And I should not see a button called "Match" within "#ledger_item_3"
@@ -41,13 +41,13 @@ Feature: Match Existing Ledger Items
     Given a ledger_item exists with id: 3, total_amount: -4.00, currency: "USD", account: account "Bank Account", sender: contact "Self", recipient: contact "Coffee Vendor"
     And a ledger_item exists with id: 4, total_amount: 2.00, currency: "USD", account: account "Beverages", sender: contact "Coffee Vendor", recipient: contact "Self"
     And a ledger_item exists with id: 5, total_amount: 2.00, currency: "USD", account: account "Beverages", sender: contact "Coffee Vendor", recipient: contact "Self"
-    When I go to path "/ledger_items"
+    When I go to path "/transactions"
     And I press "Match" within "#ledger_item_3"
     And I press "Match" within "#ledger_item_4"
     And I press "Match" within "#ledger_item_5"
     Then I should see "$2.00" within "#cart"
     And I should see "Coffee" within "#cart"
-    And I should see "- $4.00" within "#cart"
+    And I should see "CR $4.00" within "#cart"
     And I should see "Beverages" within "#cart"
     When I press "Reconcile"
     Then I should see "Ledger items successfully reconciled"

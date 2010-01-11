@@ -44,10 +44,9 @@ module AccountsHelper
     end
   end
   
-  def tree_select(categories, model, name, selected=nil, level=0, init=true, msg="Select parent account")
+  def tree_select(categories, model, name, selected=nil, level=0, init=true)
     if init
       content_tag :select, {:name => "#{model}[#{name}]", :id => "#{model}_#{name}"} do
-        content_tag(:option, msg) +
         tree_select(categories, model, name, selected, level, false)
       end
     else

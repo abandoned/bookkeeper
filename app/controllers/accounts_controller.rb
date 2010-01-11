@@ -1,8 +1,5 @@
 class AccountsController < InheritedResources::Base
   before_filter :require_user
-  before_filter :scrub_parent_id, :only => [:create, :update]
-  
-  #defaults :resource_class => Account, :collection_name => 'accounts', :instance_name => 'account'
   
   def new
     @account = Account.new
@@ -13,6 +10,13 @@ class AccountsController < InheritedResources::Base
   end
   
   def destroy
+    
+    # Do not delete root accounts through public interface
+    if resource.is_root?
+      flash.now[:failure] = "Cannot delete root account"
+      return render(:action => :show)
+    end
+    
     begin
       destroy!
     rescue Ancestry::AncestryException
@@ -21,14 +25,6 @@ class AccountsController < InheritedResources::Base
     rescue ActiveRecord::RecordNotDestroyed
       flash.now[:failure] = 'Cannot delete account because it has dependants'
       render(:action => :show)
-    end
-  end
-  
-  private
-  
-  def scrub_parent_id
-    if params[:account][:parent_id] =~ /[^0-9]/
-      params[:account][:parent_id] = nil
     end
   end
 end

@@ -1,4 +1,4 @@
-- form_tag(collection_path, :method => 'get', :id => 'search', :class => 'bp') do
+- form_tag(collection_path, :method => 'get', :id => 'search', :class => 'bp', :autocomplete => 'off') do
   = label(:query, 'Search here...')
   = text_field_tag(:query, params[:query], :class => 'title')
   = submit_tag('Search ledger »', :name => nil)

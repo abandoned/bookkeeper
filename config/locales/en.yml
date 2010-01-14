@@ -12,7 +12,7 @@ en:
         success: "You are logged in."
   formtastic:
     labels:
-      commit: "Submit"
+      commit: "Submit »"
       user_session:
         login: "Username"
         password: "Password"

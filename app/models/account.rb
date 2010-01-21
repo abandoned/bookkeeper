@@ -24,21 +24,21 @@ class Account < ActiveRecord::Base
     self.subtree.inject([]) { |m, a| m + a.ledger_items }
   end
   
-  def total_for(contact=0)
+  def total_for(contact=nil)
     @total ||= calculate_total_for(self, contact)
   end
   
-  def total_for?(contact=0)
+  def total_for?(contact=nil)
     !total_for(contact).blank?
   end
     
-  def grand_total_for(contact=0)
+  def grand_total_for(contact=nil)
     @grand_total ||= self.subtree.inject({}) do |grand_total, account| 
       calculate_total_for(account, contact, grand_total)
     end
   end
   
-  def grand_total_for?(contact=0)
+  def grand_total_for?(contact=nil)
     !grand_total_for(contact).blank?
   end
   

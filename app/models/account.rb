@@ -24,22 +24,22 @@ class Account < ActiveRecord::Base
     self.subtree.inject([]) { |m, a| m + a.ledger_items }
   end
   
-  def total_for(contact=nil)
-    @total ||= calculate_total_for(self, contact)
+  def total_for(contact=nil,since=nil,till=nil)
+    @total ||= calculate_total_for(self, contact, since, till)
   end
   
-  def total_for?(contact=nil)
-    !total_for(contact).blank?
+  def total_for?(contact=nil,since=nil,till=nil)
+    !total_for(contact, since, till).blank?
   end
     
-  def grand_total_for(contact=nil)
+  def grand_total_for(contact=nil,since=nil,till=nil)
     @grand_total ||= self.subtree.inject({}) do |grand_total, account| 
-      calculate_total_for(account, contact, grand_total)
+      calculate_total_for(account, contact, since, till, grand_total)
     end
   end
   
-  def grand_total_for?(contact=nil)
-    !grand_total_for(contact).blank?
+  def grand_total_for?(contact=nil,since=nil,till=nil)
+    !grand_total_for(contact, since, till).blank?
   end
   
   def currency_symbol
@@ -66,8 +66,8 @@ class Account < ActiveRecord::Base
     raise ActiveRecord::RecordNotDestroyed if self.ledger_items.size > 0
   end
   
-  def calculate_total_for(account,contact,total={})
-    account.ledger_items.contact(contact).from_date(Date.new(2009, 8, 1)).to_date(Date.new(2009, 8, 31)).sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
+  def calculate_total_for(account,contact,since,till,total={})
+    account.ledger_items.contact(contact).from_date(since).to_date(till).sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
       if total[LedgerItem::CURRENCY_SYMBOLS[currency]].blank?
         total[LedgerItem::CURRENCY_SYMBOLS[currency]] = total_amount.round(2)
       else

@@ -5,7 +5,7 @@
 - unless @roots.blank?
   %table.report
     - for root in @roots
-      - if root.grand_total_for?(params[:contact])
+      - if root.grand_total_for?(params[:contact], params[:since], params[:till])
         %tr.root_account
           %td{:colspan => 2}
             =h root.name
@@ -15,13 +15,13 @@
           %td
             = "Total #{root.name}"
           %td.currency
-            - root.grand_total_for(params[:contact]).each_pair do |currency, total|
+            - root.grand_total_for(params[:contact], params[:since], params[:till]).each_pair do |currency, total|
               = monetize(total.abs, currency)
               %br
     %tr.net
       %td
         Net
       %td
-        - @roots.inject({}) { |m, a| m.merge(a.grand_total_for(params[:contact])) { |k, v1, v2| v1 + v2 } }.each_pair do |currency, total|
+        - @roots.inject({}) { |m, a| m.merge(a.grand_total_for(params[:contact], params[:since], params[:till])) { |k, v1, v2| v1 + v2 } }.each_pair do |currency, total|
           = monetize(total.abs, currency)
           %br

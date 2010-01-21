@@ -1,9 +1,15 @@
-%p
-  %span.highlighted WIP. Will rework reports once I refactor LedgerItem. For now, this page will generate a basic report for 2009, which is all that matters at this point anyways. Date range set to August 2009 for now.
-  
 - form_tag('', :method => "get", :class => "search") do
   %fieldset
     %ul
       %li
         = select_tag(:contact, options_for_select(Contact.all.reject{|c| c.self == false}.collect{ |c| [c.name, c.id.to_s] }, params[:contact]))
+      - if @report_type == 'balance_sheet'
+        %li
+          = hidden_field_tag('since', '1990-01-01')
+          = text_field_tag('till', params[:till] || Date.today)
+      - else
+        %li
+          = text_field_tag('since', params[:since] || Date.today)
+        %li
+          = text_field_tag('till', params[:till] || Date.today)
       %li= submit_tag('Generate report', :name => nil)

@@ -1,8 +1,39 @@
-- title "New Ledger Item"
+- title 'New Transaction', false
 
-= render :partial => 'form'
+- content_for :head do
+  - javascript_tag do
+    = "var ledger_item='#{ escape_javascript(render(:partial => 'new_ledger_item_row', :object => @ledger_items.first )) }'".html_safe!
 
-.footer
-  = link_to('New account', new_account_path)
-  = link_to('New contact', new_contact_path)
-  = link_to "Back to List", collection_path
+- form_for @ledger_items.first, :url => ledger_items_path do |f|
+  %table.data-grid.new-transaction
+    %tbody
+      = render :partial => 'new_ledger_item_row', :collection => @ledger_items
+    %thead
+      %tr
+        %th
+          = f.label :transacted_on, 'Date'
+        %th
+          = f.label :currency, 'Currency'
+        %th
+          = f.label :account, 'Account'
+        %th{:colspan => 2}
+          = f.label :sender, 'Sender'
+        %th
+          = f.label :recipient, 'Recipient'
+        %th
+          = f.label :total_amount, 'Total'
+        %th
+          = f.label :tax_amount, 'Tax'
+        %th
+          = f.label :description
+        %th{:colspan => 2}
+          = f.label :identifier
+    %tfoot
+      %tr
+        %td{:colspan => 10}
+          = f.submit(t('formtastic.labels.commit'), :class => 'button')
+
+%footer
+  = link_to('New account »', new_account_path, :class => 'button')
+  = link_to('New contact »', new_contact_path, :class => 'button')
+  = link_to('Back to List »', collection_path, :class => 'button')

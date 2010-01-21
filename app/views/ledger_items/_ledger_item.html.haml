@@ -1,25 +1,25 @@
 %tr{:class => "#{cycle('odd', 'even')}"}[ledger_item]
   %td.id= link_to(ledger_item.id, ledger_item_path(ledger_item))
-  %td.account= link_to(ledger_item.account.name, account_path(ledger_item.account))
+  %td.account= link_to(truncate(ledger_item.account.name, :length => 18), account_path(ledger_item.account))
   %td.contact
     - if ledger_item.sender
-      = link_to(ledger_item.sender.name, contact_path(ledger_item.sender))
+      = link_to(truncate(ledger_item.sender.name, :length => 18), contact_path(ledger_item.sender))
     - else
       = button_to("Add", edit_ledger_item_path(ledger_item), :method => :get).html_safe!
   %td.contact
     - if ledger_item.recipient
-      = link_to(ledger_item.recipient.name, contact_path(ledger_item.recipient))
+      = link_to(truncate(ledger_item.recipient.name, :length => 18), contact_path(ledger_item.recipient))
     - else
       = button_to("Add", edit_ledger_item_path(ledger_item), :method => :get).html_safe!
   %td.date= ledger_item.transacted_on
   %td.currency= monetize(ledger_item.total_amount, ledger_item.currency_symbol)
-  %td.description= truncate(ledger_item.description)
+  %td.description= truncate(ledger_item.description, :length => 21)
   %td.match
     - if ledger_item.matched?
       - if ledger_item.matches.size > 1
         = link_to('Split matches', ledger_item.match)
       - else
-        = link_to(truncate(ledger_item.matches.first.account.name, :length => 16), ledger_item.match)
+        = link_to(truncate(ledger_item.matches.first.account.name, :length => 18), ledger_item.match)
     - elsif ledger_item.matchable? && !@cart.ledger_items.include?(ledger_item)
       - form_tag(add_to_cart_path, :method => 'post') do
         = hidden_field_tag(:id, ledger_item.id)

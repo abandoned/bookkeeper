@@ -1,9 +1,9 @@
-- if !ledger_item_form.errors.empty?
+- if !new_ledger_item_row.errors.empty?
   %tr
     %td{:colspan => 11}
-      = error_messages_for 'ledger_item', :object => ledger_item_form
+      = error_messages_for 'ledger_item', :object => new_ledger_item_row
 %tr
-  - fields_for 'ledger_items[]', ledger_item_form, :index => (ledger_item_form_counter rescue 'NEW_RECORD') do |f|
+  - fields_for 'ledger_items[]', new_ledger_item_row, :index => (new_ledger_item_row_counter rescue 'NEW_RECORD') do |f|
     %td
       = f.date_select :transacted_on, :start_year => Time.now.year - 2, :end_year => Time.now.year + 1, :use_short_month => true
       -# TODO The following collection should be put away somewhere, perhaps a currency resource the bookkeeper can edit.
@@ -17,7 +17,7 @@
       = #link_to '<>', '#', :class => 'swap_columns'
     %td
       = f.select :recipient_id, options_for_select(Contact.all.inject([['Select recipient', '']]) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.recipient_id : nil), {}, :class => 'autocomplete'
-    %td
+    %td.currency
       = f.text_field :total_amount, :class => 'currency total-amount'
     %td
       = f.text_field :tax_amount, :class => 'currency'

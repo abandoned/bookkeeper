@@ -1,10 +1,10 @@
 module AccountsHelper
-  def account_title
-    ret = ""
-    for parent in resource.ancestors
-      ret << link_to(h(parent.name), parent) + " &gt; " 
+  def account_ancestry
+    ret = ''
+    resource.ancestors.each do |parent|
+      ret << link_to(h(parent.name), parent) + ' &gt; ' 
     end
-    (ret + h(resource.name)).html_safe!
+    ret.chomp(' &gt; ').html_safe!
   end
   
   def tree_ul(collection, init=true, &block)

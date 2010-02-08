@@ -1,18 +1,17 @@
 - title @account.name, false
-%h1= account_title
 
-%h2
-  Subaccounts
+%p= account_ancestry
+%h3= @account.name
 - unless @account.children.length == 0
-  %ul
-    = render :partial => "child", :collection => @account.children
-%p= link_to "Create new account", new_resource_path(resource, :parent_id => @account.id)
-%p= link_to "View transactions", ledger_items_path(resource, :query => "in #{@account.name}")
-%p= link_to "Import transactions", new_account_import_path(resource)
-%p= link_to "View rules", account_rules_path(resource)
-%p TODO Display other summary info on account
+  %p
+    Subaccounts:
+    - @account.children.each do |child|
+      %br
+      = link_to(child.name, account_path(child))
+%p TODO Display other summary info here.
   
-.footer
-  = link_to "Edit", edit_resource_path
-  = link_to "Delete", resource_path, :confirm => 'Are you sure?', :method => :delete
-  = link_to "View all", collection_path
+.buttons
+  = link_to 'Edit »', edit_account_path, :class => 'button'
+  = link_to 'Delete »', account_path, :confirm => 'Are you sure?', :method => :delete, :class => 'button'
+  = link_to 'Transactions »', ledger_items_path(@account, :query => "in #{@account.name}"), :class => 'button'
+  = link_to 'Rules »', account_rules_path(@account), :class => 'button'

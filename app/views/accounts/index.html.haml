@@ -1,6 +1,6 @@
-- title "Accounts"
+- title 'Accounts'
 
-= tree_ul(collection) { |account| link_to(h(account.name), resource_path(account)) }
+= tree_ul(collection) { |account| link_to(account.name, account_path(account)) }
 
-.footer
-  = link_to "Create new account", new_resource_path
+.buttons
+  = link_to 'Create account »', new_account_path, :class => 'button'

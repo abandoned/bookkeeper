@@ -1,4 +1,0 @@
-if ($('.cart').length == 0) {
-  $('form.search').before("<div class='cart'></div>");
-}
-$('.cart').replaceWith("<%= escape_javascript(render(:partial => "carts/cart", :object => @cart)) %>");

@@ -1,2 +1,13 @@
-.flash
-  +span(!blueprint_grid_columns / 2)
+.flash-success, .flash-failure
+  :padding 0.5em
+  :margin
+    :top 1em
+    :bottom 1em
+    :left= !margin
+  :width 60%
+.flash-success
+  :background-color #cfc
+  :border solid 1px #6c6
+.flash-failure
+  :background-color #fcc
+  :border solid 1px #c66

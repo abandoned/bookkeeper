@@ -1,9 +1,8 @@
-- semantic_form_for resource do |f| 
-  - f.inputs do 
-    - # TODO There are three different tree select helpers strewn across the views. It does call for a master helper that does it all!
-    %li
-      = f.label(:parent_id, t("formtastic.labels.account.parent_id") + '<abbr title="required">*</abbr>')
-      = tree_select(Account.roots, "account", "parent_id", resource)
-    = f.input :name, :input_html => { :size => 30 }
-    - f.buttons do
-      = f.commit_button :button_html => { :value => t('formtastic.labels.commit') }
+- form_for @account do |form| 
+  = form.error_messages
+  %dl
+    %dt= form.label 'Parent'
+    %dd= tree_select(Account.roots, 'account', 'parent_id', resource)
+    %dt= form.label :name
+    %dd= form.text_field :name
+    %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' account')

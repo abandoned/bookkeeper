@@ -1,11 +1,11 @@
--title 'Log in to Bookkeeper', false
+-title 'Log in to Bookkeeper'
 
-- form_for(@user_session, :url => user_session_path, :html => { :class => 'bp' }) do |f|
+- form_for(@user_session, :url => user_session_path) do |form|
   %dl
-    %dt= f.label :login, 'Username'
-    %dd= f.text_field :login, :class => 'title'
+    %dt= form.label :login, 'Username'
+    %dd= form.text_field :login
   %dl
-    %dt= f.label :password, 'Password'
-    %dd= f.password_field :password, :class => 'title'
+    %dt= form.label :password, 'Password'
+    %dd= form.password_field :password
   %dl
-    %dd= submit_tag 'Log in »', :class => 'button'
+    %dd= submit_tag 'Log in'

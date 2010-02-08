@@ -1,25 +1,24 @@
-body.bp
-  .button
-    :display inline-block
-    :padding 4px 6px
-    :-moz-border-radius 3px
-    :-webkit-border-radius 3px
-    :border rgb(153, 153, 153) solid 1px
-    :position relative
-    :cursor pointer
-    :font-size 14px
-    :text-decoration none
-    :background-image -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(255, 255, 255)), to(rgb(221, 221, 221)))
+.button
+  :display inline-block
+  :padding 4px 6px
+  :-moz-border-radius 3px
+  :-webkit-border-radius 3px
+  :border rgb(153, 153, 153) solid 1px
+  :position relative
+  :cursor pointer
+  :font-size 14px
+  :text-decoration none
+  :background-image -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(255, 255, 255)), to(rgb(221, 221, 221)))
 
-  .button:active
-    :background-image -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(204, 204, 204)), to(rgb(221, 221, 221)))
+.button:active
+  :background-image -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(204, 204, 204)), to(rgb(221, 221, 221)))
 
-  .button, a.button
-    :color #333
-    
-  a.button
-    :text-decoration none
-    :margin-right 1em
+.button, a.button
+  :color #333
   
-  a.button:last-child
-    :margin-right 0
+a.button
+  :text-decoration none
+  :margin-right 1em
+
+a.button:last-child
+  :margin-right 0

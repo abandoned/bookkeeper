@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091224002832) do
+ActiveRecord::Schema.define(:version => 20100205150120) do
 
   create_table "accounts", :force => true do |t|
     t.string   "ancestry"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20091224002832) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
+    t.string   "phone_number"
   end
 
   create_table "exchange_rates", :force => true do |t|
@@ -64,7 +65,6 @@ ActiveRecord::Schema.define(:version => 20091224002832) do
     t.decimal  "tax_amount",                 :default => 0.0
     t.string   "currency",      :limit => 3,                  :null => false
     t.string   "description"
-    t.string   "identifier"
     t.integer  "account_id"
     t.integer  "match_id"
     t.datetime "created_at"
@@ -72,7 +72,6 @@ ActiveRecord::Schema.define(:version => 20091224002832) do
   end
 
   add_index "ledger_items", ["account_id"], :name => "index_ledger_items_on_account_id"
-  add_index "ledger_items", ["identifier"], :name => "index_ledger_items_on_identifier"
   add_index "ledger_items", ["recipient_id"], :name => "index_ledger_items_on_recipient_id"
   add_index "ledger_items", ["sender_id"], :name => "index_ledger_items_on_sender_id"
   add_index "ledger_items", ["total_amount"], :name => "index_ledger_items_on_total_amount"
@@ -86,7 +85,6 @@ ActiveRecord::Schema.define(:version => 20091224002832) do
     t.integer  "tax_amount_row"
     t.integer  "description_row"
     t.integer  "second_description_row"
-    t.integer  "identifier_row"
     t.boolean  "has_title_row"
     t.boolean  "day_follows_month"
     t.boolean  "reverses_sign"

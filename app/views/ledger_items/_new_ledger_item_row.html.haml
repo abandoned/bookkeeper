@@ -14,16 +14,14 @@
     %td
       = f.select :sender_id, options_for_select(Contact.all.inject([['Select sender', '']]) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.sender_id : nil), {}, :class => 'autocomplete'
     %td
-      = #link_to '<>', '#', :class => 'swap_columns'
+      = link_to '<>', '#', :class => 'swap_columns'
     %td
       = f.select :recipient_id, options_for_select(Contact.all.inject([['Select recipient', '']]) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.recipient_id : nil), {}, :class => 'autocomplete'
-    %td.currency
-      = f.text_field :total_amount, :class => 'currency total-amount'
     %td
-      = f.text_field :tax_amount, :class => 'currency'
+      = f.text_field :total_amount, :class => 'total-amount'
+    %td
+      = f.text_field :tax_amount
     %td
       = f.text_field :description
-    %td
-      = f.text_field :identifier
     %td
       = link_to '+', '#', :class => 'add_row'

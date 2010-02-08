@@ -1,4 +1,4 @@
-- title 'Transactions', false
+- title 'Transactions'
 
 = data_for_obese_autocomplete
 
@@ -8,7 +8,7 @@
 = render :partial => 'search'
 
 - if collection.size > 0
-  %table.data-grid
+  %table
     %thead
       %tr
         %th ID
@@ -28,8 +28,8 @@
       = render(:partial => 'ledger_item', :collection => collection)
   = will_paginate(collection, :inner_window => 2, :class => 'pagination')
 - else
-  %p.large No transactions found
-      
-%footer
-  = link_to('Record new transaction »', new_ledger_item_path(:account => params[:account]), :class => 'button')
+  %p No transactions found
+
+.buttons
+  = link_to('New transaction »', new_ledger_item_path(:account => params[:account]), :class => 'button')
   = link_to('Export »', ledger_items_path(params.merge(:format => :csv)), :class => 'button')

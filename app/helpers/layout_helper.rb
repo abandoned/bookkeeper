@@ -20,13 +20,12 @@ module LayoutHelper
     content_for(:head) { javascript_include_tag(*args) }
   end
   
-  def segmented_controls
+  def navigation_links
     [
-      { :text => 'Transactions',  :path => ledger_items_path },
-      { :text => 'Accounts',      :path => accounts_path },
-      { :text => 'Contacts',      :path => contacts_path },
-      { :text => 'Reports',       :path => reports_path },
-      { :text => 'Log out',       :path => logout_path },
+      { :text => 'Accounts',      :path => accounts_path,     :controller => 'accounts' },
+      { :text => 'Contacts',      :path => contacts_path,     :controller => 'contacts' },
+      { :text => 'Transactions',  :path => ledger_items_path, :controller => 'ledger_items' },
+      { :text => 'Reports',       :path => reports_path,      :controller => 'reports' },
     ]
   end
 end

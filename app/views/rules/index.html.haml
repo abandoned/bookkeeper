@@ -1,25 +1,29 @@
 - title "Rules for #{@account.name}"
 
-%table
-  %tr
-    %th Matched Description
-    %th Matched Debit
-    %th Matched Sender
-    %th Matched Recipient
-    %th New Sender
-    %th New Recipient
-    %th New Account
-  - for rule in collection
+- if @rules.size > 0
+  %table
     %tr
-      %td=h rule.matched_description
-      %td= rule.matched_debit
-      %td=h rule.matched_sender.name if rule.matched_sender
-      %td=h rule.matched_recipient.name if rule.matched_recipient
-      %td=h rule.new_sender.name  if rule.new_sender
-      %td=h rule.new_recipient.name if rule.new_recipient
-      %td=h rule.new_account.name
-      %td= link_to "Show", resource_path(rule)
-      %td= link_to "Edit", edit_resource_path(rule)
-      %td= link_to "Delete", resource_path(rule), :confirm => 'Are you sure?', :method => :delete
+      %th Matched Description
+      %th Matched Debit
+      %th Matched Sender
+      %th Matched Recipient
+      %th New Sender
+      %th New Recipient
+      %th New Account
+    - for rule in @rules
+      %tr
+        %td= rule.matched_description
+        %td= rule.matched_debit
+        %td= rule.matched_sender.name if rule.matched_sender
+        %td= rule.matched_recipient.name if rule.matched_recipient
+        %td= rule.new_sender.name  if rule.new_sender
+        %td= rule.new_recipient.name if rule.new_recipient
+        %td= rule.new_account.name
+        %td= link_to 'Show', resource_path(rule)
+        %td= link_to 'Edit', edit_resource_path(rule)
+        %td= link_to 'Delete', resource_path(rule), :confirm => 'Are you sure?', :method => :delete
+- else
+  %p No rules available
 
-.footer= link_to "New rule", new_account_rule_path
+.buttons
+  = link_to 'New rule »', new_account_rule_path, :class => 'button'

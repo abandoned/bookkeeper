@@ -1,0 +1,37 @@
+#top
+  +paddings
+  :height 60px
+  :position relative
+  :color #999
+  :background-color #00141f  
+#navigation
+  :position absolute
+  :left= !margin
+  :bottom 0
+  .link
+    :display inline-block
+    :background-color #d2d2d2
+    :padding
+      :top 2px
+      :left 3px
+      :right 3px
+    :margin
+      :right 1px
+    a
+      :color #000
+      :text-decoration none
+  .current
+    :background-color= !background_color
+#user-info
+  :position absolute
+  :right= !margin
+  :top 10px
+  .row
+    :padding
+      :left 4px
+      :right 4px
+    &:last-child
+      :padding-right 0
+    :color #fff
+    a
+      :color #fff

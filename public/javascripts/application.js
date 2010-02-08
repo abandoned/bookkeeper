@@ -1,19 +1,19 @@
-$(document).ready(function() {
+jQuery(document).ready(function() {
   
   // Obesify search
-  $("#search label, #search input[type=submit]").hide();
-  $input = $("#search input[type=text]");
+  jQuery("#search label, #search input[type=submit]").hide();
+  $input = jQuery("#search input[type=text]");
   if ($input.val() == "") {
-	  $input
-	    .addClass("labeled")
-	    .val($input.prev().html())
-	    .bind('focus.label', function() {
-        $(this)
+    $input
+      .addClass("labeled")
+      .val($input.prev().html())
+      .bind('focus.label', function() {
+        jQuery(this)
           .val("")
           .removeClass("labeled");
       })
       .bind("blur.unbindLabel", function() {
-        $(this)
+        jQuery(this)
           .unbind("focus.label")
           .unbind("blur.unbindLabel");
       })
@@ -21,7 +21,7 @@ $(document).ready(function() {
   }
   
   
-  $('select.autocomplete').select_autocomplete();
+  jQuery('select.autocomplete').select_autocomplete();
   
   var copy_row = function(row) {
     var new_id = new Date().getTime();
@@ -29,30 +29,30 @@ $(document).ready(function() {
     var next_row = row.next('tr')
     
     row.find('td').each(function() {
-      var index_in_row = row.children().index($(this))
-      $(this).find('select').map(function() {
-        var index_in_parent = $(this).parent().children().index($(this))
-        var default_value = $(this).val()
+      var index_in_row = row.children().index(jQuery(this))
+      jQuery(this).find('select').map(function() {
+        var index_in_parent = jQuery(this).parent().children().index(jQuery(this))
+        var default_value = jQuery(this).val()
         next_row.find('td:eq(' + (index_in_row) + ') select:eq(' + (index_in_parent) + ')').val(default_value)
       })
     })
     next_row.find('select.autocomplete').select_autocomplete()
   }
   
-  $('form table a.add_row').live('click', function(ev) {
-    copy_row($(this).closest('tr'))
+  jQuery('form table a.add_row').live('click', function(ev) {
+    copy_row(jQuery(this).closest('tr'))
     ev.preventDefault();
   })
   
-  $('form table tbody tr:last input:last').live('keydown', function(ev) {
+  jQuery('form table tbody tr:last input:last').live('keydown', function(ev) {
     if (ev.which == 9) {
-      copy_row($(this).closest('tr'))
+      copy_row(jQuery(this).closest('tr'))
     }
     ev.preventDefault()
   })
   
-  $('form table a.swap_columns').live('click', function(ev) {
-    var td = $(this).closest('td')
+  jQuery('form table a.swap_columns').live('click', function(ev) {
+    var td = jQuery(this).closest('td')
     var a = td.prev('td').find('input')
     var b = td.next('td').find('input')
     var v = a.val()
@@ -61,25 +61,25 @@ $(document).ready(function() {
   })
   
   // Strip unnecessary attributes from search gets
-  $('#search').find('input, select').removeAttr('disabled')
-  $('#search').submit(function() {
-    $(this).find('input, select').map(function() {
-      if ($.trim($(this).val()) == '') {
-        $(this).attr('disabled', 'disabled')
+  jQuery('#search').find('input, select').removeAttr('disabled')
+  jQuery('#search').submit(function() {
+    jQuery(this).find('input, select').map(function() {
+      if ($.trim(jQuery(this).val()) == '') {
+        jQuery(this).attr('disabled', 'disabled')
       }
     })
   })
     
   // Calculate total on new ledger item form
-  $('form#new_ledger_item table').prepend('<tfoot><tr><td class="small" id="grand-total"></td></tr></tfoot>')
+  jQuery('form#new_ledger_item table').prepend('<tfoot><tr><td class="small" id="grand-total"></td></tr></tfoot>')
   
-  $('form#new_ledger_item').map(function() {
-    $(this).find('td input.total-amount').live('change', function() {
+  jQuery('form#new_ledger_item').map(function() {
+    jQuery(this).find('td input.total-amount').live('change', function() {
       var total = 0
-      $('form#new_ledger_item').find('td input.total-amount').each(function() {
-        total += parseFloat($(this).val())
+      jQuery('form#new_ledger_item').find('td input.total-amount').each(function() {
+        total += parseFloat(jQuery(this).val())
       })
-      $('#grand-total').html(Math.round(total * 100) / 100)
+      jQuery('#grand-total').html(Math.round(total * 100) / 100)
     })
   })
 })

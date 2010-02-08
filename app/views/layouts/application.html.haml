@@ -7,27 +7,18 @@
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
-    = javascript_include_tag 'jquery-1.3.2.min', 'jquery.autocomplete', 'jquery.select-autocomplete', 'jquery.obese-autocomplete', 'application'
+    %script{:type => 'text/javascript', :src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js'}
+    = javascript_include_tag 'jquery.autocomplete', 'jquery.select-autocomplete', 'jquery.obese-autocomplete', 'application'
     - if @content_for_head
       = yield(:head)
-  %body.bp
-    %header#top
+  %body
+    #top
       - if current_user
-        %nav#segmented-controls
-          %span.wrapper
-            - segmented_controls.each do |sc|
-              - if (current_page?(sc[:path]))
-                %span{:class => 'clickable'}>= sc[:text]
-              - else
-                %a{:href => "#{sc[:path]}", :class => 'clickable'}>= sc[:text]
-    #container
-      %section#content
-        - flash.each do |name, msg|
-          - haml_tag(:div, msg, :class => "flash #{name}")
-        - if show_title?
-          %h1
-            %span= yield(:title)
-          %hr
-        = yield
-    %footer#bottom
-      This is the footer.
+        = render 'layouts/navigation'
+    - flash.each do |name, msg|
+      - haml_tag(:div, msg, :class => "flash-#{name}")
+    #content
+      - if show_title?
+        %h3= yield(:title)
+      = yield
+    #bottom

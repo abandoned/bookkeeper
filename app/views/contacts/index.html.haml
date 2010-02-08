@@ -1,19 +1,33 @@
 - title 'Contacts'
 
+.buttons
+  = link_to 'Create contact »', new_contact_path, :class => 'button'
+
 - if @contacts.size > 0
   %table.data
     %tr
       %th Name
-      %th Contact Name
-      %th Country
+      %th Email
+      %th Phone
+      %th Address
+      %th Contact
+      %th{:colspan => 2} Tax Number
     - for contact in @contacts
       %tr{:class => "#{cycle('odd', 'even')}"}
-        %td= link_to contact.name, resource_path(contact)
-        %td=h contact.contact_name
-        %td=h contact.country
-  = will_paginate(@contacts, :inner_window => 2, :class => "pagination")
+        %td= contact.name
+        %td= contact.email
+        %td= contact.phone_number
+        %td
+          = contact.address
+          = contact.city
+          = contact.state
+          = contact.postal_code
+          = contact.country
+        %td= contact.contact_name
+        %td= contact.tax_number
+        %td
+          = link_to('Edit', edit_resource_path(contact))
+          = link_to('Delete', resource_path(contact), :confirm => 'Are you sure?', :method => :delete)
+  = will_paginate(@contacts, :inner_window => 2, :class => 'pagination')
 - else
-  %p No contacts found
-
-.footer
-  = link_to "Create new contact", new_contact_path
+  %p No contacts available

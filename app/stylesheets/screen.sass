@@ -1,22 +1,17 @@
-@import blueprint/reset.sass
+@import compass/reset.sass
+
 @import partials/base.sass
-@import blueprint
+@import partials/colors.sass
+@import partials/typography.sass
 
-+blueprint
-
-body.bp
-  //+showgrid
-  :background-color #f4f4f4
-  #container
-    +container
-  #content
-    +column(!blueprint_grid_columns, true)
-
-@import partials/top_header.sass
-@import partials/bottom_footer.sass
 @import partials/flash.sass
 @import partials/form.sass
-@import partials/search_form.sass
-@import partials/data_grid.sass
-@import partials/autocomplete.sass
+@import partials/list.sass
+@import partials/table.sass
 @import partials/button.sass
+
+@import partials/top.sass
+@import partials/content.sass
+@import partials/bottom.sass
+@import partials/search.sass
+@import partials/autocomplete.sass

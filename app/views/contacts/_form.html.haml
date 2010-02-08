@@ -1,15 +1,27 @@
-- semantic_form_for resource do |f| 
-  = f.error_messages
-  - f.inputs do
-    = f.input :name, :input_html => { :size => 30 }
-    = f.input :self
-    = f.input :contact_name, :required => false, :input_html => { :size => 30 }
-    = f.input :email, :required => false, :input_html => { :size => 30 }
-    = f.input :address, :required => false, :input_html => { :size => 30 }
-    = f.input :city, :required => false, :input_html => { :size => 30 }
-    = f.input :state, :required => false, :input_html => { :size => 30 }
-    = f.input :postal_code, :required => false, :input_html => { :size => 30 }
-    = f.input :country, :required => false, :input_html => { :size => 30 }
-    = f.input :tax_number, :required => false, :input_html => { :size => 30 }
-    - f.buttons do
-      = f.commit_button :button_html => { :value => t('formtastic.labels.commit') }
+- form_for @contact do |form| 
+  = form.error_messages
+  %dl
+    %dt= form.label :name
+    %dd= form.text_field :name
+    %dd
+      = form.check_box :self
+      = form.label :self
+    %dt= form.label :contact_name
+    %dd= form.text_field :contact_name
+    %dt= form.label :email
+    %dd= form.text_field :email
+    %dt= form.label :phone_number
+    %dd= form.text_field :phone_number
+    %dt= form.label :address
+    %dd= form.text_field :address
+    %dt= form.label :city
+    %dd= form.text_field :city
+    %dt= form.label :state
+    %dd= form.text_field :state
+    %dt= form.label :postal_code
+    %dd= form.text_field :postal_code
+    %dt= form.label :country
+    %dd= form.text_field :country
+    %dt= form.label :tax_number
+    %dd= form.text_field :tax_number
+    %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' contact')

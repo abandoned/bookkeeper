@@ -1,9 +1,9 @@
-#top
+#header
   +paddings
-  :height 45px
+  :height 90px
   :position relative
   :color #fff
-  :background-color #000
+  :background-color= !header_background_color
 #navigation
   :position absolute
   :left= !margin
@@ -11,11 +11,19 @@
   .link
     :display inline-block
     :padding
-      :top 2px
-      :left 2px
-      :right 2px
+      :top 3px
+      :bottom 3px
+      :left 6px
+      :right 6px
+    :margin
+      :right 10px
+    :font
+      :size 1.25em
+    :line-height 1
+    :background-color #486a84
+    +border_radius_top_right(10px)
     a
-      :color #40bcfc
+      :color #eee
       :text-decoration none
   .current
     :background-color= !background_color
@@ -25,10 +33,10 @@
   :position absolute
   :right= !margin
   :top 5px
-  .row
-    :padding
-      :left 2px
-      :right 2px
+  li
+    :display inline
+    :margin
+      :left 0
     &:last-child
       :padding-right 0
     a

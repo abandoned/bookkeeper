@@ -1,30 +1,18 @@
-- title 'Transactions', false
+- title 'Transactions'
+- javascript 'ledger_items'
+
 = data_for_obese_autocomplete
 
-.meta
-  = render :partial => 'search'
-  .buttons
-    = link_to('New transaction »', new_ledger_item_path(:account => params[:account]), :class => 'button')
-    = link_to('Export »', ledger_items_path(params.merge(:format => :csv)), :class => 'button')
+= render :partial => 'search'
 
 - unless @cart.ledger_items.empty?
   = render(:partial => 'cart').html_safe!
 
 - if collection.size > 0
   %table
-    %thead
-      %tr
-        %th ID
-        %th Account
-        %th Sender
-        %th Recipient
-        %th Date
-        %th Amount
-        %th Description
-        %th Match
     %tfoot
       %tr
-        %td{:colspan => 6, :class => 'currency'}
+        %td{:colspan => 4, :class => 'currency'}
           - counter = 0
           = @totals.collect{ |k, v| monetize(v, k) }.join('<br>').html_safe!
     %tbody
@@ -32,3 +20,7 @@
   = will_paginate(collection, :inner_window => 2, :class => 'pagination')
 - else
   %p No transactions found
+  
+.meta
+  = link_to('New transaction »', new_ledger_item_path(:account => params[:account]), :class => 'button')
+  = link_to('Export »', ledger_items_path(params.merge(:format => :csv)), :class => 'button')

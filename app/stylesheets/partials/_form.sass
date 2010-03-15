@@ -1,5 +1,19 @@
 form
+  dt
+    :margin
+      :left 3px
+      :bottom 2px
+    :color #797889
   dd
-    :margin-bottom 10px
-  input[type=text], input[type=password], .ac_input
-    :width 18em
+    :margin
+      :bottom 0.5em
+  input[type=text], input[type=password]
+    :width 15em
+    :padding 0.5em
+    :margin
+      :bottom 10px
+    :border 2px solid #ddd
+    :font
+      :size 1em
+    +border_radius_top_right(5px)
+    +border_radius_bottom_left(5px)

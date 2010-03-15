@@ -1,11 +1,14 @@
-- title 'Transactions'
-
+- title 'Transactions', false
 = data_for_obese_autocomplete
+
+.meta
+  = render :partial => 'search'
+  .buttons
+    = link_to('New transaction »', new_ledger_item_path(:account => params[:account]), :class => 'button')
+    = link_to('Export »', ledger_items_path(params.merge(:format => :csv)), :class => 'button')
 
 - unless @cart.ledger_items.empty?
   = render(:partial => 'cart').html_safe!
-
-= render :partial => 'search'
 
 - if collection.size > 0
   %table
@@ -29,7 +32,3 @@
   = will_paginate(collection, :inner_window => 2, :class => 'pagination')
 - else
   %p No transactions found
-
-.buttons
-  = link_to('New transaction »', new_ledger_item_path(:account => params[:account]), :class => 'button')
-  = link_to('Export »', ledger_items_path(params.merge(:format => :csv)), :class => 'button')

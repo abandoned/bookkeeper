@@ -18,7 +18,4 @@
     - flash.each do |name, msg|
       - haml_tag(:div, msg, :class => "flash-#{name}")
     #content
-      - if show_title?
-        %h3= yield(:title)
       = yield
-    #bottom

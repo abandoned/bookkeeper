@@ -12,7 +12,7 @@ gem 'fastercsv', '>= 1.5.1'
 gem 'haml', '>= 2.2.21'
 gem 'has_scope', '0.4.2'
 gem 'inherited_resources', '1.0.4'
-gem 'jnunemaker-validatable', :lib => 'validatable'
+gem 'jnunemaker-validatable', '>= 1.8.3', :require => 'validatable'
 gem 'nokogiri', '>= 1.4.1'
 gem 'rails', '~> 2.3.5'
 gem 'responders', '0.4.3'
@@ -32,9 +32,6 @@ end
 
 group :test, :cucumber do
   gem 'factory_girl', '>= 1.2.3'
-end
-
-group :test do
   gem 'rspec', '>=1.3.0', :require => false
   gem 'rspec-rails', '>=1.3.2', :require => false
 end

@@ -4,17 +4,17 @@ Feature: Default Ledger
   I want to have a default ledger
   
   Background:
-    Given I am logged in
-    And an account: "Assets" exist with name: "Assets", type: "Asset"
+    Given an account: "Assets" exist with name: "Assets", type: "Asset"
     And an account: "Liabilities" exist with name: "Liabilities", type: "Liability"
     And an account: "Equity" exist with name: "Equity", type: "Equity"
     And an account: "Revenue" exist with name: "Revenue", type: "Revenue"
     And an account: "Expenses" exist with name: "Expenses", type: "Expense"
+    And I am logged in
   
-  Scenario: List root accounts"
+  Scenario: List root accounts
     When I go to path "/accounts"
-    Then I should see "Assets" within "#content ul"
-    And I should see "Liabilities" within "#content ul"
-    And I should see "Equity" within "#content ul"
-    And I should see "Revenue" within "#content ul"
-    And I should see "Expenses" within "#content ul"
+    Then I should see "Assets" within "#main ul"
+    And I should see "Liabilities" within "#main ul"
+    And I should see "Equity" within "#main ul"
+    And I should see "Revenue" within "#main ul"
+    And I should see "Expenses" within "#main ul"

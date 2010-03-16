@@ -41,5 +41,6 @@ group :cucumber do
   gem 'cucumber-rails', '>=0.3.0', :require => false
   gem 'database_cleaner', '>=0.5.0', :require => false
   gem 'pickle', '>= 0.2.4'
-  gem 'webrat', '>=0.7.0', :require => false
+  #gem 'webrat', '>=0.7.0', :require => false
+  gem 'capybara', '>= 0.3.5', :require => false
 end

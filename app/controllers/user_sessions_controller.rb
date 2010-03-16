@@ -6,7 +6,7 @@ class UserSessionsController < InheritedResources::Base
   
   def create
     create! do |success, failure|
-      success.html { redirect_back_or_default root_path }
+      success.html { redirect_back_or_default ledger_items_path }
       failure.html {
         flash.now[:failure] = 'Username or password is incorrect.'
         render :action => :new

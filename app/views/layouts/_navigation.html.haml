@@ -4,7 +4,6 @@
       = link_to(link[:text], link[:path])
 %ul#user-info.small
   %li
-    = link_to(current_user.login.capitalize)
-    |
+    = link_to('Profile')
   %li
     = link_to('Log out', logout_path)

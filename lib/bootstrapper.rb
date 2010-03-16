@@ -4,107 +4,104 @@ class Bootstrapper
   end
   
   def self.bootstrap!
-    @self, @coffee_vendor, @customer = Contact.create!([
-      { :name => "Self",
-        :country => "United States",
-        :self => true },
-      { :name => "Coffee Vendor",
-        :country => "United States",
-        :self => false },
-      { :name => "Customer",
-        :country => "United States",
-        :self => false },
-    ])
+    [
+      { :name     => 'Awesome Bakery',
+        :country  => 'United States',
+        :self     => true },
+      { :name     => 'Flour Corp',
+        :country  => 'United States',
+        :self     => false },
+      { :name     => 'John Doe',
+        :country  => 'United States',
+        :self     => false },
+    ].each do |attributes|
+      contact = Contact.create!(attributes)
+      record(attributes[:name], contact)
+    end
+    
     {
-      "Bank Accounts" => ["Demo Bank Account"],
-      "Expenses" => ["Beverages"]
-    }.each_pair do |parent_name, children|
-      parent = Account.find_by_name(parent_name)
-      record(parent_name, parent)
+      'Bank Accounts' => ['Checking Account'],
+      'Supplies'      => ['Flour']
+    }.each_pair do |name, children|
+      parent = Account.find_by_name(name)
+      record(name, parent)
       children.each do |name|
         account = Account.create!(
-          :name => name,
+          :name   => name,
           :parent => parent
         )
         record(name, account)
       end
     end
+    
+    counter = 0
     Mapping.create!([
-      { :name => "Citibank",
-        :currency => "USD",
-        :date_row => 1,
-        :total_amount_row => 3,
-        :description_row => 2, 
-        :has_title_row => false,
-        :day_follows_month => true,
-        :reverses_sign => false },
-      { :name => "Amex, US",
-        :currency => "USD",
-        :date_row => 1,
-        :total_amount_row => 3,
-        :description_row => 4,
-        :identifier_row => 2, 
-        :has_title_row => false,
-        :day_follows_month => true,
-        :reverses_sign => true },
-      { :name => "Amex, UK",
-        :currency => "GBP",
-        :date_row => 1,
-        :total_amount_row => 3,
-        :description_row => 4,
-        :identifier_row => 2, 
-        :has_title_row => false,
-        :day_follows_month => false,
-        :reverses_sign => true }
+      { :name               => 'Citibank',
+        :currency           => 'USD',
+        :date_row           => 1,
+        :total_amount_row   => 3,
+        :description_row    => 2, 
+        :has_title_row      => false,
+        :day_follows_month  => true,
+        :reverses_sign      => false },
     ])
     
-    @i1, @i2, @i3, @i4 = LedgerItem.create!([
-      { :sender => @self,
-        :recipient => @coffee_vendor,
-        :total_amount => -2.99,
-        :currency => "USD",
-        :account => @demo_bank_account,
-        :transacted_on => 1.days.ago
+    [
+      { :sender         => @awesome_bakery,
+        :recipient      => @flour_corp,
+        :total_amount   => -250,
+        :currency       => 'USD',
+        :account        => @checking_account,
+        :description    => 'Flour purchased',
+        :transacted_on  => 14.days.ago
       },
-      { :sender => @self,
-        :recipient => @coffee_vendor,
-        :total_amount => -3.99,
-        :currency => "USD",
-        :account => @demo_bank_account,
-        :transacted_on => Date.today
+      { :sender         => @awesome_bakery,
+        :recipient      => @flour_corp,
+        :total_amount   => -500,
+        :currency       => 'USD',
+        :account        => @checking_account,
+        :description    => 'Flour purchased',
+        :transacted_on  => 7.days.ago
       },
-      { :sender => @coffee_vendor,
-        :recipient => @self,
-        :total_amount => 2.99,
-        :currency => "USD",
-        :account => @beverages,
-        :transacted_on => 1.days.ago
+      { :sender         => @flour_corp,
+        :recipient      => @awesome_bakery,
+        :total_amount   => 250,
+        :currency       => 'USD',
+        :account        => @flour,
+        :transacted_on  => 14.days.ago
       },
-      { :sender => @coffee_vendor,
-        :recipient => @self,
-        :total_amount => 3.99,
-        :currency => "USD",
-        :account => @beverages,
-        :transacted_on => Date.today
+      { :sender         => @flour_corp,
+        :recipient      => @awesome_bakery,
+        :total_amount   => 500,
+        :currency       => 'USD',
+        :account        => @flour,
+        :transacted_on  => 7.days.ago
       },
-      { :sender => @customer,
-        :recipient => @self,
-        :total_amount => 100,
-        :currency => "USD",
-        :account => @demo_bank_account,
-        :transacted_on => 10.days.ago
+      { :sender         => @john_doe,
+        :recipient      => @awesome_bakery,
+        :total_amount   => 25,
+        :currency       => 'USD',
+        :account        => @checking_account,
+        :description    => 'Bread sold',
+        :transacted_on  => 5.days.ago
       },
-      { :sender => @customer,
-        :recipient => @self,
-        :total_amount => 75,
-        :currency => "USD",
-        :account => Account.find_by_name("Accounts Receivable"),
-        :transacted_on => Date.today
+      { :sender         => @john_doe,
+        :recipient      => @awesome_bakery,
+        :total_amount   => 40,
+        :currency       => 'USD',
+        :account        => Account.find_by_name('Accounts Receivable'),
+        :description    => 'Bread sold',
+        :transacted_on  => Date.today
       },
-    ])
+    ].each do |attributes|
+      ledger_item = LedgerItem.create!(attributes)
+      counter += 1
+      record("transaction_#{counter}", ledger_item)
+    end
+    
     Match.create!([
       {
-        :ledger_items => [@i1, @i3]
+        :ledger_items => [@transaction_1, @transaction_3]
       }
     ])
   end

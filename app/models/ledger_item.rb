@@ -43,7 +43,7 @@ class LedgerItem < ActiveRecord::Base
     unless id.nil?
       { :joins => 'INNER JOIN contacts AS senders ON senders.id = sender_id
                    INNER JOIN contacts AS recipients ON recipients.id = recipient_id',
-        :conditions => ['UPPER(senders.id) = ? OR UPPER(recipients.id) = ?', id, id] }
+        :conditions => ['senders.id = ? OR recipients.id = ?', id, id] }
     end
   }
   named_scope :from_date, lambda { |date|

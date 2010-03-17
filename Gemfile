@@ -22,6 +22,7 @@ gem 'will_paginate', '>= 2.3.12'
 group :production do
   gem 'pg', '>= 0.9.0'
   gem 'heroku', '>= 1.8.3'
+  gem 'thin', '>= 1.2.7'
 end
 
 group :development do

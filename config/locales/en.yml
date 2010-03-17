@@ -10,15 +10,10 @@ en:
     user_sessions:
       create:
         success: "You are logged in."
-  formtastic:
-    labels:
-      commit: "Submit »"
-      user_session:
-        login: "Username"
-        password: "Password"
-        create: "Log in"
-      account:
-        parent_id: "Parent"
-        name: "Name"
-      import:
-        commit: "Upload file"
+    ledger_items:
+      create:
+        success: "Successfully created transaction."
+      update:
+        success: "Successfully updated transaction."
+      destroy:
+        success: "Successfully deleted transaction."

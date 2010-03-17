@@ -5,15 +5,22 @@ class Bootstrapper
   
   def self.bootstrap!
     [
-      { :name     => 'Awesome Bakery',
-        :country  => 'United States',
-        :self     => true },
-      { :name     => 'Flour Corp',
-        :country  => 'United States',
-        :self     => false },
-      { :name     => 'John Doe',
-        :country  => 'United States',
-        :self     => false },
+      { :name         => 'Awesome Bakery',
+        :contact_name => 'Joe Baker',
+        :address      => '10 Main Street',
+        :city         => 'New York',
+        :postal_code  => '10001',
+        :state        => 'NY',
+        :country      => 'United States',
+        :country_code => 'US',
+        :tax_number   => '0123456-10',
+        :self         => true },
+      { :name         => 'Flour Corp',
+        :country      => 'United States',
+        :self         => false },
+      { :name         => 'John Doe',
+        :country      => 'United States',
+        :self         => false },
     ].each do |attributes|
       contact = Contact.create!(attributes)
       record(attributes[:name], contact)

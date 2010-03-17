@@ -1,17 +1,23 @@
-- title @account.name, false
+- title @account.name
 
-%p= account_ancestry
+- content_for :actions do
+  %li= link_to 'Create account', new_account_path
+
+%p
+  - ancestry_breadcrumbs(@account)
 %h3= @account.name
+
 - unless @account.children.length == 0
   %p
-    Subaccounts:
+    This account has the following descendants:
+  %ul.accounts
     - @account.children.each do |child|
-      %br
-      = link_to(child.name, account_path(child))
-%p TODO Display other summary info here.
-  
-.buttons
-  = link_to 'Edit »', edit_account_path, :class => 'button'
-  = link_to 'Delete »', account_path, :confirm => 'Are you sure?', :method => :delete, :class => 'button'
-  = link_to 'Transactions »', ledger_items_path(@account, :query => "in #{@account.name}"), :class => 'button'
-  = link_to 'Rules »', account_rules_path(@account), :class => 'button'
+      %li= link_to(child.name, account_path(child))
+
+%p
+  = link_to 'Edit', edit_account_path
+  or
+  = link_to 'delete', account_path, :confirm => 'Are you sure?', :method => :delete
+  this account.
+  = link_to 'Set up rules.', account_rules_path(@account)
+  = link_to 'Import transactions.', new_account_import_path(@account)

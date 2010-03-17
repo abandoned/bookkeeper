@@ -1,8 +1,8 @@
-jQuery(function() {
+$(function() {
   
   // Textify form submits
-  jQuery('.action input[type=submit]').each(function() {
-    var $textSubmit = jQuery('<a href="#" class="highlight">' + $(this).val() + '</a>');
+  $('.textify').each(function() {
+    var $textSubmit = $('<a href="#" class="highlight">' + $(this).val() + '</a>');
     $(this)
       .hide()
       .after($textSubmit);
@@ -10,5 +10,5 @@ jQuery(function() {
       $(this).parent('form').submit();
       return false;
     });
-  })
+  });
 });

@@ -1,0 +1,21 @@
+%tr{:class => "#{cycle('odd', 'even')}"}[contact]
+  %td
+    %p
+      %strong= contact.name
+    %p.small
+      = link_to('Show', contact)
+  %td
+    - if contact.self?
+      %p.small Self
+  %td
+    - if contact.tax_number
+      %p.small= contact.tax_number
+  %td
+    - if contact.name
+      %p.small
+        = contact.contact_name
+  %td
+    - if contact.address || contact.city || contact.postal_code || contact.state || contact.country
+      %p.small
+        - formatted_address(contact)
+    

@@ -1,0 +1,16 @@
+- title 'Contact Details'
+
+- content_for :actions do
+  %li= link_to 'Create contact', new_contact_path
+
+%h3= @contact.name
+
+- if @contact.city || @contact.country
+  %p.large
+    - formatted_address(@contact)
+
+%p.large
+  = link_to('Edit', edit_contact_path(@contact))
+  or 
+  = link_to('delete', @contact, :confirm => 'Are you sure?', :method => :delete)
+  this contact.

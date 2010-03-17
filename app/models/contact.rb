@@ -3,7 +3,7 @@
 # Table name: contacts
 #
 #  id           :integer         not null, primary key
-#  self      :boolean
+#  self         :boolean
 #  name         :string(255)
 #  contact_name :string(255)
 #  address      :text

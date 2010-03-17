@@ -1,16 +1,6 @@
 class ContactsController < InheritedResources::Base
   before_filter :require_user
   
-  actions :all, :except => [ :show ]
-  
-  def create
-    create!{ contacts_path }
-  end
-  
-  def update
-    update!{ contacts_path }
-  end
-  
   # http://joshuaclayton.github.com/code/2009/06/02/getting-explicit-with-before-destroy.html
   def destroy
     begin

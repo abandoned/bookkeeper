@@ -12,7 +12,7 @@ class Import
   attr_accessor :ledger_items, :mapping_id, :ending_balance, :ending_balance_confirmation, :account_id, :file
   
   def id
-    #http://www.themomorohoax.com/2009/07/17/warning-explanation-library-ruby-gems-1-8-gems-actionpack-2-3-2-lib-action-controller-record-identifier-rb-76-warning-object-id-will-be-deprecated-use-object-object-id
+    # http://www.themomorohoax.com/2009/07/17/warning-explanation-library-ruby-gems-1-8-gems-actionpack-2-3-2-lib-action-controller-record-identifier-rb-76-warning-object-id-will-be-deprecated-use-object-object-id
   end
   
   def initialize(params={})
@@ -53,13 +53,9 @@ class Import
         t.currency = mapping.currency
         
         # Descriptive entries
-        t.identifier = row[mapping.identifier_row - 1] unless mapping.identifier_row.blank?
         t.description = row[mapping.description_row - 1] unless mapping.description_row.blank?
         t.description << " " + row[mapping.second_description_row - 1] unless mapping.second_description_row.blank? || row[mapping.second_description_row - 1].blank?
-        
-        # Some editing
-        t.identifier.gsub!(/^Reference:\s/, '') unless t.identifier.nil?
-        
+                
         # Save
         if t.valid?
           ledger_items << t

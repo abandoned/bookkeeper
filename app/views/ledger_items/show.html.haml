@@ -1,37 +1,16 @@
-- title "Ledger Item"
+- title 'Transaction Details'
 
-%p
-  %strong Account:
-  =h resource.account.name
-%p
-  %strong Sender:
-  =h resource.sender.name if resource.sender
-%p
-  %strong Recipient:
-  =h resource.recipient.name if resource.recipient
-%p
-  %strong Transacted On:
-  = resource.transacted_on
-%p
-  %strong Total Amount:
-  = resource.total_amount
-%p
-  %strong Tax Amount:
-  = resource.tax_amount
-%p
-  %strong Currency:
-  =h resource.currency
-%p
-  %strong Description:
-  =h resource.description
-%p
-  %strong Identifier:
-  =h resource.identifier
-%p
-  %strong LedgerItem Group:
-  = resource.match_id
+- content_for :actions do
+  %li= link_to 'Create transaction', new_ledger_item_path
 
-.buttons
-  = link_to "Edit", edit_resource_path
-  = link_to "Delete", resource_path, :confirm => 'Are you sure?', :method => :delete
-  = link_to "View all", collection_path
+%p.large
+  = render :partial => 'story', :locals => { :ledger_item => @ledger_item }
+  - if @ledger_item.matched?
+    This transaction was posted against
+    = (@ledger_item.matches.collect{ |li| link_to(li.account.name, li.account) }.join(', ') + '.').html_safe!
+
+%p.large
+  = link_to 'Edit', edit_ledger_item_path
+  or
+  = link_to 'delete', @ledger_item, :confirm => 'Are you sure?', :method => :delete
+  this transaction.

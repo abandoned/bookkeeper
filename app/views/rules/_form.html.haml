@@ -3,17 +3,17 @@
   %dl
     %dt= form.label :matched_description
     %dd= form.text_field :matched_description
-    %dt= form.label :matched_sender
-    %dd= form.collection_select :matched_sender, Contact.all, :id, :name, { :prompt => true }, :class => 'autocomplete'
-    %dt= form.label :matched_recipient
-    %dd= form.collection_select :matched_recipient, Contact.all, :id, :name, { :prompt => true }, :class => 'autocomplete'
+    %dt= form.label :matched_sender_id
+    %dd= form.collection_select :matched_sender_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
+    %dt= form.label :matched_recipient_id
+    %dd= form.collection_select :matched_recipient_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
     %dd
       = form.check_box :matched_debit
       = form.label :matched_debit
-    %dt= form.label :new_sender
-    %dd= form.collection_select :new_sender, Contact.all, :id, :name, { :prompt => true }, :class => 'autocomplete'
-    %dt= form.label :new_recipient
-    %dd= form.collection_select :new_recipient, Contact.all, :id, :name, { :prompt => true }, :class => 'autocomplete'
-    %dt= form.label :new_account
-    %dd= form.collection_select :new_account, Account.all, :id, :name, { :prompt => true }, :class => 'autocomplete'
+    %dt= form.label :new_sender_id
+    %dd= form.collection_select :new_sender_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
+    %dt= form.label :new_recipient_id
+    %dd= form.collection_select :new_recipient_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
+    %dt= form.label :new_account_id
+    %dd= form.collection_select :new_account_id, Account.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
     %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' rule')

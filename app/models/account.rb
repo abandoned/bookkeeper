@@ -10,15 +10,15 @@
 #
 
 class Account < ActiveRecord::Base
-  acts_as_tree :orphan_strategy => :restrict
+  has_ancestry :orphan_strategy => :restrict
   
   has_many :ledger_items
   has_many :rules
   
-  validates_uniqueness_of :name
   validates_presence_of   :name
+  validates_uniqueness_of :name
   
-  before_destroy :do_not_orphan_ledger_items
+  before_destroy :cannot_orphan_ledger_items
   
   def all_ledger_items
     self.subtree.inject([]) { |m, a| m + a.ledger_items }
@@ -46,7 +46,7 @@ class Account < ActiveRecord::Base
     @currency_symbol ||= self.subtree.each { |a| a.ledger_items.each { |i| return i.currency_symbol } }
   end
   
-  # cf. http://code.alexreisner.com/articles/single-table-inheritance-in-rails.html
+  # http://code.alexreisner.com/articles/single-table-inheritance-in-rails.html
   class <<self
     alias_method :real_model_name, :model_name
   end
@@ -62,7 +62,7 @@ class Account < ActiveRecord::Base
   
   private
   
-  def do_not_orphan_ledger_items
+  def cannot_orphan_ledger_items
     raise ActiveRecord::RecordNotDestroyed if self.ledger_items.size > 0
   end
   

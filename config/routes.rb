@@ -9,9 +9,9 @@ ActionController::Routing::Routes.draw do |map|
                 :only => [:show, :destroy]
   map.resources :mappings
   map.resources :ledger_items,
-                :as => 'transactions'
+                :as => 'transactions',
+                :new => { :multiple => :get, :create_multiple => :post }
   map.resources :contacts,
-                :except => [:show],
                 :has_many => :ledger_items
   map.resources :reports,
                 :only => [:index, :show]

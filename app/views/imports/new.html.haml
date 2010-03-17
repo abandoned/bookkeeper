@@ -1,20 +1,23 @@
-- title "Import ledger items"
+- title 'Import transactions'
 
-- semantic_form_for [@account, @import], :url => account_import_path(@account), :html => { :multipart => true } do |f|
-  = f.error_messages
-  - f.inputs do
-    %li{:class => "select required account", :id => "import_account_input"}
-      %label{:for => "import_account_id"}
-        Account
-        <abbr title="required">*</abbr>
-      = grouped_tree_select(Account.roots, "import", "account_id", @account)
-    = f.input :ending_balance
-    = f.input :mapping_id, :as => :select, :collection => Mapping.all, :include_blank => "Select mapping", :hint => link_to("New mapping", new_mapping_path)
-    = f.input :file, :as => :file
-  - f.buttons do
-    = f.commit_button :button_html => { :value => t('formtastic.labels.import.commit') }
-  
-.buttons
-  = link_to "Back to Ledger Items", ledger_items_path
-  
-  
+- form_for [@account, @import], :url => account_import_path(@account), :html => { :multipart => true } do |form|
+  = form.error_messages
+  %dt{:class => "select required account", :id => "import_account_input"}
+    %label{:for => "import_account_id"} Account
+  %dd
+    = grouped_tree_select(Account.roots, "import", "account_id", @account)
+  %dt
+    = form.label :ending_balance
+  %dd
+    = form.text_field :ending_balance
+  %dt
+    = form.label :mapping_id
+  %dd
+    = form.collection_select :mapping_id, Mapping.all, :id, :name, { :include_blank => "Select mapping" }
+    = link_to("New mapping", new_mapping_path)
+  %dt
+    = form.label :file
+  %dd
+    = form.file_field :file, :as => :file
+  %dd
+    = submit_tag('Import transactions')

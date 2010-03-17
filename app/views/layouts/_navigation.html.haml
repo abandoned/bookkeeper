@@ -1,8 +1,10 @@
-#navigation
+#tabs
   - navigation_links.each do |link|
-    .link{:class => controller.controller_name == link[:controller] ? 'current' : ''}
+    .tab{:class => controller.controller_name == link[:controller] ? 'current' : ''}
       = link_to(link[:text], link[:path])
-%ul#user-info.small
+
+%ul#actions.small
+  = yield(:actions)
   %li
     = link_to('Profile')
   %li

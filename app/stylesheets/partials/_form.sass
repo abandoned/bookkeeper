@@ -1,4 +1,6 @@
 form
+  :margin
+    :bottom 1em
   dt
     :margin
       :left 3px
@@ -7,13 +9,12 @@ form
   dd
     :margin
       :bottom 0.5em
-  input[type=text], input[type=password]
+  input[type=text], input[type=password], .ac_input
     :width 15em
     :padding 0.5em
     :margin
       :bottom 10px
-    :border 2px solid #ddd
+    :border 2px solid #ccc
     :font
       :size 1em
-    +border_radius_top_right(5px)
-    +border_radius_bottom_left(5px)
+    +border_radius_top_right(8px)

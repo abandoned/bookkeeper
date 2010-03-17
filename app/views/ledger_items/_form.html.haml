@@ -1,31 +1,20 @@
-- content_for :head do
-  - javascript_tag do
-    = "var ledger_item='#{ escape_javascript(render(:partial => 'ledger_item_form', :object => @ledger_items.first )) }'".html_safe!
-
-- form_for @ledger_items.first, :url => ledger_items_path do |f|
-  %table.data-grid.new-transaction
-    %thead
-      %tr
-        %th{:colspan => 2}
-        %th
-          = f.label :account, 'Account'
-        %th{:colspan => 2}
-          = f.label :sender, 'Sender'
-        %th
-          = f.label :recipient, 'Recipient'
-        %th
-          = f.label :total_amount, 'Total'
-        %th
-          = f.label :tax_amount, 'Tax'
-        %th
-          = f.label :description
-        %th{:colspan => 2}
-          = f.label :identifier
-        %td
-    %tbody
-      = render :partial => 'ledger_item_form', :collection => @ledger_items
-    %tfoot
-      %tr
-        %td{:colspan => 10}
-          = f.submit(t('formtastic.labels.commit'), :class => 'button')
-/'»'
+- form_for @ledger_item do |form| 
+  = form.error_messages
+  %dl
+    %dt= form.label :transacted_on
+    %dd= form.date_select :transacted_on, :start_year => Time.now.year - 5, :end_year => Time.now.year + 1, :use_short_month => true
+    %dt= form.label :currency
+    %dd= form.select :currency, ['USD', 'GBP', 'EUR', 'CAD', 'JPY', 'AUD']
+    %dt= form.label :account_id
+    %dd= form.select :account_id, Account.all.collect{ |a| [a.name, a.id] }, { :include_blank => true }, :class => 'autocomplete'
+    %dt= form.label :sender_id
+    %dd= form.select :sender_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
+    %dt= form.label :recipient_id
+    %dd= form.select :recipient_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
+    %dt= form.label :total_amount
+    %dd= form.text_field :total_amount
+    %dt= form.label :tax_amount
+    %dd= form.text_field :tax_amount
+    %dt= form.label :description
+    %dd= form.text_field :description
+    %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' transaction')

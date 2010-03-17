@@ -1,19 +1,10 @@
--title 'Matches'
-  
-.cart
-  %table.data
-    %thead
-      %tr.small
-        %th ID
-        %th Account
-        %th Sender
-        %th Recipient
-        %th Issue Date
-        %th Amount
-        %th Description
-    %tfoot
-      %tr
-        %td.smaller
-          = link_to 'Delete match', resource_path, :method => :delete
+- title 'Match'
+- content_for :actions do
+  %li= link_to 'Delete match', @match, :method => :delete
+
+- if @match.ledger_items.size > 0
+  %table
     %tbody
-      = render(:partial => 'ledger_item', :collection => @match.ledger_items)
+      = render :partial => 'ledger_items/ledger_item', :collection => @match.ledger_items
+- else
+  %p No transactions found

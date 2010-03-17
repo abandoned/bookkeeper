@@ -1,5 +1,8 @@
 - title "Rules for #{@account.name}"
 
+- content_for :actions do
+  %li= link_to 'Create rule', new_account_rule_path
+  
 - if @rules.size > 0
   %table
     %tr
@@ -23,7 +26,4 @@
         %td= link_to 'Edit', edit_resource_path(rule)
         %td= link_to 'Delete', resource_path(rule), :confirm => 'Are you sure?', :method => :delete
 - else
-  %p No rules available
-
-.buttons
-  = link_to 'New rule »', new_account_rule_path, :class => 'button'
+  %p No rules found

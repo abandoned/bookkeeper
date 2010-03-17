@@ -1,12 +1,13 @@
-Feature: Generate Income Statement
-  In order to take care of my accounting needs
+@wip
+Feature: Income Statement
+  In order to do bookkeeping
   As a bookkeeper
   I want to be able to generate income statements
   
+  @wip
   Background:
     Given I am logged in
     And I have a default ledger set up
-    And I have a double entry for a beverage purchase
     And an account "Sales" exists with name: "Sales", parent: account "Revenue"
     And a contact "Other Seller" exists
     And a match "m2" exists

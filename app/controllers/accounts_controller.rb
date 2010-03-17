@@ -1,14 +1,6 @@
 class AccountsController < InheritedResources::Base
   before_filter :require_user
   
-  def new
-    @account = Account.new
-    unless params['parent_id'].nil?
-      @account.parent_id = params['parent_id']
-    end
-    new!
-  end
-  
   def destroy
     
     # Do not delete root accounts through public interface

@@ -2,7 +2,6 @@ class RulesController < InheritedResources::Base
   before_filter :require_user
   
   belongs_to :account
-  respond_to :html
   
   def new
     if params[:ledger_item_id]
@@ -14,7 +13,6 @@ class RulesController < InheritedResources::Base
       @rule.matched_description = ledger_item.description
       @rule.matched_debit = ledger_item.total_amount > 0
     end
-    
     new!
   end
 end

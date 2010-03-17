@@ -1,5 +1,6 @@
+@wip
 Feature: Mappings
-  In order to take care of my accounting needs
+  In order to do bookkeeping
   As a bookkeeper
   I want to be able to define mappings for file imports
   

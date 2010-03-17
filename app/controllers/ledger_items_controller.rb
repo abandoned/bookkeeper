@@ -1,5 +1,6 @@
 class LedgerItemsController < InheritedResources::Base
   belongs_to    :account, :optional => true
+  
   respond_to    :html
   respond_to    :csv, :only => [:index]
   defaults      :resource_class         => LedgerItem,
@@ -61,13 +62,56 @@ class LedgerItemsController < InheritedResources::Base
     index!
   end
   
-  def new
-    @ledger_item = LedgerItem.new(:account_id => params[:account])
+  def edit
+    @ledger_item = LedgerItem.find params[:id]
+    @ledger_items = [@ledger_item]
+  end
+  
+  def add_to_cart
+    ledger_item = LedgerItem.find(params[:id])
+    @cart.add(ledger_item)
+    
+    redirect_back_or_default(collection_path)
+  end
+  
+  def balance_cart
+    account = Account.find(params[:ledger_item][:account_id])
+    match = Match.new(:ledger_items => @cart.ledger_items)
+    match.create_balancing_item(account)
+    if match.save
+      flash[:success] = 'Transaction successfully reconciled'
+      reset_cart
+    else
+      flash[:success] = 'Reconciliation failed'
+    end
+    
+    redirect_back_or_default(collection_path)
+  end
+  
+  def save_cart
+    if Match.create(:ledger_items => @cart.ledger_items)
+      flash[:success] = 'Transactions successfully reconciled'
+      reset_cart
+    else
+      flash.now[:failure] = 'Reconciliation failed'
+    end
+    
+    redirect_back_or_default(collection_path)
+  end
+  
+  def empty_cart
+    reset_cart
+    
+    redirect_back_or_default(collection_path)
+  end
+  
+  def multiple
+    @ledger_item = LedgerItem.new
     @ledger_items = [@ledger_item]
     new!
   end
 
-  def create
+  def create_multiple
     @ledger_items = []
 
     begin
@@ -89,53 +133,10 @@ class LedgerItemsController < InheritedResources::Base
     end
   end
   
-  def edit
-    @ledger_item = LedgerItem.find params[:id]
-    @ledger_items = [@ledger_item]
-  end
-  
-  def add_to_cart
-    ledger_item = LedgerItem.find(params[:id])
-    @cart.add(ledger_item)
-    
-    redirect_back_or_default(collection_path)
-  end
-  
-  def balance_cart
-    account = Account.find(params[:ledger_item][:account_id])
-    match = Match.new(:ledger_items => @cart.ledger_items)
-    match.create_balancing_item(account)
-    if match.save
-      flash[:success] = 'Ledger item successfully reconciled'
-      reset_cart
-    else
-      flash[:success] = 'Reconciliation failed'
-    end
-    
-    redirect_back_or_default(collection_path)
-  end
-  
-  def save_cart
-    if Match.create(:ledger_items => @cart.ledger_items)
-      flash[:success] = 'Ledger items successfully reconciled'
-      reset_cart
-    else
-      flash.now[:failure] = 'Reconciliation failed'
-    end
-    
-    redirect_back_or_default(collection_path)
-  end
-  
-  def empty_cart
-    reset_cart
-    
-    redirect_back_or_default(collection_path)
-  end
-  
   private
   
   def collection
-    end_of_association_chain.
+    @ledger_items ||= end_of_association_chain.
       scope_by(params[:query]).
       paginate(
       :page => params[:page],

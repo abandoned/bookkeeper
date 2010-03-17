@@ -1,30 +1,30 @@
 %tr{:class => "#{cycle('odd', 'even')}"}[ledger_item]
-  //%td.id= link_to(ledger_item.id, ledger_item_path(ledger_item))
-  
   %td.date
     = ledger_item.transacted_on.to_s(:rfc822)
   %td.details
     %p
-      %strong= link_to(truncate(ledger_item.account.name), account_path(ledger_item.account))
+      %strong= link_to truncate(ledger_item.account.name), ledger_item.account
     - if ledger_item.description.present?
       %p.small
-        = ledger_item.description
-    %p.small
-      - if ledger_item.matchable?
+        = ledger_item.description 
+    - if ledger_item.matchable?
+      %p.small
         Sent by
-        = link_to(truncate(ledger_item.sender.name, :length => 18), contact_path(ledger_item.sender))
+        = link_to(truncate(ledger_item.sender.name), contact_path(ledger_item.sender))
         to
-        = link_to(truncate(ledger_item.recipient.name, :length => 18), contact_path(ledger_item.recipient))
-      - if ledger_item.matched?
-        and matched with
-        = link_to(ledger_item.matches.collect{ |m| m.account.name }.join(', '), ledger_item.match)
-  
+        = link_to(truncate(ledger_item.recipient.name), contact_path(ledger_item.recipient))
+        - if ledger_item.matched?
+          and 
+          = link_to('matched', ledger_item.match)
+          = ' with ' + ledger_item.matches.collect{ |m| m.account.name }.join(', ')
+    %p.small
+      = link_to 'Show', ledger_item
   %td.action
     - if ledger_item.matchable?
       - unless ledger_item.matched? || @cart.ledger_items.include?(ledger_item)
         - form_tag(add_to_cart_path, :method => 'post') do
           = hidden_field_tag(:id, ledger_item.id)
-          = submit_tag('Match')
+          = submit_tag('Match', :class => 'textify')
     - else
       = link_to('Add contacts', edit_ledger_item_path(ledger_item), :method => :get)
   %td.currency

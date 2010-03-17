@@ -1,8 +1,13 @@
 - form_for @account do |form| 
   = form.error_messages
   %dl
-    %dt= form.label 'Parent'
-    %dd= tree_select(Account.roots, 'account', 'parent_id', resource)
-    %dt= form.label :name
-    %dd= form.text_field :name
-    %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' account')
+    %dt
+      = form.label :parent_id
+    %dd
+      - tree_select(Account.roots, 'account', 'parent_id', resource)
+    %dt
+      = form.label :name
+    %dd
+      = form.text_field :name
+    %dd
+      = submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' account')

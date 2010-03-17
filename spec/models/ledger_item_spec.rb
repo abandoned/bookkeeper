@@ -10,7 +10,6 @@
 #  tax_amount    :decimal(, )     default(0.0)
 #  currency      :string(3)       not null
 #  description   :string(255)
-#  identifier    :string(255)
 #  account_id    :integer
 #  match_id      :integer
 #  created_at    :datetime

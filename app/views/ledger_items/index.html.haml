@@ -1,14 +1,16 @@
 - title 'Transactions'
 - javascript 'ledger_items'
+- content_for :actions do
+  %li= link_to 'Create transaction', new_ledger_item_path
+  %li= link_to 'Export', ledger_items_path(params.merge(:format => :csv))
 
 = data_for_obese_autocomplete
 
-= render :partial => 'search'
-
 - unless @cart.ledger_items.empty?
-  = render(:partial => 'cart').html_safe!
+  = render 'cart'
+= render 'search'
 
-- if collection.size > 0
+- if @ledger_items.size > 0
   %table
     %tfoot
       %tr
@@ -16,11 +18,7 @@
           - counter = 0
           = @totals.collect{ |k, v| monetize(v, k) }.join('<br>').html_safe!
     %tbody
-      = render(:partial => 'ledger_item', :collection => collection)
-  = will_paginate(collection, :inner_window => 2, :class => 'pagination')
+      = render :partial => 'ledger_item', :collection => @ledger_items
+  = will_paginate(@ledger_items, :inner_window => 2, :class => 'pagination')
 - else
   %p No transactions found
-  
-.meta
-  = link_to('New transaction »', new_ledger_item_path(:account => params[:account]), :class => 'button')
-  = link_to('Export »', ledger_items_path(params.merge(:format => :csv)), :class => 'button')

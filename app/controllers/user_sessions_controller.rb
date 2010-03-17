@@ -1,6 +1,6 @@
 class UserSessionsController < InheritedResources::Base
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => :destroy
+  before_filter :require_user,    :only => [:destroy]
   
   actions :new, :create, :destroy
   
@@ -16,7 +16,6 @@ class UserSessionsController < InheritedResources::Base
   
   def destroy
     current_user_session.destroy
-    flash[:success] = 'You are logged out.'
     redirect_to root_path
   end
 end

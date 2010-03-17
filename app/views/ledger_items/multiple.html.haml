@@ -1,0 +1,36 @@
+- title 'New Transaction'
+
+- content_for :head do
+  - javascript_tag do
+    = "var ledger_item='#{ escape_javascript(render(:partial => 'new_ledger_item_row', :object => @ledger_items.first )) }'".html_safe!
+
+- form_for @ledger_items.first, :url => ledger_items_path do |form|
+  %table.data-grid.new-transaction
+    %tbody
+      = render :partial => 'new_ledger_item_row', :collection => @ledger_items
+    %thead
+      %tr
+        %th
+          = form.label :transacted_on, 'Date'
+        %th
+          = form.label :currency
+        %th
+          = form.label :account
+        %th{:colspan => 2}
+          = form.label :sender
+        %th
+          = form.label :recipient
+        %th
+          = form.label :total_amount
+        %th
+          = form.label :tax_amount
+        %th{:colspan => 2}
+          = form.label :description
+    %tfoot
+      %tr
+        %td{:colspan => 10}
+          = form.submit 'Record transactions'
+
+.buttons
+  = link_to('New account »', new_account_path, :class => 'button')
+  = link_to('New contact »', new_contact_path, :class => 'button')

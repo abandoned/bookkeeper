@@ -39,6 +39,19 @@ class LedgerItem < ActiveRecord::Base
   named_scope :unmatched, :conditions => 'match_id IS NULL'
   named_scope :debit,     :conditions => 'total_amount > 0'
   named_scope :credit,    :conditions => 'total_amount < 0'
+  named_scope :contact,   lambda { |id|
+    unless id.nil?
+      { :joins => 'INNER JOIN contacts AS senders ON senders.id = sender_id
+                   INNER JOIN contacts AS recipients ON recipients.id = recipient_id',
+        :conditions => ['UPPER(senders.id) = ? OR UPPER(recipients.id) = ?', id, id] }
+    end
+  }
+  named_scope :from_date, lambda { |date|
+    { :conditions => ['transacted_on >= ?', date] }
+  }
+  named_scope :to_date, lambda { |date|
+    { :conditions => ['transacted_on <= ?', date] }
+  }
   
   def self.scope_by(query)
     scope = scoped({})

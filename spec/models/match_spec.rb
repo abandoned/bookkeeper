@@ -38,4 +38,9 @@ describe Match do
     @debit_ledger_item.update_attribute :total_amount, 10.0
     lambda {@match.save!}.should raise_error(ActiveRecord::RecordInvalid)
   end
+  
+  it "should not validate if matched ledger items have different currency" do
+    @debit_ledger_item.update_attribute :currency, 'JPY'
+    lambda {@match.save!}.should raise_error(ActiveRecord::RecordInvalid)
+  end
 end

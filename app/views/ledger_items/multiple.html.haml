@@ -4,8 +4,8 @@
   - javascript_tag do
     = "var ledger_item='#{ escape_javascript(render(:partial => 'new_ledger_item_row', :object => @ledger_items.first )) }'".html_safe!
 
-- form_for @ledger_items.first, :url => ledger_items_path do |form|
-  %table.data-grid.new-transaction
+- form_for @ledger_items.first, :url => create_multiple_new_ledger_item_path do |form|
+  %table.multiple-transactions
     %tbody
       = render :partial => 'new_ledger_item_row', :collection => @ledger_items
     %thead

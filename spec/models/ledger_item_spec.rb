@@ -52,6 +52,11 @@ describe LedgerItem do
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
   end
   
+  it "should default tax_amount to 0 if tax_amount is nil" do
+    @ledger_item.tax_amount = nil
+    @ledger_item.should be_valid
+  end
+  
   it "should have a valid currency code" do
     @ledger_item.currency = "ZZZ"
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
@@ -95,14 +100,19 @@ describe LedgerItem do
               :transacted_on => Date.new(2009, 1, 1))
     end
     
-    it "should scope transaction date on or after a date object" do
+    it "should scope transaction date on or after a date" do
       from = 'since Jan 15 2009'
       LedgerItem.scope_by(from).size.should == 1
     end
     
-    it "should scope transaction date on or before a date object" do
+    it "should scope transaction date on or before a date" do
       to = 'until Jan 15 2009'
       LedgerItem.scope_by(to).size.should == 1
+    end
+    
+    it "should not scope transaction date if date does not parse" do
+      to = 'on Jan 15, 2009'
+      LedgerItem.scope_by(to).size.should == 2
     end
   end
 end

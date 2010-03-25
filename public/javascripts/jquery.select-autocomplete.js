@@ -80,6 +80,6 @@
       //normally, you'd hide the select list but we won't for this demo
       $this.hide();
     });
-  };      
+  }
   
-})(jQuery);
+})(jQuery)

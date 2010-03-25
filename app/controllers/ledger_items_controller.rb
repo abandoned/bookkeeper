@@ -117,6 +117,8 @@ class LedgerItemsController < InheritedResources::Base
     begin
       LedgerItem.transaction do
         params[:ledger_items].each_value do |item_attributes|
+          puts "ok"
+          p item_attributes.inspect
           @ledger_items << LedgerItem.new(item_attributes)
         end
         @ledger_items.each do |item|
@@ -129,7 +131,7 @@ class LedgerItemsController < InheritedResources::Base
     rescue Exception => e
       flash[:failure] = 'Items failed to save.'
       
-      render :action => :new
+      render :action => :multiple
     end
   end
   

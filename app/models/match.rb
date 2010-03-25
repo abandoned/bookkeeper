@@ -10,7 +10,10 @@
 class Match < ActiveRecord::Base
   has_many :ledger_items
   accepts_nested_attributes_for :ledger_items
+  
   validate :must_be_reconciled
+  validate :matches_must_have_same_currency
+  
   before_destroy :unmatch_ledger_items
   
   def reconciled?
@@ -40,7 +43,13 @@ class Match < ActiveRecord::Base
   private
   
   def must_be_reconciled
-    errors.add_to_base("Must be reconciled") unless self.reconciled?
+    errors.add_to_base('Must be reconciled') unless self.reconciled?
+  end
+  
+  def matches_must_have_same_currency
+    currencies = []
+    self.ledger_items.each { |i| currencies << i.currency unless currencies.include?(i.currency) }
+    errors.add_to_base("Transactions must have same currency") unless currencies.size == 1
   end
   
   def unmatch_ledger_items

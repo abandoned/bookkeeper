@@ -6,3 +6,4 @@ rerun.txt
 public/stylesheets/compiled/*.css
 webrat*
 capybara*
+.bundle

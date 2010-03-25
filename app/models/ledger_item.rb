@@ -25,15 +25,17 @@ class LedgerItem < ActiveRecord::Base
   validates_associated      :sender, :recipient, :account
   validates_presence_of     :account, :currency, :transacted_on
   validates_numericality_of :total_amount
-  validates_numericality_of :tax_amount, :allow_nil => true
+  validates_numericality_of :tax_amount
   validates_exclusion_of    :total_amount, :in => [0]
   validate                  :currency_must_validate
   validate                  :tax_amount_must_validate
   validate                  :perspective_must_validate
   
+  before_validation :default_blank_tax_amount_to_0
   before_create :set_transacted_on_to_today
   after_create  :create_matches
   after_update  :update_matches
+  after_destroy :delete_matches
   
   named_scope :matched,   :conditions => 'match_id IS NOT NULL'
   named_scope :unmatched, :conditions => 'match_id IS NULL'
@@ -81,28 +83,28 @@ class LedgerItem < ActiveRecord::Base
         })
       # Scope by date
       when /^ON\s+(.*)$/
-        date = Chronic.parse($1).to_date
+        date = Chronic.parse($1)
         if date
           scope = scope.scoped({
-            :conditions => ['transacted_on = ?', date]
+            :conditions => ['transacted_on = ?', date.to_date]
           })
         end
         
       # Scope by start date
       when /^SINCE\s+(.*)$/
-        date = Chronic.parse($1).to_date
+        date = Chronic.parse($1)
         if date
           scope = scope.scoped({
-            :conditions => ['transacted_on >= ?', date]
+            :conditions => ['transacted_on >= ?', date.to_date]
           })
         end
       
       # Scope by end date
       when /^UNTIL\s+(.*)$/
-        date = Chronic.parse($1).to_date
+        date = Chronic.parse($1)
         if date
           scope = scope.scoped({
-            :conditions => ['transacted_on <= ?', date]
+            :conditions => ['transacted_on <= ?', date.to_date]
           })
         end
       
@@ -263,6 +265,18 @@ class LedgerItem < ActiveRecord::Base
         self.match.destroy
         self.update_attribute(:match_id, nil)
       end
+    end
+  end
+  
+  def delete_matches
+    if self.matched?
+      match.destroy
+    end
+  end
+  
+  def default_blank_tax_amount_to_0
+    if tax_amount.blank?
+      self.tax_amount = 0
     end
   end
 end

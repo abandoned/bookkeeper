@@ -13,7 +13,7 @@
       = f.select :account_id, options_for_select(Account.all.inject([['Select account', '']]) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.account_id : nil), {}, :class => 'autocomplete'
     %td
       = f.select :sender_id, options_for_select(Contact.all.inject([['Select sender', '']]) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.sender_id : nil), {}, :class => 'autocomplete'
-    %td
+    %td{:style => "visibility: hidden"}
       = link_to '<>', '#', :class => 'swap_columns'
     %td
       = f.select :recipient_id, options_for_select(Contact.all.inject([['Select recipient', '']]) { |r,a| r << [a.name, a.id] }, @ledger_item ? @ledger_item.recipient_id : nil), {}, :class => 'autocomplete'

@@ -20,9 +20,8 @@ $(document).ready(function() {
       .obesify(data);
   }
   
-  
   $('select.autocomplete').select_autocomplete();
-  
+    
   var copy_row = function(row) {
     var new_id = new Date().getTime();
     row.after(ledger_item.replace(/NEW_RECORD/g, new_id))
@@ -36,7 +35,7 @@ $(document).ready(function() {
         next_row.find('td:eq(' + (index_in_row) + ') select:eq(' + (index_in_parent) + ')').val(default_value)
       })
     })
-    next_row.find('select.autocomplete').select_autocomplete()
+    next_row.find('select.autocomplete').select_autocomplete();
   }
   
   $('form table a.add_row').live('click', function(ev) {

@@ -17,7 +17,7 @@ class Match < ActiveRecord::Base
   before_destroy :unmatch_ledger_items
   
   def reconciled?
-    self.ledger_items.inject(0) { |sum, i| sum + i.total_amount } == 0 ? true : false
+    ledger_items.inject(0) { |sum, i| sum + i.total_amount } == 0 ? true : false
   end
   
   def create_balancing_item(account)
@@ -47,12 +47,11 @@ class Match < ActiveRecord::Base
   end
   
   def matches_must_have_same_currency
-    currencies = []
-    self.ledger_items.each { |i| currencies << i.currency unless currencies.include?(i.currency) }
-    errors.add_to_base("Transactions must have same currency") unless currencies.size == 1
+    currencies = ledger_items.inject([]) { |m, i| m << i.currency unless m.include?(i.currency); m }
+    errors.add_to_base('Transactions must have same currency') if currencies.size > 1
   end
   
   def unmatch_ledger_items
-    self.ledger_items.each { |i| i.update_attribute(:match_id, nil) }
+    ledger_items.each { |i| i.update_attribute(:match_id, nil) }
   end
 end

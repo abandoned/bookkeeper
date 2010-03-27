@@ -19,6 +19,5 @@ Feature: Delete matches
   Scenario: Delete match if a matched transaction is deleted
     Given I am on path "/transactions/1"
     When I follow "delete"
-    Then show me the page
     Then a match should not exist
     And 1 ledger_items should exist

@@ -19,4 +19,4 @@ Feature: Mappings
     And I fill in "Description row" with "4"
     And I check "Reverses sign"
     And I press "Create mapping"
-    Then show me the page
+    Then a mapping should exist

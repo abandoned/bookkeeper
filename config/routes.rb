@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :mappings
   map.resources :ledger_items,
                 :as => 'transactions',
-                :new => { :multiple => :get, :create_multiple => :post }
+                :new => { :multiple => [:get, :post] }
   map.resources :contacts,
                 :has_many => :ledger_items
   map.resources :reports,

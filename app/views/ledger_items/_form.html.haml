@@ -6,11 +6,17 @@
     %dt= form.label :currency
     %dd= form.select :currency, ['USD', 'GBP', 'EUR', 'CAD', 'JPY', 'AUD']
     %dt= form.label :account_id
-    %dd= form.select :account_id, Account.all.collect{ |a| [a.name, a.id] }, { :include_blank => true }, :class => 'autocomplete'
+    %dd
+      = form.select :account_id, Account.all.collect{ |a| [a.name, a.id] }, { :include_blank => true }, :class => 'autocomplete'
+      = link_to('New account', new_account_path)
     %dt= form.label :sender_id
-    %dd= form.select :sender_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
+    %dd
+      = form.select :sender_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
+      = link_to('New contact', new_contact_path)
     %dt= form.label :recipient_id
-    %dd= form.select :recipient_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
+    %dd
+      = form.select :recipient_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
+      = link_to('New contact', new_contact_path)
     %dt= form.label :total_amount
     %dd= form.text_field :total_amount
     %dt= form.label :tax_amount

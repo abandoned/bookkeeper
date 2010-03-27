@@ -106,32 +106,26 @@ class LedgerItemsController < InheritedResources::Base
   end
   
   def multiple
-    @ledger_item = LedgerItem.new
-    @ledger_items = [@ledger_item]
-    new!
-  end
-
-  def create_multiple
-    @ledger_items = []
-
-    begin
-      LedgerItem.transaction do
-        params[:ledger_items].each_value do |item_attributes|
-          puts "ok"
-          p item_attributes.inspect
-          @ledger_items << LedgerItem.new(item_attributes)
+    if request.get?
+      @ledger_item = LedgerItem.new
+      @ledger_items = [@ledger_item]
+    elsif request.post?
+      @ledger_items = []
+      begin
+        LedgerItem.transaction do
+          params[:ledger_items].each_value do |item_attributes|
+            @ledger_items << LedgerItem.new(item_attributes)
+          end
+          @ledger_items.each do |item|
+            item.save! unless item.sender_id.blank? && item.recipient_id.blank? && item.total_amount.blank?
+          end
         end
-        @ledger_items.each do |item|
-          item.save! unless item.sender_id.blank? && item.recipient_id.blank? && item.total_amount.blank?
-        end
+        flash[:success] = 'Transactions successfully saved.'
+
+        redirect_back_or_default(collection_path)
+      rescue Exception => e
+        flash[:failure] = 'Transactions failed to save.'
       end
-      flash[:success] = 'Items successfully saved.'
-
-      redirect_back_or_default(collection_path)
-    rescue Exception => e
-      flash[:failure] = 'Items failed to save.'
-      
-      render :action => :multiple
     end
   end
   

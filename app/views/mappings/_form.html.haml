@@ -1,5 +1,25 @@
-- semantic_form_for resource do |f|
-  = f.error_messages
-  = f.inputs
-  - f.buttons do
-    = f.commit_button :button_html => { :value => t('formtastic.labels.commit') }
+- form_for @mapping do |form| 
+  = form.error_messages
+  %dl
+    %dt= form.label :name
+    %dd= form.text_field :name
+    %dt= form.label :currency
+    %dd= form.text_field :currency
+    %dt= form.label :date_row
+    %dd= form.text_field :date_row
+    %dt= form.label :total_amount_row
+    %dd= form.text_field :total_amount_row
+    %dt= form.label :tax_amount_row
+    %dd= form.text_field :tax_amount_row
+    %dt= form.label :description_row
+    %dd= form.text_field :description_row
+    %dd
+      = form.check_box :has_title_row
+      = form.label :has_title_row
+    %dd
+      = form.check_box :day_follows_month
+      = form.label :day_follows_month
+    %dd
+      = form.check_box :reverses_sign
+      = form.label :reverses_sign
+    %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' mapping')

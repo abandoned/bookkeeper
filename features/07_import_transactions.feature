@@ -15,9 +15,16 @@ Feature: Import Transactions
         | Amex, US | USD      | 1        | 5                | 2               | 4                      | true          | true              | true          |
         | Citi     | USD      | 1        | 3                | 2               |                        | false         | true              | false         |
   
+  Scenario: List imports
+    Given 10 imports exist with account: account "AMEX"
+    And I am on the show page for account "AMEX"
+    And I follow "Imports"
+    Then I should see "pending"
+    
   Scenario: Import a CSV with a correct Ending balance
     Given I am on the show page for account "AMEX"
-    When I follow "Import transactions"
+    When I follow "Imports"
+    And I follow "Import new file"
     And I select "AMEX" from "Account"
     And I fill in "Ending balance" with "6587.42"
     And I select "Amex, UK" from "Mapping"

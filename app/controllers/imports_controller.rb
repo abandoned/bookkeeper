@@ -1,6 +1,6 @@
-class ImportsController < ApplicationController
+class ImportsController < InheritedResources::Base
   before_filter :require_user
-  before_filter :find_account
+  belongs_to    :account
   
   def new
     @import = Import.new
@@ -24,7 +24,9 @@ class ImportsController < ApplicationController
   
   private
   
-  def find_account
-    @account = Account.find(params[:account_id])
+  def collection
+    @imports ||= end_of_association_chain.paginate(
+      :order  => 'created_at desc',
+      :page   => params[:page])
   end
 end

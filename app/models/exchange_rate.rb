@@ -38,3 +38,13 @@ class ExchangeRate < ActiveRecord::Base
     end
   end
 end
+# == Schema Information
+#
+# Table name: exchange_rates
+#
+#  id          :integer         not null, primary key
+#  currency    :string(255)
+#  rate        :decimal(20, 4)
+#  recorded_on :date
+#
+

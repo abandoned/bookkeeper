@@ -1,6 +1,21 @@
-require 'csv'
+# == Schema Information
+#
+# Table name: imports
+#
+#  id         :integer         not null, primary key
+#  account_id :integer
+#  file_name  :string(255)
+#  message    :string(255)
+#  status     :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
 
-class Import
+class Import < ActiveRecord::Base
+  include AASM
+  
+  belongs_to :account
+  
   include Validatable
   validates_presence_of :ending_balance, :account_id, :mapping_id, :file, :groups => [:processing]
   validates_each :ending_balance_confirmation, :groups => [:importing],
@@ -11,11 +26,16 @@ class Import
                   }
   attr_accessor :ledger_items, :mapping_id, :ending_balance, :ending_balance_confirmation, :account_id, :file
   
-  def id
-    # http://www.themomorohoax.com/2009/07/17/warning-explanation-library-ruby-gems-1-8-gems-actionpack-2-3-2-lib-action-controller-record-identifier-rb-76-warning-object-id-will-be-deprecated-use-object-object-id
+  aasm_column         :status
+  aasm_initial_state  :pending
+  aasm_state          :pending
+  aasm_state          :completed
+  
+  aasm_event :complete do
+    transitions :to => :completed, :from => [:pending]
   end
   
-  def initialize(params={})
+  def XXXXinitialize(params={})
     params.each{ |k, v| self.send "#{k}=", v }
     self.ledger_items = []
   end
@@ -74,12 +94,5 @@ class Import
       ledger_items.each { |i| i.save! }
     end
     return ledger_items.size
-  end
-  
-  def new_record?
-    true
-  end
-    
-  def self.human_name
   end
 end

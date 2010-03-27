@@ -1,19 +1,8 @@
-# == Schema Information
-#
-# Table name: accounts
-#
-#  id         :integer         not null, primary key
-#  ancestry   :string(255)
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 class Account < ActiveRecord::Base
-  has_ancestry :orphan_strategy => :restrict
-  
-  has_many :ledger_items
-  has_many :rules
+  has_ancestry  :orphan_strategy => :restrict
+  has_many      :imports
+  has_many      :ledger_items
+  has_many      :rules
   
   validates_presence_of   :name
   validates_uniqueness_of :name
@@ -77,3 +66,16 @@ class Account < ActiveRecord::Base
     total
   end
 end
+
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id         :integer         not null, primary key
+#  ancestry   :string(255)
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  type       :string(255)
+#
+

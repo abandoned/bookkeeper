@@ -10,7 +10,7 @@ Feature: Rules
     
   Scenario: Set up a rule
     Given I am on the show page for account "Bank Account"
-    When I follow "Set up rules"
+    When I follow "Rules"
     And I follow "Create rule"
     And I fill in "Matched description" with "flour purchased"
     And I uncheck "Matched debit"

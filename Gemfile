@@ -44,4 +44,5 @@ group :cucumber do
   gem 'pickle', '>= 0.2.4'
   #gem 'webrat', '>=0.7.0', :require => false
   gem 'capybara', '>= 0.3.5', :require => false
+  gem 'syntax'
 end

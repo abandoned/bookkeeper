@@ -1,7 +1,6 @@
 class RulesController < InheritedResources::Base
   before_filter :require_user
-  
-  belongs_to :account
+  belongs_to    :account
   
   def new
     if params[:ledger_item_id]

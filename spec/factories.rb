@@ -29,3 +29,9 @@ end
 
 Factory.define :mapping do |f|
 end
+
+Factory.define :import do |f|
+  f.association :account
+  f.sequence(:file_name) { |n| "/tmp/foo#{n}.txt" }
+  f.status 'pending'
+end

@@ -1,22 +1,3 @@
-# == Schema Information
-#
-# Table name: contacts
-#
-#  id           :integer         not null, primary key
-#  self      :boolean
-#  name         :string(255)
-#  contact_name :string(255)
-#  address      :text
-#  city         :string(255)
-#  state        :string(255)
-#  postal_code  :string(255)
-#  country      :string(255)
-#  country_code :string(2)
-#  tax_number   :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
-#
-
 require 'spec_helper'
 
 describe Contact do
@@ -46,3 +27,25 @@ describe Contact do
     lambda {Contact.find(@sender.id)}.should raise_error(ActiveRecord::RecordNotFound)
   end
 end
+
+# == Schema Information
+#
+# Table name: contacts
+#
+#  id           :integer         not null, primary key
+#  self         :boolean         default(FALSE)
+#  name         :string(255)
+#  contact_name :string(255)
+#  address      :text
+#  city         :string(255)
+#  state        :string(255)
+#  postal_code  :string(255)
+#  country      :string(255)
+#  country_code :string(2)
+#  tax_number   :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  email        :string(255)
+#  phone_number :string(255)
+#
+

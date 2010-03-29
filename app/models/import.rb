@@ -36,16 +36,15 @@ class Import < ActiveRecord::Base
     transitions :to => :failed, :from => [:pending]
   end
   
-  def copy_temp_file
-    self.copied_file_path = "/tmp/#{Time.now.to_i}.csv"
-    system("cp #{file.path} #{copied_file_path}")
+  def parse_file
+    @parsable = file.read
   end
   
   def perform
     first_line = true
     @ledger_items = []
     
-    FasterCSV.foreach(copied_file_path) do |row|
+    FasterCSV.parse(@parsable) do |row|
       
       # Skip first if title col
       if first_line

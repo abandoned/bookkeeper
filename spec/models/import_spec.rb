@@ -21,7 +21,6 @@ describe Import do
         :reverses_sign => true)
         
       @uploader = mock_uploader(file_path) 
-      @uploader.stub!(:path).and_return(Rails.root.to_s + '/spec/fixtures/' + file_path)
       
       @import = Factory(:import,
         :account => @account,
@@ -31,14 +30,14 @@ describe Import do
     
     it "should import with correct ending balance" do
       @import.ending_balance = 6587.42
-      @import.copy_temp_file
+      @import.parse_file
       @import.perform
       @import.should be_processed
       LedgerItem.all.size.should == @import.message.match(/\d+/).to_s.to_i
     end
     
     it "should fail to import with incorrect ending balance" do
-      @import.copy_temp_file
+      @import.parse_file
       @import.perform
       @import.should be_failed
     end
@@ -59,7 +58,6 @@ describe Import do
         :reverses_sign => true)
       
       @uploader = mock_uploader(file_path) 
-      @uploader.stub!(:path).and_return(Rails.root.to_s + '/spec/fixtures/' + file_path)
     
       @import = Factory(:import,
         :account => @account,
@@ -69,14 +67,14 @@ describe Import do
     
     it "should import with correct ending balance" do
       @import.ending_balance = 7886.55
-      @import.copy_temp_file
+      @import.parse_file
       @import.perform
       @import.should be_processed
       LedgerItem.all.size.should == @import.message.match(/\d+/).to_s.to_i
     end
     
     it "should fail to import with incorrect ending balance" do
-      @import.copy_temp_file
+      @import.parse_file
       @import.perform
       @import.should be_failed
     end
@@ -101,7 +99,6 @@ describe Import do
         :reverses_sign => false)
       
       @uploader = mock_uploader(file_path) 
-      @uploader.stub!(:path).and_return(Rails.root.to_s + '/spec/fixtures/' + file_path)
     
       @import = Factory(:import,
         :account => @account,
@@ -111,14 +108,14 @@ describe Import do
     
     it "should import with correct ending balance" do
       @import.ending_balance = 20475.49
-      @import.copy_temp_file
+      @import.parse_file
       @import.perform
       @import.should be_processed
       LedgerItem.all.size.should == @import.message.match(/\d+/).to_s.to_i  + 1
     end
     
     it "should fail to import with incorrect ending balance" do
-      @import.copy_temp_file
+      @import.parse_file
       @import.perform
       @import.should be_failed
     end

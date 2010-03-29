@@ -4,9 +4,11 @@ class ImportsController < InheritedResources::Base
 
   def create
     @import = Import.new(params['import'])
-    @import.file_name = params['import']['file'].original_filename
     if @import.save
-      @import.copy_temp_file
+      @import.update_attributes(
+        :file_name => params['import']['file'].original_filename
+      )
+      @import.parse_file
       Delayed::Job.enqueue @import
       flash[:success] = 'Import queued'
       redirect_to collection_path

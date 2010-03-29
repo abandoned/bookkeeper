@@ -3,8 +3,9 @@ ActionController::Routing::Routes.draw do |map|
                 :action => 'index'
   map.resources :accounts do |account|
     account.resources :rules
-    account.resources :imports, :only => [:index, :new, :create]
   end
+  map.resources :imports,
+                :only => [:index, :new, :create]
   map.resources :matches,
                 :only => [:show, :destroy]
   map.resources :mappings

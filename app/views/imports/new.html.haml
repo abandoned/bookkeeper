@@ -1,11 +1,11 @@
-- title 'Import transactions'
+- title "Import transactions"
 
-- form_for [@account, @import], :url => account_import_path(@account), :html => { :multipart => true } do |form|
+- form_for @import, :html => { :multipart => true } do |form|
   = form.error_messages
-  %dt{:class => "select required account", :id => "import_account_input"}
-    %label{:for => "import_account_id"} Account
+  %dt
+    %label{:for => 'import_account_id'} Account
   %dd
-    = grouped_tree_select(Account.roots, "import", "account_id", @account)
+    = grouped_tree_select(Account.roots, 'import', 'account_id', @account)
   %dt
     = form.label :ending_balance
   %dd
@@ -13,8 +13,8 @@
   %dt
     = form.label :mapping_id
   %dd
-    = form.collection_select :mapping_id, Mapping.all, :id, :name, { :include_blank => "Select mapping" }
-    = link_to("New mapping", new_mapping_path)
+    = form.collection_select :mapping_id, Mapping.all, :id, :name, { :include_blank => 'Select mapping' }
+    = link_to('New mapping', new_mapping_path)
   %dt
     = form.label :file
   %dd

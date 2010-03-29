@@ -1,25 +1,18 @@
 class ImportsController < InheritedResources::Base
   before_filter :require_user
-  belongs_to    :account
-  
-  def new
-    @import = Import.new
-  end
+  actions       :index, :new, :create
 
   def create
-    @import = Import.new(params[:import])
-    if @import.valid_for_processing?
-      @import.process
-
-      if @import.valid_for_importing?
-        count = @import.import
-        flash[:success] = "#{count} ledger items imported"
-        return(redirect_to ledger_items_path)
-      end
+    @import = Import.new(params['import'])
+    @import.file_name = params['import']['file'].original_filename
+    if @import.save
+      @import.copy_temp_file
+      Delayed::Job.enqueue @import
+      flash[:success] = 'Import queued'
+      redirect_to collection_path
+    else
+      render :new
     end
-
-    flash.now[:failure] = 'Import failed'
-    render(:action => 'new')
   end
   
   private

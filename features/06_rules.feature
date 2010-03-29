@@ -51,11 +51,14 @@ Feature: Rules
     And an account "Citi Account" exists with name: "Citi Account", parent: account "Assets"
     And a rule exists with account: account "Citi Account", matched_description: "SERVICE CHARGE", matched_debit: false, new_sender: contact "Flour Corp", new_recipient: contact "Bank", new_account: account "Expenses"
     And a mapping exists with name: "Citi", currency: "USD", date_row: 1, total_amount_row: 3, description_row: 2, has_title_row: false, day_follows_month: true, reverses_sign: false
-    And I am on the show page for account: "Citi Account"
-    When I follow "Import transactions"
+    And I am on the path "/transactions"
+    When I follow "Import"
+    And I follow "Import new file"
     And I fill in "Ending balance" with "19427.51"
+    And I select "Citi Account" from "Account"
     And I select "Citi" from "Mapping"
     And I attach the file "spec/fixtures/citi-sample.csv" to "File"
     And I press "Import transactions"
+    And the system processes jobs
     Then 6 matches should exist
     

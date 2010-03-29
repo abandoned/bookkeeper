@@ -1,0 +1,12 @@
+- title 'Imports'
+
+- content_for :actions do
+  %li= link_to 'Import new file', new_resource_path
+
+- if collection.size > 0
+  %table
+    %tbody
+      = render :partial => 'import', :collection => collection
+  = will_paginate(collection, :inner_window => 2, :class => 'pagination')
+- else
+  %p No imports

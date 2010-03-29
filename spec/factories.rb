@@ -1,3 +1,18 @@
+# http://gist.github.com/162881
+require 'action_controller/test_process'
+Factory.class_eval do
+  def attachment(name, path, content_type = nil)
+    path_with_rails_root = "#{RAILS_ROOT}/#{path}"
+    uploaded_file = if content_type
+                      ActionController::TestUploadedFile.new(path_with_rails_root, content_type)
+                    else
+                      ActionController::TestUploadedFile.new(path_with_rails_root)
+                    end
+ 
+    add_attribute name, uploaded_file
+  end
+end
+
 Factory.define :user do |f|
   f.sequence(:login) { |n| "jdoe#{n}" }
   f.sequence(:email) { |n| "jdoe#{n}@example.com" }
@@ -31,7 +46,10 @@ Factory.define :mapping do |f|
 end
 
 Factory.define :import do |f|
+  f.attachment(:file, 'spec/fixtures/citi-sample.csv', 'text/plain')
+  f.ending_balance 0
   f.association :account
+  f.association :mapping
   f.sequence(:file_name) { |n| "/tmp/foo#{n}.txt" }
   f.status 'pending'
 end

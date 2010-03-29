@@ -1,0 +1,13 @@
+%tr{:class => "#{cycle('odd', 'even')}"}[import]
+  %td
+    %strong= import.file_name
+  %td
+    = import.status
+  %td
+    = import.ending_balance
+  %td
+    = import.mapping.name
+  %td
+    = import.message
+  %td
+    = import.updated_at

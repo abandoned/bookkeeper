@@ -18,4 +18,5 @@
 #
 
 class Mapping < ActiveRecord::Base
+  has_many :imports
 end

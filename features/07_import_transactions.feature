@@ -16,46 +16,22 @@ Feature: Import Transactions
         | Citi     | USD      | 1        | 3                | 2               |                        | false         | true              | false         |
   
   Scenario: List imports
-    Given 10 imports exist with account: account "AMEX"
-    And I am on the show page for account "AMEX"
-    And I follow "Imports"
+    Given 10 imports exist with account: account "AMEX", mapping: that mapping
+    And I am on the path "/transactions"
+    And I follow "Import"
     Then I should see "pending"
     
-  Scenario: Import a CSV with a correct Ending balance
-    Given I am on the show page for account "AMEX"
-    When I follow "Imports"
+  Scenario: Import a CSV
+    Given I am on the path "/transactions"
+    When I follow "Import"
     And I follow "Import new file"
-    And I select "AMEX" from "Account"
     And I fill in "Ending balance" with "6587.42"
+    And I select "AMEX" from "Account"
     And I select "Amex, UK" from "Mapping"
     And I attach the file "spec/fixtures/amex-uk-sample.csv" to "File"
     And I press "Import transactions"
-    Then I should see "265 ledger items imported"
-      
-  Scenario: Attempt to import a CSV with an incorrect Ending balance
-    Given I am on the show page for account "AMEX"
-    When I follow "Import transactions"
-    And I fill in "Ending balance" with "0"
-    And I select "Amex, UK" from "Mapping"
-    And I attach the file "spec/fixtures/amex-uk-sample.csv" to "File"
-    And I press "Import transactions"
-    Then I should see "Import failed"
-    And I should see "Ending balance of 6587.42 did not match expected balance of 0"
-    
-  Scenario: Import a CSV with no identifier row and with thousand separators in numbers
-    Given I am on the show page for account "AMEX"
-    When I follow "Import transactions"
-      And I fill in "Ending balance" with "7886.55"
-      And I select "Amex, US" from "Mapping"
-      And I attach the file "spec/fixtures/amex-us-sample.csv" to "File"
-      And I press "Import transactions"
-    Then I should see "197 ledger items imported"
-  
-  Scenario: Import a Citi statement into an account with opening balance
-    Given I am on the show page for account: "Citi"
-    When I follow "Import transactions"
-      And I fill in "Ending balance" with "20475.49"
-      And I select "Citi" from "Mapping"
-      And I attach the file "spec/fixtures/citi-sample.csv" to "File"
-      And I press "Import transactions"
-    Then I should see "51 ledger items imported"
+    Then I should see "pending"
+    And I should see "amex-uk-sample.csv"
+    When the system processes jobs
+    And I am on the path "/imports"
+    Then I should see "265 transactions imported"

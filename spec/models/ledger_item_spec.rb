@@ -15,6 +15,14 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #
+# Indexes
+#
+#  index_ledger_items_on_transacted_on  (transacted_on)
+#  index_ledger_items_on_total_amount   (total_amount)
+#  index_ledger_items_on_sender_id      (sender_id)
+#  index_ledger_items_on_recipient_id   (recipient_id)
+#  index_ledger_items_on_account_id     (account_id)
+#
 
 require File.dirname(__FILE__) + '/../spec_helper'
 

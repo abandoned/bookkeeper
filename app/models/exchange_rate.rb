@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: exchange_rates
+#
+#  id          :integer         not null, primary key
+#  currency    :string(255)
+#  rate        :decimal(20, 4)
+#  recorded_on :date
+#
+# Indexes
+#
+#  index_exchange_rates_on_recorded_on  (recorded_on)
+#  index_exchange_rates_on_currency     (currency)
+#
+
 class ExchangeRate < ActiveRecord::Base
   def self.currencies
     @currencies ||= self.all(:select => 'distinct currency').map(&:currency) << 'EUR'
@@ -38,13 +53,3 @@ class ExchangeRate < ActiveRecord::Base
     end
   end
 end
-# == Schema Information
-#
-# Table name: exchange_rates
-#
-#  id          :integer         not null, primary key
-#  currency    :string(255)
-#  rate        :decimal(20, 4)
-#  recorded_on :date
-#
-

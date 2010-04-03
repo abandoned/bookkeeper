@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id         :integer         not null, primary key
+#  ancestry   :string(255)
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  type       :string(255)
+#
+# Indexes
+#
+#  index_accounts_on_type      (type)
+#  index_accounts_on_ancestry  (ancestry)
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Account do
@@ -35,16 +52,4 @@ describe Account do
     lambda {@parent.save!}.should raise_error(ActiveRecord::RecordInvalid)
   end
 end
-
-# == Schema Information
-#
-# Table name: accounts
-#
-#  id         :integer         not null, primary key
-#  ancestry   :string(255)
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  type       :string(255)
-#
 

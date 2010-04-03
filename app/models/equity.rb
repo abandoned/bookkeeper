@@ -1,5 +1,3 @@
-class Equity < Account
-end
 # == Schema Information
 #
 # Table name: accounts
@@ -11,4 +9,11 @@ end
 #  updated_at :datetime
 #  type       :string(255)
 #
+# Indexes
+#
+#  index_accounts_on_type      (type)
+#  index_accounts_on_ancestry  (ancestry)
+#
 
+class Equity < Account
+end

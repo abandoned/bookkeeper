@@ -2,14 +2,15 @@
 #
 # Table name: imports
 #
-#  id         :integer         not null, primary key
-#  account_id :integer
-#  file_name  :string(255)
-#  message    :string(255)
-#  status     :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  mapping_id :integer
+#  id             :integer         not null, primary key
+#  account_id     :integer
+#  file_name      :string(255)
+#  message        :string(255)
+#  status         :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  mapping_id     :integer
+#  ending_balance :decimal(20, 4)
 #
 
 class Import < ActiveRecord::Base

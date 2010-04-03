@@ -30,7 +30,7 @@ CREATE INDEX "index_transactions_on_recipient_id" ON "transactions" ("recipient_
 CREATE INDEX "index_transactions_on_sender_id" ON "transactions" ("sender_id");
 CREATE INDEX "index_transactions_on_total_amount" ON "transactions" ("total_amount");
 CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version");
-INSERT INTO schema_migrations (version) VALUES ('20091221171832');
+INSERT INTO schema_migrations (version) VALUES ('20100329113324');
 
 INSERT INTO schema_migrations (version) VALUES ('20091006134353');
 
@@ -58,16 +58,12 @@ INSERT INTO schema_migrations (version) VALUES ('20091206014351');
 
 INSERT INTO schema_migrations (version) VALUES ('20091218154431');
 
+INSERT INTO schema_migrations (version) VALUES ('20091221171832');
+
 INSERT INTO schema_migrations (version) VALUES ('20091224002832');
-
-INSERT INTO schema_migrations (version) VALUES ('20100119175623');
-
-INSERT INTO schema_migrations (version) VALUES ('20100119175904');
 
 INSERT INTO schema_migrations (version) VALUES ('20100205150120');
 
 INSERT INTO schema_migrations (version) VALUES ('20100329091654');
 
 INSERT INTO schema_migrations (version) VALUES ('20100329105341');
-
-INSERT INTO schema_migrations (version) VALUES ('20100329113324');

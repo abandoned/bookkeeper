@@ -41,6 +41,11 @@ describe Import do
       @import.perform
       @import.should be_failed
     end
+    
+    it "should fail when ending balance is not numeric" do
+      @import.ending_balance = "6,587.42"
+      @import.should_not be_valid
+    end
   end
   
   describe "Amex, US; with no identifier row and with thousand separators in numbers" do

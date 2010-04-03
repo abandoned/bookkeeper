@@ -19,6 +19,7 @@ class Import < ActiveRecord::Base
   belongs_to :mapping
   
   validates_presence_of :account, :mapping, :file, :ending_balance
+  validates_numericality_of :ending_balance
   
   attr_accessor :file, :copied_file_path
   

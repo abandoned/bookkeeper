@@ -1,15 +1,21 @@
-- form_tag('', :method => "get", :class => "search") do
-  %fieldset
-    %ul
-      %li
-        = select_tag(:contact, options_for_select(Contact.all.reject{|c| c.self == false}.collect{ |c| [c.name, c.id.to_s] }, params[:contact]))
-      - if @report_type == 'balance_sheet'
-        %li
-          = hidden_field_tag('since', '1990-01-01')
-          = text_field_tag('till', params[:till] || Date.today)
+- form_tag("", :method => "get", :class => "search") do
+  %dl
+    %dd
+      - if @self_options.size > 1
+        = select_tag(:contact, options_for_select(@self_options, params[:contact]))
       - else
-        %li
-          = text_field_tag('since', params[:since] || Date.today)
-        %li
-          = text_field_tag('till', params[:till] || Date.today)
-      %li= submit_tag('Generate report', :name => nil)
+        = hidden_field_tag :contact, @self_options.first.last
+    - if @report_type == "balance_sheet"
+      %dd
+        = hidden_field_tag :since, "1990-01-01"
+        = text_field_tag :till, params[:till] || Date.today
+    - else
+      %dt
+        = label_tag :since, "From"
+      %dd
+        = text_field_tag :since, params[:since] || Date.today
+      %dt
+        = label_tag :till, "To"
+      %dd
+        = text_field_tag :till, params[:till] || Date.today
+    %dd= submit_tag("Generate report", :name => nil)

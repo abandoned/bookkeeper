@@ -16,7 +16,7 @@ Feature: Multiple New Transactions
     And I select "Flour Corp" from "Recipient"
     And I fill in "Total amount" with "-100"
     And I press "Create transaction"
-    Then a ledger_item should exist with account: account "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp", total_amount: -100
+    Then a ledger_item should exist with asset: asset "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp", total_amount: -100
   
   Scenario: New transaction fails on multiple new transactions page
     Given I am on the path "/transactions"

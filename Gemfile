@@ -31,13 +31,13 @@ group :development do
 end
 
 group :test, :cucumber do
-  gem 'factory_girl', '>= 1.2.3'
+  gem 'factory_girl', '>= 1.2.4'
   gem 'rspec', '>=1.3.0', :require => false
   gem 'rspec-rails', '>=1.3.2', :require => false
 end
 
 group :cucumber do
-  gem 'cucumber', '>=0.6.3', :require => false
+  gem 'cucumber', '>=0.6.4', :require => false
   gem 'cucumber-rails', '>=0.3.0', :require => false
   gem 'database_cleaner', '>=0.5.0', :require => false
   gem 'pickle', '>= 0.2.4'

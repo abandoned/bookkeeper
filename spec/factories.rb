@@ -53,3 +53,23 @@ Factory.define :import do |f|
   f.sequence(:file_name) { |n| "/tmp/foo#{n}.txt" }
   f.status 'pending'
 end
+
+Factory.define :asset do |f|
+  f.sequence(:name) { |n| "asset#{n}" }
+end
+
+Factory.define :liability do |f|
+  f.sequence(:name) { |n| "liability#{n}" }
+end
+
+Factory.define :equity do |f|
+  f.sequence(:name) { |n| "equity#{n}" }
+end
+
+Factory.define :revenue do |f|
+  f.sequence(:name) { |n| "revenue#{n}" }
+end
+
+Factory.define :expense do |f|
+  f.sequence(:name) { |n| "expense#{n}" }
+end

@@ -7,7 +7,7 @@ Feature: Import Transactions
     Given I am logged in
       And I have a default ledger set up
       And an account "AMEX" exists with name: "AMEX", parent: account "Liabilities"
-      And an account "Citi" exists with name: "Citi", parent: account "Assets"
+      And an account "Citi" exists with name: "Citi", parent: asset "Assets"
       And a ledger_item "Opening Balance" exists with total_amount: "1047.98", currency: "USD", account: account "Citi", transacted_on: "12/10/2008"
       And the following mappings exist
         | name     | currency | date_row | total_amount_row | description_row | second_description_row | has_title_row | day_follows_month | reverses_sign |

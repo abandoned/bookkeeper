@@ -1,10 +1,10 @@
 Given /^I have a default ledger set up$/ do
   steps %Q{
-    Given an account: "Assets" exists with name: "Assets"
-    And an account "Liabilities" exists with name: "Liabilities"
-    And an account "Equity" exists with name: "Equity"
-    And an account "Revenue" exists with name: "Revenue"
-    And an account "Expenses" exists with name: "Expenses"
+    Given an account: "Assets" exists with name: "Assets", type: "Asset"
+    And an account "Liabilities" exists with name: "Liabilities", type: "Liability"
+    And an account "Equity" exists with name: "Equity", type: "Equity"
+    And an account "Revenue" exists with name: "Revenue", type: "Revenue"
+    And an account "Expenses" exists with name: "Expenses", type: "Expense"
   }
 end
 
@@ -35,5 +35,22 @@ Given /^I have a double entry for a flour purchase from Flour Corp$/ do
     Given a match exists
     And a ledger_item "Transaction 6" exists with total_amount: 500, account: account "Flour", transacted_on: "2008/01/01", sender: contact "Flour Corp", recipient: contact "Awesome Bakery", match: the match
     And a ledger_item "Transaction 7" exists with total_amount: -500, account: account "Bank Account", transacted_on: "2008/01/01", sender: contact "Awesome Bakery", recipient: contact "Flour Corp", match: the match
+  }
+end
+
+Given /^I have conducted some business over the past year$/ do
+  steps %Q{
+    Given an account "Sales" exists with name: "Sales", type: "Revenue", parent: account "Revenue"
+    And a contact "Owner" exists
+    And a contact "Bread Retailer" exists
+    And a match exists
+    And a ledger_item exist with total_amount: 2000, account: account "Bank Account", transacted_on: "2008/01/01", sender: contact "Owner", recipient: contact "Awesome Bakery", match: that match
+    And a ledger_item exists with total_amount: -2000, account: account "Equity", transacted_on: "2008/01/01", sender: contact "Awesome Bakery", recipient: contact "Owner", match: that match
+    And a match exists
+    And a ledger_item exists with total_amount: 500, account: account "Flour", transacted_on: "2008/01/15", sender: contact "Flour Corp", recipient: contact "Awesome Bakery", match: that match
+    And a ledger_item exists with total_amount: -500, account: account "Bank Account", transacted_on: "2008/01/15", sender: contact "Awesome Bakery", recipient: contact "Flour Corp", match: that match
+    And a match exists
+    And a ledger_item exists with total_amount: 900, account: account "Bank Account", transacted_on: "2008/01/30", sender: contact "Bread Retailer", recipient: contact "Awesome Bakery", match: that match
+    And a ledger_item exists with total_amount: -900, account: account "Sales", transacted_on: "2008/01/30", sender: contact "Awesome Bakery", recipient: contact "Bread Retailer", match: that match
   }
 end

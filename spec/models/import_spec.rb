@@ -13,7 +13,7 @@
 #  ending_balance :decimal(20, 4)
 #
 
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Import do
   before(:each) do

@@ -19,8 +19,8 @@ Feature: Match by Creating a New Transaction
 
   @wip
   Scenario: Can't create match when there is more than one transaction in the cart
-    Given a ledger_item exists with total_amount: "1", account: account "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp"
-    And a ledger_item exists with total_amount: "1", account: account "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp"
+    Given a ledger_item exists with total_amount: "1", asset: asset "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp"
+    And a ledger_item exists with total_amount: "1", asset: asset "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp"
     When I go to path "/transactions"
     And I press "Match" within "#ledger_item_1"
     And I press "Match" within "#ledger_item_2"

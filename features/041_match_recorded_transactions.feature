@@ -21,9 +21,9 @@ Feature: Match Recorded Transactions
 
   Scenario: When I edit a transaction posted against two other transactions, the match should be deleted
      Given a match exists
-     And a ledger_item "l1" exists with total_amount: -2, account: account "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp", match: the match
-     And a ledger_item "l2" exists with total_amount: 1, account: account "Flour", sender: contact "Flour Corp", recipient: contact "Awesome Bakery", match: the match
-     And a ledger_item "l3" exists with total_amount: 1, account: account "Flour", sender: contact "Flour Corp", recipient: contact "Awesome Bakery", match: the match
+     And a ledger_item "l1" exists with total_amount: -2, asset: asset "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp", match: the match
+     And a ledger_item "l2" exists with total_amount: 1, expense: expense "Flour", sender: contact "Flour Corp", recipient: contact "Awesome Bakery", match: the match
+     And a ledger_item "l3" exists with total_amount: 1, expense: expense "Flour", sender: contact "Flour Corp", recipient: contact "Awesome Bakery", match: the match
      When I go to path "/transactions/1/edit"
      And I fill in "Total amount" with "10"
      And I select "Flour Corp" from "Sender"

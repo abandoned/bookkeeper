@@ -16,6 +16,7 @@ gem 'inherited_resources', '1.0.4'
 gem 'nokogiri', '>= 1.4.1'
 gem 'rails', '~> 2.3.5'
 gem 'responders', '0.4.3'
+gem 'sqlite3-ruby', '>= 1.2.5', :require => 'sqlite3'
 gem 'tzinfo'
 gem 'will_paginate', '>= 2.3.12'
 
@@ -29,10 +30,6 @@ group :development do
   gem 'hirb', '>= 0.2.10'
   gem 'annotate'
   gem 'mongrel'
-end
-
-group :development, :test, :cucumber do
-  gem 'sqlite3-ruby', '>= 1.2.5', :require => 'sqlite3'
 end
 
 group :test, :cucumber do

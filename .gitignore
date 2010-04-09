@@ -1,9 +1,10 @@
 .DS_Store
+config/database.yml
+db/*.sqlite3
 log/*.log
 tmp/**/*
-db/*.sqlite3
-rerun.txt
-public/stylesheets/compiled/*.css
-webrat*
-capybara*
 .bundle
+capybara*
+public/stylesheets/compiled/*.css
+rerun.txt
+webrat*

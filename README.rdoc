@@ -18,7 +18,7 @@ Bookkeeper builds on a tree-structured model of accounts descending from the fol
 * Expenses
 * Currency Conversion
 
-An account may have one or more transactionss, each of which may be matched or unmatched. When matched, a transactions will have a sender and recipient and belong to a group of two or more transactions. The sum of the total amounts in a group always equals to zero.
+An account may have one or more transactions, each of which may be matched or unmatched. When matched, a transactions will have a sender and recipient and belong to a group of two or more transactions. The sum of the total amounts in a group always equals to zero.
 
 An account may have one or more rules defined to match transactions. A rule parses descriptions of unmatched transactions in an account and creates matching entries if the description matches.
 

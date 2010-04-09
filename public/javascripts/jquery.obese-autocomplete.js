@@ -16,7 +16,7 @@
     var triggers = [];
     $.each(data, function(i) {
       triggers.push(i);
-    })
+    });
     
     var matcher = new RegExp("(?:^|;)\\s*(" + triggers.join("|") + ")$", 'i');
     return this.filter('input[type=text]').each(function() {  
@@ -25,6 +25,7 @@
         .autocomplete([])
         .keypress(function(e) {
           var matched = ($(this).val() + String.fromCharCode(e.which)).match(matcher);
+          console.log("ok");
           if(matched) {
             var o = {
               formatMatch: function(name, i, max) {

@@ -6,7 +6,6 @@ Feature: Income Statement
   Background:
     Given I am Awesome Bakery and Flour Corp is my supplier
     And I have conducted some business over the past year
-    And show me the ledger_item
     And I am logged in
   
   Scenario: View income statement

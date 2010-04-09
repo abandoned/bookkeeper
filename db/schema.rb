@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100405153037) do
+ActiveRecord::Schema.define(:version => 20100329113324) do
 
   create_table "accounts", :force => true do |t|
     t.string   "ancestry"
@@ -52,8 +52,6 @@ ActiveRecord::Schema.define(:version => 20100405153037) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
-
   create_table "exchange_rates", :force => true do |t|
     t.string  "currency"
     t.decimal "rate",        :precision => 20, :scale => 4
@@ -82,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20100405153037) do
     t.decimal  "tax_amount",                 :default => 0.0
     t.string   "currency",      :limit => 3,                  :null => false
     t.string   "description"
+    t.string   "identifier"
     t.integer  "account_id"
     t.integer  "match_id"
     t.datetime "created_at"
@@ -89,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20100405153037) do
   end
 
   add_index "ledger_items", ["account_id"], :name => "index_ledger_items_on_account_id"
+  add_index "ledger_items", ["identifier"], :name => "index_ledger_items_on_identifier"
   add_index "ledger_items", ["recipient_id"], :name => "index_ledger_items_on_recipient_id"
   add_index "ledger_items", ["sender_id"], :name => "index_ledger_items_on_sender_id"
   add_index "ledger_items", ["total_amount"], :name => "index_ledger_items_on_total_amount"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20100405153037) do
     t.integer  "tax_amount_row"
     t.integer  "description_row"
     t.integer  "second_description_row"
+    t.integer  "identifier_row"
     t.boolean  "has_title_row"
     t.boolean  "day_follows_month"
     t.boolean  "reverses_sign"
@@ -110,21 +111,6 @@ ActiveRecord::Schema.define(:version => 20100405153037) do
   end
 
   create_table "matches", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "people", :force => true do |t|
-    t.boolean  "is_self",                   :default => false
-    t.string   "name"
-    t.string   "contact_name"
-    t.text     "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "postal_code"
-    t.string   "country"
-    t.string   "country_code", :limit => 2
-    t.string   "tax_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -151,28 +137,6 @@ ActiveRecord::Schema.define(:version => 20100405153037) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
-  create_table "transactions", :force => true do |t|
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
-    t.date     "issued_on"
-    t.decimal  "total_amount",              :precision => 20, :scale => 4
-    t.decimal  "tax_amount",                :precision => 20, :scale => 4
-    t.string   "currency",     :limit => 3,                                :null => false
-    t.string   "description"
-    t.string   "identifier"
-    t.integer  "account_id"
-    t.integer  "match_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "transactions", ["account_id"], :name => "index_transactions_on_account_id"
-  add_index "transactions", ["identifier"], :name => "index_transactions_on_identifier"
-  add_index "transactions", ["issued_on"], :name => "index_transactions_on_issued_on"
-  add_index "transactions", ["recipient_id"], :name => "index_transactions_on_recipient_id"
-  add_index "transactions", ["sender_id"], :name => "index_transactions_on_sender_id"
-  add_index "transactions", ["total_amount"], :name => "index_transactions_on_total_amount"
 
   create_table "users", :force => true do |t|
     t.string   "login",                              :null => false

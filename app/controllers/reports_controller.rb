@@ -4,7 +4,6 @@ class ReportsController < ApplicationController
   
   def show
     @self_options = Contact.all.select{|c| c.self}.collect{ |c| [c.name, c.id.to_s] }
-    
     @report_type = params[:id]
     if @report_types.include? @report_type
       @roots = Report.send @report_type

@@ -19,8 +19,8 @@ $(function() {
           .unbind('focus.label')
           .unbind('blur.unbindLabel');
       })
-      .obesify(data);
   }
+  $input.obesify(data);
   
   //
   // Autocomplete

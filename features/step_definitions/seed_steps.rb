@@ -11,7 +11,7 @@ end
 Given /^I am Awesome Bakery and Flour Corp is my supplier$/ do
   steps %Q{
     Given I have a default ledger set up
-    And a contact "Awesome Bakery" exists with name: "Awesome Bakery"
+    And a contact "Awesome Bakery" exists with name: "Awesome Bakery", self: true
     And a contact "Flour Corp" exists with name: "Flour Corp"
     And an account "Bank Account" exists with name: "Bank Account", parent: account "Assets"
     And an account "Flour" exists with name: "Flour", parent: account "Expenses"

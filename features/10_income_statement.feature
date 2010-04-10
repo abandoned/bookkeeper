@@ -13,4 +13,4 @@ Feature: Income Statement
     And I fill in "From" with "2008-01-01"
     And I fill in "To" with "2008-12-31"
     And I press "Generate report"
-    #Then show me the page
+    Then show me the page

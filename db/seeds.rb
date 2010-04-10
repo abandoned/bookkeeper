@@ -15,10 +15,13 @@ User.create!([{
   :password_confirmation => 'secret' }])
 
 # Set up root accounts in ledger
-%w{Assets Liabilities Equity Revenue Expenses CurrencyConversion}.each do |name|
-  klass = Object.const_get name.singularize
-  klass.create! :name => name.underscore.titleize
+%w{Assets Liabilities Equity}.each do |name|
+  AssetOrLiability.create!(:name => name)
 end
+%w{Revenue Expenses}.each do |name|
+  RevenueOrExpense.create!(:name => name)
+end
+CurrencyConversion.create!(:name => 'Currency Conversion')
 
 # Set up some basic accounts
 seed_accounts({

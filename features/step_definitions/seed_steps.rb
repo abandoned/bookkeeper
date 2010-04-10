@@ -1,10 +1,10 @@
 Given /^I have a default ledger set up$/ do
   steps %Q{
-    Given an account: "Assets" exists with name: "Assets", type: "Asset"
-    And an account "Liabilities" exists with name: "Liabilities", type: "Liability"
-    And an account "Equity" exists with name: "Equity", type: "Equity"
-    And an account "Revenue" exists with name: "Revenue", type: "Revenue"
-    And an account "Expenses" exists with name: "Expenses", type: "Expense"
+    Given an account: "Assets" exists with name: "Assets", type: "AssetOrLiability"
+    And an account "Liabilities" exists with name: "Liabilities", type: "AssetOrLiability"
+    And an account "Equity" exists with name: "Equity", type: "AssetOrLiability"
+    And an account "Revenue" exists with name: "Revenue", type: "RevenueOrExpense"
+    And an account "Expenses" exists with name: "Expenses", type: "RevenueOrExpense"
   }
 end
 
@@ -40,7 +40,7 @@ end
 
 Given /^I have conducted some business over the past year$/ do
   steps %Q{
-    Given an account "Sales" exists with name: "Sales", type: "Revenue", parent: account "Revenue"
+    Given an account "Sales" exists with name: "Sales", type: "RevenueOrExpense", parent: account "Revenue"
     And a contact "Owner" exists
     And a contact "Bread Retailer" exists
     And a match exists

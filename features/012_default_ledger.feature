@@ -4,11 +4,11 @@ Feature: Default Ledger
   I want to have a default ledger
   
   Background:
-    Given an account: "Assets" exist with name: "Assets", type: "Asset"
-    And an account: "Liabilities" exist with name: "Liabilities", type: "Liability"
-    And an account: "Equity" exist with name: "Equity", type: "Equity"
-    And an account: "Revenue" exist with name: "Revenue", type: "Revenue"
-    And an account: "Expenses" exist with name: "Expenses", type: "Expense"
+    Given an account: "Assets" exist with name: "Assets", type: "AssetOrLiability"
+    And an account: "Liabilities" exist with name: "Liabilities", type: "AssetOrLiability"
+    And an account: "Equity" exist with name: "Equity", type: "AssetOrLiability"
+    And an account: "Revenue" exist with name: "Revenue", type: "RevenueOrExpense"
+    And an account: "Expenses" exist with name: "Expenses", type: "RevenueOrExpense"
     And I am logged in
   
   Scenario: List root accounts

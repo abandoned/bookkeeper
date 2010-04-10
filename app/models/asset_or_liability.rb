@@ -15,5 +15,5 @@
 #  index_accounts_on_ancestry  (ancestry)
 #
 
-class Expense < Account
+class AssetOrLiability < Account
 end

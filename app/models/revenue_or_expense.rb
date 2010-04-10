@@ -15,5 +15,5 @@
 #  index_accounts_on_ancestry  (ancestry)
 #
 
-class Revenue < Account
+class RevenueOrExpense < Account
 end

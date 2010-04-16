@@ -84,9 +84,4 @@ class Account < ActiveRecord::Base
   end
 end
 
-class Asset < Account; end
-class Liability < Account; end
-class Revenue < Account; end
-class Expense < Account; end
-class Equity < Account; end
 

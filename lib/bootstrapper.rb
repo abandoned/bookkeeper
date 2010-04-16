@@ -29,14 +29,12 @@ class Bootstrapper
     {
       'Bank Accounts' => ['Checking Account'],
       'Supplies'      => ['Flour']
-    }.each_pair do |name, children|
-      parent = Account.find_by_name(name)
-      record(name, parent)
+    }.each_pair do |parent_name, children|
+      parent = Account.find_by_name(parent_name)
       children.each do |name|
-        account = Account.create!(
-          :name   => name,
-          :parent => parent
-        )
+        account = parent.class.create(
+        :name => name,
+        :parent => parent)
         record(name, account)
       end
     end

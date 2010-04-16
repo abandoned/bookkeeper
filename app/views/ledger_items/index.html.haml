@@ -5,7 +5,7 @@
   %li= link_to 'Import', imports_path
   %li= link_to 'Export', ledger_items_path(params.merge(:format => :csv))
 
-= data_for_obese_autocomplete
+- data_for_obese_autocomplete
 
 - unless @cart.ledger_items.empty?
   = render 'cart'

@@ -20,7 +20,9 @@ $(function() {
           .unbind('blur.unbindLabel');
       })
   }
-  $input.obesify(data);
+  if (typeof(data) != "undefined") {
+    $input.obesify(data);
+  }
   
   //
   // Autocomplete

@@ -1,2 +1,0 @@
-class Expense < Account
-end

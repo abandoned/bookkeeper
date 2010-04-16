@@ -1,2 +1,0 @@
-class Equity < Account
-end

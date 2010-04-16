@@ -1,2 +1,0 @@
-class Liability < Account
-end

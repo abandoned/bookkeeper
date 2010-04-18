@@ -21,3 +21,4 @@ Feature: Delete matches
     When I follow "delete"
     Then a match should not exist
     And 1 ledger_items should exist
+    And a ledger_item "Transaction 7" should exist with match_id: nil

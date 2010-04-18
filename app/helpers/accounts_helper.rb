@@ -29,6 +29,9 @@ module AccountsHelper
   def tree_select(categories, model, name, selected=nil, level=0, init=true)
     if init  
       haml_tag :select, {:name => "#{model}[#{name}]", :id => "#{model}_#{name}"} do
+        #haml_tag :option, { :value => "" } do
+        #  haml_concat "None"
+        #end
         tree_select(categories, model, name, selected, level, false)
       end
     else

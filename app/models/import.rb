@@ -46,32 +46,41 @@ class Import < ActiveRecord::Base
     begin
       first_line = true
       @ledger_items = []
-    
-      FasterCSV.parse(@parsable) do |row|
       
+      # Sign
+      sign = mapping.reverses_sign? ? -1 : 1
+      
+      FasterCSV.parse(@parsable) do |row|
+        
         # Skip first if title col
         if first_line
           first_line = false
           next if mapping.has_title_row?
         end
-      
-        # Sign
-        sign = mapping.reverses_sign? ? -1 : 1
-      
+        
         t = LedgerItem.new(:account => account)
-      
+        
         # Format date
         if mapping.day_follows_month?
           t.transacted_on = row[mapping.date_row - 1]
         else
-          t.transacted_on = Date.strptime(row[mapping.date_row - 1], '%d/%m/%Y')
+          
+          # Added this block to handle inconsistent dates in manually created CSVs. Should probably refactor this mess some point in indefinite future.
+          begin
+            t.transacted_on = Date.strptime(row[mapping.date_row - 1], '%d/%m/%Y')
+          rescue
+            self.message = "Dates not consistent"
+            fail!
+            return
+          end
         end
-      
+        p t.transacted_on
+        
         # Money entries
         t.total_amount = row[mapping.total_amount_row - 1].gsub(/[^0-9.-]/, '').to_f * sign
         t.tax_amount = row[mapping.tax_amount_row - 1].gsub(/[^0-9.-]/, '').to_f * sign unless mapping.tax_amount_row.blank?
         t.currency = mapping.currency
-      
+        
         # Descriptive entries
         unless mapping.description_row.blank?
           t.description = row[mapping.description_row - 1]
@@ -79,7 +88,7 @@ class Import < ActiveRecord::Base
         unless mapping.second_description_row.blank? || row[mapping.second_description_row - 1].blank?
           t.description << " " + row[mapping.second_description_row - 1]
         end
-      
+        
         @ledger_items << t if t.valid?
       end
     

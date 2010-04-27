@@ -140,6 +140,32 @@ describe Import do
       @import.should be_failed
     end
   end
+  
+  describe "An import with inconsistent dates" do
+    
+    it "should fail with appropriate message" do
+      file_path = "../fixtures/barclays-sample.csv"
+      @mapping = Factory(:mapping,
+        :currency => 'GBP',
+        :date_row => 1,
+        :total_amount_row => 3,
+        :description_row => 4,
+        :has_title_row => true,
+        :day_follows_month => false,
+        :reverses_sign => false)
+      @uploader = mock_uploader(file_path) 
+      
+      @import = Factory(:import,
+        :account => @account,
+        :mapping => @mapping,
+        :file    => @uploader)
+      @import.ending_balance = -1047.63
+      @import.parse_file
+      @import.perform
+      @import.should be_failed
+      @import.message.should == 'Dates not consistent'
+    end
+  end
 end
 
 def mock_uploader(file, type = 'text/plain')

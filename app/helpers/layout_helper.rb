@@ -16,8 +16,8 @@ module LayoutHelper
       { :text => 'Accounts',      :path => accounts_path,     :controller => 'accounts' },
       { :text => 'Contacts',      :path => contacts_path,     :controller => 'contacts' },
       { :text => 'Transactions',  :path => ledger_items_path, :controller => 'ledger_items' },
-      { :text => 'Reports',       :path => reports_path,      :controller => 'reports' },
       { :text => 'Imports',       :path => imports_path,      :controller => 'imports' },
+      { :text => 'Reports',       :path => reports_path,      :controller => 'reports' },
     ]
   end
 end

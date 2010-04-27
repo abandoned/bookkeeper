@@ -74,7 +74,6 @@ class Import < ActiveRecord::Base
             return
           end
         end
-        p t.transacted_on
         
         # Money entries
         t.total_amount = row[mapping.total_amount_row - 1].gsub(/[^0-9.-]/, '').to_f * sign

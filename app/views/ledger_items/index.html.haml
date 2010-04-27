@@ -2,7 +2,6 @@
 - javascript 'ledger_items'
 - content_for :actions do
   %li= link_to 'Create transaction', new_ledger_item_path
-  %li= link_to 'Import', imports_path
   %li= link_to 'Export', ledger_items_path(params.merge(:format => :csv))
 
 - data_for_obese_autocomplete

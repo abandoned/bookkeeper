@@ -81,7 +81,7 @@ dependencies:
   rack: 
     group: 
     - :default
-    version: ">= 1.0.1"
+    version: = 1.0.1
   factory_girl: 
     group: 
     - :test
@@ -284,7 +284,7 @@ specs:
     version: 0.3.20
 - will_paginate: 
     version: 2.3.12
-hash: 7170c6795891ec4a4865b972ac36f6285f12365e
+hash: 5ec4ebd5063ffedfe5f1365320823f85eada83b9
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

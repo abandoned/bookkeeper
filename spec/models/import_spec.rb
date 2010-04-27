@@ -141,10 +141,8 @@ describe Import do
     end
   end
   
-  describe "An import with inconsistent dates" do
-    
-    it "should fail with appropriate message" do
-      file_path = "../fixtures/barclays-sample.csv"
+  describe "More edge cases" do
+    before(:each) do
       @mapping = Factory(:mapping,
         :currency => 'GBP',
         :date_row => 1,
@@ -153,7 +151,10 @@ describe Import do
         :has_title_row => true,
         :day_follows_month => false,
         :reverses_sign => false)
-      @uploader = mock_uploader(file_path) 
+    end
+    
+    it "should fail with appropriate message" do
+      file_path = "../fixtures/barclays-sample.csv"
       
       @import = Factory(:import,
         :account => @account,
@@ -164,6 +165,27 @@ describe Import do
       @import.perform
       @import.should be_failed
       @import.message.should == 'Dates not consistent'
+    end
+    
+    it "should fail with a more recent transcation already on file" do
+      Factory(:ledger_item,
+          :account => @account,
+          :total_amount => 10000,
+          :transacted_on => Date.today)
+          
+      file_path = "../fixtures/barclays-2-sample.csv"
+      
+      @uploader = mock_uploader(file_path) 
+      
+      @import = Factory(:import,
+        :account => @account,
+        :mapping => @mapping,
+        :file    => @uploader)
+      @import.ending_balance = 3777.84
+      @import.parse_file
+      @import.perform
+      @import.should be_failed
+      @import.message.should == 'Ending balance of 13777.84 did not match expected balance of 3777.84 (3777.84)'
     end
   end
 end

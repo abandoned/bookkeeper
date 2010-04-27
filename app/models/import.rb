@@ -92,7 +92,8 @@ class Import < ActiveRecord::Base
       end
     
       # Calculate ending balance
-      ending_balance_confirmation = @account.ledger_items.sum("total_amount").to_f.round(2) + @ledger_items.sum { |t| t.total_amount }.to_f.round(2)
+      total_in_csv = @ledger_items.sum { |t| t.total_amount }.to_f.round(2)
+      ending_balance_confirmation = @account.ledger_items.sum("total_amount").to_f.round(2) + total_in_csv
     
       if (ending_balance.to_f - ending_balance_confirmation.to_f).abs  < 0.01
         ActiveRecord::Base.transaction do
@@ -101,7 +102,7 @@ class Import < ActiveRecord::Base
         self.message = "#{transaction_count} transactions imported"
         succeed!
       else
-        self.message = "Ending balance of #{ending_balance_confirmation} did not match expected balance of #{ending_balance}"
+        self.message = "Ending balance of #{ending_balance_confirmation} did not match expected balance of #{ending_balance} (#{total_in_csv})"
         fail!
       end
     rescue

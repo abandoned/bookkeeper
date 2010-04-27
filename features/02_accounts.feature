@@ -68,9 +68,3 @@ Feature: Manage Accounts
     When I follow "delete"
     Then I should see "Cannot delete account because it has dependants"
     And account "Current Assets" should exist
-  
-  Scenario: Cannot delete a root account
-    Given I am on the show page for account "Assets"
-    When I follow "delete"
-    Then I should see "Cannot delete root account"
-    And account "Assets" should exist

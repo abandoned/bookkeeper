@@ -36,9 +36,6 @@ Factory.define :ledger_item do |f|
   f.association :account
 end
 
-Factory.define :rule do |f|
-end
-
 Factory.define :match do |f|
 end
 
@@ -60,4 +57,22 @@ end
 
 Factory.define :revenueOrExpense do |f|
   f.sequence(:name) { |n| "revenue_or_expense#{n}" }
+end
+
+Factory.define :rule do |f|
+  f.association :account
+  f.matched_debit false
+end
+
+Factory.define :rule_with_matched_description, :parent => :rule do |f|
+  f.association :new_account, :factory => :account
+  f.association :new_sender, :factory => :contact
+  f.association :new_recipient, :factory => :contact
+  f.matched_description 'foo'
+end
+
+Factory.define :rule_with_matched_contact, :parent => :rule do |f|
+  f.association :new_account, :factory => :account
+  f.association :matched_sender, :factory => :contact
+  f.association :matched_recipient, :factory => :contact
 end

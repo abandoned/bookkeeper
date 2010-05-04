@@ -17,14 +17,15 @@
 
 class Account < ActiveRecord::Base
   has_ancestry  :orphan_strategy => :restrict
-  has_many      :imports
+  has_many      :imports, :dependent => :destroy
   has_many      :ledger_items
-  has_many      :rules
+  has_many      :rules, :dependent => :destroy
   
   validates_presence_of   :name
   validates_uniqueness_of :name
   
   before_destroy :cannot_orphan_ledger_items
+  after_destroy  :destroy_associated_rules
   
   def all_ledger_items
     self.subtree.inject([]) { |m, a| m + a.ledger_items }
@@ -81,6 +82,10 @@ class Account < ActiveRecord::Base
       end
     end
     total
+  end
+  
+  def destroy_associated_rules
+    Rule.destroy_all(:new_account_id => id)
   end
 end
 

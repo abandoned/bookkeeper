@@ -51,5 +51,14 @@ describe Account do
     @parent.name = ""
     lambda {@parent.save!}.should raise_error(ActiveRecord::RecordInvalid)
   end
+  
+  describe "when destroyed" do
+    it "should destroy associated rules" do
+      2.times { Factory(:rule_with_matched_description, :new_account => @child) }
+      2.times { Factory(:rule_with_matched_contact, :new_account => @child) }
+      @child.destroy
+      Rule.count.should eql(0)
+    end
+  end
 end
 

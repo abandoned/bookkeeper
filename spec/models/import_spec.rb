@@ -141,7 +141,7 @@ describe Import do
     end
   end
   
-  describe "More edge cases" do
+  describe "Possible edge cases" do
     before(:each) do
       @mapping = Factory(:mapping,
         :currency => 'GBP',
@@ -155,6 +155,8 @@ describe Import do
     
     it "should fail with appropriate message" do
       file_path = "../fixtures/barclays-sample.csv"
+      
+      @uploader = mock_uploader(file_path) 
       
       @import = Factory(:import,
         :account => @account,
@@ -186,6 +188,23 @@ describe Import do
       @import.perform
       @import.should be_failed
       @import.message.should == 'Ending balance of 13777.84 did not match expected balance of 3777.84 (3777.84)'
+    end
+    
+    it "should import when date format is corrected" do
+      @mapping.day_follows_month = true
+      
+      file_path = "../fixtures/barclays-3-sample.csv"
+      
+      @uploader = mock_uploader(file_path) 
+      
+      @import = Factory(:import,
+        :account => @account,
+        :mapping => @mapping,
+        :file    => @uploader)
+      @import.ending_balance = -1047.63
+      @import.parse_file
+      @import.perform
+      @import.should be_processed
     end
   end
 end

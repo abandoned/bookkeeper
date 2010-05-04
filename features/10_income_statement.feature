@@ -8,6 +8,7 @@ Feature: Income Statement
     And I have conducted some business over the past year
     And I am logged in
   
+  @wip
   Scenario: View income statement
     Given I am on path "/reports/income_statement"
     And I fill in "From" with "2008-01-01"

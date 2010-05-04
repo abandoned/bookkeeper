@@ -105,8 +105,8 @@ class Import < ActiveRecord::Base
         self.message = "Ending balance of #{ending_balance_confirmation} did not match expected balance of #{ending_balance} (#{total_in_csv})"
         fail!
       end
-    rescue
-      self.message = "???"
+    rescue Exception => e  
+      self.message = e.message + e.backtrace.inspect
       fail!
     end
   end

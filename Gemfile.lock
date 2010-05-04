@@ -4,80 +4,76 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
-  compass: 
-    group: 
-    - :default
-    version: ">= 0.8.17"
   fastercsv: 
     group: 
     - :default
-    version: ">= 1.5.1"
-  annotate: 
+    version: ">= 0"
+  compass: 
     group: 
-    - :development
+    - :default
     version: ">= 0"
   pg: 
     group: 
     - :production
-    version: ">= 0.9.0"
+    version: ">= 0"
   rails: 
     group: 
     - :default
     version: = 2.3.5
-  mongrel: 
+  annotate: 
     group: 
     - :development
+    version: ">= 0"
+  authlogic: 
+    group: 
+    - :default
     version: ">= 0"
   haml: 
     group: 
     - :default
-    version: ">= 2.2.21"
-  authlogic: 
-    group: 
-    - :default
-    version: ">= 2.1.3"
+    version: ">= 0"
   sqlite3-ruby: 
     group: 
-    - :default
-    version: ">= 1.2.5"
+    - :development
+    version: ">= 0"
     require: 
     - sqlite3
   ancestry: 
     group: 
     - :default
-    version: ">= 1.2.0"
-  inherited_resources: 
-    group: 
-    - :default
-    version: = 1.0.4
+    version: ">= 0"
   delayed_job: 
     group: 
     - :default
-    version: ">= 2.0.1"
+    version: ">= 0"
+  inherited_resources: 
+    group: 
+    - :default
+    version: = 1.0.6
   rspec: 
     group: 
     - :test
     - :cucumber
-    version: ">= 1.3.0"
+    version: = 1.3.0
     require: []
 
   database_cleaner: 
     group: 
     - :cucumber
-    version: ">= 0.5.0"
+    version: ">= 0"
     require: []
 
   rspec-rails: 
     group: 
     - :test
     - :cucumber
-    version: ">= 1.3.2"
+    version: = 1.3.2
     require: []
 
   thin: 
     group: 
     - :production
-    version: ">= 1.2.7"
+    version: ">= 0"
   rack: 
     group: 
     - :default
@@ -86,73 +82,69 @@ dependencies:
     group: 
     - :test
     - :cucumber
-    version: ">= 1.2.4"
-  erubis: 
-    group: 
-    - :default
-    version: ">= 2.6.5"
-  has_scope: 
-    group: 
-    - :default
-    version: = 0.4.2
-  will_paginate: 
-    group: 
-    - :default
-    version: ">= 2.3.12"
-  heroku: 
-    group: 
-    - :production
-    version: ">= 1.8.3"
+    version: ">= 0"
   hirb: 
     group: 
     - :development
-    version: ">= 0.2.10"
+    version: ">= 0"
+  has_scope: 
+    group: 
+    - :default
+    version: ">= 0"
+  erubis: 
+    group: 
+    - :default
+    version: ">= 0"
+  will_paginate: 
+    group: 
+    - :default
+    version: = 2.3.12
+  heroku: 
+    group: 
+    - :production
+    version: ">= 0"
   cucumber-rails: 
     group: 
     - :cucumber
-    version: ">= 0.3.0"
+    version: ">= 0"
     require: []
 
-  culerity: 
-    group: 
-    - :default
-    version: ">= 0.2.9"
   pickle: 
     group: 
     - :cucumber
-    version: ">= 0.2.4"
+    version: ">= 0"
   cucumber: 
     group: 
     - :cucumber
-    version: ">= 0.6.4"
+    version: ">= 0"
     require: []
 
-  responders: 
-    group: 
-    - :default
-    version: = 0.4.3
   chronic: 
     group: 
     - :default
-    version: ">= 0.2.3"
+    version: ">= 0"
   aasm: 
     group: 
     - :default
-    version: ">= 2.1.5"
+    version: ">= 0"
+  responders: 
+    group: 
+    - :default
+    version: = 0.4.6
   aws-s3: 
     group: 
     - :default
-    version: ">= 0.6.2"
+    version: ">= 0"
     require: 
     - aws/s3
   nokogiri: 
     group: 
     - :default
-    version: ">= 1.4.1"
+    version: ">= 0"
   capybara: 
     group: 
     - :cucumber
-    version: ">= 0.3.5"
+    version: ">= 0"
     require: []
 
   launchy: 
@@ -201,13 +193,11 @@ specs:
 - ffi: 
     version: 0.6.3
 - json_pure: 
-    version: 1.2.4
+    version: 1.4.2
 - selenium-webdriver: 
     version: 0.0.18
 - capybara: 
     version: 0.3.7
-- cgi_multipart_eof_fix: 
-    version: 2.5.0
 - rubyforge: 
     version: 2.0.4
 - hoe: 
@@ -215,7 +205,7 @@ specs:
 - chronic: 
     version: 0.2.3
 - haml: 
-    version: 2.2.22
+    version: 2.2.24
 - compass: 
     version: 0.8.17
 - configuration: 
@@ -229,15 +219,15 @@ specs:
 - term-ansicolor: 
     version: 1.0.5
 - cucumber: 
-    version: 0.7.0
+    version: 0.7.2
 - cucumber-rails: 
-    version: 0.3.0
+    version: 0.3.1
 - daemons: 
     version: 1.0.10
 - database_cleaner: 
     version: 0.5.2
 - delayed_job: 
-    version: 2.0.1
+    version: 2.0.3
 - erubis: 
     version: 2.6.5
 - eventmachine: 
@@ -246,26 +236,20 @@ specs:
     version: 1.2.4
 - fastercsv: 
     version: 1.5.3
-- fastthread: 
-    version: 1.0.7
-- gem_plugin: 
-    version: 0.2.3
 - has_scope: 
-    version: 0.4.2
+    version: 0.5.0
 - launchy: 
     version: 0.3.5
 - rest-client: 
-    version: 1.3.1
+    version: 1.4.2
 - heroku: 
-    version: 1.8.5
+    version: 1.9.8
 - hirb: 
     version: 0.3.1
 - responders: 
-    version: 0.4.3
+    version: 0.4.6
 - inherited_resources: 
-    version: 1.0.4
-- mongrel: 
-    version: 1.1.5
+    version: 1.0.6
 - pg: 
     version: 0.9.0
 - pickle: 
@@ -284,7 +268,7 @@ specs:
     version: 0.3.20
 - will_paginate: 
     version: 2.3.12
-hash: 5ec4ebd5063ffedfe5f1365320823f85eada83b9
+hash: 773ab6f1fc310b0997a9104663156a404b3b7dc8
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

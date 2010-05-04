@@ -141,6 +141,35 @@ describe Import do
     end
   end
   
+  describe "Verbose exceptions" do
+    it "should fail verbosely" do
+      file_path = "../fixtures/dummy.csv"
+       @mapping = Factory(:mapping,
+        :name => 'Citi',
+        :currency => 'USD',
+        :date_row => 1,
+        :total_amount_row => 3,
+        :description_row => 2,
+        :second_description_row => nil,
+        :has_title_row => false,
+        :day_follows_month => true,
+        :reverses_sign => false)
+
+        @uploader = mock_uploader(file_path) 
+
+        @import = Factory(:import,
+          :account => @account,
+          :mapping => @mapping,
+          :file    => @uploader)
+
+        @import.ending_balance = 0
+        @import.parse_file
+        @import.perform
+        @import.should be_failed
+        @import.message.should include('private method `gsub')
+    end
+  end
+  
   describe "Possible edge cases" do
     before(:each) do
       @mapping = Factory(:mapping,

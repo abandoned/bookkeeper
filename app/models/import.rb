@@ -106,7 +106,7 @@ class Import < ActiveRecord::Base
         fail!
       end
     rescue Exception => e  
-      self.message = e.message + e.backtrace.inspect
+      self.message = (e.message + e.backtrace.inspect)[0,100]
       fail!
     end
   end

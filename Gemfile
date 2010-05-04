@@ -30,7 +30,6 @@ end
 group :development do
   gem 'hirb', '>= 0.2.10'
   gem 'annotate'
-  gem 'mongrel'
 end
 
 group :test, :cucumber do
@@ -46,5 +45,4 @@ group :cucumber do
   gem 'database_cleaner', '>=0.5.0', :require => false
   gem 'launchy'
   gem 'pickle', '>= 0.2.4'
-  #gem 'webrat', '>=0.7.0', :require => false
 end

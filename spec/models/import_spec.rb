@@ -170,7 +170,7 @@ describe Import do
     end
   end
   
-  describe "Possible edge cases" do
+  context "Possible edge cases" do
     before(:each) do
       @mapping = Factory(:mapping,
         :currency => 'GBP',
@@ -182,7 +182,7 @@ describe Import do
         :reverses_sign => false)
     end
     
-    it "should fail with appropriate message" do
+    it "should fail when date format is not consistent" do
       file_path = "../fixtures/barclays-sample.csv"
       
       @uploader = mock_uploader(file_path) 
@@ -198,7 +198,7 @@ describe Import do
       @import.message.should == 'Dates not consistent'
     end
     
-    it "should fail with a more recent transcation already on file" do
+    it "should include transactions more recent than those imported in the calculation of the ending balance" do
       Factory(:ledger_item,
           :account => @account,
           :total_amount => 10000,
@@ -219,7 +219,7 @@ describe Import do
       @import.message.should == 'Ending balance of 13777.84 did not match expected balance of 3777.84 (3777.84)'
     end
     
-    it "should import when date format is corrected" do
+    it "should import dates correctly when year is two digits" do
       @mapping.day_follows_month = true
       
       file_path = "../fixtures/barclays-3-sample.csv"
@@ -230,10 +230,12 @@ describe Import do
         :account => @account,
         :mapping => @mapping,
         :file    => @uploader)
-      @import.ending_balance = -1047.63
+      @import.ending_balance = 1.0
       @import.parse_file
       @import.perform
       @import.should be_processed
+      
+      LedgerItem.last.transacted_on.year.should > 2000
     end
   end
 end

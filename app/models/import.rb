@@ -60,14 +60,21 @@ class Import < ActiveRecord::Base
         
         t = LedgerItem.new(:account => account)
         
-        # Format date
+        date_string = row[mapping.date_row - 1]
+        
+        # Convert two-digit years to four digits
+        if date_string.match(/(\W)(\d{2})$/)
+          date_string.gsub!(/#{$1}#{$2}$/, $1 + '20' + $2)
+        end
+        
         if mapping.day_follows_month?
-          t.transacted_on = row[mapping.date_row - 1]
+          t.transacted_on = date_string
         else
           
-          # Added this block to handle inconsistent dates in manually created CSVs. Should probably refactor this mess some point in indefinite future.
+          # Added this block to handle inconsistent dates in manually created CSVs. Should probably
+          # refactor this mess at some point.
           begin
-            t.transacted_on = Date.strptime(row[mapping.date_row - 1], '%d/%m/%Y')
+            t.transacted_on = Date.strptime(date_string, '%d/%m/%Y')
           rescue
             self.message = "Dates not consistent"
             fail!

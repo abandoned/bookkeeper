@@ -35,6 +35,8 @@ dependencies:
   sqlite3-ruby: 
     group: 
     - :development
+    - :cucumber
+    - :test
     version: ">= 0"
     require: 
     - sqlite3
@@ -50,24 +52,10 @@ dependencies:
     group: 
     - :default
     version: = 1.0.6
-  rspec: 
-    group: 
-    - :test
-    - :cucumber
-    version: = 1.3.0
-    require: []
-
   database_cleaner: 
     group: 
     - :cucumber
     version: ">= 0"
-    require: []
-
-  rspec-rails: 
-    group: 
-    - :test
-    - :cucumber
-    version: = 1.3.2
     require: []
 
   thin: 
@@ -78,11 +66,18 @@ dependencies:
     group: 
     - :default
     version: = 1.0.1
+  rspec-rails: 
+    group: 
+    - :cucumber
+    - :test
+    version: = 1.3.2
+    require: []
+
   factory_girl: 
     group: 
-    - :test
     - :cucumber
-    version: ">= 0"
+    - :test
+    version: ">= 1.2.4"
   hirb: 
     group: 
     - :development
@@ -90,7 +85,7 @@ dependencies:
   has_scope: 
     group: 
     - :default
-    version: ">= 0"
+    version: = 0.5.0
   erubis: 
     group: 
     - :default
@@ -106,19 +101,13 @@ dependencies:
   cucumber-rails: 
     group: 
     - :cucumber
-    version: ">= 0"
+    version: = 0.3.1
     require: []
 
   pickle: 
     group: 
     - :cucumber
-    version: ">= 0"
-  cucumber: 
-    group: 
-    - :cucumber
-    version: ">= 0"
-    require: []
-
+    version: ">= 0.2.10"
   chronic: 
     group: 
     - :default
@@ -137,16 +126,16 @@ dependencies:
     version: ">= 0"
     require: 
     - aws/s3
-  nokogiri: 
-    group: 
-    - :default
-    version: ">= 0"
   capybara: 
     group: 
     - :cucumber
     version: ">= 0"
     require: []
 
+  nokogiri: 
+    group: 
+    - :default
+    version: ">= 0"
   launchy: 
     group: 
     - :cucumber
@@ -193,7 +182,7 @@ specs:
 - ffi: 
     version: 0.6.3
 - json_pure: 
-    version: 1.4.2
+    version: 1.4.3
 - selenium-webdriver: 
     version: 0.0.18
 - capybara: 
@@ -243,7 +232,7 @@ specs:
 - rest-client: 
     version: 1.4.2
 - heroku: 
-    version: 1.9.8
+    version: 1.9.9
 - hirb: 
     version: 0.3.1
 - responders: 
@@ -268,7 +257,7 @@ specs:
     version: 0.3.20
 - will_paginate: 
     version: 2.3.12
-hash: 773ab6f1fc310b0997a9104663156a404b3b7dc8
+hash: 5788449df837f802b9a5abb9055ffba4bcb2d2a1
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

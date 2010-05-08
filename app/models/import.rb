@@ -58,6 +58,9 @@ class Import < ActiveRecord::Base
           next if mapping.has_title_row?
         end
         
+        # Skip if line is empty
+        next if row.all? { |col| col.nil?  }
+        
         t = LedgerItem.new(:account => account)
         
         date_string = row[mapping.date_row - 1]

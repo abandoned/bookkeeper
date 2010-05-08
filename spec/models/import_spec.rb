@@ -170,7 +170,7 @@ describe Import do
     end
   end
   
-  context "Possible edge cases" do
+  context "Possible edge cases with Aitor's Barclays CSVs" do
     before(:each) do
       @mapping = Factory(:mapping,
         :currency => 'GBP',
@@ -236,6 +236,35 @@ describe Import do
       @import.should be_processed
       
       LedgerItem.last.transacted_on.year.should > 2000
+    end
+  end
+  
+  context "Possible edge cases with Mariana's CSVs" do
+    before(:each) do
+      @mapping = Factory(:mapping,
+        :currency => 'GBP',
+        :date_row => 2,
+        :total_amount_row => 4,
+        :description_row => 5,
+        :second_description_row => 6,
+        :has_title_row => true,
+        :day_follows_month => false,
+        :reverses_sign => false)
+    end
+    
+    it "should skip empty lines" do
+      file_path = "../fixtures/custom.csv"
+      
+      @uploader = mock_uploader(file_path) 
+      
+      @import = Factory(:import,
+        :account => @account,
+        :mapping => @mapping,
+        :file    => @uploader)
+      @import.ending_balance = 36.94
+      @import.parse_file
+      @import.perform
+      @import.should be_processed
     end
   end
 end

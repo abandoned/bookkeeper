@@ -5,7 +5,7 @@ gem 'ancestry'
 gem 'authlogic'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'chronic'
-gem 'compass'
+gem 'compass', '0.8.17'
 gem 'delayed_job'
 gem 'erubis'
 gem 'fastercsv'
@@ -32,11 +32,11 @@ end
 
 group :development, :cucumber, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'rspec-rails', '1.3.2', :require => false
 end
 
 group :cucumber, :test do
-  gem 'factory_girl', '>= 1.2.4'
-  gem 'rspec-rails', '1.3.2', :require => false
+  gem 'factory_girl', '>= 1.2.4'  
 end
 
 group :cucumber do

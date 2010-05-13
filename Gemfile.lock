@@ -11,7 +11,7 @@ dependencies:
   compass: 
     group: 
     - :default
-    version: ">= 0"
+    version: = 0.8.17
   pg: 
     group: 
     - :production
@@ -58,6 +58,14 @@ dependencies:
     version: ">= 0"
     require: []
 
+  rspec-rails: 
+    group: 
+    - :development
+    - :cucumber
+    - :test
+    version: = 1.3.2
+    require: []
+
   thin: 
     group: 
     - :production
@@ -66,18 +74,6 @@ dependencies:
     group: 
     - :default
     version: = 1.0.1
-  rspec-rails: 
-    group: 
-    - :cucumber
-    - :test
-    version: = 1.3.2
-    require: []
-
-  factory_girl: 
-    group: 
-    - :cucumber
-    - :test
-    version: ">= 1.2.4"
   hirb: 
     group: 
     - :development
@@ -98,6 +94,11 @@ dependencies:
     group: 
     - :production
     version: ">= 0"
+  factory_girl: 
+    group: 
+    - :cucumber
+    - :test
+    version: ">= 1.2.4"
   cucumber-rails: 
     group: 
     - :cucumber
@@ -186,7 +187,7 @@ specs:
 - selenium-webdriver: 
     version: 0.0.18
 - capybara: 
-    version: 0.3.7
+    version: 0.3.8
 - rubyforge: 
     version: 2.0.4
 - hoe: 
@@ -194,7 +195,7 @@ specs:
 - chronic: 
     version: 0.2.3
 - haml: 
-    version: 2.2.24
+    version: 3.0.2
 - compass: 
     version: 0.8.17
 - configuration: 
@@ -204,7 +205,7 @@ specs:
 - trollop: 
     version: 1.16.2
 - gherkin: 
-    version: 1.0.24
+    version: 1.0.26
 - term-ansicolor: 
     version: 1.0.5
 - cucumber: 
@@ -242,7 +243,7 @@ specs:
 - pg: 
     version: 0.9.0
 - pickle: 
-    version: 0.2.10
+    version: 0.2.11
 - rails: 
     version: 2.3.5
 - rspec: 
@@ -257,7 +258,7 @@ specs:
     version: 0.3.20
 - will_paginate: 
     version: 2.3.12
-hash: 5788449df837f802b9a5abb9055ffba4bcb2d2a1
+hash: e168c6f1e32fa9ef59ef75fb87641e84076fa8f2
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

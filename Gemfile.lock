@@ -11,7 +11,7 @@ dependencies:
   compass: 
     group: 
     - :default
-    version: = 0.8.17
+    version: ">= 0"
   pg: 
     group: 
     - :production
@@ -120,7 +120,7 @@ dependencies:
   responders: 
     group: 
     - :default
-    version: = 0.4.6
+    version: = 0.4.7
   aws-s3: 
     group: 
     - :default
@@ -197,7 +197,7 @@ specs:
 - haml: 
     version: 3.0.2
 - compass: 
-    version: 0.8.17
+    version: 0.10.0
 - configuration: 
     version: 1.1.0
 - diff-lcs: 
@@ -237,7 +237,7 @@ specs:
 - hirb: 
     version: 0.3.1
 - responders: 
-    version: 0.4.6
+    version: 0.4.7
 - inherited_resources: 
     version: 1.0.6
 - pg: 
@@ -258,7 +258,7 @@ specs:
     version: 0.3.20
 - will_paginate: 
     version: 2.3.12
-hash: e168c6f1e32fa9ef59ef75fb87641e84076fa8f2
+hash: 2e9727a4c9f48ab46bb89cace1d599b3a9f01705
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

@@ -1,0 +1,17 @@
+body {
+  .ac_results {
+    border: 1px solid #999999;
+    background-color: white;
+    overflow: hidden;
+    z-index: 99999;
+    ul {
+      width: 100%; }
+    li {
+      margin: 0;
+      padding: 5px 3px;
+      cursor: default;
+      overflow: hidden; } }
+  .ac_over {
+    background-color: #d4d4d4; }
+  .labeled {
+    color: #cccccc; } }

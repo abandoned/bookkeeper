@@ -1,0 +1,13 @@
+$color: #555555;
+$background_color: #eeeeee;
+$header_background_color: #32516a;
+$link_color: #444477;
+
+body {
+  color: $color;
+  background-color: $background_color; }
+
+a {
+  color: $link_color;
+  &:visited {
+    color: $link_color; } }

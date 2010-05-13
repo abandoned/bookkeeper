@@ -1,0 +1,25 @@
+#cart {
+  border: 2px solid #c3d9ec;
+  @include border_radius_top_right(20px);
+  @include border_radius_bottom_left(20px);
+  background-color: white;
+  padding: 20px;
+  margin: {
+    bottom: 1.5em; };
+  form {
+    display: inline-block;
+    margin: {
+      right: 3em; }; }
+  ul {
+    margin: {
+      bottom: 1em; }; }
+  li {
+    margin: {
+      bottom: 10px; };
+    list: {
+      style: {
+        type: disc;
+        position: inside; }; }; }
+  .actions a {
+    font: {
+      weight: bold; }; } }

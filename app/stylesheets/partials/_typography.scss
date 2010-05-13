@@ -1,0 +1,15 @@
+body {
+  @include sans_family;
+  font-size: 16px; }
+
+.large {
+  font-size: 1.25em; }
+
+.small {
+  font-size: 0.875em; }
+
+strong {
+  font-weight: bold; }
+
+em {
+  font-weight: italic; }

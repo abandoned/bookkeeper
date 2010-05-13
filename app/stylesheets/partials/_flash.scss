@@ -1,0 +1,14 @@
+.flash-success, .flash-failure {
+  padding: 0.5em;
+  margin: {
+    top: 2em;
+    bottom: 2em; };
+  width: 50%; }
+
+.flash-success {
+  background-color: #ccffcc;
+  border: solid 1px #66cc66; }
+
+.flash-failure {
+  background-color: #ffcccc;
+  border: solid 1px #cc6666; }

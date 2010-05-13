@@ -1,0 +1,84 @@
+@import "partials/search";
+@import "partials/table";
+@import "partials/cart";
+
+@mixin button_like_link($font_size: 1.5em) {
+  padding: 0 5px;
+  text-decoration: none;
+  font: {
+    size: $font_size; };
+  background-color: #d4d4d4;
+  @include border_radius_top_left(5px);
+  @include border_radius_bottom_right(5px); }
+
+#main {
+  margin: {
+    top: 3em;
+    bottom: 3em;
+    left: $margin;
+    right: $margin; };
+  padding: {
+    bottom: 1em;
+  }
+  p {
+    line-height: 1.2;
+    margin: {
+      bottom: 1em; };
+    &:last-child {
+      margin: {
+        bottom: 0; }; } }
+  h3 {
+    font: {
+      size: 1.75em; };
+    margin: {
+      bottom: 1em; };
+    color: #222222; }
+  .intro {
+    font-size: 1.5em;
+    a {
+      text-decoration: none;
+      background-color: #d4d4d4;
+      padding: 0 3px; }
+    p {
+      margin: {
+        bottom: 1.5em; }; } }
+  ul.root {
+    li {
+      list-style-type: none;
+      margin: {
+        left: 15px; }; }
+    >li {
+      margin: {
+        bottom: 25px;
+        left: 0; };
+      >a {
+        @include button_like_link; }
+      >ul {
+        margin: {
+          top: 5px; };
+        font: {
+          size: 0.875em; };
+        li {
+          font: {
+            size: 1.25em; };
+          line-height: 1.2; }
+        a {
+          text-decoration: none; } } } }
+  ul.accounts {
+    margin: {
+      bottom: 1em; };
+    li {
+      margin: {
+        bottom: 3px; };
+      list: {
+        style: {
+          type: disc;
+          position: inside; }; }; } }
+  .new-ledger-item {
+    display: inline-block;
+    margin: {
+      right: 10px; };
+    .add-ledger-item {
+      display: block;
+      margin: {
+        bottom: 20px; }; } } }

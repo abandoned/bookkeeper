@@ -129,9 +129,15 @@ class LedgerItem < ActiveRecord::Base
       
       # Scope by description
       when /\w/
-        scope = scope.scoped({
-          :conditions => ['UPPER(description) LIKE ?', "%#{q}%"]
-        })
+        if RAILS_ENV == "production"
+          scope = scope.scoped({
+            :conditions => ['description ILIKE ?', "%#{q}%"]
+          })
+        else
+          scope = scope.scoped({
+            :conditions => ['UPPER(description) LIKE ?', "%#{q.upcase}%"]
+          })
+        end
       end
     end
     

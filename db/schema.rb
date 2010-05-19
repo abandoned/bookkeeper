@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100329113324) do
+ActiveRecord::Schema.define(:version => 20100519182821) do
 
   create_table "accounts", :force => true do |t|
     t.string   "ancestry"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(:version => 20100329113324) do
   end
 
   add_index "ledger_items", ["account_id"], :name => "index_ledger_items_on_account_id"
-  add_index "ledger_items", ["identifier"], :name => "index_ledger_items_on_identifier"
+  add_index "ledger_items", ["description"], :name => "index_ledger_items_on_description"
   add_index "ledger_items", ["recipient_id"], :name => "index_ledger_items_on_recipient_id"
   add_index "ledger_items", ["sender_id"], :name => "index_ledger_items_on_sender_id"
   add_index "ledger_items", ["total_amount"], :name => "index_ledger_items_on_total_amount"

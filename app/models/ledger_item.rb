@@ -18,11 +18,11 @@
 #
 # Indexes
 #
+#  index_ledger_items_on_description    (description)
 #  index_ledger_items_on_transacted_on  (transacted_on)
 #  index_ledger_items_on_total_amount   (total_amount)
 #  index_ledger_items_on_sender_id      (sender_id)
 #  index_ledger_items_on_recipient_id   (recipient_id)
-#  index_ledger_items_on_identifier     (identifier)
 #  index_ledger_items_on_account_id     (account_id)
 #
 

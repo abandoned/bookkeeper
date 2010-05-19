@@ -10,6 +10,7 @@
 #  tax_amount_row         :integer
 #  description_row        :integer
 #  second_description_row :integer
+#  identifier_row         :integer
 #  has_title_row          :boolean
 #  day_follows_month      :boolean
 #  reverses_sign          :boolean

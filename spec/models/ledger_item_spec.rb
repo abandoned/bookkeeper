@@ -10,6 +10,7 @@
 #  tax_amount    :decimal(, )     default(0.0)
 #  currency      :string(3)       not null
 #  description   :string(255)
+#  identifier    :string(255)
 #  account_id    :integer
 #  match_id      :integer
 #  created_at    :datetime
@@ -21,6 +22,7 @@
 #  index_ledger_items_on_total_amount   (total_amount)
 #  index_ledger_items_on_sender_id      (sender_id)
 #  index_ledger_items_on_recipient_id   (recipient_id)
+#  index_ledger_items_on_identifier     (identifier)
 #  index_ledger_items_on_account_id     (account_id)
 #
 

@@ -1,29 +1,44 @@
-!!!
-%html
-
+!!! Strict
+%html{:lang => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
   %head
-    
-    %title= yield(:title)
-    %link{:href => '/images/icon.png', :rel => 'shortcut icon', :type => 'image/x-icon' }
-    = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'compiled/print.css', :media => 'print'
-    /[if lt IE 8]
-      = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
-    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'
-    = javascript_include_tag 'jquery.autocomplete'
-    = javascript_include_tag 'jquery.select-autocomplete'
-    = javascript_include_tag 'jquery.obese-autocomplete'
-    = javascript_include_tag 'application'
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %link{:href => "/images/icon.png", :rel => "shortcut icon", :type => "image/x-icon"}/
+    %title= @title || "Bookkeeper"
+    = stylesheet_link_tag "web_app_theme", "web_app_theme_override", "themes/djime-cerulean/style", "application", :cache => true
+    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+    = javascript_include_tag "jquery.autocomplete"
+    = javascript_include_tag "jquery.select-autocomplete"
+    = javascript_include_tag "jquery.obese-autocomplete"
+    = javascript_include_tag "application"
     - if @content_for_head
       = yield(:head)
-  
-  %body
-    
-    #header
-      - if current_user
-        = render 'layouts/navigation'
-    
-    #main
-      - flash.each do |name, msg|
-        - haml_tag(:div, msg, :class => "flash-#{name}")
-      = yield
+  %body.bookkeeper
+    #container
+      #header
+        %h1
+          %a{:href => "/"} Bookkeeper
+        #user-navigation
+          %ul.wat-cf
+            %li
+              %a{:href => "#"}= t("web-app-theme.profile", :default => "Profile")
+            %li
+              %a{:href => "#"}= t("web-app-theme.settings", :default => "Settings")
+            %li
+              %a.logout{:href => "/logout"}= t("web-app-theme.logout", :default => "Log out")
+        #main-navigation
+          %ul.wat-cf
+            - navigation_links
+      #wrapper.wat-cf
+        .flash
+          - flash.each do |type, message|
+            %div{:class => "message #{type}"}
+              %p= message
+        #main
+          = yield
+          #footer
+            .block
+              %p
+                Copyright &copy; #{Time.now.year}
+                %a{:href => "http://papercavalier.com"} Paper Cavalier
+        #sidebar
+          = yield :sidebar

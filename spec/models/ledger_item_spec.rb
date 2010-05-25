@@ -1,31 +1,3 @@
-# == Schema Information
-#
-# Table name: ledger_items
-#
-#  id            :integer         not null, primary key
-#  sender_id     :integer
-#  recipient_id  :integer
-#  transacted_on :date
-#  total_amount  :decimal(, )
-#  tax_amount    :decimal(, )     default(0.0)
-#  currency      :string(3)       not null
-#  description   :string(255)
-#  identifier    :string(255)
-#  account_id    :integer
-#  match_id      :integer
-#  created_at    :datetime
-#  updated_at    :datetime
-#
-# Indexes
-#
-#  index_ledger_items_on_description    (description)
-#  index_ledger_items_on_transacted_on  (transacted_on)
-#  index_ledger_items_on_total_amount   (total_amount)
-#  index_ledger_items_on_sender_id      (sender_id)
-#  index_ledger_items_on_recipient_id   (recipient_id)
-#  index_ledger_items_on_account_id     (account_id)
-#
-
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe LedgerItem do

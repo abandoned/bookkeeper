@@ -1,12 +1,3 @@
-# == Schema Information
-#
-# Table name: matches
-#
-#  id         :integer         not null, primary key
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Match do

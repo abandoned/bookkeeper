@@ -1,20 +1,3 @@
-# == Schema Information
-#
-# Table name: rules
-#
-#  id                   :integer         not null, primary key
-#  new_sender_id        :integer
-#  new_recipient_id     :integer
-#  account_id           :integer
-#  new_account_id       :integer
-#  matched_description  :string(255)
-#  matched_debit        :boolean
-#  created_at           :datetime
-#  updated_at           :datetime
-#  matched_sender_id    :integer
-#  matched_recipient_id :integer
-#
-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Rule do

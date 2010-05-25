@@ -1,6 +1,6 @@
 module LayoutHelper
   def title(page_title)
-    @content_for_title = page_title.to_s
+    @title = page_title.to_s
   end
   
   def stylesheet(*args)
@@ -12,12 +12,25 @@ module LayoutHelper
   end
   
   def navigation_links
+    count = 0
+    
     [
       { :text => 'Accounts',      :path => accounts_path,     :controller => 'accounts' },
-      { :text => 'Contacts',      :path => contacts_path,     :controller => 'contacts' },
       { :text => 'Transactions',  :path => ledger_items_path, :controller => 'ledger_items' },
+      { :text => 'Contacts',      :path => contacts_path,     :controller => 'contacts' },
       { :text => 'Imports',       :path => imports_path,      :controller => 'imports' },
       { :text => 'Reports',       :path => reports_path,      :controller => 'reports' },
-    ]
+    ].each do |link|
+      
+      classes = []
+      classes << "active" if controller.controller_name == link[:controller]
+      classes << "first" if count == 0
+      
+      count += 1
+      
+      haml_tag :li, :class => classes.join(" ") do
+        haml_concat link_to(link[:text], link[:path])
+      end
+    end
   end
 end

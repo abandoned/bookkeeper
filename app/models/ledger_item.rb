@@ -18,6 +18,7 @@
 #
 # Indexes
 #
+#  index_ledger_items_on_match_id       (match_id)
 #  index_ledger_items_on_description    (description)
 #  index_ledger_items_on_transacted_on  (transacted_on)
 #  index_ledger_items_on_total_amount   (total_amount)

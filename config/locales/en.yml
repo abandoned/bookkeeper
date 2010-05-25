@@ -2,18 +2,18 @@ en:
   flash:
     actions:
       create:
-        success: "Successfully created {{resource_name}}."
+        notice: "Successfully created {{resource_name}}."
       update:
-        success: "Successfully updated {{resource_name}}."
+        notice: "Successfully updated {{resource_name}}."
       destroy:
-        success: "Successfully deleted {{resource_name}}."
+        notice: "Successfully deleted {{resource_name}}."
     user_sessions:
       create:
-        success: "You are logged in."
+        notice: "You are logged in."
     ledger_items:
       create:
-        success: "Successfully created transaction."
+        notice: "Successfully created transaction."
       update:
-        success: "Successfully updated transaction."
+        notice: "Successfully updated transaction."
       destroy:
-        success: "Successfully deleted transaction."
+        notice: "Successfully deleted transaction."

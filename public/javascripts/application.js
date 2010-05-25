@@ -3,23 +3,8 @@ $(function() {
   //
   // Obesify search
   //
-  $('#search label, #search input[type=submit]').hide();
+  $('#search input[type=submit]').hide();
   $input = $('#search input[type=text]');
-  if ($input.val() == '') {
-    $input
-      .addClass('labeled')
-      .val($input.prev().html())
-      .bind('focus.label', function() {
-        $(this)
-          .val('')
-          .removeClass('labeled');
-      })
-      .bind('blur.unbindLabel', function() {
-        $(this)
-          .unbind('focus.label')
-          .unbind('blur.unbindLabel');
-      })
-  }
   if (typeof(data) != "undefined") {
     $input.obesify(data);
   }

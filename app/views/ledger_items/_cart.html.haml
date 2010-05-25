@@ -1,18 +1,21 @@
-#cart
-  %ul
-    - @cart.ledger_items.each do |ledger_item|
-      %li[ledger_item, :cart]
-        = render :partial => 'story', :locals => { :ledger_item => ledger_item }
-  %p.actions
-    - if @cart.reconciled?
-      = link_to('Save match', save_cart_path)
-    - else
-      = link_to 'Discard match', empty_cart_path
-      - if @cart.size == 1
-        ,
-        = link_to('define a rule', new_account_rule_path(@cart.ledger_items.first.account, :ledger_item_id => @cart.ledger_items.first.id), :id => 'create-match')
-        or set up a matching transaction in:
-        - form_for(@cart.ledger_items.first, :url => balance_cart_path) do |f|
-          = collection_select(:ledger_item, :account_id, Account.all, :id, :name, { :include_blank => true }, :class => 'autocomplete')
-          = f.submit 'Create match'
+#cart.block
+  %h3 Pending Matches
+  .content
+    .inner
+      %ul.list
+        - @cart.ledger_items.each do |ledger_item|
+          %li[ledger_item, :cart]
+            = render :partial => 'story', :locals => { :ledger_item => ledger_item }
+      %p.actions
+        - if @cart.reconciled?
+          = link_to('Save match', save_cart_path)
+        - else
+          = link_to 'Discard match', empty_cart_path
+          - if @cart.size == 1
+            ,
+            = link_to('define a rule', new_account_rule_path(@cart.ledger_items.first.account, :ledger_item_id => @cart.ledger_items.first.id), :id => 'create-match')
+            or set up a matching transaction in:
+            - form_for(@cart.ledger_items.first, :url => balance_cart_path) do |f|
+              = collection_select(:ledger_item, :account_id, Account.all, :id, :name, { :include_blank => true }, :class => 'autocomplete')
+              = f.submit 'Create match'
           

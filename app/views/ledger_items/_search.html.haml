@@ -1,4 +1,8 @@
-- form_tag(collection_path, :method => 'get', :id => 'search', :autocomplete => 'off') do
-  = label(:query, 'Search here...')
-  = text_field_tag(:query, params[:query], :class => 'title')
-  = submit_tag('Search', :name => nil)
+- form_tag(collection_path, :method => "get", :id => "search", :class => "form", :autocomplete => "off") do
+  .group
+    = label(:query, "Search", nil, :class => "label")
+    = text_field_tag(:query, params[:query], :class => "text_field")
+    %span.description
+      Ex: in Demo Bank Account; by Customer; since yesterday; not matched
+  .group.navform.wat-cf
+    = submit_tag("Search", :name => nil)

@@ -1,24 +1,37 @@
 - title 'Transactions'
 - javascript 'ledger_items'
-- content_for :actions do
-  %li= link_to 'Create transaction', new_ledger_item_path
-  %li= link_to 'Export', ledger_items_path(params.merge(:format => :csv))
-
 - data_for_obese_autocomplete
 
-- unless @cart.ledger_items.empty?
-  = render 'cart'
-= render 'search'
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to 'Create a new transaction', new_ledger_item_path
+      %li= link_to 'Export transactions to a CSV file', ledger_items_path(params.merge(:format => :csv))
+  - unless @cart.ledger_items.empty?
+    = render 'cart'
 
-- if @ledger_items.size > 0
-  %table
-    %tfoot
-      %tr
-        %td{:colspan => 4, :class => 'currency'}
-          - counter = 0
-          = @totals.collect{ |k, v| monetize(v, k) }.join('<br>').html_safe!
-    %tbody
-      = render :partial => 'ledger_item', :collection => @ledger_items
-  = will_paginate(@ledger_items, :inner_window => 2, :class => 'pagination')
-- else
-  %p No transactions found
+#block-tables.block
+  .content
+    %h2.title List of transactions
+    .inner
+      = render "search"
+    - if @ledger_items.size > 0
+      .inner
+        %table.table
+          %tfoot
+            %tr
+              %td{:colspan => 4, :class => 'currency'}
+                - counter = 0
+                = @totals.collect{ |k, v| monetize(v, k) }.join('<br>').html_safe!
+          %tbody
+            %tr
+              %th.first Date
+              %th Description
+              %th Amount
+              %th.last
+            = render :partial => 'ledger_item', :collection => @ledger_items
+        .actions-bar.wat-cf
+          = will_paginate(@ledger_items, :inner_window => 2, :class => 'pagination')
+    - else
+      %p No transactions found

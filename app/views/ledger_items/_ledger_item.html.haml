@@ -1,31 +1,29 @@
 %tr{:class => "#{cycle('odd', 'even')}"}[ledger_item]
   %td.date
     = ledger_item.transacted_on.to_s(:rfc822)
-  %td.details
-    %p
-      %strong= link_to truncate(ledger_item.account.name), ledger_item.account
+  %td.description
+    %strong= link_to truncate(ledger_item.account.name), ledger_item.account
     - if ledger_item.description.present?
-      %p.small
-        = ledger_item.description 
+      = ledger_item.description 
     - if ledger_item.matchable?
-      %p.small
-        Sent by
-        = link_to(truncate(ledger_item.sender.name), contact_path(ledger_item.sender))
-        to
-        = link_to(truncate(ledger_item.recipient.name), contact_path(ledger_item.recipient))
-        - if ledger_item.matched?
-          and 
-          = link_to('matched', ledger_item.match)
-          = ' with ' + ledger_item.matches.collect{ |m| m.account.name }.join(', ')
-    %p.small
-      = link_to 'Show', ledger_item
-  %td.action
-    - if ledger_item.matchable?
-      - unless ledger_item.matched? || @cart.ledger_items.include?(ledger_item)
-        - form_tag(add_to_cart_path, :method => 'post') do
-          = hidden_field_tag(:id, ledger_item.id)
-          = submit_tag('Match', :class => 'textify')
-    - else
-      = link_to('Add contacts', edit_ledger_item_path(ledger_item), :method => :get)
+      - if ledger_item.description.present?
+        %br/
+      Sent by
+      = link_to(truncate(ledger_item.sender.name), contact_path(ledger_item.sender))
+      to
+      = link_to(truncate(ledger_item.recipient.name), contact_path(ledger_item.recipient))
+      - if ledger_item.matched?
+        and 
+        = link_to("matched with #{ledger_item.matches.collect{ |m| m.account.name }.join(", ")}", ledger_item.match)
   %td.currency
     = monetize(ledger_item.total_amount, ledger_item.currency_symbol)  
+  %td.last
+    = link_to 'Show', ledger_item
+    - if ledger_item.matchable?
+      - unless ledger_item.matched? || @cart.ledger_items.include?(ledger_item)
+        |
+        = link_to("Match", add_to_cart_path(:id => ledger_item.id))
+    - else
+      |
+      = link_to('Add Contact', edit_ledger_item_path(ledger_item), :method => :get)
+    

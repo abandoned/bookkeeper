@@ -1,11 +1,20 @@
--title 'Log in to Bookkeeper'
-
-- form_for(@user_session, :url => user_session_path) do |form|
-  %dl
-    %dt= form.label :login, 'Username'
-    %dd= form.text_field :login
-  %dl
-    %dt= form.label :password, 'Password'
-    %dd= form.password_field :password
-  %dl
-    %dd= submit_tag 'Log in'
+%h1 Bookkeeper
+#block-login.block
+  %h2 Log in
+  .content.login
+    .flash
+      - flash.each do |type, message|
+        %div{:class => "message #{type}"}
+          %p= message
+    - form_for(@user_session, :url => user_session_path, :html => { :class => "form login" }) do |form|
+      .group.wat-cf
+        .left= form.label :login, "Username"
+        .right= form.text_field :login, :class => "text_field"
+      .group.wat-cf
+        .left= form.label :password, "Password"
+        .right= form.password_field :password, :class => "text_field"
+      .group.navform.wat-cf
+        .right
+          %button.button{:type => 'submit'}
+            %img{:src => '/images/web-app-theme/key.png', :alt => 'Save'}
+            Log in

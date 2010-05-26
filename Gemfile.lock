@@ -4,10 +4,6 @@ dependencies:
     group: 
     - :default
     version: = 1.5.3
-  compass: 
-    group: 
-    - :default
-    version: = 0.10.1
   pg: 
     group: 
     - :production
@@ -102,26 +98,20 @@ dependencies:
     group: 
     - :test
     version: = 0.2.11
-  chronic: 
-    group: 
-    - :default
-    version: = 0.2.3
   aasm: 
     group: 
     - :default
     version: = 2.1.5
+  chronic: 
+    group: 
+    - :default
+    version: = 0.2.3
   cucumber: 
     group: 
     - :test
     version: = 0.7.3
     require: []
 
-  aws-s3: 
-    group: 
-    - :default
-    version: = 0.6.2
-    require: 
-    - aws/s3
   capybara-envjs: 
     group: 
     - :test
@@ -167,14 +157,10 @@ specs:
     version: 2.1.4
 - builder: 
     version: 2.1.2
-- mime-types: 
-    version: "1.16"
-- xml-simple: 
-    version: 1.0.12
-- aws-s3: 
-    version: 0.6.2
 - culerity: 
     version: 0.2.10
+- mime-types: 
+    version: "1.16"
 - nokogiri: 
     version: 1.4.2
 - rack-test: 
@@ -201,10 +187,6 @@ specs:
     version: 2.6.0
 - chronic: 
     version: 0.2.3
-- haml: 
-    version: 3.0.6
-- compass: 
-    version: 0.10.1
 - configuration: 
     version: 1.1.0
 - diff-lcs: 
@@ -233,6 +215,8 @@ specs:
     version: 1.2.4
 - fastercsv: 
     version: 1.5.3
+- haml: 
+    version: 3.0.6
 - has_scope: 
     version: 0.5.0
 - launchy: 
@@ -263,7 +247,7 @@ specs:
     version: 1.2.7
 - will_paginate: 
     version: 2.3.12
-hash: 6910243d10a3a936fb5b2cc1284f00576ed4bc4e
+hash: b7eb22cf860ef25f2fbe72ed87a8b076d3460a48
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

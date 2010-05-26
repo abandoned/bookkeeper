@@ -16,32 +16,32 @@ dependencies:
     group: 
     - :development
     version: = 2.4.0
+  haml: 
+    group: 
+    - :default
+    version: = 3.0.6
+  authlogic: 
+    group: 
+    - :default
+    version: = 2.1.4
   sqlite3-ruby: 
     group: 
     - :default
     version: = 1.2.5
     require: 
     - sqlite3
-  authlogic: 
-    group: 
-    - :default
-    version: = 2.1.4
-  haml: 
-    group: 
-    - :default
-    version: = 3.0.6
   ancestry: 
     group: 
     - :default
     version: = 1.2.0
-  inherited_resources: 
-    group: 
-    - :default
-    version: = 1.0.6
   delayed_job: 
     group: 
     - :default
     version: = 2.0.3
+  inherited_resources: 
+    group: 
+    - :default
+    version: = 1.0.6
   rspec: 
     group: 
     - :test
@@ -82,14 +82,14 @@ dependencies:
     group: 
     - :development
     version: = 0.3.2
-  erubis: 
-    group: 
-    - :default
-    version: = 2.6.5
   will_paginate: 
     group: 
     - :default
     version: = 2.3.12
+  erubis: 
+    group: 
+    - :default
+    version: = 2.6.5
   heroku: 
     group: 
     - :production
@@ -247,7 +247,7 @@ specs:
     version: 1.2.7
 - will_paginate: 
     version: 2.3.12
-hash: b7eb22cf860ef25f2fbe72ed87a8b076d3460a48
+hash: 3db4b7968cb062679939c0736101308f34c40c36
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

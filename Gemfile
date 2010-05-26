@@ -6,7 +6,6 @@ gem "authlogic", "2.1.4"
 gem "chronic", "0.2.3"
 gem "delayed_job", "2.0.3"
 gem "erubis", "2.6.5"
-gem "fastercsv", "1.5.3"
 gem "haml", "3.0.6"
 gem "inherited_resources", "1.0.6"
 gem "nokogiri", "1.4.2"
@@ -14,6 +13,11 @@ gem "rack", "1.1.0"
 gem "rails", "2.3.8"
 gem "sqlite3-ruby", "1.2.5", :require => "sqlite3"
 gem "will_paginate", "2.3.12"
+
+if RUBY_VERSION.include?("1.8")
+  gem "fastercsv", "1.5.3"
+end
+
 
 group :development do
   gem "hirb", "0.3.2"

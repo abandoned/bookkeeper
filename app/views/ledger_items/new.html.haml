@@ -1,5 +1,18 @@
 - title 'New transaction'
 
-= render :partial => 'form'
+#block-tables.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "Single Entry", new_ledger_item_path
+      %li= link_to "Multiple Entry", multiple_new_ledger_item_path
+  .content
+    %h2.title New transaction
+    .inner
+      = render :partial => 'form'
 
-%p= link_to 'Switch to multiple entry', multiple_new_ledger_item_path
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to('Create a new account', new_account_path)
+      %li= link_to('Create a new contact', new_contact_path)

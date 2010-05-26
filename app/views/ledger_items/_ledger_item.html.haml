@@ -1,13 +1,9 @@
 %tr{:class => "#{cycle('odd', 'even')}"}[ledger_item]
   %td.date
     = ledger_item.transacted_on.to_s(:rfc822)
-  %td.description
+  %td.details
     %strong= link_to truncate(ledger_item.account.name), ledger_item.account
-    - if ledger_item.description.present?
-      = ledger_item.description 
     - if ledger_item.matchable?
-      - if ledger_item.description.present?
-        %br/
       Sent by
       = link_to(truncate(ledger_item.sender.name), contact_path(ledger_item.sender))
       to
@@ -15,15 +11,17 @@
       - if ledger_item.matched?
         and 
         = link_to("matched with #{ledger_item.matches.collect{ |m| m.account.name }.join(", ")}", ledger_item.match)
+  %td.description
+    = ledger_item.description 
   %td.currency
     = monetize(ledger_item.total_amount, ledger_item.currency_symbol)  
   %td.last
-    = link_to 'Show', ledger_item
     - if ledger_item.matchable?
       - unless ledger_item.matched? || @cart.ledger_items.include?(ledger_item)
-        |
         = link_to("Match", add_to_cart_path(:id => ledger_item.id))
+        |
     - else
+      = link_to('Add contact', edit_ledger_item_path(ledger_item), :method => :get)
       |
-      = link_to('Add Contact', edit_ledger_item_path(ledger_item), :method => :get)
+    = link_to 'Show', ledger_item
     

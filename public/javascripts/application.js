@@ -12,7 +12,7 @@ $(function() {
   //
   // Autocomplete
   //
-  $('select.autocomplete').select_autocomplete();
+  $('select.autocomplete').select_autocomplete({ inputClass: "ac_input text_field" });
   
   //
   // Add a new transaction on multiple_new_ledger_item_path

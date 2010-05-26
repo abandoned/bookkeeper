@@ -1,26 +1,33 @@
-- form_for @ledger_item do |form| 
+- form_for @ledger_item, :html => { :class => "form" } do |form| 
   = form.error_messages
-  %dl
-    %dt= form.label :transacted_on
-    %dd= form.date_select :transacted_on, :start_year => Time.now.year - 5, :end_year => Time.now.year + 1, :use_short_month => true
-    %dt= form.label :currency
-    %dd= form.select :currency, ['USD', 'GBP', 'EUR', 'CAD', 'JPY', 'AUD']
-    %dt= form.label :account_id
-    %dd
-      = form.select :account_id, Account.all.collect{ |a| [a.name, a.id] }, { :include_blank => true }, :class => 'autocomplete'
-      = link_to('New account', new_account_path)
-    %dt= form.label :sender_id
-    %dd
-      = form.select :sender_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
-      = link_to('New contact', new_contact_path)
-    %dt= form.label :recipient_id
-    %dd
-      = form.select :recipient_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
-      = link_to('New contact', new_contact_path)
-    %dt= form.label :total_amount
-    %dd= form.text_field :total_amount
-    %dt= form.label :tax_amount
-    %dd= form.text_field :tax_amount
-    %dt= form.label :description
-    %dd= form.text_field :description
-    %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' transaction')
+  .columns.wat-cf
+    .column.left
+      .group
+        = form.label :account_id, nil, :class => "label"
+        = form.select :account_id, Account.all.collect{ |a| [a.name, a.id] }, { :include_blank => true }, :class => 'autocomplete'
+      .group
+        = form.label :sender_id, nil, :class => "label"
+        = form.select :sender_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
+      .group  
+        = form.label :recipient_id, nil, :class => "label"
+        = form.select :recipient_id, Contact.all.collect{ |c| [c.name, c.id] }, { :include_blank => true }, :class => 'autocomplete'
+      .group
+        = form.label :total_amount, nil, :class => "label"
+        = form.text_field :total_amount, :class => "text_field"
+      .group
+        = form.label :tax_amount, nil, :class => "label"
+        = form.text_field :tax_amount, :class => "text_field"
+      .group
+        = form.label :description, nil, :class => "label"
+        = form.text_field :description, :class => "text_field"
+    .column.right
+      .group
+        = form.label :transacted_on, nil, :class => "label"
+        = form.date_select :transacted_on, :start_year => Time.now.year - 5, :end_year => Time.now.year + 1, :use_short_month => true
+      .group
+        = form.label :currency, nil, :class => "label"
+        = form.select :currency, ['USD', 'GBP', 'EUR', 'CAD', 'JPY', 'AUD']
+  .group.navform.wat-cf
+    %button.button{:type => 'submit'}
+      %img{:src => '/images/web-app-theme/tick.png', :alt => 'Save'}
+      = (form.object.new_record? ? 'Create' : 'Update') + ' transaction'

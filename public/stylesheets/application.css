@@ -1,8 +1,20 @@
-.table tr {
+tr {
   vertical-align: top;
 }
-td.description strong {
+td.details strong {
   display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+td.date, td.currency {
+  min-width: 100px;
+}
+td.description {
+  min-width: 150px;
+}
+td.details {
+  min-width: 250px;
+}
+tr:hover {
+  background-color: #e8e8e8;
 }

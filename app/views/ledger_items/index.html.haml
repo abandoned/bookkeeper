@@ -1,6 +1,6 @@
 - title 'Transactions'
-- javascript 'ledger_items'
-- data_for_obese_autocomplete
+- #javascript 'ledger_items'
+- #data_for_obese_autocomplete
 
 - content_for :sidebar do
   .block
@@ -18,15 +18,17 @@
       = render "search"
     - if @ledger_items.size > 0
       .inner
-        %table.table
+        %table#ledger_items.table
           %tfoot
             %tr
-              %td{:colspan => 4, :class => 'currency'}
+              %td{:colspan => 3}
+              %td.currency
                 - counter = 0
-                = @totals.collect{ |k, v| monetize(v, k) }.join('<br>').html_safe!
+                %strong= @totals.collect{ |k, v| monetize(v, k) }.join('<br>').html_safe!
           %tbody
             %tr
               %th.first Date
+              %th Details 
               %th Description
               %th Amount
               %th.last

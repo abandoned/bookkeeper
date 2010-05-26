@@ -1,3 +1,19 @@
 - title "New Rule for #{@account.name}"
 
-= render :partial => 'form'
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to "View rules", account_rules_path
+
+#new_rules.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first{:class => params[:type].blank? || params[:type] == "description" ? "active" : "" }
+        = link_to "Find by description", new_account_rule_path(:type => "description")
+      %li{:class => params[:type] == "contacts" ? "active" : "" }
+        = link_to "Find by contacts", new_account_rule_path(:type => "contacts")
+  .content
+    %h2.title New Rule for #{@account.name}
+    .inner
+      = render :partial => "form"

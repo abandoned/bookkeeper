@@ -1,33 +1,31 @@
 - title 'Mappings'
 
-%table.data
-  %tr.small
-    %th Name
-    %th Currency
-    %th Date
-    %th Total Amount
-    %th Tax Amount
-    %th Description
-    %th 2nd Description
-    %th Has Title
-    %th Day Follows Month
-    %th Reverses Sign
-  - for mapping in collection
-    %tr{:class => "smaller #{cycle('odd', 'even')}"}
-      %td=h mapping.name
-      %td=h mapping.currency
-      %td= mapping.date_row
-      %td= mapping.total_amount_row
-      %td= mapping.tax_amount_row
-      %td= mapping.description_row
-      %td= mapping.second_description_row
-      %td= mapping.has_title_row
-      %td= mapping.day_follows_month
-      %td= mapping.reverses_sign
-      %td
-        = link_to "Show", resource_path(mapping)
-        = link_to "Edit", edit_resource_path(mapping)
-        = link_to "Destroy", resource_path(mapping), :confirm => 'Are you sure?', :method => :delete
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to "Create new mapping", new_mapping_path
 
-.buttons
-  = link_to "Create new mapping", new_resource_path
+#block-tables.block
+  .content
+    %h2.title List of mappings
+    .inner
+      - if @mappings.size > 0
+        %table.table
+          %tr
+            %th.first Name
+            %th Currency
+            %th Date
+            %th Total Amount
+            %th Tax Amount
+            %th Description
+            %th 2nd Description
+            %th Has Title
+            %th Day Follows Month
+            %th Reverses Sign
+            %th.last
+          = render @mappings
+        .actions-bar.wat-cf
+          = will_paginate(@mappings, :inner_window => 2, :class => 'pagination')
+      - else
+        %p No mappings found

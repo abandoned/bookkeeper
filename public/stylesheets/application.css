@@ -1,6 +1,8 @@
 body, html {
   height: 100%;
 }
+
+
 /*
   Collection tables 
 */
@@ -25,10 +27,11 @@ tr:hover {
 */
 
 .ac_results {
-  border: 1px solid #999999;
+  border: 1px solid #001C26;
   background-color: white;
   overflow: hidden;
   z-index: 99999;
+  -webkit-box-shadow: 1px 1px 10px #666; -moz-box-shadow: 1px 1px 10px #666; box-shadow: 1px 1px 10px #666;
 }
 .ac_results ul {
   width: 100%;
@@ -40,7 +43,7 @@ tr:hover {
   overflow: hidden;
 }
 .ac_over {
-  background-color: #d4d4d4;
+  background-color: #C2C8D1;
 }
 
 /*

@@ -1,6 +1,11 @@
 $(function() {
   
   //
+  // New rules
+  //
+  $("#new_rules")
+  
+  //
   // Obesify search
   //
   $('#search input[type=submit]').hide();

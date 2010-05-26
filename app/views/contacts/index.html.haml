@@ -19,7 +19,7 @@
             %th Contact name
             %th Address
             %th.last
-          = render :partial => 'contact', :collection => @contacts
+          = render @contacts
         .actions-bar.wat-cf
           = will_paginate(@contacts, :inner_window => 2, :class => 'pagination')
       - else

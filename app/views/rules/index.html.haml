@@ -1,29 +1,29 @@
 - title "Rules for #{@account.name}"
 
-- content_for :actions do
-  %li= link_to 'Create rule', new_account_rule_path
-  
-- if @rules.size > 0
-  %table
-    %tr
-      %th Matched Description
-      %th Matched Debit
-      %th Matched Sender
-      %th Matched Recipient
-      %th New Sender
-      %th New Recipient
-      %th New Account
-    - for rule in @rules
-      %tr
-        %td= rule.matched_description
-        %td= rule.matched_debit
-        %td= rule.matched_sender.name if rule.matched_sender
-        %td= rule.matched_recipient.name if rule.matched_recipient
-        %td= rule.new_sender.name  if rule.new_sender
-        %td= rule.new_recipient.name if rule.new_recipient
-        %td= rule.new_account.name
-        %td= link_to 'Show', resource_path(rule)
-        %td= link_to 'Edit', edit_resource_path(rule)
-        %td= link_to 'Delete', resource_path(rule), :confirm => 'Are you sure?', :method => :delete
-- else
-  %p No rules found
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to "Create a new rule", new_account_rule_path
+
+#block-tables.block
+  .content
+    %h2.title List of Rules for #{@account.name}
+    .inner
+      - if @rules.size > 0
+        %table.table
+          %tr
+            %th.first Description
+            %th Sender
+            %th Recipient
+            %th Debit
+            %th New Sender
+            %th New Recipient
+            %th New Account
+            %th.last
+          = render @rules
+        .actions-bar.wat-cf
+          = will_paginate(@rules, :inner_window => 2, :class => 'pagination')
+      - else
+        %p No rules found
+

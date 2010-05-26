@@ -1,3 +1,13 @@
 - title 'Edit mapping'
 
-= render :partial => 'form'
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to "View mappings", mappings_path
+
+#block-tables.block
+  .content
+    %h2.title Edit mapping
+    .inner
+      = render :partial => "form"

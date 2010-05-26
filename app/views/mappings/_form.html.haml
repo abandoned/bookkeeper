@@ -1,27 +1,39 @@
-- form_for @mapping do |form| 
+- form_for @mapping, :html => { :class => "form" } do |form| 
   = form.error_messages
-  %dl
-    %dt= form.label :name
-    %dd= form.text_field :name
-    %dt= form.label :currency
-    %dd= form.text_field :currency
-    %dt= form.label :date_row
-    %dd= form.text_field :date_row
-    %dt= form.label :total_amount_row
-    %dd= form.text_field :total_amount_row
-    %dt= form.label :tax_amount_row
-    %dd= form.text_field :tax_amount_row
-    %dt= form.label :description_row
-    %dd= form.text_field :description_row
-    %dt= form.label :second_description_row
-    %dd= form.text_field :second_description_row
-    %dd
-      = form.check_box :has_title_row
-      = form.label :has_title_row
-    %dd
-      = form.check_box :day_follows_month
-      = form.label :day_follows_month
-    %dd
-      = form.check_box :reverses_sign
-      = form.label :reverses_sign
-    %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' mapping')
+  .columns.wat-cf
+    .column.left
+      .group
+        = form.label :name, nil, :class => "label"
+        = form.text_field :name, :class => "text_field"
+      .group
+        = form.label :currency, nil, :class => "label"
+        = form.text_field :currency, :class => "text_field"
+      .group
+        = form.label :date_row, nil, :class => "label"
+        = form.text_field :date_row, :class => "text_field"
+      .group
+        = form.label :total_amount_row, nil, :class => "label"
+        = form.text_field :total_amount_row, :class => "text_field"
+      .group
+        = form.label :tax_amount_row, nil, :class => "label"
+        = form.text_field :tax_amount_row, :class => "text_field"
+      .group
+        = form.label :description_row, nil, :class => "label"
+        = form.text_field :description_row, :class => "text_field"
+      .group
+        = form.label :second_description_row, nil, :class => "label"
+        = form.text_field :second_description_row, :class => "text_field"
+    .column.right
+      .group
+        = form.check_box :has_title_row
+        = form.label :has_title_row
+      .group
+        = form.check_box :day_follows_month
+        = form.label :day_follows_month
+      .group
+        = form.check_box :reverses_sign
+        = form.label :reverses_sign
+  .group.navform.wat-cf
+    %button.button{:type => "submit"}
+      %img{:src => "/images/web-app-theme/tick.png", :alt => "Save"}
+      = (form.object.new_record? ? "Create" : "Update") + " mapping"

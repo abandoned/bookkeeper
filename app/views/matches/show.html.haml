@@ -1,6 +1,10 @@
 - title 'Match'
-- content_for :actions do
-  %li= link_to 'Delete match', @match, :method => :delete
+
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to 'Delete match', @match, :method => :delete
 
 - if @match.ledger_items.size > 0
   %table

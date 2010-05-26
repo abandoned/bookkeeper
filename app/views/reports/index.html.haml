@@ -1,5 +1,41 @@
-- title "Financial Reports"
+- title @report_type.titleize
 
-- for report_type in @report_types
-  %p
-    = link_to(report_type.titleize, report_path(report_type))
+- content_for :sidebar do
+  .block
+    %h3 Reports
+    .content
+      %p
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      - for report_type in @report_types
+        %li{:class => @report_type == report_type ? "active" : ""}= link_to(report_type.titleize, reports_path(:type => report_type))
+  .content
+    %h2.title= @report_type.titleize
+    .inner
+      = render :partial => 'form'
+      - unless @roots.blank?
+        %table.report
+          - for root in @roots
+            - if root.grand_total_for?(params[:contact], params[:since], params[:till])
+              %tr.root_account
+                %td{:colspan => 2}
+                  =h root.name
+              = render(:partial => "child", :collection => root.children)
+
+              %tr.root_sum
+                %td
+                  = "Total #{root.name}"
+                %td.currency
+                  - root.grand_total_for(params[:contact], params[:since], params[:till]).each_pair do |currency, total|
+                    = monetize(total.abs, currency)
+                    %br
+          %tr.net
+            %td
+              Net
+            %td.currency
+              - @roots.inject({}) { |m, a| m.merge(a.grand_total_for(params[:contact], params[:since], params[:till])) { |k, v1, v2| v1 + v2 } }.each_pair do |currency, total|
+                = monetize(total.abs, currency)
+                %br

@@ -1,5 +1,12 @@
 - title "New import"
 
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to('View mappings', mappings_path)
+      %li= link_to('Create a new mapping', new_mapping_path)
+
 #block-tables.block
   .content
     %h2.title New import
@@ -8,7 +15,7 @@
         = form.error_messages
         .group
           %label.label{:for => 'import_account_id'} Account
-          = grouped_tree_select(Account.roots, 'import', 'account_id', @account)
+          = form.select :account_id, Account.all.collect{ |a| [a.name, a.id] }, { :include_blank => true }, :class => 'autocomplete'
         .group
           = form.label :ending_balance, nil, :class => "label"
           = form.text_field :ending_balance, :class => "text_field"

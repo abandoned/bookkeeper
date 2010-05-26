@@ -1,19 +1,34 @@
-- form_for [@account, @rule] do |form|
+- form_for [@account, @rule], :html => { :class => "form" } do |form| 
   = form.error_messages
-  %dl
-    %dt= form.label :matched_description
-    %dd= form.text_field :matched_description
-    %dt= form.label :matched_sender_id
-    %dd= form.collection_select :matched_sender_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
-    %dt= form.label :matched_recipient_id
-    %dd= form.collection_select :matched_recipient_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
-    %dd
-      = form.check_box :matched_debit
-      = form.label :matched_debit
-    %dt= form.label :new_sender_id
-    %dd= form.collection_select :new_sender_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
-    %dt= form.label :new_recipient_id
-    %dd= form.collection_select :new_recipient_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
-    %dt= form.label :new_account_id
-    %dd= form.collection_select :new_account_id, Account.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
-    %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' rule')
+  - if (form.object.new_record? && (params[:type].blank? || params[:type] == "description")) || form.object.matched_description.present?
+    .group
+      = form.label :matched_description, "Description", :class => "label"
+      = form.text_field :matched_description, :class => "text_field"
+      %span.description Search for the above string or regular expression
+  - if (form.object.new_record? && params[:type] == "contacts") || form.object.matched_sender_id.present?
+    .group
+      = form.label :matched_sender_id, "Sender", :class => "label"
+      = form.collection_select :matched_sender_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
+      %span.description Search for the above sender
+    .group
+      = form.label :matched_recipient_id, "Recipient", :class => "label"
+      = form.collection_select :matched_recipient_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
+      %span.description Search for the above recipient
+  .group
+    = form.check_box :matched_debit
+    = form.label :matched_debit, "Debit"
+  %p
+    %strong Create and match with the following transaction
+  .group
+    = form.label :new_sender_id, nil, :class => "label"
+    = form.collection_select :new_sender_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
+  .group
+    = form.label :new_recipient_id, nil, :class => "label"
+    = form.collection_select :new_recipient_id, Contact.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
+  .group
+    = form.label :new_account_id, nil, :class => "label"
+    = form.collection_select :new_account_id, Account.all, :id, :name, { :include_blank => true }, :class => 'autocomplete'
+  .group.navform.wat-cf
+    %button.button{:type => "submit"}
+      %img{:src => "/images/web-app-theme/tick.png", :alt => "Save"}
+      = (form.object.new_record? ? "Create" : "Update") + " rule"

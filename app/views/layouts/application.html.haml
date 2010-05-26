@@ -5,7 +5,10 @@
     %link{:href => "/images/icon.png", :rel => "shortcut icon", :type => "image/x-icon"}/
     %title= @title || "Bookkeeper"
     = stylesheet_link_tag "web_app_theme", "web_app_theme_override", "themes/djime-cerulean/style", "application", :cache => true
-    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+    - if Rails.env == "production"
+      = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+    - else
+      = javascript_include_tag "jquery-1.4.2.js"
     = javascript_include_tag "jquery.autocomplete"
     = javascript_include_tag "jquery.select-autocomplete"
     = javascript_include_tag "jquery.obese-autocomplete"

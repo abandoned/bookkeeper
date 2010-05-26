@@ -1,6 +1,7 @@
 class RulesController < InheritedResources::Base
   before_filter :require_user
   belongs_to    :account
+  actions       :all, :except => :show
   
   def new
     if params[:ledger_item_id]
@@ -13,5 +14,20 @@ class RulesController < InheritedResources::Base
       @rule.matched_debit = ledger_item.total_amount > 0
     end
     new!
+  end
+  
+  def create
+    create! { account_rules_path }
+  end
+  
+  def update
+    update! { account_rules_path }
+  end
+
+  private
+
+  def collection
+    @rules ||= end_of_association_chain.paginate(
+      :page   => params[:page])
   end
 end

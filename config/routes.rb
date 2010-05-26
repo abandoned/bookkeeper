@@ -2,20 +2,21 @@ ActionController::Routing::Routes.draw do |map|
   map.root      :controller => 'welcome',
                 :action => 'index'
   map.resources :accounts do |account|
-    account.resources :rules
+    account.resources :rules, :except => [:show]
   end
   map.resources :imports,
                 :only => [:index, :new, :create]
   map.resources :matches,
                 :only => [:show, :destroy]
-  map.resources :mappings
+  map.resources :mappings,
+                :except => [:show]
   map.resources :ledger_items,
                 :as => 'transactions',
                 :new => { :multiple => [:get, :post] }
   map.resources :contacts,
                 :has_many => :ledger_items
   map.resources :reports,
-                :only => [:index, :show]
+                :only => :index
   map.resource  :user_session,
                 :as => 'session',
                 :only => [:new, :create, :destroy]

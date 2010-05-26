@@ -5,6 +5,5 @@ log/*.log
 tmp/**/*
 .bundle
 capybara*
-public/stylesheets/compiled/*.css
 rerun.txt
 webrat*

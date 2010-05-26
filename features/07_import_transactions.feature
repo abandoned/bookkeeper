@@ -22,14 +22,13 @@ Feature: Import Transactions
     Then I should see "pending"
     
   Scenario: Import a CSV
-    Given I am on the path "/transactions"
-    When I follow "Import"
-    And I follow "Import new file"
+    Given I am on the path "/imports"
+    When I follow "Import a new CSV file"
     And I fill in "Ending balance" with "6587.42"
     And I select "AMEX" from "Account"
     And I select "Amex, UK" from "Mapping"
     And I attach the file "spec/fixtures/amex-uk-sample.csv" to "File"
-    And I press "Import transactions"
+    And I press "Upload file"
     Then I should see "pending"
     And I should see "amex-uk-sample.csv"
     When the system processes jobs

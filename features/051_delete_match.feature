@@ -18,7 +18,7 @@ Feature: Delete matches
   
   Scenario: Delete match if a matched transaction is deleted
     Given I am on path "/transactions/1"
-    When I follow "delete"
+    When I follow "Delete transaction"
     Then a match should not exist
     And 1 ledger_items should exist
     And a ledger_item "Transaction 7" should exist with match_id: nil

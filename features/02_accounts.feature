@@ -12,7 +12,7 @@ Feature: Manage Accounts
   
   Scenario: Create an account
     Given I am on path "/accounts"
-    When I follow "Create account"
+    When I follow "Create a new account"
     And I fill in "Name" with "Current Assets"
     And I select "Assets" from "Parent"
     And I press "Create account"
@@ -23,7 +23,7 @@ Feature: Manage Accounts
   Scenario: Rename an existing account
     Given an account "Current Assets" exists with parent: account "Assets"
     And I am on the show page for account "Current Assets"
-    When I follow "Edit"
+    When I follow "Edit account"
     And I fill in "Name" with "Fixed Assets"
     And I press "Update account"
     Then an account should exist with name: "Fixed Assets"
@@ -32,7 +32,7 @@ Feature: Manage Accounts
   Scenario: Do not have option to set parent of account to itself or its descendants
     Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
     And I am on the show page for account "Assets"
-    When I follow "Edit"
+    When I follow "Edit account"
     Then I should see "Liabilities" within "#account_parent_id"
     And I should not see "Assets" within "#account_parent_id"
     And I should not see "Current Assets" within "#account_parent_id"
@@ -40,7 +40,7 @@ Feature: Manage Accounts
   Scenario: Cannot create two accounts with identical names under the same parent
     Given an account "Current Assets" exists with name: "Current Assets", parent: account "Assets"
     And I am on path "/accounts"
-    When I follow "Create account"
+    When I follow "Create a new account"
     And I fill in "Name" with "Current Assets"
     And I select "Assets" from "Parent"
     And I press "Create account"
@@ -49,7 +49,7 @@ Feature: Manage Accounts
   Scenario: Delete an account with no children
     Given an account "Current Assets" exists with parent: account "Assets"
     And I am on the show page for account "Current Assets"
-    When I follow "delete"
+    When I follow "Delete account"
     Then I should see "Successfully deleted account"
     And account should not exist with name: "Current Assets"
   
@@ -57,7 +57,7 @@ Feature: Manage Accounts
     Given an account "Current Assets" exists with parent: account "Assets"
     And an account "Bank Account" exists with parent: account "Current Assets"
     And I am on the show page for account "Current Assets"
-    When I follow "delete"
+    When I follow "Delete account"
     Then I should see "Cannot delete account because it has descendants"
     And account "Bank Account" should exist
     
@@ -65,6 +65,6 @@ Feature: Manage Accounts
     Given an account "Current Assets" exists with parent: account "Assets"
     And a ledger_item exists with account: account "Current Assets"
     And I am on the show page for account "Current Assets"
-    When I follow "delete"
+    When I follow "Delete account"
     Then I should see "Cannot delete account because it has dependants"
     And account "Current Assets" should exist

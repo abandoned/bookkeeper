@@ -10,7 +10,7 @@ Feature: Match by Creating a New Transaction
   Scenario: Create a matching item to balance the cart
     Given I have bought some flour and have paid a utility bill
     When I go to path "/transactions"
-    And I press "Match" within "#ledger_item_5"
+    And I follow "Match" within "#ledger_item_5"
     And I select "Utility" from "ledger_item_account_id"
     When I press "Create match"
     Then I should see "Transaction successfully reconciled"
@@ -22,6 +22,6 @@ Feature: Match by Creating a New Transaction
     Given a ledger_item exists with total_amount: "1", account: account "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp"
     And a ledger_item exists with total_amount: "1", account: account "Bank Account", sender: contact "Awesome Bakery", recipient: contact "Flour Corp"
     When I go to path "/transactions"
-    And I press "Match" within "#ledger_item_1"
-    And I press "Match" within "#ledger_item_2"
+    And I follow "Match" within "#ledger_item_1"
+    And I follow "Match" within "#ledger_item_2"
     Then I should not see /form/ within "#cart"

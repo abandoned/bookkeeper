@@ -17,7 +17,7 @@ Feature: Manage Contacts
     Given a contact exists
     When I am on path "/contacts"
     And I am on the show page for that contact
-    And I follow "delete"
+    And I follow "Delete contact"
     Then I should see "Successfully deleted contact"
     And that contact should not exist
     
@@ -25,7 +25,7 @@ Feature: Manage Contacts
     Given a contact exists 
     And a ledger_item exists with sender: that contact
     And I am on the show page for that contact
-    And I follow "delete"
+    And I follow "Delete contact"
     Then I should see "Cannot delete contact because she has dependants"
     And that contact should exist
   
@@ -33,6 +33,6 @@ Feature: Manage Contacts
     Given a contact exists
     Given a ledger_item exists with recipient: that contact
     And I am on the show page for that contact
-    And I follow "delete"
+    And I follow "Delete contact"
     Then I should see "Cannot delete contact because she has dependants"
     And that contact should exist

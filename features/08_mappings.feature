@@ -8,10 +8,9 @@ Feature: Mappings
     And I am logged in
   
   Scenario: Create a mapping
-    Given I am on the path "/transactions"
-    When I follow "Import"
-    And I follow "Import new file"
-    And I follow "New mapping"
+    Given I am on the path "/imports"
+    When I follow "Import a new CSV file"
+    And I follow "Create a new mapping"
     When I fill in "Name" with "Amex"
     And I fill in "Currency" with "GBP"
     And I fill in "Date row" with "1"

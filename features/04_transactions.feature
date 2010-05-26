@@ -9,7 +9,7 @@ Feature: Transactions
   
   Scenario: Create a transaction
     Given I am on the path "/transactions"
-    When I follow "Create transaction"
+    When I follow "Create a new transaction"
     And I select "Bank Account" from "Account"
     And I select "Awesome Bakery" from "Sender"
     And I select "Flour Corp" from "Recipient"
@@ -20,7 +20,7 @@ Feature: Transactions
   Scenario: Edit a transaction
     Given I have bought some flour and have paid a utility bill
     And I am on the show page for ledger_item: ledger_item "Transaction 1"
-    When I follow "Edit"
+    When I follow "Edit transaction"
     And I fill in "Total amount" with "50"
     And I press "Update transaction"
     Then ledger_item "Transaction 1" should exist with total_amount: 50

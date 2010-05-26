@@ -10,7 +10,7 @@ class ImportsController < InheritedResources::Base
       )
       @import.parse_file
       Delayed::Job.enqueue @import
-      flash[:success] = 'Import queued'
+      flash[:notice] = 'Import queued'
       redirect_to collection_path
     else
       render :new

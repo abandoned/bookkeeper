@@ -4,7 +4,7 @@
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
     %link{:href => "/images/icon.png", :rel => "shortcut icon", :type => "image/x-icon"}/
     %title= @title || "Bookkeeper"
-    = stylesheet_link_tag "web_app_theme", "web_app_theme_override", "themes/djime-cerulean/style", "application", :cache => true
+    = stylesheet_link_tag "web_app_theme", "web_app_theme_override", "themes/djime-cerulean/style", "application" #, :cache => true
     - if Rails.env == "production"
       = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
     - else

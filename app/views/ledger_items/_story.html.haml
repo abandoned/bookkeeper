@@ -1,5 +1,8 @@
 = (ledger_item.sender ? link_to(ledger_item.sender.name, ledger_item.sender) : 'someone').html_safe
-= 'sent ' + monetize(ledger_item.total_amount, ledger_item.currency_symbol)
-= ('of ' + link_to(ledger_item.account.name, ledger_item.account)).html_safe
-= ('to ' + (ledger_item.recipient ? link_to(ledger_item.recipient.name, ledger_item.recipient) : 'someone')).html_safe
+sent
+= monetize(ledger_item.total_amount, ledger_item.currency_symbol)
+of
+= link_to(ledger_item.account.name, ledger_item.account)
+to
+= (ledger_item.recipient ? link_to(ledger_item.recipient.name, ledger_item.recipient) : 'someone')
 = 'on ' + ledger_item.transacted_on.to_s(:rfc822) + '.'

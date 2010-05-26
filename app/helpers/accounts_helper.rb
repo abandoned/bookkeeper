@@ -1,7 +1,7 @@
 module AccountsHelper
   def tree_ul(collection, init=true, &block)
-    attributes = init ? { :class => 'root' } : {}
-    
+    attributes = init ? { :class => 'accounts list' } : {}
+
     haml_tag :ul, attributes do
       collection.collect do |parent|
         next if parent.parent_id && init
@@ -13,17 +13,9 @@ module AccountsHelper
       end
     end
   end
-  
+
   def ancestry_breadcrumbs(resource)
-    last_index = resource.ancestors.size - 1
-    ancestors = resource.ancestors
-    
-    ancestors.each_index do |i|
-      parent = ancestors[i]
-      separator = (i != last_index ? ' &gt; ' : '')
-      breadcrump = link_to parent.name, parent
-      haml_concat (breadcrump + separator).html_safe
-    end
+    haml_concat resource.ancestors.collect{ |parent| link_to(parent.name, parent) }.join(" > ").html_safe
   end
   
   def tree_select(categories, model, name, selected=nil, level=0, init=true)

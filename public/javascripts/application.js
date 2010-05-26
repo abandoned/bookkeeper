@@ -21,24 +21,23 @@ $(function() {
     var newId = new Date().getTime();
     var nextLedgerItem = $(ledger_item_fields.replace(/NEW_RECORD/g, newId));
     currentLedgerItem.after(nextLedgerItem);
-    
-    
-    nextLedgerItem.find('.autocomplete').select_autocomplete();
-     
+
+    nextLedgerItem.find('.autocomplete').select_autocomplete({ inputClass: "ac_input text_field" });
+ 
     // Autofill selects and autocompletes in added transaction
-    currentLedgerItem.find('dd select').each(function(ind) {
+    currentLedgerItem.find('select').each(function(ind) {
       var defaultValue = $(this).val();
-      nextLedgerItem.find('dd select:eq(' + ind + ')').val(defaultValue);
+      nextLedgerItem.find('select:eq(' + ind + ')').val(defaultValue);
     });
-    
-    currentLedgerItem.find('dd .ac_input').each(function(ind) {
+
+    currentLedgerItem.find('.ac_input').each(function(ind) {
       var defaultValue = $(this).val();
-      nextLedgerItem.find('dd .ac_input:eq(' + ind + ')').val(defaultValue);
+      nextLedgerItem.find('.ac_input:eq(' + ind + ')').val(defaultValue);
     });
   }
-  
-  $('form a.add-ledger-item').live('click', function(ev) {
-    copyLedgerItem($(this).closest('.new-ledger-item'))
+
+  $('.add-ledger-item').live('click', function(ev) {
+    copyLedgerItem($('.new-ledger-item').last());
     ev.preventDefault();
   });
   

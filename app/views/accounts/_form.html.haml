@@ -1,13 +1,12 @@
-- form_for @account do |form| 
+- form_for @account, :html => { :class => "form" } do |form| 
   = form.error_messages
-  %dl
-    %dt
-      = form.label :parent_id
-    %dd
-      - tree_select(Account.roots, 'account', 'parent_id', resource)
-    %dt
-      = form.label :name
-    %dd
-      = form.text_field :name
-    %dd
-      = submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' account')
+  .group
+    = form.label :parent_id, nil, :class => "label"
+    - tree_select(Account.roots, "account", "parent_id", resource)
+  .group
+    = form.label :name, nil, :class => "label"
+    = form.text_field :name, :class => "text_field"
+  .group.navform.wat-cf
+    %button.button{:type => "submit"}
+      %img{:src => "/images/web-app-theme/tick.png", :alt => "Save"}
+      = (form.object.new_record? ? "Create" : "Update") + " account"

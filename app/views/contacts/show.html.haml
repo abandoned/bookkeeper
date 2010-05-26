@@ -1,16 +1,16 @@
 - title 'Contact Details'
 
-- content_for :actions do
-  %li= link_to 'Create contact', new_contact_path
-
-%h3= @contact.name
-
-- if @contact.city || @contact.country
-  %p.large
-    - formatted_address(@contact)
-
-%p.large
-  = link_to('Edit', edit_contact_path(@contact))
-  or 
-  = link_to('delete', @contact, :confirm => 'Are you sure?', :method => :delete)
-  this contact.
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to('Edit contact', edit_contact_path(@contact))
+      %li= link_to('Delete contact', @contact, :confirm => 'Are you sure?', :method => :delete)
+.block
+  .content
+    %h2.title
+      = @contact.name
+    .inner
+      - if @contact.city || @contact.country
+        %p
+          - formatted_address(@contact)

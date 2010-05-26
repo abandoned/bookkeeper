@@ -1,26 +1,24 @@
-- title "Import transactions"
+- title "New import"
 
-- form_for @import, :html => { :multipart => true } do |form|
-  = form.error_messages
-  %dt
-    %label{:for => 'import_account_id'} Account
-  %dd
-    = grouped_tree_select(Account.roots, 'import', 'account_id', @account)
-  %dt
-    = form.label :ending_balance
-  %dd
-    = form.text_field :ending_balance
-  %dt
-    = form.label :mapping_id
-  %dd
-    = form.collection_select :mapping_id, Mapping.all, :id, :name, { :include_blank => 'Select mapping' }
-    = link_to('New mapping', new_mapping_path)
-  %dt
-    = form.label :file
-  %dd
-    = form.file_field :file, :as => :file
-  %dd
-    = submit_tag('Import transactions')
-
-%p
-  = link_to('View mappings', mappings_path)
+#block-tables.block
+  .content
+    %h2.title New import
+    .inner
+      - form_for @import, :html => { :multipart => true, :class => "form" } do |form|
+        = form.error_messages
+        .group
+          %label.label{:for => 'import_account_id'} Account
+          = grouped_tree_select(Account.roots, 'import', 'account_id', @account)
+        .group
+          = form.label :ending_balance, nil, :class => "label"
+          = form.text_field :ending_balance, :class => "text_field"
+        .group
+          = form.label :mapping_id, nil, :class => "label"
+          = form.collection_select :mapping_id, Mapping.all, :id, :name, { :include_blank => 'Select mapping' }
+        .group
+          = form.label :file, nil, :class => "label"
+          = form.file_field :file, :as => :file
+        .group.navform.wat-cf
+          %button.button{:type => "submit"}
+            %img{:src => "/images/web-app-theme/tick.png", :alt => "Save"}
+            Upload file

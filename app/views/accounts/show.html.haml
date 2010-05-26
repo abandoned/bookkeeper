@@ -1,22 +1,22 @@
 - title @account.name
 
-- content_for :actions do
-  %li= link_to 'Create account', new_account_path
-
-%p
-  - ancestry_breadcrumbs(@account)
-%h3= @account.name
-
-- unless @account.children.length == 0
-  %p
-    This account has the following descendants:
-  %ul.accounts
-    - @account.children.each do |child|
-      %li= link_to(child.name, account_path(child))
-
-%p
-  = link_to 'Edit', edit_account_path
-  or
-  = link_to 'delete', account_path, :confirm => 'Are you sure?', :method => :delete
-  this account.
-  = link_to 'Rules', account_rules_path(@account)
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to 'Edit account', edit_account_path
+      %li= link_to 'Delete account', account_path, :confirm => 'Are you sure?', :method => :delete
+      %li= link_to 'View rules', account_rules_path(@account)
+.block
+  .content
+    %h2.title
+      - ancestry_breadcrumbs(@account)
+      %br/
+      = @account.name
+    .inner
+      - unless @account.children.length == 0
+        %p
+          This account has the following descendants:
+        %ul.list
+          - @account.children.each do |child|
+            %li= link_to(child.name, account_path(child))

@@ -1,6 +1,13 @@
 - title 'Accounts'
 
--content_for :actions do
-  %li= link_to 'Create account', new_account_path
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to 'Create a new account', new_account_path
 
-- tree_ul(@accounts) { |account| link_to(account.name, account) }
+#block-lists.block
+  .content
+    %h2.title List of accounts
+    .inner
+      - tree_ul(@accounts) { |account| link_to(account.name, account) }

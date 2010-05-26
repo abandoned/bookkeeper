@@ -1,12 +1,26 @@
 - title 'Contacts'
 
-- content_for :actions do
-  %li= link_to 'Create contact', new_contact_path
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to 'Create a new contact', new_contact_path
 
-- if @contacts.size > 0
-  %table
-    %tbody
-      = render :partial => 'contact', :collection => @contacts
-  = will_paginate(@contacts, :inner_window => 2, :class => 'pagination')
-- else
-  %p No contacts found
+#block-tables.block
+  .content
+    %h2.title List of contacts
+    .inner
+      - if @contacts.size > 0
+        %table.table
+          %tr
+            %th.first Name
+            %th Is Self
+            %th Tax Number
+            %th Contact name
+            %th Address
+            %th.last
+          = render :partial => 'contact', :collection => @contacts
+        .actions-bar.wat-cf
+          = will_paginate(@contacts, :inner_window => 2, :class => 'pagination')
+      - else
+        %p No contacts found

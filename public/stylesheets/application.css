@@ -1,3 +1,10 @@
+body, html {
+  height: 100%;
+}
+/*
+  Collection tables 
+*/
+
 tr {
   vertical-align: top;
 }
@@ -7,14 +14,48 @@ td.details strong {
   margin-bottom: 10px;
 }
 td.date, td.currency {
-  min-width: 100px;
-}
-td.description {
-  min-width: 150px;
-}
-td.details {
-  min-width: 250px;
+  min-width: 90px;
 }
 tr:hover {
   background-color: #e8e8e8;
+}
+
+/* 
+  Select autocomplete
+*/
+
+.ac_results {
+  border: 1px solid #999999;
+  background-color: white;
+  overflow: hidden;
+  z-index: 99999;
+}
+.ac_results ul {
+  width: 100%;
+}
+.ac_results li {
+  margin: 0;
+  padding: 5px 3px;
+  cursor: default;
+  overflow: hidden;
+}
+.ac_over {
+  background-color: #d4d4d4;
+}
+
+/*
+  Accounts list
+*/
+
+ul.list li {
+  margin-left: 20px;
+}
+ul.list li, ul.list ul {
+  margin-bottom: 0;
+}
+ul.list>li {
+  margin-left: 0;
+}
+ul.accounts.list>li>a {
+  font-size: 16px; font-weight: bold;
 }

@@ -1,16 +1,19 @@
 - title 'Transaction Details'
 
-- content_for :actions do
-  %li= link_to 'Create transaction', new_ledger_item_path
-
-%p.large
-  = render :partial => 'story', :locals => { :ledger_item => @ledger_item }
-  - if @ledger_item.matched?
-    This transaction was posted against
-    = (@ledger_item.matches.collect{ |li| link_to(li.account.name, li.account) }.join(', ') + '.').html_safe
-
-%p.large
-  = link_to 'Edit', edit_ledger_item_path
-  or
-  = link_to 'delete', @ledger_item, :confirm => 'Are you sure?', :method => :delete
-  this transaction.
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to 'Edit transaction', edit_ledger_item_path
+      %li= link_to 'Delete transaction', @ledger_item, :confirm => 'Are you sure you wish to delete this transaction?', :method => :delete
+      - if @ledger_item.matched?
+        %li= link_to 'Delete match', @ledger_item.match, :confirm => 'Are you sure you wish to delete the match?', :method => :delete
+#block-tables.block
+  .content
+    %h2.title Transaction
+    .inner
+      %p= render :partial => 'story', :locals => { :ledger_item => @ledger_item }
+      - if @ledger_item.matched?
+        %p
+          This transaction was posted against
+          = (@ledger_item.matches.collect{ |li| link_to(li.account.name, li.account) }.join(', ') + '.').html_safe

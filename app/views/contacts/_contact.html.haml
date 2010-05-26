@@ -1,21 +1,21 @@
 %tr{:class => "#{cycle('odd', 'even')}"}[contact]
   %td
-    %p
-      %strong= contact.name
-    %p.small
-      = link_to('Show', contact)
+    %strong= contact.name
   %td
-    - if contact.self?
-      %p.small Self
+    = contact.self? ? "Yes" : "No"
   %td
     - if contact.tax_number
-      %p.small= contact.tax_number
+      = contact.tax_number
   %td
     - if contact.name
-      %p.small
-        = contact.contact_name
+      = contact.contact_name
   %td
     - if contact.address || contact.city || contact.postal_code || contact.state || contact.country
-      %p.small
-        - formatted_address(contact)
+      - formatted_address(contact)
+  %td.last
+    = link_to('Show', contact)
+    |
+    = link_to('Edit', edit_contact_path(contact))
+    |
+    = link_to('Delete', contact, :confirm => 'Are you sure?', :method => :delete)
     

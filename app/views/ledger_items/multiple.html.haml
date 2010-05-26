@@ -1,11 +1,29 @@
 - title 'New Transaction'
-
 - content_for :head do
   - javascript_tag do
     = "var ledger_item_fields='#{ escape_javascript(render(:partial => 'new_ledger_item', :locals => { :new_ledger_item => @ledger_items.first })) }'".html_safe
 
-- form_for(@ledger_items.first, :url => multiple_new_ledger_item_path, :html => { :class => 'new_ledger_items', :id => 'new_ledger_items' }) do |form|
-  = render :partial => 'new_ledger_item', :collection => @ledger_items
-  %dd= submit_tag('Create transactions')
+#block-tables.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "Single Entry", new_ledger_item_path
+      %li.active= link_to "Multiple Entry", multiple_new_ledger_item_path
+  .content
+    %h2.title New transactions
+    .inner
+      - form_for(@ledger_items.first, :url => multiple_new_ledger_item_path, :html => { :class => 'new_ledger_items form', :id => 'new_ledger_items' }) do |form|
+        = form.error_messages
+        = render :partial => 'new_ledger_item', :collection => @ledger_items
+        .group.navform.wat-cf
+          %button.button.add-ledger-item{:type => 'submit'}
+            Add a transaction
+          %button.button{:type => 'submit'}
+            %img{:src => '/images/web-app-theme/tick.png', :alt => 'Save'}
+            Save transactions
 
-%p= link_to 'Switch to single entry', new_ledger_item_path
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to('Create a new account', new_account_path)
+      %li= link_to('Create a new contact', new_contact_path)

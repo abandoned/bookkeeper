@@ -1,23 +1,33 @@
-- form_for @contact do |form| 
+- form_for @contact, :html => { :class => "form" } do |form| 
   = form.error_messages
-  %dl
-    %dt= form.label :name
-    %dd= form.text_field :name
-    %dd
-      = form.check_box :self
-      = form.label :self
-    %dt= form.label :contact_name
-    %dd= form.text_field :contact_name
-    %dt= form.label :address
-    %dd= form.text_field :address
-    %dt= form.label :city
-    %dd= form.text_field :city
-    %dt= form.label :state
-    %dd= form.text_field :state
-    %dt= form.label :postal_code
-    %dd= form.text_field :postal_code
-    %dt= form.label :country
-    %dd= form.text_field :country
-    %dt= form.label :tax_number
-    %dd= form.text_field :tax_number
-    %dd= submit_tag((form.object.new_record? ? 'Create' : 'Update') + ' contact')
+  .group
+    = form.label :name, nil, :class => "label"
+    = form.text_field :name, :class => "text_field"
+  .group
+    = form.label :self, nil, :class => "label"
+    = form.check_box :self
+  .group
+    = form.label :contact_name, nil, :class => "label"
+    = form.text_field :contact_name, :class => "text_field"
+  .group
+    = form.label :address, nil, :class => "label"
+    = form.text_field :address, :class => "text_field"
+  .group
+    = form.label :city, nil, :class => "label"
+    = form.text_field :city, :class => "text_field"
+  .group
+    = form.label :state, nil, :class => "label"
+    = form.text_field :state, :class => "text_field"
+  .group
+    = form.label :postal_code, nil, :class => "label"
+    = form.text_field :postal_code, :class => "text_field"
+  .group
+    = form.label :country, nil, :class => "label"
+    = form.text_field :country, :class => "text_field"
+  .group
+    = form.label :tax_number, nil, :class => "label"
+    = form.text_field :tax_number, :class => "text_field"
+  .group.navform.wat-cf
+    %button.button{:type => "submit"}
+      %img{:src => "/images/web-app-theme/tick.png", :alt => "Save"}
+      = (form.object.new_record? ? "Create" : "Update") + " contact"

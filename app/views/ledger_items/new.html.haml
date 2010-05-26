@@ -1,4 +1,11 @@
-- title 'New transaction'
+- title "New Transaction"
+
+- content_for :sidebar do
+  .block
+    %h3 Tasks
+    %ul.navigation
+      %li= link_to("Create a new account", new_account_path)
+      %li= link_to("Create a new contact", new_contact_path)
 
 #block-tables.block
   .secondary-navigation
@@ -8,11 +15,4 @@
   .content
     %h2.title New transaction
     .inner
-      = render :partial => 'form'
-
-- content_for :sidebar do
-  .block
-    %h3 Tasks
-    %ul.navigation
-      %li= link_to('Create a new account', new_account_path)
-      %li= link_to('Create a new contact', new_contact_path)
+      = render :partial => "form"

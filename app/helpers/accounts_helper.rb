@@ -22,7 +22,7 @@ module AccountsHelper
       parent = ancestors[i]
       separator = (i != last_index ? ' &gt; ' : '')
       breadcrump = link_to parent.name, parent
-      haml_concat (breadcrump + separator).html_safe!
+      haml_concat (breadcrump + separator).html_safe
     end
   end
   

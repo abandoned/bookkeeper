@@ -13,6 +13,6 @@ module ContactsHelper
     if contact.country
       address << contact.country
     end
-    haml_concat(address.join('<br>').html_safe!)
+    haml_concat(address.join('<br>').html_safe)
   end
 end

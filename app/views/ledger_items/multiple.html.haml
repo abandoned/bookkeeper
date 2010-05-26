@@ -2,7 +2,7 @@
 
 - content_for :head do
   - javascript_tag do
-    = "var ledger_item_fields='#{ escape_javascript(render(:partial => 'new_ledger_item', :locals => { :new_ledger_item => @ledger_items.first })) }'".html_safe!
+    = "var ledger_item_fields='#{ escape_javascript(render(:partial => 'new_ledger_item', :locals => { :new_ledger_item => @ledger_items.first })) }'".html_safe
 
 - form_for(@ledger_items.first, :url => multiple_new_ledger_item_path, :html => { :class => 'new_ledger_items', :id => 'new_ledger_items' }) do |form|
   = render :partial => 'new_ledger_item', :collection => @ledger_items

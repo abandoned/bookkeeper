@@ -7,7 +7,7 @@
   = render :partial => 'story', :locals => { :ledger_item => @ledger_item }
   - if @ledger_item.matched?
     This transaction was posted against
-    = (@ledger_item.matches.collect{ |li| link_to(li.account.name, li.account) }.join(', ') + '.').html_safe!
+    = (@ledger_item.matches.collect{ |li| link_to(li.account.name, li.account) }.join(', ') + '.').html_safe
 
 %p.large
   = link_to 'Edit', edit_ledger_item_path

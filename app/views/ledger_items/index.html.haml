@@ -24,7 +24,7 @@
               %td{:colspan => 3}
               %td.currency
                 - counter = 0
-                %strong= @totals.collect{ |k, v| monetize(v, k) }.join('<br>').html_safe!
+                %strong= @totals.collect{ |k, v| monetize(v, k) }.join('<br>').html_safe
           %tbody
             %tr
               %th.first Date

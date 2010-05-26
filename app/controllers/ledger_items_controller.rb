@@ -136,7 +136,7 @@ class LedgerItemsController < InheritedResources::Base
       scope_by(params[:query]).
       paginate(
       :page => params[:page],
-      :include => [:sender, :recipient],
+      :include => [:sender, :recipient, :account],
       :order => 'ledger_items.transacted_on ASC')
   end
   

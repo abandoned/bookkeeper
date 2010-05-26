@@ -31,8 +31,8 @@ group :production do
 end
 
 group :test do
-  gem "capybara", "0.3.7", :require => false
-  gem "capybara-envjs", "0.1.2"
+  gem "capybara", "0.3.8", :require => false
+  gem "capybara-envjs", "0.1.3"
   gem "cucumber", "0.7.3", :require => false
   gem "cucumber-rails", "0.3.1", :require => false
   gem "database_cleaner", "0.5.2", :require => false

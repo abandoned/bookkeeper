@@ -6,6 +6,13 @@ body, html {
   background-color: #FFC;
 }
 
+hr {
+  height: 3px;
+  width: 75%;
+  background-color: #ddd;
+  margin: 25px 0;
+}
+
 /*
   Collection tables 
 */
@@ -70,4 +77,12 @@ ul.list>li {
 }
 ul.accounts.list>li>a {
   font-size: 16px; font-weight: bold;
+}
+
+/*
+  Ordered lists
+*/
+ol {
+  margin-left: 15px;
+}
 }

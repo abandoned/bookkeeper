@@ -16,8 +16,7 @@
     %h2.title List of transactions
     .inner
       = render "search"
-    - if @ledger_items.size > 0
-      .inner
+      - if @ledger_items.size > 0
         %table#ledger_items.table
           %tfoot
             %tr
@@ -35,5 +34,5 @@
             = render :partial => 'ledger_item', :collection => @ledger_items
         .actions-bar.wat-cf
           = will_paginate(@ledger_items, :inner_window => 2, :class => 'pagination')
-    - else
-      %p No transactions found
+      - else
+        %p No transactions found

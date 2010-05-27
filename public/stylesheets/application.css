@@ -2,6 +2,9 @@ body, html {
   height: 100%;
 }
 
+.highlight {
+  background-color: #FFC;
+}
 
 /*
   Collection tables 
@@ -13,10 +16,16 @@ tr {
 td.details strong {
   display: block;
   font-size: 13px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+}
+td.details {
+  min-width: 250px;
+}
+td.description {
+  min-width: 180px;
 }
 td.date, td.currency {
-  min-width: 90px;
+  min-width: 75px;
 }
 tr:hover {
   background-color: #e8e8e8;

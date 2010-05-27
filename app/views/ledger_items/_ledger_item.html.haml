@@ -10,18 +10,13 @@
       = link_to(truncate(ledger_item.recipient.name), contact_path(ledger_item.recipient))
       - if ledger_item.matched?
         and 
-        = link_to("matched with #{ledger_item.matches.collect{ |m| m.account.name }.join(", ")}", ledger_item.match)
+        = link_to("posted against #{ledger_item.matches.collect{ |m| m.account.name }.join(", ")}", ledger_item.match)
   %td.description
     = ledger_item.description 
   %td.currency
     = monetize(ledger_item.total_amount, ledger_item.currency_symbol)  
   %td.last
-    - if ledger_item.matchable?
-      - unless ledger_item.matched? || @cart.ledger_items.include?(ledger_item)
-        = link_to("Match", add_to_cart_path(:id => ledger_item.id))
-        |
-    - else
-      = link_to('Add contact', edit_ledger_item_path(ledger_item), :method => :get)
+    - if ledger_item.matchable? && !ledger_item.matched? && !@cart.ledger_items.include?(ledger_item)
+      = link_to("Match", add_to_cart_path(:id => ledger_item.id), :class => "highlight")
       |
-    = link_to 'Show', ledger_item
-    
+    = link_to 'Edit', edit_ledger_item_path(ledger_item), :class => (!ledger_item.matchable? ? "highlight" : "")    

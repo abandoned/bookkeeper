@@ -35,7 +35,7 @@ td.date {
   min-width: 75px;
 }
 td.currency {
-  min-width: 90px;
+  min-width: 100px;
 }
 tr:hover {
   background-color: #e8e8e8;

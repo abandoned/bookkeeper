@@ -15,12 +15,12 @@
       - if @imports.size > 0
         %table.table
           %tr
-            %th.first Name
-            %th Is Self
-            %th Tax Number
-            %th Contact name
-            %th Address
-            %th.last
+            %th.first File Name
+            %th Status
+            %th Ending Balance
+            %th Mapping
+            %th Message
+            %th.last Date
           = render @imports
         .actions-bar.wat-cf
           = will_paginate(collection, :inner_window => 2, :class => 'pagination')

@@ -13,8 +13,8 @@ class LedgerItemsController < InheritedResources::Base
                 :only => [:index, :add_to_cart, :balance_cart, :save_cart]
   
   def index
-    store_location
-    
+    params[:query] ||= session[:query]
+
     # TODO Refactor below.
     if request.format.csv?
       unless params[:account].blank?
@@ -71,7 +71,7 @@ class LedgerItemsController < InheritedResources::Base
     ledger_item = LedgerItem.find(params[:id])
     @cart.add(ledger_item)
     
-    redirect_back_or_default(collection_path)
+    redirect_to collection_path
   end
   
   def balance_cart
@@ -85,7 +85,7 @@ class LedgerItemsController < InheritedResources::Base
       flash[:notice] = 'Reconciliation failed'
     end
     
-    redirect_back_or_default(collection_path)
+    redirect_to collection_path
   end
   
   def save_cart
@@ -96,13 +96,13 @@ class LedgerItemsController < InheritedResources::Base
       flash.now[:failure] = 'Reconciliation failed'
     end
     
-    redirect_back_or_default(collection_path)
+    redirect_to collection_path
   end
   
   def empty_cart
     reset_cart
     
-    redirect_back_or_default(collection_path)
+    redirect_to collection_path
   end
   
   def multiple
@@ -122,7 +122,7 @@ class LedgerItemsController < InheritedResources::Base
         end
         flash[:notice] = 'Transactions successfully saved.'
 
-        redirect_back_or_default(collection_path)
+        redirect_to collection_path
       rescue Exception => e
         flash[:failure] = 'Transactions failed to save.'
       end

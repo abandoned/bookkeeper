@@ -13,7 +13,11 @@ class LedgerItemsController < InheritedResources::Base
                 :only => [:index, :add_to_cart, :balance_cart, :save_cart]
   
   def index
-    params[:query] ||= session[:query]
+    if params[:query]
+      session[:query] = params[:query]
+    elsif session[:query]
+      params[:query] = session[:query]
+    end
 
     # TODO Refactor below.
     if request.format.csv?

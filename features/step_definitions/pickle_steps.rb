@@ -12,8 +12,7 @@ end
 
 # create models from a table
 Given(/^the following #{capture_plural_factory} exists?:?$/) do |plural_factory, table|
-  name = plural_factory.singularize
-  table.hashes.each { |hash| create_model(name, hash) }
+  create_models_from_table(plural_factory, table)
 end
 
 # find a model
@@ -28,8 +27,7 @@ end
 
 # find models with a table
 Then(/^the following #{capture_plural_factory} should exists?:?$/) do |plural_factory, table|
-  name = plural_factory.singularize
-  table.hashes.each { |hash| find_model!(name, hash)}
+  find_models_from_table(plural_factory, table).should_not be_any(&:nil?)
 end
 
 # find exactly n models
@@ -64,10 +62,39 @@ end
 
 # assert model.predicate? 
 Then(/^#{capture_model} should (?:be|have) (?:an? )?#{capture_predicate}$/) do |name, predicate|
-  model!(name).should send("be_#{predicate.gsub(' ', '_')}")
+  if model!(name).respond_to?("has_#{predicate.gsub(' ', '_')}")
+    model!(name).should send("have_#{predicate.gsub(' ', '_')}")
+  else
+    model!(name).should send("be_#{predicate.gsub(' ', '_')}")
+  end
 end
 
 # assert not model.predicate?
 Then(/^#{capture_model} should not (?:be|have) (?:an? )?#{capture_predicate}$/) do |name, predicate|
-  model!(name).should_not send("be_#{predicate.gsub(' ', '_')}")
+  if model!(name).respond_to?("has_#{predicate.gsub(' ', '_')}")
+    model!(name).should_not send("have_#{predicate.gsub(' ', '_')}")
+  else
+    model!(name).should_not send("be_#{predicate.gsub(' ', '_')}")
+  end
+end
+
+# model.attribute.should eql(value)
+# model.attribute.should_not eql(value)
+Then(/^#{capture_model}'s (\w+) (should(?: not)?) be #{capture_value}$/) do |name, attribute, expectation, expected|
+  actual_value  = model(name).send(attribute)
+  expectation   = expectation.gsub(' ', '_')
+
+  case expected
+  when 'nil', 'true', 'false'
+    actual_value.send(expectation, send("be_#{expected}"))
+  when /^[+-]?[0-9_]+(\.\d+)?$/
+    actual_value.send(expectation, eql(expected.to_f))
+  else
+    actual_value.to_s.send(expectation, eql(eval(expected)))
+  end
+end
+
+# assert size of association
+Then /^#{capture_model} should have (\d+) (\w+)$/ do |name, size, association|
+  model!(name).send(association).size.should == size.to_i
 end

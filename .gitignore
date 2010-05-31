@@ -4,6 +4,6 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 .bundle
-capybara*
+capybara*html
+webrat*html
 rerun.txt
-webrat*

@@ -4,7 +4,7 @@
   .block
     %h3 Tasks
     %ul.navigation
-      %li= link_to 'Delete match', @match, :method => :delete
+      %li= link_to 'Delete match', @match, :confirm => 'Are you sure you wish to delete this match?', :method => :delete
 
 - if @match.ledger_items.size > 0
   %table

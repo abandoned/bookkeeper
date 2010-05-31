@@ -15,6 +15,7 @@ class LedgerItemsController < InheritedResources::Base
     elsif session[:query]
       params[:query] = session[:query]
     end
+
     # TODO Refactor below.
     if request.format.csv?
       unless params[:account].blank?

@@ -6,6 +6,7 @@
     %ul.navigation
       %li= link_to("Create a new account", new_account_path)
       %li= link_to("Create a new contact", new_contact_path)
+      %li= link_to('Delete this transaction', @ledger_item, :confirm => 'Are you sure?', :method => :delete)
 
 #block-tables.block
   .content

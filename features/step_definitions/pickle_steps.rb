@@ -83,7 +83,6 @@ end
 Then(/^#{capture_model}'s (\w+) (should(?: not)?) be #{capture_value}$/) do |name, attribute, expectation, expected|
   actual_value  = model(name).send(attribute)
   expectation   = expectation.gsub(' ', '_')
-
   case expected
   when 'nil', 'true', 'false'
     actual_value.send(expectation, send("be_#{expected}"))

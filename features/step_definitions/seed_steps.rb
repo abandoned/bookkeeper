@@ -47,10 +47,16 @@ Given /^I have conducted some business over the past year$/ do
     And a ledger_item exist with total_amount: 2000, account: account "Bank Account", transacted_on: "2008/01/01", sender: contact "Owner", recipient: contact "Awesome Bakery", match: that match
     And a ledger_item exists with total_amount: -2000, account: account "Equity", transacted_on: "2008/01/01", sender: contact "Awesome Bakery", recipient: contact "Owner", match: that match
     And a match exists
+    And a ledger_item exist with total_amount: 1000, currency: "GBP", account: account "Bank Account", transacted_on: "2008/01/01", sender: contact "Owner", recipient: contact "Awesome Bakery", match: that match
+    And a ledger_item exists with total_amount: -1000, currency: "GBP", account: account "Equity", transacted_on: "2008/01/01", sender: contact "Awesome Bakery", recipient: contact "Owner", match: that match
+    And a match exists
     And a ledger_item exists with total_amount: 500, account: account "Flour", transacted_on: "2008/01/15", sender: contact "Flour Corp", recipient: contact "Awesome Bakery", match: that match
     And a ledger_item exists with total_amount: -500, account: account "Bank Account", transacted_on: "2008/01/15", sender: contact "Awesome Bakery", recipient: contact "Flour Corp", match: that match
     And a match exists
     And a ledger_item exists with total_amount: 900, account: account "Bank Account", transacted_on: "2008/01/30", sender: contact "Bread Retailer", recipient: contact "Awesome Bakery", match: that match
     And a ledger_item exists with total_amount: -900, account: account "Sales", transacted_on: "2008/01/30", sender: contact "Awesome Bakery", recipient: contact "Bread Retailer", match: that match
+    And a match exists
+    And a ledger_item exists with total_amount: 250, currency: "GBP", account: account "Bank Account", transacted_on: "2008/01/30", sender: contact "Bread Retailer", recipient: contact "Awesome Bakery", match: that match
+    And a ledger_item exists with total_amount: -250, currency: "GBP", account: account "Sales", transacted_on: "2008/01/30", sender: contact "Awesome Bakery", recipient: contact "Bread Retailer", match: that match
   }
 end

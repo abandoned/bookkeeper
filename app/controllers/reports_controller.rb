@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
     @report_types = Report::TYPES
     @self_options = Contact.all.select{|c| c.self}.collect{ |c| [c.name, c.id.to_s] }
     
-    @report_type = params[:id] || "income_statement"
+    @report_type = params[:type] || "income_statement"
     
     if @report_types.include? @report_type
       @roots = Report.send @report_type

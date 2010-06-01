@@ -1,21 +1,20 @@
-- form_tag("", :method => "get", :class => "search") do
-  %dl
-    %dd
-      - if @self_options.size > 1
-        = select_tag(:contact, options_for_select(@self_options, params[:contact]))
-      - else
-        = hidden_field_tag :contact, @self_options.first.last
-    - if @report_type == "balance_sheet"
-      %dd
-        = hidden_field_tag :since, "1990-01-01"
-        = text_field_tag :till, params[:till] || Date.today
-    - else
-      %dt
-        = label_tag :since, "From"
-      %dd
-        = text_field_tag :since, params[:since] || Date.today
-      %dt
-        = label_tag :till, "To"
-      %dd
-        = text_field_tag :till, params[:till] || Date.today
-    %dd= submit_tag("Generate report", :name => nil)
+- form_tag("", :method => "get", :class => "form") do
+  - if @self_options.size > 1
+    .group
+      = select_tag(:contact, options_for_select(@self_options, params[:contact]))
+  - else
+    = hidden_field_tag :contact, @self_options.first.last
+  - if @report_type == "balance_sheet"
+    .group
+      = hidden_field_tag :since, "1990-01-01"
+      = text_field_tag :till, params[:till] || Date.today
+  - else
+    .group
+      = label_tag :since, "From", :class => "label"
+      = text_field_tag(:since, params[:since] || Date.today, :class => "text_field")
+    .group
+      = label_tag :till, "To", :class => "label"
+      = text_field_tag(:till, params[:till] || Date.today, :class => "text_field")
+  .group.navform.wat-cf
+    %button.button{:type => 'submit'}
+      Update report

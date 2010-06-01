@@ -28,7 +28,6 @@ Feature: Transactions
   Scenario: Delete a transaction
     Given I have bought some flour and have paid a utility bill
     And I am on the path "/transactions"
-    Then show me the page
     When I follow "Edit" within "#ledger_item_3"
     And I follow "Delete this transaction"
     Then I should not see "Wheat flour purchased"

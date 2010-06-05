@@ -130,6 +130,12 @@ ol {
 .report .root_sum {
   font-weight: bold;
 }
+.report .net {
+  font-weight: bold;
+}
+.report .net td {
+  padding-top: 60px;
+}
 .indentation {
   padding-left: 20px;
 }

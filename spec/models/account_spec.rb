@@ -43,5 +43,65 @@ describe Account do
       Rule.count.should eql(0)
     end
   end
+
+  describe "totals" do
+    before(:each) do
+      match = Factory(:match)
+      @self = Factory(:contact, :self => true)
+      @other = Factory(:contact)
+      Factory(:ledger_item, :account => @parent, :sender => @self, :recipient => @other, :total_amount => -100, :match => match)
+      Factory(:ledger_item, :sender => @other, :recipient => @self, :total_amount => 100, :match => match )
+      Factory(:exchange_rate, :currency => 'USD', :rate => 1.5, :recorded_on => 5.years.ago)
+      Factory(:exchange_rate, :currency => 'GBP', :rate => 0.75, :recorded_on => 5.years.ago)
+    end
+
+    it "should return total" do
+      @parent.total_for?(@self.id).should be_true
+      @parent.total_for(@self.id)["USD"].to_f.should == -100.0
+    end
+
+    it "should return total in a base currency" do
+      @parent.total_for_in_base_currency(@self.id, nil, nil, 'GBP').should == -50.0
+    end
+
+    it "should scope by perspective" do
+      @other.update_attribute(:self, true)
+      @parent.total_for(@other.id).should be_blank
+      @parent.total_for_in_base_currency(@other.id, nil, nil, 'GBP').should == 0.0
+    end
+
+    it "should not include unmatched ledger items" do
+      Factory(:ledger_item, :account => @parent, :sender => @self, :recipient => @other, :total_amount => -200)
+      @parent.total_for(@self.id)["USD"].to_f.should == -100.0
+    end
+
+    describe "grand" do
+      before(:each) do
+        match = Factory(:match)
+        Factory(:ledger_item, :account => @child, :sender => @self, :recipient => @other, :total_amount => -200, :match => match)
+        Factory(:ledger_item, :sender => @other, :recipient => @self, :total_amount => 200, :match => match )
+      end
+
+      it "should return grand total" do
+        @parent.grand_total_for?(@self.id).should be_true
+        @parent.grand_total_for(@self.id)["USD"].to_f.should == -300.0
+      end
+
+      it "should return total in a base currency" do
+        @parent.grand_total_for_in_base_currency(@self.id, nil, nil, 'GBP').should == -150.0
+      end
+
+      it "should scope by perspective" do
+        @other.update_attribute(:self, true)
+        @parent.grand_total_for(@other.id).should be_blank
+        @parent.grand_total_for_in_base_currency(@other.id, nil, nil, 'GBP').should == 0.0
+      end
+
+      it "should not include unmatched ledger items" do
+        Factory(:ledger_item, :account => @child, :sender => @self, :recipient => @other, :total_amount => -200)
+        @parent.grand_total_for(@self.id)["USD"].to_f.should == -300.0
+      end
+    end
+  end
 end
 

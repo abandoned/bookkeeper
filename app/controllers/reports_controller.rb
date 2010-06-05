@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
 
   def show
     if params[:base_currency].nil?
+      params[:contact] = @self_select_options.first.last
       params[:base_currency] = 'USD'
       params[:from_date] = Date.ordinal(Date.today.year - 1, 1)
       params[:to_date] = Date.ordinal(Date.today.year - 1, 365)

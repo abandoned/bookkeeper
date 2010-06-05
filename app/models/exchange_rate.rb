@@ -45,6 +45,8 @@ class ExchangeRate < ActiveRecord::Base
         :order      => 'recorded_on desc',
         :limit      => 2
       )
+      raise "Foreign exchange rate not available" if fx.blank?
+
       if fx.first.currency == quote
         (fx.first.rate / fx.last.rate).to_f
       else

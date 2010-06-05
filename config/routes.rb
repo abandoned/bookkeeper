@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contacts,
                 :has_many => :ledger_items
   map.resources :reports,
-                :only => :index
+                :only => :show
   map.resource  :user_session,
                 :as => 'session',
                 :only => [:new, :create, :destroy]

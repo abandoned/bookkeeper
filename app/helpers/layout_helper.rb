@@ -19,7 +19,7 @@ module LayoutHelper
       { :text => 'Transactions',  :path => ledger_items_path, :controller => 'ledger_items' },
       { :text => 'Contacts',      :path => contacts_path,     :controller => 'contacts' },
       { :text => 'Imports',       :path => imports_path,      :controller => 'imports' },
-      { :text => 'Reports',       :path => reports_path,      :controller => 'reports' },
+      { :text => 'Reports',       :path => report_path('income-statement'),       :controller => 'reports' },
     ].each do |link|
       
       classes = []

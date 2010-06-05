@@ -1,253 +1,253 @@
----
-dependencies:
-  fastercsv:
-    group:
+--- 
+dependencies: 
+  fastercsv: 
+    group: 
     - :default
     version: = 1.5.3
-  pg:
-    group:
+  pg: 
+    group: 
     - :production
     version: = 0.9.0
-  rails:
-    group:
+  rails: 
+    group: 
     - :default
     version: = 2.3.8
-  annotate:
-    group:
+  annotate: 
+    group: 
     - :development
     version: = 2.4.0
-  haml:
-    group:
+  haml: 
+    group: 
     - :default
     version: = 3.0.6
-  authlogic:
-    group:
+  authlogic: 
+    group: 
     - :default
     version: = 2.1.4
-  sqlite3-ruby:
-    group:
+  sqlite3-ruby: 
+    group: 
     - :default
     version: = 1.2.5
-    require:
+    require: 
     - sqlite3
-  ancestry:
-    group:
+  ancestry: 
+    group: 
     - :default
     version: = 1.2.0
-  delayed_job:
-    group:
+  delayed_job: 
+    group: 
     - :default
     version: = 2.0.3
-  inherited_resources:
-    group:
+  inherited_resources: 
+    group: 
     - :default
     version: = 1.0.6
-  rspec:
-    group:
+  rspec: 
+    group: 
     - :test
     version: = 1.3.0
     require: []
 
-  rspec-rails:
-    group:
+  rspec-rails: 
+    group: 
     - :test
     version: = 1.3.2
     require: []
 
-  thin:
-    group:
+  thin: 
+    group: 
     - :production
     version: = 1.2.7
-  rack:
-    group:
+  rack: 
+    group: 
     - :default
     version: = 1.1.0
-  database_cleaner:
-    group:
+  database_cleaner: 
+    group: 
     - :test
     version: = 0.5.2
     require: []
 
-  factory_girl:
-    group:
+  factory_girl: 
+    group: 
     - :test
     version: = 1.2.4
-  cucumber-rails:
-    group:
+  cucumber-rails: 
+    group: 
     - :test
     version: = 0.3.1
     require: []
 
-  hirb:
-    group:
+  hirb: 
+    group: 
     - :development
     version: = 0.3.2
-  will_paginate:
-    group:
+  will_paginate: 
+    group: 
     - :default
     version: = 2.3.12
-  erubis:
-    group:
+  erubis: 
+    group: 
     - :default
     version: = 2.6.5
-  heroku:
-    group:
+  heroku: 
+    group: 
     - :production
     version: = 1.9.9
-  pickle:
-    group:
+  pickle: 
+    group: 
     - :test
     version: = 0.2.11
-  aasm:
-    group:
+  aasm: 
+    group: 
     - :default
     version: = 2.1.5
-  chronic:
-    group:
+  chronic: 
+    group: 
     - :default
     version: = 0.2.3
-  cucumber:
-    group:
+  cucumber: 
+    group: 
     - :test
     version: = 0.7.3
     require: []
 
-  capybara-envjs:
-    group:
+  capybara-envjs: 
+    group: 
     - :test
-    version: = 0.1.3
-  nokogiri:
-    group:
+    version: = 0.1.4
+  nokogiri: 
+    group: 
     - :default
     version: = 1.4.2
-  capybara:
-    group:
+  capybara: 
+    group: 
     - :test
     version: = 0.3.8
     require: []
 
-  launchy:
-    group:
+  launchy: 
+    group: 
     - :test
     version: = 0.3.5
-specs:
-- rake:
+specs: 
+- rake: 
     version: 0.8.7
-- aasm:
+- aasm: 
     version: 2.1.5
-- abstract:
+- abstract: 
     version: 1.0.0
-- activesupport:
+- activesupport: 
     version: 2.3.8
-- rack:
+- rack: 
     version: 1.1.0
-- actionpack:
+- actionpack: 
     version: 2.3.8
-- actionmailer:
+- actionmailer: 
     version: 2.3.8
-- activerecord:
+- activerecord: 
     version: 2.3.8
-- activeresource:
+- activeresource: 
     version: 2.3.8
-- ancestry:
+- ancestry: 
     version: 1.2.0
-- annotate:
+- annotate: 
     version: 2.4.0
-- authlogic:
+- authlogic: 
     version: 2.1.4
-- builder:
+- builder: 
     version: 2.1.2
-- culerity:
+- culerity: 
     version: 0.2.10
-- mime-types:
+- mime-types: 
     version: "1.16"
-- nokogiri:
+- nokogiri: 
     version: 1.4.2
-- rack-test:
+- rack-test: 
     version: 0.5.4
-- ffi:
+- ffi: 
     version: 0.6.3
-- json_pure:
+- json_pure: 
     version: 1.4.3
-- selenium-webdriver:
-    version: 0.0.18
-- capybara:
+- selenium-webdriver: 
+    version: 0.0.20
+- capybara: 
     version: 0.3.8
-- stackdeck:
+- stackdeck: 
     version: 0.2.0
-- johnson:
+- johnson: 
     version: 2.0.0.pre3
-- envjs:
-    version: 0.3.5
-- capybara-envjs:
-    version: 0.1.3
-- rubyforge:
+- envjs: 
+    version: 0.3.6
+- capybara-envjs: 
+    version: 0.1.4
+- rubyforge: 
     version: 2.0.4
-- hoe:
-    version: 2.6.0
-- chronic:
+- hoe: 
+    version: 2.6.1
+- chronic: 
     version: 0.2.3
-- configuration:
+- configuration: 
     version: 1.1.0
-- diff-lcs:
+- diff-lcs: 
     version: 1.1.2
-- trollop:
+- trollop: 
     version: 1.16.2
-- gherkin:
+- gherkin: 
     version: 1.0.30
-- term-ansicolor:
+- term-ansicolor: 
     version: 1.0.5
-- cucumber:
+- cucumber: 
     version: 0.7.3
-- cucumber-rails:
+- cucumber-rails: 
     version: 0.3.1
-- daemons:
+- daemons: 
     version: 1.0.10
-- database_cleaner:
+- database_cleaner: 
     version: 0.5.2
-- delayed_job:
+- delayed_job: 
     version: 2.0.3
-- erubis:
+- erubis: 
     version: 2.6.5
-- eventmachine:
+- eventmachine: 
     version: 0.12.10
-- factory_girl:
+- factory_girl: 
     version: 1.2.4
-- fastercsv:
+- fastercsv: 
     version: 1.5.3
-- haml:
+- haml: 
     version: 3.0.6
-- has_scope:
+- has_scope: 
     version: 0.5.0
-- launchy:
+- launchy: 
     version: 0.3.5
-- rest-client:
+- rest-client: 
     version: 1.4.2
-- heroku:
+- heroku: 
     version: 1.9.9
-- hirb:
+- hirb: 
     version: 0.3.2
-- responders:
+- responders: 
     version: 0.4.7
-- inherited_resources:
+- inherited_resources: 
     version: 1.0.6
-- pg:
+- pg: 
     version: 0.9.0
-- pickle:
+- pickle: 
     version: 0.2.11
-- rails:
+- rails: 
     version: 2.3.8
-- rspec:
+- rspec: 
     version: 1.3.0
-- rspec-rails:
+- rspec-rails: 
     version: 1.3.2
-- sqlite3-ruby:
+- sqlite3-ruby: 
     version: 1.2.5
-- thin:
+- thin: 
     version: 1.2.7
-- will_paginate:
+- will_paginate: 
     version: 2.3.12
-hash: dd8b3e92e76680e66ad046e5b803592510cee7a5
-sources:
-- Rubygems:
+hash: 426b4aa587887cd82309441fda16259320d60128
+sources: 
+- Rubygems: 
     uri: http://gemcutter.org

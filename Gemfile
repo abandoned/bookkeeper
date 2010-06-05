@@ -18,7 +18,6 @@ if RUBY_VERSION.include?("1.8")
   gem "fastercsv", "1.5.3"
 end
 
-
 group :development do
   gem "hirb", "0.3.2"
   gem "annotate", "2.4.0"
@@ -32,7 +31,7 @@ end
 
 group :test do
   gem "capybara", "0.3.8", :require => false
-  gem "capybara-envjs", "0.1.3"
+  gem "capybara-envjs", "0.1.4"
   gem "cucumber", "0.7.3", :require => false
   gem "cucumber-rails", "0.3.1", :require => false
   gem "database_cleaner", "0.5.2", :require => false

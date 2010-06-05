@@ -58,15 +58,18 @@ class LedgerItemsController < InheritedResources::Base
     calculate_totals
     index!
   end
+
   def edit
     @ledger_item = LedgerItem.find params[:id]
     @ledger_items = [@ledger_item]
   end
+
   def add_to_cart
     ledger_item = LedgerItem.find(params[:id])
     @cart.add(ledger_item)
     redirect_to collection_path
   end
+
   def balance_cart
     account = Account.find(params[:ledger_item][:account_id])
     match = Match.new(:ledger_items => @cart.ledger_items)
@@ -79,6 +82,7 @@ class LedgerItemsController < InheritedResources::Base
     end
     redirect_to collection_path
   end
+
   def save_cart
     if Match.create(:ledger_items => @cart.ledger_items)
       flash[:notice] = 'Transactions successfully reconciled'
@@ -88,10 +92,12 @@ class LedgerItemsController < InheritedResources::Base
     end
     redirect_to collection_path
   end
+
   def empty_cart
     reset_cart
     redirect_to collection_path
   end
+
   def multiple
     if request.get?
       @ledger_item = LedgerItem.new
@@ -114,21 +120,26 @@ class LedgerItemsController < InheritedResources::Base
       end
     end
   end
+
   private
+
   def collection
     @ledger_items ||= end_of_association_chain.
       scope_by(params[:query]).
       paginate(
       :page => params[:page],
-      :include => [:sender, :recipient, :account],
+      :include => [:sender, :recipient, :account, { :match => { :ledger_items => :account } }],
       :order => 'ledger_items.transacted_on ASC')
   end
+
   def find_cart
     @cart ||= session[:cart] ||= Cart.new
   end
+
   def reset_cart
     @cart = session[:cart] = Cart.new
   end
+
   # Iterates over ledger items in the collection, summing up the totals
   # for each currency
   def calculate_totals

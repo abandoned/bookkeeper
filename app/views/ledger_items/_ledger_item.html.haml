@@ -2,7 +2,7 @@
   %td.date
     = ledger_item.transacted_on.to_s(:rfc822)
   %td.details
-    %strong= link_to truncate(ledger_item.account.name), ledger_item.account
+    %strong= link_to truncate(ledger_item.account.name, :length => 40), ledger_item.account
     - if ledger_item.matchable?
       Sent by
       = link_to(truncate(ledger_item.sender.name), contact_path(ledger_item.sender))

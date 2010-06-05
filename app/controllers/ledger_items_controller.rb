@@ -137,7 +137,7 @@ class LedgerItemsController < InheritedResources::Base
       scope_by(params[:query]).
       sum(:total_amount, :group => :currency).
       each_pair do |currency, total_amount|
-        @totals[LedgerItem::CURRENCY_SYMBOLS[currency]] = total_amount.round(2)
+        @totals[currency] = total_amount.round(2)
       end
   end
 end

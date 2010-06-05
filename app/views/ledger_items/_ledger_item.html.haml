@@ -14,7 +14,7 @@
   %td.description
     = ledger_item.description 
   %td.currency
-    = monetize(ledger_item.total_amount, ledger_item.currency_symbol)  
+    = monetize(ledger_item.total_amount, ledger_item.currency)  
   %td.last
     - if ledger_item.matchable? && !ledger_item.matched? && !@cart.ledger_items.include?(ledger_item)
       = link_to("Match", add_to_cart_path(:id => ledger_item.id), :class => "highlight")

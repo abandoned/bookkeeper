@@ -2,14 +2,16 @@ module LedgerItemsHelper
   
   # A little wrapper around the number_to_currency helper to display negative
   # entries in a pretty manner.
-  def monetize(amount, symbol)
+  def monetize(amount, currency)
+    symbol = LedgerItem::CURRENCY_SYMBOLS[currency]
+
     if amount < 0
       sign = content_tag(:strong, "CR ")
       amount *= -1
     else
       sign = ""
     end
-    if symbol == '¥'
+    if currency == 'JPY'
       sign + number_to_currency(amount.to_s, :unit => symbol, :format => "%u%n", :precision => 0)
     else
       sign + number_to_currency(amount.to_s, :unit => symbol, :format => "%u%n")

@@ -1,6 +1,6 @@
 = (ledger_item.sender ? link_to(ledger_item.sender.name, ledger_item.sender) : 'someone').html_safe
 sent
-= monetize(ledger_item.total_amount, ledger_item.currency_symbol)
+= monetize(ledger_item.total_amount, ledger_item.currency)
 of
 = link_to(ledger_item.account.name, ledger_item.account)
 to

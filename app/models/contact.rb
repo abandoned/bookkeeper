@@ -36,7 +36,7 @@ class Contact < ActiveRecord::Base
   
   named_scope :self, :conditions => ["self = ?", true]
   
-  protected
+  private
   
   def cannot_orphan_ledger_items
     if self.received_ledger_items.size > 0 || self.sent_ledger_items.size > 0

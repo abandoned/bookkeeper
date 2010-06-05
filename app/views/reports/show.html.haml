@@ -29,7 +29,7 @@
                 %td
                   = "Total #{root.name}"
                 %td.currency
-                  = monetize(root.grand_total_for_in_base_currency(params[:contact], params[:from_date], params[:to_date], params[:base_currency]).abs, params[:base_currency])
+                  = monetize(root.grand_total_for_in_base_currency(params[:contact], params[:from_date], params[:to_date], params[:base_currency]) * (@report.name == "Income Statement" ? -1 : 1), params[:base_currency])
           %tr.net
             %td
               Net

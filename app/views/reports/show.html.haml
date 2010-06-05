@@ -2,7 +2,7 @@
 
 - content_for :sidebar do
   .block
-    %h3 Report options
+    %h3 Options
     .content
       %br/
       = render :partial => 'form'
@@ -15,7 +15,7 @@
   .content
     %h2.title= @report.name
     .inner
-      - unless @report.roots.blank?
+      - if @report.roots.any? { |a| a.grand_total_for?(params[:contact], params[:from_date], params[:to_date]) }
         %table.table.report
           - for root in @report.roots
             - if root.grand_total_for?(params[:contact], params[:from_date], params[:to_date])
@@ -29,13 +29,12 @@
                 %td
                   = "Total #{root.name}"
                 %td.currency
-                  - root.grand_total_for(params[:contact], params[:from_date], params[:to_date]).each_pair do |currency, total|
-                    = monetize(total.abs, currency)
-                    %br
+                  = monetize(root.grand_total_for_in_base_currency(params[:contact], params[:from_date], params[:to_date], params[:base_currency]).abs, params[:base_currency])
           %tr.net
             %td
               Net
             %td.currency
-              - @report.roots.inject({}) { |m, a| m.merge(a.grand_total_for(params[:contact], params[:from_date], params[:to_date])) { |k, v1, v2| v1 + v2 } }.each_pair do |currency, total|
-                = monetize(-total, currency)
-                %br
+              = monetize(@report.roots.map { |a| a.grand_total_for_in_base_currency(params[:contact], params[:from_date], params[:to_date], params[:base_currency]) }.sum * (@report.name == "Income Statement" ? -1 : 1), params[:base_currency])
+      - else
+        %p
+          No data in given period

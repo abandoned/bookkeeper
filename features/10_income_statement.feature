@@ -10,12 +10,21 @@ Feature: Income Statement
   Background:
     Given I am Awesome Bakery and Flour Corp is my supplier
     And I have conducted some business over the past year
+    And the GBP to EUR rate is 0.8 on "2008-01-01"
+    And the USD to EUR rate is 1.2 on "2008-01-01"
     And I am logged in
-  
-  @wip
-  Scenario: View income statement
-    Given I am on path "/reports/?type=income_statement"
-    And I fill in "From" with "2008-01-01"
+
+  Scenario: Link to income statement
+    When I go to path "/reports/income-statement"
+    Then I should see "Income Statement" within "title"
+
+  Scenario: Generate income statement
+    Given I am on path "/reports/income-statement"
+    When I fill in "From" with "2008-01-01"
     And I fill in "To" with "2008-12-31"
-    And I press "Generate report"
-    Then show me the page
+    And I press "Update report"
+    Then I should see "$775.00" within ".net"
+    
+    When I select "GBP" from "Base currency"
+    And I press "Update report"
+    Then I should see "£516.67" within ".net"

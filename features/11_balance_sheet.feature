@@ -22,7 +22,6 @@ Feature: Balance Sheet
     Given I am on path "/reports/balance-sheet"
     And I fill in "Date" with "2008-12-31"
     And I press "Update report"
-    Then show me the page
     Then I should see "$775.00" within ".net"
 
     When I select "GBP" from "Base currency"

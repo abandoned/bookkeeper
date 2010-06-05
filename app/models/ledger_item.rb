@@ -61,12 +61,12 @@ class LedgerItem < ActiveRecord::Base
   }
   named_scope :from_date, lambda { |date|
     unless date.nil?
-      { :conditions => ['transacted_on >= ?', date] }
+      { :conditions => ['ledger_items.transacted_on >= ?', date] }
     end
   }
   named_scope :to_date, lambda { |date|
     unless date.nil?
-      { :conditions => ['transacted_on <= ?', date] }
+      { :conditions => ['ledger_items.transacted_on <= ?', date] }
     end
   }
 

@@ -1,27 +1,41 @@
-- title @report_type.titleize
+- title @report.name
 
-= render :partial => 'form'
+- content_for :sidebar do
+  .block
+    %h3 Report options
+    .content
+      %br/
+      = render :partial => 'form'
 
-- unless @roots.blank?
-  %table.report
-    - for root in @roots
-      - if root.grand_total_for?(params[:contact], params[:since], params[:till])
-        %tr.root_account
-          %td{:colspan => 2}
-            =h root.name
-        = render(:partial => "child", :collection => root.children)
-            
-        %tr.root_sum
-          %td
-            = "Total #{root.name}"
-          %td.currency
-            - root.grand_total_for(params[:contact], params[:since], params[:till]).each_pair do |currency, total|
-              = monetize(total.abs, currency)
-              %br
-    %tr.net
-      %td
-        Net
-      %td.currency
-        - @roots.inject({}) { |m, a| m.merge(a.grand_total_for(params[:contact], params[:since], params[:till])) { |k, v1, v2| v1 + v2 } }.each_pair do |currency, total|
-          = monetize(total.abs, currency)
-          %br
+#block-tables.block
+  .secondary-navigation
+    %ul.wat-cf
+      - for name in Report::NAMES
+        %li{:class => @report.name == name ? "active" : ""}= link_to(name.titleize, report_path(name.parameterize))
+  .content
+    %h2.title= @report.name
+    .inner
+      - unless @report.roots.blank?
+        %table.table.report
+          - for root in @report.roots
+            - if root.grand_total_for?(params[:contact], params[:from_date], params[:to_date])
+              %tr.root_account
+                %td
+                  =h root.name
+                %td
+              = render(:partial => "child", :collection => root.children)
+
+              %tr.root_sum
+                %td
+                  = "Total #{root.name}"
+                %td.currency
+                  - root.grand_total_for(params[:contact], params[:from_date], params[:to_date]).each_pair do |currency, total|
+                    = monetize(total.abs, currency)
+                    %br
+          %tr.net
+            %td
+              Net
+            %td.currency
+              - @report.roots.inject({}) { |m, a| m.merge(a.grand_total_for(params[:contact], params[:from_date], params[:to_date])) { |k, v1, v2| v1 + v2 } }.each_pair do |currency, total|
+                = monetize(-total, currency)
+                %br

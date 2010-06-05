@@ -1,20 +1,21 @@
 - form_tag("", :method => "get", :class => "form") do
-  - if @self_options.size > 1
+  - if @self_select_options.size > 1
     .group
-      = select_tag(:contact, options_for_select(@self_options, params[:contact]))
+      = select_tag(:contact, options_for_select(@self_select_options, params[:contact]))
   - else
-    = hidden_field_tag :contact, @self_options.first.last
-  - if @report_type == "balance_sheet"
+    = hidden_field_tag :contact, @self_select_options.first.last
+  - if @report.name == "Balance Sheet"
     .group
-      = hidden_field_tag :since, "1990-01-01"
-      = text_field_tag :till, params[:till] || Date.today
+      = label_tag :from_date, "Date", :class => "label"
+      = hidden_field_tag :from_date, "1990-01-01"
+      = text_field_tag :to_date, params[:to_date] || Date.ordinal(Date.today.year - 1, 365), :class => "text_field"
   - else
     .group
-      = label_tag :since, "From", :class => "label"
-      = text_field_tag(:since, params[:since] || Date.today, :class => "text_field")
+      = label_tag :from_date, "From", :class => "label"
+      = text_field_tag(:from_date, params[:from_date] || Date.ordinal(Date.today.year - 1, 1), :class => "text_field")
     .group
-      = label_tag :till, "To", :class => "label"
-      = text_field_tag(:till, params[:till] || Date.today, :class => "text_field")
+      = label_tag :to_date, "To", :class => "label"
+      = text_field_tag(:to_date, params[:to_date] || Date.ordinal(Date.today.year - 1, 365), :class => "text_field")
   .group.navform.wat-cf
     %button.button{:type => 'submit'}
       Update report

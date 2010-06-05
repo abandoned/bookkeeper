@@ -108,3 +108,28 @@ ol {
 .block {
   -webkit-box-shadow: 1px 1px 10px #999; -moz-box-shadow: 1px 1px 10px #999; box-shadow: 1px 1px 10px #999;
 }
+
+/*
+  Reports
+*/
+.report td:last-child {
+  text-align: right;
+}
+.report td {
+  padding: 3px 10px;
+}
+.report .root_account {
+  font-style: italic;
+}
+.report .root_account td {
+  padding-top: 20px;
+}
+.report .root_account:first-child td {
+  padding-top: 3px;
+}
+.report .root_sum {
+  font-weight: bold;
+}
+.indentation {
+  padding-left: 20px;
+}

@@ -1,12 +1,12 @@
-- if child.grand_total_for?(params[:contact], params[:since], params[:till])
+- if child.grand_total_for?(params[:contact], params[:from_date], params[:to_date])
   %tr.descendant
     %td
-      - ((child.depth - 1) * 2).times do
-        &nbsp;
+      - (child.depth - 1).times do
+        %span.indentation
       =h child.name
-    - if child.total_for?(params[:contact], params[:since], params[:till])
-      %td.currency
-        - child.total_for(params[:contact], params[:since], params[:till]).each_pair do |currency, total|
+    %td.currency
+      - if child.total_for?(params[:contact], params[:from_date], params[:to_date])
+        - child.total_for(params[:contact], params[:from_date], params[:to_date]).each_pair do |currency, total|
           = monetize(total.abs, currency)
           %br
   = render :partial => "child", :collection => child.children

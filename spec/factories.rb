@@ -29,6 +29,12 @@ Factory.define :contact do |f|
   f.sequence(:name) { |n| "foo#{n}" }
 end
 
+Factory.define :exchange_rate do |f|
+  f.currency    'USD'
+  f.rate        1 + ((rand(100) - 50) / 100)
+  f.recorded_on Date.today
+end
+
 Factory.define :ledger_item do |f|
   f.transacted_on { Date.today }
   f.total_amount 10

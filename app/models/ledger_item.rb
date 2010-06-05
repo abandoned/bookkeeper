@@ -110,7 +110,7 @@ class LedgerItem < ActiveRecord::Base
         date = Chronic.parse($1)
         if date
           scope = scope.scoped({
-            :conditions => ['transacted_on = ?', date.to_date]
+            :conditions => ['ledger_items.transacted_on = ?', date.to_date]
           })
         end
 
@@ -119,7 +119,7 @@ class LedgerItem < ActiveRecord::Base
         date = Chronic.parse($1)
         if date
           scope = scope.scoped({
-            :conditions => ['transacted_on >= ?', date.to_date]
+            :conditions => ['ledger_items.transacted_on >= ?', date.to_date]
           })
         end
 
@@ -128,30 +128,30 @@ class LedgerItem < ActiveRecord::Base
         date = Chronic.parse($1)
         if date
           scope = scope.scoped({
-            :conditions => ['transacted_on <= ?', date.to_date]
+            :conditions => ['ledger_items.transacted_on <= ?', date.to_date]
           })
         end
 
       # Scope by match status
       when /^\s*NOT MATCHED\s*$/
         scope = scope.scoped({
-          :conditions => 'match_id IS NULL'
+          :conditions => 'ledger_items.match_id IS NULL'
         })
 
       when /^\s*MATCHED\s*$/
         scope = scope.scoped({
-          :conditions => 'match_id IS NOT NULL'
+          :conditions => 'ledger_items.match_id IS NOT NULL'
         })
 
       # Scope by description
       when /\w/
         if RAILS_ENV == "production"
           scope = scope.scoped({
-            :conditions => ['description ILIKE ?', "%#{q}%"]
+            :conditions => ['ledger_items.description ILIKE ?', "%#{q}%"]
           })
         else
           scope = scope.scoped({
-            :conditions => ['UPPER(description) LIKE ?', "%#{q.upcase}%"]
+            :conditions => ['UPPER(ledger_items.description) LIKE ?', "%#{q.upcase}%"]
           })
         end
       end

@@ -26,5 +26,6 @@ Feature: Search Transactions
     | not matched                       | Wheat flour | 5     |
     | since Jan 2 2008                  | Brown       | 3     |
     | until Jan 2 2008                  | Wheat       | 6     |
-    | since Jan 2 2008 ; until 1/2/2008 | Brown       | 2     |
+    | since Jan 2 2008; until 1/2/2008  | Brown       | 2     |
     | on 1/2/2008                       | Brown       | 2     |
+    | until Jan 2 2008; in Bank Account | Wheat       | 3     |

@@ -19,8 +19,9 @@ if RUBY_VERSION.include?("1.8")
 end
 
 group :development do
-  gem "hirb", "0.3.2"
   gem "annotate", "2.4.0"
+  gem "hirb", "0.3.2"
+  gem "syntax"
 end
 
 group :production do

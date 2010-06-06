@@ -48,10 +48,10 @@ class LedgerItem < ActiveRecord::Base
   after_update  :update_matches
   after_destroy :delete_matches
 
-  named_scope :matched,   :conditions => 'match_id IS NOT NULL'
-  named_scope :unmatched, :conditions => 'match_id IS NULL'
-  named_scope :debit,     :conditions => 'total_amount > 0'
-  named_scope :credit,    :conditions => 'total_amount < 0'
+  named_scope :matched,   :conditions => 'ledger_items.match_id IS NOT NULL'
+  named_scope :unmatched, :conditions => 'ledger_items.match_id IS NULL'
+  named_scope :debit,     :conditions => 'ledger_items.total_amount > 0'
+  named_scope :credit,    :conditions => 'ledger_items.total_amount < 0'
   named_scope :contact,   lambda { |id|
     unless id.nil?
       { :joins => 'INNER JOIN contacts AS senders ON senders.id = sender_id
@@ -87,7 +87,7 @@ class LedgerItem < ActiveRecord::Base
       # Scope by total amount
       when /^(=|<|<=|>|>=|<>)\s*-?([0-9.,]+)$/
         scope = scope.scoped({
-          :conditions => ["ABS(total_amount) #{$1} ?", $2.gsub(/,/, '').to_f]
+          :conditions => ["ABS(ledger_items.total_amount) #{$1} ?", $2.gsub(/,/, '').to_f]
         })
 
       # Scope by contact name

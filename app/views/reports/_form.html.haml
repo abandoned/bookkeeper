@@ -1,25 +1,25 @@
 - form_tag("", :method => "get", :class => "form") do
-  - if @self_select_options.size > 1
+  - if @report.self_select_options.size > 1
     .group
-      = label_tag :contact, "Perspective", :class => "label"
-      = select_tag(:contact, options_for_select(@self_select_options, params[:contact]))
+      = label_tag :perspective, "Perspective", :class => "label"
+      = select_tag(:perspective, options_for_select(@report.self_select_options, @report.perspective))
   - else
-    = hidden_field_tag :contact, @self_select_options.first.last
+    = hidden_field_tag :perspective, @report.perspective
   .group
     = label_tag :base_currency, nil, :class => "label"
-    = select_tag :base_currency, options_for_select(['USD', 'GBP', 'EUR', 'CAD', 'JPY', 'AUD'], params[:base_currency])
+    = select_tag :base_currency, options_for_select(['USD', 'GBP', 'EUR', 'CAD', 'JPY', 'AUD'], @report.base_currency)
   - if @report.name == "Balance Sheet"
     .group
       = label_tag :to_date, "Date", :class => "label"
-      = text_field_tag :to_date, params[:to_date], :class => "text_field"
+      = text_field_tag :to_date, @report.to_date, :class => "text_field"
     = hidden_field_tag :from_date, "1990-01-01"
   - else
     .group
       = label_tag :from_date, "From", :class => "label"
-      = text_field_tag(:from_date, params[:from_date], :class => "text_field")
+      = text_field_tag(:from_date, @report.from_date, :class => "text_field")
     .group
       = label_tag :to_date, "To", :class => "label"
-      = text_field_tag(:to_date, params[:to_date], :class => "text_field")
+      = text_field_tag(:to_date, @report.to_date, :class => "text_field")
   .group.navform.wat-cf
     %button.button{:type => 'submit'}
       Update report

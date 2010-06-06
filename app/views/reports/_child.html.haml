@@ -1,10 +1,10 @@
-- if child.grand_total_for?(params[:contact], params[:from_date], params[:to_date])
+- if child.grand_total_for?(@report.perspective, @report.from_date, @report.to_date)
   %tr.descendant
     %td
       - (child.depth - 1).times do
         %span.indentation
       =h child.name
     %td.currency
-      - if child.total_for?(params[:contact], params[:from_date], params[:to_date])
-        = monetize(child.total_for_in_base_currency(params[:contact], params[:from_date], params[:to_date], params[:base_currency]).abs, params[:base_currency])
+      - if child.total_for?(@report.perspective, @report.from_date, @report.to_date)
+        = monetize(child.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency).abs, @report.base_currency)
   = render :partial => "child", :collection => child.children

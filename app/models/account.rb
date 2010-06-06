@@ -91,7 +91,7 @@ class Account < ActiveRecord::Base
   end
 
   def calculate_total_for(account,contact,from_date,to_date,total={})
-    account.ledger_items.matched.perspective(contact).from_date(from_date).to_date(to_date).sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
+    account.ledger_items.matched.perspective(contact.to_i).from_date(from_date).to_date(to_date).sum(:total_amount, :group => :currency).each_pair do |currency, total_amount|
       if total[currency].blank?
         total[currency] = total_amount.round(2)
       else

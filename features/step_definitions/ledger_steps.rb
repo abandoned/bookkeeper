@@ -41,6 +41,7 @@ end
 Given /^I have conducted some business over the past year$/ do
   steps %Q{
     Given an account "Sales" exists with name: "Sales", type: "RevenueOrExpense", parent: account "Revenue"
+    And an account "Currency Conversion" exists with name: "Currency Conversion", type: "CurrencyConversion"
     And a contact "Owner" exists
     And a contact "Bread Retailer" exists
     And a match exists
@@ -56,7 +57,10 @@ Given /^I have conducted some business over the past year$/ do
     And a ledger_item exists with total_amount: 900, account: account "Bank Account", transacted_on: "2008/01/30", sender: contact "Bread Retailer", recipient: contact "Awesome Bakery", match: that match
     And a ledger_item exists with total_amount: -900, account: account "Sales", transacted_on: "2008/01/30", sender: contact "Awesome Bakery", recipient: contact "Bread Retailer", match: that match
     And a match exists
-    And a ledger_item exists with total_amount: 250, currency: "GBP", account: account "Bank Account", transacted_on: "2008/01/30", sender: contact "Bread Retailer", recipient: contact "Awesome Bakery", match: that match
+    And a ledger_item exists with total_amount: 250, currency: "GBP", account: account "Currency Conversion", transacted_on: "2008/01/30", sender: contact "Bread Retailer", recipient: contact "Awesome Bakery", match: that match
     And a ledger_item exists with total_amount: -250, currency: "GBP", account: account "Sales", transacted_on: "2008/01/30", sender: contact "Awesome Bakery", recipient: contact "Bread Retailer", match: that match
+    And a match exists
+    And a ledger_item exists with total_amount: 375, currency: "USD", account: account "Bank Account", transacted_on: "2008/01/30", sender: contact "Bread Retailer", recipient: contact "Awesome Bakery", match: that match
+    And a ledger_item exists with total_amount: -375, currency: "USD", account: account "Currency Conversion", transacted_on: "2008/01/30", sender: contact "Awesome Bakery", recipient: contact "Bread Retailer", match: that match
   }
 end

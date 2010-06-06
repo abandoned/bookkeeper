@@ -20,6 +20,8 @@ class Report
         instance_variable_set("@#{var_name}".to_sym, params[var_name.to_sym])
       end
     end
+
+    @from_date = "1990-01-01" if name == "Balance Sheet"
   end
 
   def available?

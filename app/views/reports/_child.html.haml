@@ -5,6 +5,7 @@
         %span.indentation
       =h child.name
     %td.currency
-      - if child.total_for?(@report.perspective, @report.from_date, @report.to_date)
-        = monetize(child.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency) * switch_sign_if_income_statement, @report.base_currency)
+      = monetize(child.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency) * switch_sign_if_income_statement, @report.base_currency)
+      - (child.depth - 1).times do
+        %span.indentation
   = render :partial => "child", :collection => child.children

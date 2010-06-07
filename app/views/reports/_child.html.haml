@@ -6,5 +6,5 @@
       =h child.name
     %td.currency
       - if child.total_for?(@report.perspective, @report.from_date, @report.to_date)
-        = monetize(child.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency).abs, @report.base_currency)
+        = monetize(child.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency) * switch_sign_if_income_statement, @report.base_currency)
   = render :partial => "child", :collection => child.children

@@ -29,12 +29,12 @@
                 %td
                   = "Total #{root.name}"
                 %td.currency
-                  = monetize(root.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency) * (@report.name == "Income Statement" ? -1 : 1), @report.base_currency)
+                  = monetize(root.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency) * switch_sign_if_income_statement, @report.base_currency)
           %tr.net
             %td
               Net
             %td.currency
-              = monetize(@report.roots.map { |a| a.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency) }.sum * (@report.name == "Income Statement" ? -1 : 1), @report.base_currency)
+              = monetize(@report.roots.map { |a| a.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency) }.sum * switch_sign_if_income_statement, @report.base_currency)
       - else
         %p
           No data in given period

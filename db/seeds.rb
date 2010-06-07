@@ -18,7 +18,7 @@ User.create!([{
 %w{Assets Liabilities Equity}.each do |name|
   AssetOrLiability.create!(:name => name)
 end
-%w{Revenue Expenses}.each do |name|
+['Revenue', 'Expenses', 'Cost of Goods Sold'].each do |name|
   RevenueOrExpense.create!(:name => name)
 end
 CurrencyConversion.create!(:name => 'Currency Conversion')
@@ -30,7 +30,6 @@ seed_accounts({
   'Revenue'     => ['Sales', 'Other Miscellaneous Income'],
   'Expenses'    => [
                     'Bank Charges',
-                    'Cost of Goods Sold',
                     'Dues and Subscriptions',
                     'Insurance',
                     'Legal and Professional Fees',

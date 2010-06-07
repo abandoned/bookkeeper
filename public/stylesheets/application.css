@@ -130,6 +130,10 @@ ol {
 .report .root_sum {
   font-weight: bold;
 }
+.report .nonroot_sum {
+  font-weight: bold;
+  color: #888;
+}
 .report .net {
   font-weight: bold;
 }

@@ -45,7 +45,7 @@ class Account < ActiveRecord::Base
   end
 
   def total_for?(contact=nil,from_date=nil,to_date=nil)
-    !total_for(contact, from_date, to_date).blank?
+    total_for(contact, from_date, to_date).any? { |k, v| v != 0 }
   end
 
   def grand_total_for(contact=nil,from_date=nil,to_date=nil)
@@ -63,7 +63,7 @@ class Account < ActiveRecord::Base
   end
 
   def grand_total_for?(contact=nil,from_date=nil,to_date=nil)
-    !grand_total_for(contact, from_date, to_date).blank?
+    grand_total_for(contact, from_date, to_date).any? { |k, v| v != 0 }
   end
 
   def currency_symbol

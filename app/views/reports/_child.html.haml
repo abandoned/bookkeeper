@@ -1,4 +1,4 @@
-- if child.grand_total_for?(@report.perspective, @report.from_date, @report.to_date)
+- if child.children.present? || child.grand_total_for?(@report.perspective, @report.from_date, @report.to_date)
   %tr.descendant
     %td
       - (child.depth - 1).times do

@@ -30,3 +30,4 @@ Feature: Search Transactions
     | on 1/2/2008                       | Brown       | 2     |
     | until Jan 2 2008; in Bank Account | Wheat       | 3     |
     | =300; in Bank Account             | Wheat flour | 1     |
+    | in Bank Account; by Flour Corp    | Wheat flour | 2     |

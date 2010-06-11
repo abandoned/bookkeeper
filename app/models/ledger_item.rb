@@ -54,8 +54,8 @@ class LedgerItem < ActiveRecord::Base
   named_scope :credit,    :conditions => 'ledger_items.total_amount < 0'
   named_scope :contact,   lambda { |id|
     unless id.nil?
-      { :joins => 'INNER JOIN contacts AS senders ON senders.id = sender_id
-                   INNER JOIN contacts AS recipients ON recipients.id = recipient_id',
+      { :joins => 'INNER JOIN contacts AS senders ON senders.id = ledger_items.sender_id
+                   INNER JOIN contacts AS recipients ON recipients.id = ledger_items.recipient_id',
         :conditions => ['senders.id = ? OR recipients.id = ?', id, id] }
     end
   }
@@ -72,8 +72,8 @@ class LedgerItem < ActiveRecord::Base
 
   named_scope :perspective, lambda { |id|
     unless id.nil?
-      { :joins => 'INNER JOIN contacts AS senders ON senders.id = sender_id
-                   INNER JOIN contacts AS recipients ON recipients.id = recipient_id',
+      { :joins => 'INNER JOIN contacts AS senders ON senders.id = ledger_items.sender_id
+                   INNER JOIN contacts AS recipients ON recipients.id = ledger_items.recipient_id',
         :conditions => ['(senders.id = ? AND ledger_items.total_amount < 0) OR (recipients.id = ? AND ledger_items.total_amount > 0)', id, id] }
     end
   }
@@ -93,8 +93,8 @@ class LedgerItem < ActiveRecord::Base
       # Scope by contact name
       when /^BY\s+(.*)$/
         scope = scope.scoped({
-          :joins => 'INNER JOIN contacts AS senders ON senders.id = sender_id
-                     INNER JOIN contacts AS recipients ON recipients.id = recipient_id',
+          :joins => 'INNER JOIN contacts AS senders ON senders.id = ledger_items.sender_id
+                     INNER JOIN contacts AS recipients ON recipients.id = ledger_items.recipient_id',
           :conditions => ['UPPER(senders.name) = ? OR UPPER(recipients.name) = ?', $1, $1]
 
         })

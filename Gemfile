@@ -12,7 +12,7 @@ gem "nokogiri", "1.4.2"
 gem "rack", "1.1.0"
 gem "rails", "2.3.8"
 gem "sqlite3-ruby", "1.2.5", :require => "sqlite3"
-gem "will_paginate", "2.3.12"
+gem "will_paginate", "2.3.14"
 
 if RUBY_VERSION.include?("1.8")
   gem "fastercsv", "1.5.3"
@@ -32,9 +32,9 @@ end
 
 group :test do
   gem "capybara", "0.3.8", :require => false
-  gem "capybara-envjs", "0.1.4"
-  gem "cucumber", "0.7.3", :require => false
-  gem "cucumber-rails", "0.3.1", :require => false
+  gem "capybara-envjs", "0.1.5", :require => false
+  gem "cucumber", "0.8.0", :require => false
+  gem "cucumber-rails", "0.3.2", :require => false
   gem "database_cleaner", "0.5.2", :require => false
   gem "factory_girl", "1.2.4"
   gem "launchy", "0.3.5"

@@ -79,7 +79,7 @@ dependencies:
   cucumber-rails: 
     group: 
     - :test
-    version: = 0.3.1
+    version: = 0.3.2
     require: []
 
   hirb: 
@@ -93,7 +93,7 @@ dependencies:
   will_paginate: 
     group: 
     - :default
-    version: = 2.3.12
+    version: = 2.3.14
   heroku: 
     group: 
     - :production
@@ -113,13 +113,15 @@ dependencies:
   cucumber: 
     group: 
     - :test
-    version: = 0.7.3
+    version: = 0.8.0
     require: []
 
   capybara-envjs: 
     group: 
     - :test
-    version: = 0.1.4
+    version: = 0.1.5
+    require: []
+
   nokogiri: 
     group: 
     - :default
@@ -184,7 +186,7 @@ specs:
 - envjs: 
     version: 0.3.6
 - capybara-envjs: 
-    version: 0.1.4
+    version: 0.1.5
 - rubyforge: 
     version: 2.0.4
 - hoe: 
@@ -202,9 +204,9 @@ specs:
 - term-ansicolor: 
     version: 1.0.5
 - cucumber: 
-    version: 0.7.3
+    version: 0.8.0
 - cucumber-rails: 
-    version: 0.3.1
+    version: 0.3.2
 - daemons: 
     version: 1.0.10
 - database_cleaner: 
@@ -252,8 +254,8 @@ specs:
 - thin: 
     version: 1.2.7
 - will_paginate: 
-    version: 2.3.12
-hash: 006df7799408614329899fbca17a02a985b0ee5d
+    version: 2.3.14
+hash: 5411d15d7adb9305e98b675227999c63982bd239
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

@@ -3,6 +3,6 @@
     = label(:query, "Search", nil, :class => "label")
     = text_field_tag(:query, params[:query], :class => "text_field")
     %span.description
-      Ex: in Demo Bank Account; by Customer; since yesterday; not matched
+      Ex: in Demo Bank Account; by Self; through Customer; since yesterday; until Jan 1 09; >= 300; not matched
   .group.navform.wat-cf
     = submit_tag("Search", :name => nil)

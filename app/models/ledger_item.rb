@@ -91,12 +91,20 @@ class LedgerItem < ActiveRecord::Base
         })
 
       # Scope by contact name
-      when /^BY\s+(.*)$/
+      when /^THROUGH\s+(.*)$/
         scope = scope.scoped({
           :joins => 'INNER JOIN contacts AS senders ON senders.id = ledger_items.sender_id
                      INNER JOIN contacts AS recipients ON recipients.id = ledger_items.recipient_id',
           :conditions => ['UPPER(senders.name) = ? OR UPPER(recipients.name) = ?', $1, $1]
 
+        })
+
+      # Scope by perspective
+      when /^BY\s+(.*)$/
+        scope = scope.scoped({
+          :joins => 'INNER JOIN contacts AS senders ON senders.id = ledger_items.sender_id
+                     INNER JOIN contacts AS recipients ON recipients.id = ledger_items.recipient_id',
+          :conditions => ['(UPPER(senders.name) = ? AND ledger_items.total_amount < 0) OR (UPPER(recipients.name) = ? AND ledger_items.total_amount > 0)', $1, $1]
         })
 
       # Scope by account name
@@ -105,6 +113,7 @@ class LedgerItem < ActiveRecord::Base
           :include => [:account],
           :conditions => ['UPPER(accounts.name) = ?', $1]
         })
+
       # Scope by date
       when /^ON\s+(.*)$/
         date = Chronic.parse($1)

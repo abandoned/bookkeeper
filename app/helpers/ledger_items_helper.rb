@@ -78,7 +78,7 @@ module LedgerItemsHelper
   def data_for_obese_autocomplete
     content_for :head do
       javascript_tag do
-        "var data = { 'by': [#{Contact.all(:order => 'name ASC').inject('') {|m, i| m = m + ', ' unless m.blank?; m + "'#{escape_javascript(i.name)}'"}}], 'in': [#{Account.all(:order => 'name ASC').inject('') {|m, i| m = m + ', ' unless m.blank?; m + "'#{escape_javascript(i.name)}'"}}] };".html_safe
+        "var data = { 'by': [#{Contact.self.all.inject('') {|m, i| m = m + ', ' unless m.blank?; m + "'#{escape_javascript(i.name)}'"}}], 'through': [#{Contact.all(:order => 'name ASC').inject('') {|m, i| m = m + ', ' unless m.blank?; m + "'#{escape_javascript(i.name)}'"}}], 'in': [#{Account.all(:order => 'name ASC').inject('') {|m, i| m = m + ', ' unless m.blank?; m + "'#{escape_javascript(i.name)}'"}}] };".html_safe
       end
     end
   end

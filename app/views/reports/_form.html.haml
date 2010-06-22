@@ -8,6 +8,9 @@
   .group
     = label_tag :base_currency, nil, :class => "label"
     = select_tag :base_currency, options_for_select(['USD', 'GBP', 'EUR', 'CAD', 'JPY', 'AUD'], @report.base_currency)
+  .group
+    = label_tag :base_currency_date, nil, :class => "label"
+    = text_field_tag(:base_currency_date, @report.base_currency_date, :class => "text_field")
   - if @report.name == "Balance Sheet"
     .group
       = label_tag :to_date, "Date", :class => "label"

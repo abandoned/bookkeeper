@@ -37,10 +37,10 @@ class Account < ActiveRecord::Base
     @total ||= calculate_total_for(self, contact, from_date, to_date)
   end
 
-  def total_for_in_base_currency(contact=nil,from_date=nil,to_date=nil,base_currency='USD')
+  def total_for_in_base_currency(contact=nil,from_date=nil,to_date=nil,base_currency='USD',base_currency_date=nil)
     @total_in_base_currency ||=
       total_for(contact, from_date, to_date).sum do |currency, value|
-        value * ExchangeRate.historical(currency, base_currency, to_date || Date.today)
+        value * ExchangeRate.historical(currency, base_currency, base_currency_date || Date.today)
       end
   end
 
@@ -55,10 +55,10 @@ class Account < ActiveRecord::Base
     end
   end
 
-  def grand_total_for_in_base_currency(contact=nil,from_date=nil,to_date=nil,base_currency='USD')
+  def grand_total_for_in_base_currency(contact=nil,from_date=nil,to_date=nil,base_currency='USD',base_currency_date=nil)
     @grand_total_in_base_currency ||=
       grand_total_for(contact, from_date, to_date).sum do |currency, value|
-        value * ExchangeRate.historical(currency, base_currency, to_date || Date.today)
+        value * ExchangeRate.historical(currency, base_currency, base_currency_date || Date.today)
       end
   end
 

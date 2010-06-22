@@ -76,26 +76,57 @@ describe LedgerItem do
     lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
   end
 
-  describe "scopes" do
-    it "should scope by contact" do
-      LedgerItem.contact(@sender).count.should eql 1
-      LedgerItem.contact(@recipient).count.should eql 1
-      LedgerItem.contact(Factory(:contact)).count.should eql 0
+  context "scopes" do
+    describe ".contact" do
+      it "finds sender" do
+        LedgerItem.contact(@sender).count.should eql 1
+      end
+
+      it "finds recipient" do
+        LedgerItem.contact(@recipient).count.should eql 1
+      end
+
+      it "filters out anyone who is not sender or recipient" do
+        LedgerItem.contact(Factory(:contact)).count.should eql 0
+      end
     end
 
-    it "should scope by from date" do
-      LedgerItem.from_date('2009-01-01').count.should eql 1
-      LedgerItem.from_date('2010-01-01').count.should eql 0
+    describe ".from_date" do
+      it "includes later dates" do
+        LedgerItem.from_date('2009-01-30').count.should eql 1
+      end
+
+      it "includes date of query" do
+        LedgerItem.from_date('2009-01-31').count.should eql 1
+      end
+
+      it "filters out earlier dates" do
+        LedgerItem.from_date('2009-02-01').count.should eql 0
+      end
     end
 
-    it "should scope by to date" do
-      LedgerItem.to_date('2009-01-01').count.should eql 0
-      LedgerItem.to_date('2010-01-01').count.should eql 1
+    describe ".to_date" do
+      it "filters out later dates" do
+        LedgerItem.to_date('2009-01-30').count.should eql 0
+      end
+
+      it "includes date of query" do
+        LedgerItem.to_date('2009-01-31').count.should eql 1
+      end
+
+      it "includes earlier dates" do
+        LedgerItem.to_date('2009-02-01').count.should eql 1
+      end
     end
 
-    it "should scope by perspective" do
-      LedgerItem.perspective(@recipient).count.should eql 1
-      LedgerItem.perspective(@sender).count.should eql 0
+    describe ".perspective" do
+      it "finds contact from whose perspective the transaction took place" do
+        LedgerItem.perspective(@recipient).count.should eql 1
+      end
+
+      it "ignores contact from whose perspective the transaction did not take place" do
+        LedgerItem.perspective(@sender).count.should eql 0
+      end
     end
   end
 

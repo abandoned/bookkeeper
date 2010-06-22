@@ -1,7 +1,7 @@
 class Report
   NAMES = ["Income Statement", "Balance Sheet"]
 
-  attr_reader :name, :perspective, :to_date, :from_date, :base_currency
+  attr_reader :name, :perspective, :to_date, :from_date, :base_currency, :base_currency_date
 
   def initialize(params)
     @params = params
@@ -41,8 +41,9 @@ class Report
       @base_currency = 'USD'
       @from_date = Date.ordinal(Date.today.year - 1, 1)
       @to_date = Date.ordinal(Date.today.year - 1, 365)
+      @base_currency_date = @to_date
     else
-      %w{perspective to_date from_date base_currency}.each do |var_name|
+      %w{perspective to_date from_date base_currency base_currency_date}.each do |var_name|
         instance_variable_set("@#{var_name}".to_sym, @params[var_name.to_sym])
       end
     end
@@ -54,7 +55,7 @@ class Report
 
   def sort_root_accounts(collection, sign=1)
     collection.sort { |x, y|
-      sign * y.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency) <=> 
-      sign * x.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency) }
+      sign * y.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency, base_currency_date) <=> 
+      sign * x.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency, base_currency_date) }
   end
 end

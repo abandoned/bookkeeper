@@ -113,7 +113,7 @@ dependencies:
   cucumber: 
     group: 
     - :test
-    version: = 0.8.0
+    version: = 0.8.3
     require: []
 
   capybara-envjs: 
@@ -176,7 +176,7 @@ specs:
 - json_pure: 
     version: 1.4.3
 - selenium-webdriver: 
-    version: 0.0.20
+    version: 0.0.24
 - capybara: 
     version: 0.3.8
 - stackdeck: 
@@ -200,15 +200,15 @@ specs:
 - trollop: 
     version: 1.16.2
 - gherkin: 
-    version: 1.0.30
+    version: 2.0.2
 - term-ansicolor: 
     version: 1.0.5
 - cucumber: 
-    version: 0.8.0
+    version: 0.8.3
 - cucumber-rails: 
     version: 0.3.2
 - daemons: 
-    version: 1.0.10
+    version: 1.1.0
 - database_cleaner: 
     version: 0.5.2
 - delayed_job: 
@@ -255,7 +255,7 @@ specs:
     version: 1.2.7
 - will_paginate: 
     version: 2.3.14
-hash: 5411d15d7adb9305e98b675227999c63982bd239
+hash: 76ce5753d2a8c643758724b043dc75789392bf4b
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

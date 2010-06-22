@@ -33,7 +33,7 @@ end
 group :test do
   gem "capybara", "0.3.8", :require => false
   gem "capybara-envjs", "0.1.5", :require => false
-  gem "cucumber", "0.8.0", :require => false
+  gem "cucumber", "0.8.3", :require => false
   gem "cucumber-rails", "0.3.2", :require => false
   gem "database_cleaner", "0.5.2", :require => false
   gem "factory_girl", "1.2.4"

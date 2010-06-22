@@ -23,8 +23,8 @@ Feature: Income Statement
     When I fill in "From" with "2008-01-01"
     And I fill in "To" with "2008-12-31"
     And I press "Update report"
-    Then I should see "$775.00" within ".net"
-    
+    Then I should see "CR $775.00" within ".net"
+
     When I select "GBP" from "Base currency"
     And I press "Update report"
-    Then I should see "£516.67" within ".net"
+    Then I should see "CR £516.67" within ".net"

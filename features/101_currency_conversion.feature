@@ -18,10 +18,10 @@ Feature: Currency Conversion
     Given the USD to EUR rate is 1.2 on "2008-01-01"
     When I go to path "/reports/income-statement"
     Then I should see "Total Currency Conversion"
-    And I should see "CR $10.00"
+    And I should see "$10.00"
 
   Scenario: FX Gain
     Given the USD to EUR rate is 1.0 on "2008-01-01"
     When I go to path "/reports/income-statement"
     Then I should see "Total Currency Conversion"
-    And I should see "$10.00"
+    And I should see "CR $10.00"

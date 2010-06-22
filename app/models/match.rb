@@ -13,6 +13,7 @@ class Match < ActiveRecord::Base
   
   validate :must_be_reconciled
   validate :matches_must_have_same_currency
+  validate :matches_must_be_dated_the_same_year
   
   before_destroy :unmatch_ledger_items
   
@@ -49,6 +50,11 @@ class Match < ActiveRecord::Base
   def matches_must_have_same_currency
     currencies = ledger_items.inject([]) { |m, i| m << i.currency unless m.include?(i.currency); m }
     errors.add_to_base('Transactions must have same currency') if currencies.size > 1
+  end
+
+  def matches_must_be_dated_the_same_year
+    years = ledger_items.inject([]) { |m, i| m << i.transacted_on.year; m }
+    errors.add_to_base('Transactions must have same currency') if years.uniq.size > 1
   end
   
   def unmatch_ledger_items

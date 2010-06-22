@@ -15,7 +15,7 @@ class Report
 
   def roots
     if name == 'Income Statement'
-      sort_root_accounts(RevenueOrExpense.roots + CurrencyConversion.roots)
+      sort_root_accounts(RevenueOrExpense.roots + CurrencyConversion.roots, -1)
     elsif name == 'Balance Sheet'
       sort_root_accounts(AssetOrLiability.roots)
     end
@@ -52,9 +52,9 @@ class Report
     @from_date = "1990-01-01" if name == "Balance Sheet"
   end
 
-  def sort_root_accounts(collection)
+  def sort_root_accounts(collection, sign=1)
     collection.sort { |x, y|
-      y.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency) <=> 
-      x.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency) }
+      sign * y.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency) <=> 
+      sign * x.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency) }
   end
 end

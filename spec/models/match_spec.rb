@@ -37,7 +37,7 @@ describe Match do
     lambda {@match.save!}.should raise_error(ActiveRecord::RecordInvalid)
   end
 
-  it "does not validate if matched items are not of the same year" do
+  it "does not validate if matched items do not have same date" do
     @debit_ledger_item.update_attribute :transacted_on,"2010-01-01"
     lambda {@match.save!}.should raise_error(ActiveRecord::RecordInvalid)
   end

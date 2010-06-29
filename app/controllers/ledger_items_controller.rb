@@ -9,6 +9,7 @@ class LedgerItemsController < InheritedResources::Base
   before_filter :require_user
   before_filter :find_cart,
                 :only => [:index, :add_to_cart, :balance_cart, :save_cart]
+
   def index
     if params[:query]
       session[:query] = params[:query]
@@ -59,9 +60,17 @@ class LedgerItemsController < InheritedResources::Base
     index!
   end
 
+  def create
+    create!{ ledger_items_path }
+  end
+
   def edit
     @ledger_item = LedgerItem.find params[:id]
     @ledger_items = [@ledger_item]
+  end
+
+  def update
+    update!{ ledger_items_path }
   end
 
   def add_to_cart

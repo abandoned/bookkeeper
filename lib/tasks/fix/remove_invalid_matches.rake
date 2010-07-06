@@ -1,6 +1,6 @@
 namespace :fix do
-  desc "Unmatch invalid matches"
-  task :matches_must_validate => :environment do
+  desc "Remove invalid matches"
+  task :remove_invalid_matches => :environment do
     Match.find_in_batches(:include => :ledger_items) do |matches|
       matches.each do |match|
         if !match.valid?

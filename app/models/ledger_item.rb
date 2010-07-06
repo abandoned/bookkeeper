@@ -33,7 +33,7 @@ class LedgerItem < ActiveRecord::Base
   belongs_to :sender,     :class_name => 'Contact'
   belongs_to :recipient,  :class_name => 'Contact'
 
-  validates_associated      :sender, :recipient, :account, :match
+  validates_associated      :sender, :recipient, :account
   validates_presence_of     :account, :currency, :transacted_on
   validates_numericality_of :total_amount
   validates_numericality_of :tax_amount

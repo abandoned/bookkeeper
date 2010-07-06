@@ -12,7 +12,7 @@ describe Rule do
       :account => @account
     )
   end
-  
+
   it "matches by description" do
     @rule = Factory(:rule,
       :account              => @account,
@@ -22,20 +22,20 @@ describe Rule do
       :new_recipient        => @recipient,
       :new_account          => @new_account
     )
-    
+
     @ledger_item = LedgerItem.find(@ledger_item.id)
-    
+
     @ledger_item.sender.should == @sender
     @ledger_item.recipient.should == @recipient
     @ledger_item.matched?.should be_true
-    
+
     @last_ledger_item = LedgerItem.last
     @last_ledger_item.sender.should == @recipient
     @last_ledger_item.recipient.should == @sender
     @last_ledger_item.account.should == @new_account
     @last_ledger_item.total_amount.should == @ledger_item.total_amount * -1.0
   end
-  
+
   it "does not update a ledger item when debit rule matches but description does not" do
     @rule = Factory(:rule,
       :account              => @account,
@@ -48,7 +48,7 @@ describe Rule do
     @ledger_item = LedgerItem.find(@ledger_item.id)
     @ledger_item.sender.should be_nil
   end
-  
+
   it "does not update a ledger item when description matches but debit rule does not" do
     @rule = Factory(:rule,
       :account              => @account,
@@ -61,7 +61,7 @@ describe Rule do
     @ledger_item = LedgerItem.find(@ledger_item.id)
     @ledger_item.sender.should be_nil
   end
-  
+
   it "matches by contacts" do
     @ledger_item.update_attributes!(
       :sender => @sender,
@@ -75,18 +75,18 @@ describe Rule do
       :matched_recipient    => @recipient,
       :new_account          => @new_account
     )
-    
+
     @ledger_item = LedgerItem.find(@ledger_item.id)
-    
+
     @ledger_item.matched?.should be_true
-    
+
     @last_ledger_item = LedgerItem.last
     @last_ledger_item.sender.should == @recipient
     @last_ledger_item.recipient.should == @sender
     @last_ledger_item.account.should == @new_account
     @last_ledger_item.total_amount.should == @ledger_item.total_amount * -1.0
   end
-  
+
   it "has at least one matcher" do
     lambda { @rule = Factory(:rule,
       :account              => @account,
@@ -96,7 +96,7 @@ describe Rule do
       :new_account          => @new_account
     )}.should raise_error(ActiveRecord::RecordInvalid)
   end
-  
+
   it "does not validate if it both matches and assigns contact" do
     lambda { @rule = Factory(:rule,
       :account              => @account,

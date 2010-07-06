@@ -5,7 +5,7 @@ describe Rule do
     @account = Factory(:account)
     @new_account = Factory(:account)
     @sender = Factory(:contact)
-    @recipient = Factory(:contact)
+    @recipient = Factory(:contact, :self => true)
     @ledger_item = Factory(:ledger_item,
       :total_amount => 20,
       :description => "Foo bar baz",

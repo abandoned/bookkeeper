@@ -11,9 +11,10 @@ class Match < ActiveRecord::Base
   has_many :ledger_items
   accepts_nested_attributes_for :ledger_items
 
-  validate :must_be_reconciled
-  validate :matches_must_have_same_currency
-  validate :matches_must_have_same_date
+  validate :should_be_reconciled
+  validate :should_have_same_currency
+  validate :should_have_same_date
+  validate :should_have_same_self
 
   before_destroy :unmatch_ledger_items
 
@@ -43,18 +44,21 @@ class Match < ActiveRecord::Base
 
   private
 
-  def must_be_reconciled
+  def should_be_reconciled
     errors.add_to_base('Must be reconciled') unless self.reconciled?
   end
 
-  def matches_must_have_same_currency
+  def should_have_same_currency
     currencies = ledger_items.inject([]) { |m, i| m << i.currency unless m.include?(i.currency); m }
     errors.add_to_base('Transactions must have same currency') if currencies.size > 1
   end
 
-  def matches_must_have_same_date
+  def should_have_same_date
     dates = ledger_items.inject([]) { |m, i| m << i.transacted_on; m }
     errors.add_to_base('Transactions must have same currency') if dates.uniq.size > 1
+  end
+
+  def should_have_same_self
   end
 
   def unmatch_ledger_items

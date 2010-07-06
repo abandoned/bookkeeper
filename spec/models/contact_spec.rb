@@ -4,7 +4,7 @@ describe Contact do
   before(:each) do
     @account = Factory(:account)
     @sender = Factory(:contact)
-    @recipient = Factory(:contact)
+    @recipient = Factory(:contact, :self => true)
     @ledger_item = Factory(:ledger_item,
                            :sender => @sender,
                            :recipient => @recipient,

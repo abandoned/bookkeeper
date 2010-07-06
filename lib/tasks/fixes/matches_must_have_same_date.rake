@@ -1,6 +1,6 @@
 namespace :fix do
-  desc "Unmatch matches where ledger_items do not have same date"
-  task :matches_must_have_same_date => :environment do
+  desc "Unmatch invalid matches"
+  task :matches_must_validate => :environment do
     Match.find_in_batches(:include => :ledger_items) do |matches|
       matches.each do |match|
         if !match.valid?

@@ -6,12 +6,12 @@ Feature: Currency Conversion
   Background:
     Given an account "Currency Conversion" exists with name: "Currency Conversion", type: "CurrencyConversion"
     And I am Awesome Bakery and Flour Corp is my supplier
-    And a match exists
-    And a ledger_item exists with total_amount: -100, currency: "EUR", account: account "Revenue", transacted_on: "2009/01/30", sender: contact "Awesome Bakery", recipient: contact "Flour Corp", match: that match
-    And a ledger_item exists with total_amount: 100, currency: "EUR", account: account "Currency Conversion", transacted_on: "2009/01/30", sender: contact "Flour Corp", recipient: contact "Awesome Bakery", match: that match
-    And a match exists
-    And a ledger_item exists with total_amount: 110, currency: "USD", account: account "Bank Account", transacted_on: "2009/01/30", sender: contact "Flour Corp", recipient: contact "Awesome Bakery", match: that match
-    And a ledger_item exists with total_amount: -110, currency: "USD", account: account "Currency Conversion", transacted_on: "2009/01/30", sender: contact "Awesome Bakery", recipient: contact "Flour Corp", match: that match
+    And a ledger_item "t1" exists with total_amount: -100, currency: "EUR", account: account "Revenue", transacted_on: "2009/01/30", sender: contact "Awesome Bakery", recipient: contact "Flour Corp"
+    And a ledger_item "t2" exists with total_amount: 100, currency: "EUR", account: account "Currency Conversion", transacted_on: "2009/01/30", sender: contact "Flour Corp", recipient: contact "Awesome Bakery"
+    And ledger_item "t1" and ledger_item "t2" are matched
+    And a ledger_item "t3" exists with total_amount: 110, currency: "USD", account: account "Bank Account", transacted_on: "2009/01/30", sender: contact "Flour Corp", recipient: contact "Awesome Bakery"
+    And a ledger_item "t4" exists with total_amount: -110, currency: "USD", account: account "Currency Conversion", transacted_on: "2009/01/30", sender: contact "Awesome Bakery", recipient: contact "Flour Corp"
+    And ledger_item "t3" and ledger_item "t4" are matched
     And I am logged in
 
   Scenario: FX Loss

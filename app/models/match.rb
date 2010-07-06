@@ -55,10 +55,13 @@ class Match < ActiveRecord::Base
 
   def should_have_same_date
     dates = ledger_items.inject([]) { |m, i| m << i.transacted_on; m }
-    errors.add_to_base('Transactions must have same currency') if dates.uniq.size > 1
+    errors.add_to_base('Transactions must have same date') if dates.uniq.size > 1
   end
 
   def should_have_same_self
+    if ledger_items.map(&:self_contact).uniq.size != 1
+      errors.add_to_base("Transactions must have same self")
+    end
   end
 
   def unmatch_ledger_items

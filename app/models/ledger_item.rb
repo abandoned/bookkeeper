@@ -33,7 +33,7 @@ class LedgerItem < ActiveRecord::Base
   belongs_to :sender,     :class_name => 'Contact'
   belongs_to :recipient,  :class_name => 'Contact'
 
-  validates_associated      :sender, :recipient, :account, :match
+  validates_associated      :sender, :recipient, :account
   validates_presence_of     :account, :currency, :transacted_on
   validates_numericality_of :total_amount
   validates_numericality_of :tax_amount
@@ -45,7 +45,7 @@ class LedgerItem < ActiveRecord::Base
   before_validation :default_blank_tax_amount_to_0
   before_create :set_transacted_on_to_today
   after_create  :create_matches
-  after_update  :update_matches
+  before_update :unmatch
   after_destroy :delete_matches
 
   named_scope :matched,   :conditions => 'ledger_items.match_id IS NOT NULL'
@@ -214,6 +214,11 @@ class LedgerItem < ActiveRecord::Base
     CURRENCY_SYMBOLS[self.currency]
   end
 
+  # The contact from whose perspective the ledger item is transacted
+  def self_contact
+    credit? ? sender : recipient
+  end
+
   private
 
   def set_transacted_on_to_today
@@ -251,29 +256,7 @@ class LedgerItem < ActiveRecord::Base
 
   # in the ledger of the other party, not that of the self.
   def perspective_must_validate
-    self_must_not_send_debit
-    self_must_not_receive_credit
-  end
-
-  def self_must_not_receive_credit
-    if self.credit? &&
-       self.recipient &&
-       self.recipient.self? &&
-       self.sender &&
-       !self.sender.self?
-      errors.add_to_base('Not set up from perspective of self')
-    end
-  end
-
-  def self_must_not_send_debit
-    if self.debit? &&
-       self.sender &&
-
-       self.sender.self? &&
-
-       self.recipient &&
-
-       !self.recipient.self?
+    if sender.present? && recipient.present? && !self_contact.self?
       errors.add_to_base('Not set up from perspective of self')
     end
   end
@@ -286,30 +269,9 @@ class LedgerItem < ActiveRecord::Base
     end
   end
 
-  def update_matches
+  def unmatch
     if self.matched? && self.changed? && !self.match_id_changed?
-      matches = self.matches
-      if matches.size == 1
-
-        # Update match
-        i = matches.first
-        if (i.total_amount + self.total_amount).to_f.abs > 0.01 ||
-
-            i.sender_id != self.recipient_id ||
-            i.recipient_id != self.sender_id
-          i.update_attributes(
-            :total_amount   => self.total_amount * -1.0,
-            :sender_id      => self.recipient_id,
-            :recipient_id   => self.sender_id
-          )
-        end
-      elsif matches.size > 1
-
-        # Destroy matches
-        self.matches.each { |i| i.update_attribute(:match_id, nil) }
-        self.match.destroy
-        self.update_attribute(:match_id, nil)
-      end
+      match.destroy
     end
   end
 

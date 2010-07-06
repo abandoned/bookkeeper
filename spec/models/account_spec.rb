@@ -46,11 +46,13 @@ describe Account do
 
   describe "totals" do
     before(:each) do
-      match = Factory(:match)
       @self = Factory(:contact, :self => true)
       @other = Factory(:contact)
-      Factory(:ledger_item, :account => @parent, :sender => @self, :recipient => @other, :total_amount => -100, :match => match)
-      Factory(:ledger_item, :sender => @other, :recipient => @self, :total_amount => 100, :match => match )
+      matches = [
+        Factory(:ledger_item, :account => @parent, :sender => @self, :recipient => @other, :total_amount => -100),
+        Factory(:ledger_item, :sender => @other, :recipient => @self, :total_amount => 100)
+      ]
+      match = Factory(:match, :ledger_items => matches)
       Factory(:exchange_rate, :currency => 'USD', :rate => 1.5, :recorded_on => 5.years.ago)
       Factory(:exchange_rate, :currency => 'GBP', :rate => 0.75, :recorded_on => 5.years.ago)
     end
@@ -77,9 +79,11 @@ describe Account do
 
     describe "grand" do
       before(:each) do
-        match = Factory(:match)
-        Factory(:ledger_item, :account => @child, :sender => @self, :recipient => @other, :total_amount => -200, :match => match)
-        Factory(:ledger_item, :sender => @other, :recipient => @self, :total_amount => 200, :match => match )
+        matches = [
+          Factory(:ledger_item, :account => @child, :sender => @self, :recipient => @other, :total_amount => -200),
+          Factory(:ledger_item, :sender => @other, :recipient => @self, :total_amount => 200)
+        ]
+        Factory(:match, :ledger_items => matches)
       end
 
       it "should return grand total" do

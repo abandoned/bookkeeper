@@ -4,7 +4,7 @@ describe LedgerItem do
   before(:each) do
     @account = Factory(:account)
     @sender = Factory(:contact)
-    @recipient = Factory(:contact)
+    @recipient = Factory(:contact, :self => true)
     @ledger_item = Factory(:ledger_item,
                            :sender => @sender,
                            :recipient => @recipient,
@@ -59,16 +59,13 @@ describe LedgerItem do
   end
 
   it "should not validate if debit and not from perspective of self" do
-    @sender.self = true
-    @sender.save
-    lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
+    @ledger_item.recipient = @sender
+    @ledger_item.should_not be_valid
   end
 
   it "should not validate if credit and not from perspective of self" do
-    @recipient.self = true
-    @recipient.save
-    @ledger_item.total_amount = -20.0
-    lambda { @ledger_item.save! }.should raise_error(ActiveRecord::RecordInvalid)
+    @ledger_item.total_amount = -20
+    @ledger_item.should_not be_valid
   end
 
   it "should not total 0" do
@@ -149,6 +146,12 @@ describe LedgerItem do
     it "should not scope transaction date if date does not parse" do
       to = 'on Jan 15, 2009'
       LedgerItem.scope_by(to).size.should == 2
+    end
+  end
+
+  context "#self_contact" do
+    it "returns contact from whose perspective the ledger item is transacted" do
+      @ledger_item.self_contact.should == @recipient
     end
   end
 end

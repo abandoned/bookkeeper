@@ -13,7 +13,7 @@ describe Rule do
     )
   end
   
-  it "should match by description" do
+  it "matches by description" do
     @rule = Factory(:rule,
       :account              => @account,
       :matched_description  => "[a-c]ar",
@@ -36,7 +36,7 @@ describe Rule do
     @last_ledger_item.total_amount.should == @ledger_item.total_amount * -1.0
   end
   
-  it "should not update a ledger item when debit rule matches but description does not" do
+  it "does not update a ledger item when debit rule matches but description does not" do
     @rule = Factory(:rule,
       :account              => @account,
       :matched_description  => "[cde]ar",
@@ -49,7 +49,7 @@ describe Rule do
     @ledger_item.sender.should be_nil
   end
   
-  it "should not update a ledger item when description matches but debit rule does not" do
+  it "does not update a ledger item when description matches but debit rule does not" do
     @rule = Factory(:rule,
       :account              => @account,
       :matched_description  => "[a-c]ar",
@@ -62,7 +62,7 @@ describe Rule do
     @ledger_item.sender.should be_nil
   end
   
-  it "should match by contacts" do
+  it "matches by contacts" do
     @ledger_item.update_attributes!(
       :sender => @sender,
       :recipient => @recipient
@@ -87,7 +87,7 @@ describe Rule do
     @last_ledger_item.total_amount.should == @ledger_item.total_amount * -1.0
   end
   
-  it "should have at least one matcher" do
+  it "has at least one matcher" do
     lambda { @rule = Factory(:rule,
       :account              => @account,
       :matched_debit        => true,
@@ -97,7 +97,7 @@ describe Rule do
     )}.should raise_error(ActiveRecord::RecordInvalid)
   end
   
-  it "should not validate if it both matches and assigns contact" do
+  it "does not validate if it both matches and assigns contact" do
     lambda { @rule = Factory(:rule,
       :account              => @account,
       :matched_description  => "[a-c]ar",

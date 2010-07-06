@@ -81,11 +81,9 @@ class Rule < ActiveRecord::Base
     )
     
     # Create match and save ledger items
-    match = Match.create!
-    [ledger_item, new_ledger_item].each do |i|
-      i.match_id = match.id
-      i.save!
-    end
+    match = Match.create!(
+      :ledger_items => [ledger_item, new_ledger_item]
+    )
   end
   
   private

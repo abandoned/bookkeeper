@@ -26,16 +26,16 @@
                   =h root.name
                 %td
               = render(:partial => "child", :collection => root.children)
-              - if root.name == "Revenue" && FxAppreciation.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date) != 0
-                = render(:partial => "child", :locals => { :child => FxAppreciation })
+              - #if root.name == "Revenue" && FxAppreciation.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date) != 0
+                = #render(:partial => "child", :locals => { :child => FxAppreciation })
               %tr.root_sum
                 %td
                   = "Total #{root.name}"
                 %td.currency
                   - if root.is_a? Equity
                     = monetize(root.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date) + RetainedIncome.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date), @report.base_currency)
-                  - elsif root.name == "Revenue"
-                    = monetize(root.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date) + root.fx_appreciation.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date), @report.base_currency)
+                  - #elsif root.name == "Revenue"
+                    = #monetize(root.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date) + root.fx_appreciation.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date), @report.base_currency)
                   - else
                     = monetize(root.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date), @report.base_currency)
           - if @report.name == 'Income Statement'
@@ -43,7 +43,7 @@
               %td
                 Net
               %td.currency
-                = monetize(@report.net + FxAppreciation.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date), @report.base_currency)
+                = monetize(@report.net, @report.base_currency)
       - else
         %p
           No data in given period

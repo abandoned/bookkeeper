@@ -57,11 +57,11 @@ Factory.define :import do |f|
   f.status 'pending'
 end
 
-Factory.define :assetOrLiability do |f|
+Factory.define :asset_or_liability do |f|
   f.sequence(:name) { |n| "asset_or_liability#{n}" }
 end
 
-Factory.define :revenueOrExpense do |f|
+Factory.define :revenue_or_expense do |f|
   f.sequence(:name) { |n| "revenue_or_expense#{n}" }
 end
 

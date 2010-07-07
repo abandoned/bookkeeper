@@ -25,6 +25,18 @@ class Report
     @self_select_options ||= Contact.self.collect{ |c| [c.name, c.id.to_s] }
   end
 
+  def net
+    roots.sum do |a|
+      a.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency, base_currency_date)
+    end
+  end
+
+  def delta_in_assets_of_previous_year
+    AssetOrLiability.roots.to_a.sum do |a|
+      a.grand_total_for_in_base_currency(perspective, "1990-01-01", from_date, base_currency, base_currency_date)
+    end
+  end
+
   private
 
   def set_name
@@ -36,7 +48,7 @@ class Report
   end
 
   def set_defaults
-    if @params[:base_currency].nil?
+    if @params[:base_currency_date].nil?
       @perspective = self_select_options.first.last
       @base_currency = 'USD'
       @from_date = Date.ordinal(Date.today.year - 1, 1)

@@ -98,6 +98,7 @@ class Account < ActiveRecord::Base
         total[currency] += total_amount.round(2)
       end
     end
+
     total
   end
 

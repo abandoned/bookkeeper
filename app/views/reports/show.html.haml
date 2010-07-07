@@ -20,7 +20,7 @@
       - if @report.available?
         %table.table.report
           - for root in @report.roots
-            - if root.grand_total_for?(@report.perspective, @report.from_date, @report.to_date)
+            - if true || root.grand_total_for?(@report.perspective, @report.from_date, @report.to_date)
               %tr.root_account
                 %td
                   =h root.name

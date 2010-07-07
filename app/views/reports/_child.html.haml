@@ -1,11 +1,11 @@
-- if child.children.present? || child.grand_total_for?(@report.perspective, @report.from_date, @report.to_date)
+- if child.name == "Retained Income" || child.children.present? || child.grand_total_for?(@report.perspective, @report.from_date, @report.to_date)
   %tr.descendant
     %td
       - (child.depth - 1).times do
         %span.indentation
       =h child.name
     %td.currency
-      - if child.total_for?(@report.perspective, @report.from_date, @report.to_date)
+      - if child.name == "Retained Income" || child.total_for?(@report.perspective, @report.from_date, @report.to_date)
         - if child.name == "Retained Income"
           = monetize(RetainedIncome.total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date) + child.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date), @report.base_currency)
         - else

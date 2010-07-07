@@ -16,7 +16,4 @@
 #
 
 class Equity < Account
-  def retained_income
-    @retained_income ||= RetainedIncome
-  end
 end

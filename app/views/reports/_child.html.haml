@@ -19,4 +19,3 @@
         = "Total #{child.name}"
       %td.currency
         = monetize(child.grand_total_for_in_base_currency(@report.perspective, @report.from_date, @report.to_date, @report.base_currency, @report.base_currency_date), @report.base_currency)
-    

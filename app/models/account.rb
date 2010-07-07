@@ -34,7 +34,7 @@ class Account < ActiveRecord::Base
   # Return the sum of the total amounts of the ledger items in an account. Optionally,
   # filter by contact or date range. Returns an array of totals, grouped by currency.
   def total_for(contact=nil,from_date=nil,to_date=nil)
-    @total ||= calculate_total_for(self, contact, from_date, to_date)
+    calculate_total_for(self, contact, from_date, to_date)
   end
 
   def total_for_in_base_currency(contact=nil,from_date=nil,to_date=nil,base_currency='USD',base_currency_date=nil)
@@ -48,8 +48,7 @@ class Account < ActiveRecord::Base
   end
 
   def grand_total_for(contact=nil,from_date=nil,to_date=nil)
-    @grand_total ||= self.subtree.inject({}) do |grand_total, account|
-
+    self.subtree.inject({}) do |grand_total, account|
       calculate_total_for(account, contact, from_date, to_date, grand_total)
     end
   end

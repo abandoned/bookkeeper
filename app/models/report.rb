@@ -17,7 +17,7 @@ class Report
     if name == 'Income Statement'
       sort_root_accounts(RevenueOrExpense.roots + CurrencyConversion.roots, -1)
     elsif name == 'Balance Sheet'
-      sort_root_accounts(AssetOrLiability.roots)
+      sort_root_accounts(AssetOrLiability.roots + Equity.roots)
     end
   end
 

@@ -21,10 +21,13 @@ class FxAppreciation
     end
 
     def total_for_in_base_currency(perspective, from_date, to_date, base_currency, base_currency_date)
+      
       roots = RevenueOrExpense.roots + CurrencyConversion.roots
-      roots.sum do |a|
-        a.grand_total_for_in_base_currency(perspective, "1990-01-01", Date.parse(from_date.to_s) - 1, base_currency, base_currency_date)
+      income_in_period = roots.sum do |a|
+        a.grand_total_for_in_base_currency(perspective, from_date, to_date, base_currency, base_currency_date)
       end
+      retained_income = RetainedIncome.total_for_in_base_currency(perspective, from_date, to_date, base_currency, base_currency_date)
+      retained_income - income_in_period
     end
   end
 end

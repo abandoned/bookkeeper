@@ -103,11 +103,5 @@ class Bootstrapper
       counter += 1
       record("transaction_#{counter}", ledger_item)
     end
-    
-    Match.create!([
-      {
-        :ledger_items => [@transaction_1, @transaction_3]
-      }
-    ])
   end
 end

@@ -16,4 +16,7 @@
 #
 
 class RevenueOrExpense < Account
+  def fx_appreciation
+    @fx_appreciation ||= FxAppreciation
+  end
 end

@@ -51,8 +51,8 @@ class Report
     if @params[:base_currency_date].nil?
       @perspective = self_select_options.first.last
       @base_currency = 'USD'
-      @from_date = Date.ordinal(Date.today.year - 1, 1)
-      @to_date = Date.ordinal(Date.today.year - 1, 365)
+      @from_date = Date.ordinal(Date.today.year - 1, 1).to_s
+      @to_date = Date.ordinal(Date.today.year - 1, 365).to_s
       @base_currency_date = @to_date
     else
       %w{perspective to_date from_date base_currency base_currency_date}.each do |var_name|

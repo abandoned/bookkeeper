@@ -7,6 +7,7 @@ gem "chronic", "0.2.3"
 gem "delayed_job", "2.0.3"
 gem "erubis", "2.6.6"
 gem "haml", "3.0.13"
+gem 'hoe', '~> 1.5.1'
 gem "inherited_resources", "1.0.6"
 gem "nokogiri", "1.4.2"
 gem "rack", "1.1.0"

@@ -1,0 +1,33 @@
+require 'open-uri'
+require 'nokogiri'
+
+module EcbFeed
+  BASE_URL = 'http://www.ecb.europa.eu/stats/eurofxref/'
+
+  def self.download_daily
+    self.download(BASE_URL + 'eurofxref-daily.xml')
+  end
+
+  def self.download_90_days
+    self.download(BASE_URL + 'eurofxref-hist-90d.xml')
+  end
+
+  def self.download_all
+    self.download(BASE_URL + 'eurofxref-hist.xml')
+  end
+
+  def self.download(url)
+    doc = Nokogiri::XML(open(url).read)
+    doc.xpath('/gesmes:Envelope/xmlns:Cube/xmlns:Cube', doc.root.namespaces).each do |snapshot|
+      date = snapshot['time']
+      puts "-> #{date}"
+      snapshot.xpath('./xmlns:Cube').each do |fx|
+        ExchangeRate.find_or_create_by_currency_and_recorded_on(
+          :currency     => fx['currency'],
+          :recorded_on  => date,
+          :rate         => fx['rate']
+        )
+      end
+    end
+  end
+end

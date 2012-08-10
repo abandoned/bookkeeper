@@ -23,11 +23,12 @@ group :development do
   gem "annotate", "2.4.0"
   gem "hirb", "0.3.2"
   gem "syntax", "1.0.0"
+  gem 'taps'
 end
 
 group :production do
   gem "pg", "0.9.0"
-  gem "heroku", "1.9.11"
+  gem "heroku"
   gem "thin", "1.2.7"
 end
 
